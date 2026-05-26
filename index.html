@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>MAAZAH — Engine</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700;9..144,800;9..144,900&family=Bagel+Fat+One&family=JetBrains+Mono:wght@500;600;700&display=swap" rel="stylesheet">
+<script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+<script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+<style>
+:root{
+  /* Maazah brand palette — sampled from maazah.com + observed packaging 2026-05-25 */
+  --green:#6FAF4D;          /* Maazah kelly green — primary brand */
+  --green-deep:#3F7B28;     /* darker green for hover + ink-on-green */
+  --green-soft:#C6E29F;     /* soft lime — accent surface */
+  --green-light:#E8F2D5;    /* lightest green — subtle bg */
+  --ink:#2A1F12;            /* warm dark ink — matches wordmark */
+  --ink-soft:#5C4E3E;       /* softened ink */
+  --cream:#F7F3E5;          /* cream paper — main body bg */
+  --cream-deep:#EDE5C8;     /* elevated cream surface */
+  --paper:#FDFAF0;          /* lightest cream — card bg */
+  --border:#D8CFB0;         /* warm cream-edge border */
+  /* SKU + pillar palette */
+  --basil:#87B26F;          /* Basil Jalapeño */
+  --lemon:#E8C547;          /* Classic Lemon + Lemon Aioli + SAUCY SQUAD */
+  --coral:#D67A5A;          /* Roasted Red Pepper + PUT IT ON EVERYTHING */
+  --turmeric:#E08642;       /* Turmeric Ginger + MOM'S TABLE */
+  --cilantro:#7FB069;       /* Cilantro Chutney */
+  --mango:#E8A66F;          /* Mango Chutney */
+  --chili:#C84A38;          /* Chili Aioli — NEW */
+  --shadow:0 2px 10px rgba(42,31,18,0.08);
+  --shadow-lg:0 10px 40px rgba(42,31,18,0.14);
+}
+.display{font-family:'Bagel Fat One','Cooper Std',Georgia,serif;font-weight:400;letter-spacing:0.005em}
+.serif{font-family:'Fraunces',Georgia,serif;letter-spacing:-0.01em}
+.mono{font-family:'JetBrains Mono','Courier New',monospace}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--cream);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+button{font:inherit;cursor:pointer;border:0;background:transparent;color:inherit}
+a{color:inherit;text-decoration:none}
+.app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
+
+/* Sidebar */
+.sb{background:var(--green);color:#fff;border-right:1px solid var(--green-deep);padding:22px 14px;display:flex;flex-direction:column;gap:6px;position:sticky;top:0;height:100vh}
+.sb-brand{display:flex;align-items:center;gap:12px;padding:4px 8px 18px;border-bottom:1px solid rgba(255,255,255,0.22);margin-bottom:14px}
+.sb-logo{width:42px;height:48px;flex-shrink:0;color:var(--ink)}
+.sb-brand-name{font-family:'Bagel Fat One',serif;font-weight:400;font-size:26px;letter-spacing:0.005em;color:var(--ink);line-height:0.95}
+.sb-brand-sub{font-size:9.5px;text-transform:uppercase;letter-spacing:0.16em;color:rgba(255,255,255,0.85);margin-top:4px;font-weight:600}
+.sb-section-label{font-size:10px;text-transform:uppercase;letter-spacing:0.16em;color:rgba(255,255,255,0.75);padding:14px 10px 6px;font-weight:600}
+.sb-item{display:flex;align-items:center;gap:10px;padding:10px 12px;border-radius:8px;font-weight:500;font-size:13.5px;color:rgba(255,255,255,0.92);position:relative;text-align:left;width:100%}
+.sb-item:hover{background:rgba(255,255,255,0.14)}
+.sb-item.active{background:var(--ink);color:#fff;font-weight:600;box-shadow:0 2px 8px rgba(42,31,18,0.35)}
+.sb-item-icon{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center}
+.sb-item-soon{font-size:9px;letter-spacing:0.08em;text-transform:uppercase;background:rgba(255,255,255,0.20);color:rgba(255,255,255,0.92);padding:2px 6px;border-radius:3px;margin-left:auto;font-weight:600}
+.sb-item.active .sb-item-soon{background:rgba(255,255,255,0.28);color:#fff}
+.sb-footer{margin-top:auto;padding:14px 10px 4px;border-top:1px solid rgba(255,255,255,0.18);font-size:11px;color:rgba(255,255,255,0.85);line-height:1.55}
+.sb-footer strong{color:#fff;font-weight:700;display:block;margin-bottom:2px}
+.sb-howit{margin-top:10px;width:100%;text-align:left;font-size:11.5px;color:#fff;background:rgba(255,255,255,0.16);padding:9px 12px;border-radius:8px;font-weight:500;letter-spacing:0.01em}
+.sb-howit:hover{background:rgba(255,255,255,0.24)}
+
+/* Main */
+.main{padding:34px 44px 80px;max-width:1400px}
+.page-head{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;padding-bottom:18px;border-bottom:2px solid var(--green);margin-bottom:28px}
+.page-head h1{font-family:'Bagel Fat One',serif;font-weight:400;font-size:48px;letter-spacing:0.005em;line-height:0.95;color:var(--ink)}
+.page-head .eyebrow{font-size:10.5px;text-transform:uppercase;letter-spacing:0.18em;color:var(--green-deep);margin-bottom:8px;font-weight:700}
+.page-head .meta{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+.date-pill{background:var(--green);color:#fff;font-weight:700;padding:6px 13px;border-radius:99px;font-size:11px;letter-spacing:0.06em;text-transform:uppercase}
+.refresh-pill{font-size:11px;color:var(--ink);display:flex;align-items:center;gap:6px;font-weight:500}
+.refresh-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(111,175,77,0.7)}
+
+/* Ticker */
+.ticker{background:var(--ink);color:#fff;padding:10px 18px;border-radius:10px;margin-bottom:24px;display:flex;align-items:center;gap:18px;overflow:hidden;font-size:12px}
+.ticker-label{font-family:'Bagel Fat One',serif;color:var(--green-soft);font-size:14px;letter-spacing:0.01em;white-space:nowrap;flex-shrink:0}
+.ticker-track{display:flex;gap:36px;flex:1;white-space:nowrap;animation:tickerScroll 38s linear infinite;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:rgba(255,255,255,0.92);letter-spacing:0.02em}
+.ticker-track strong{color:var(--green-soft);margin-right:6px}
+@keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+
+/* Sub tabs */
+.subtabs{display:flex;gap:4px;margin:0 0 24px;border-bottom:1px solid var(--border);padding-bottom:0}
+.subtab{padding:10px 16px 13px;font-weight:600;font-size:13px;color:var(--ink-soft);border-bottom:3px solid transparent;margin-bottom:-1px;display:flex;align-items:center;gap:8px}
+.subtab:hover{color:var(--ink)}
+.subtab.active{color:var(--ink);border-bottom-color:var(--green)}
+.subtab-count{background:rgba(111,175,77,0.16);color:var(--green-deep);padding:1px 7px;border-radius:9px;font-size:10.5px;font-weight:700;letter-spacing:0.02em}
+.subtab.active .subtab-count{background:var(--green);color:#fff}
+
+/* Editorial lede */
+.lede{display:grid;grid-template-columns:1fr 1fr 1fr;gap:0;background:var(--paper);border:1.5px solid var(--green);border-radius:14px;padding:0;margin-bottom:24px;overflow:hidden;box-shadow:0 2px 0 var(--green)}
+.lede-col{padding:18px 22px;border-right:1px solid var(--border)}
+.lede-col:last-child{border-right:0}
+.lede-label{font-size:10px;text-transform:uppercase;letter-spacing:0.16em;color:var(--green-deep);margin-bottom:6px;font-weight:700}
+.lede-text{font-family:'Fraunces';font-size:15.5px;line-height:1.4;font-weight:500;color:var(--ink);letter-spacing:-0.005em}
+
+/* Cards grid */
+.grid{display:grid;gap:18px}
+.grid-2{grid-template-columns:1fr 1fr}
+.grid-3{grid-template-columns:repeat(3,1fr)}
+@media(max-width:1100px){.grid-3{grid-template-columns:1fr 1fr}}
+
+/* Generic card */
+.card{background:var(--paper);border:1.5px solid var(--green);border-radius:14px;padding:20px;position:relative;transition:transform 0.12s,box-shadow 0.12s;box-shadow:0 2px 0 var(--green)}
+.card:hover{box-shadow:0 4px 0 var(--green),0 6px 18px rgba(42,31,18,0.1);transform:translateY(-1px)}
+.card-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;margin-bottom:10px}
+.card-type{font-size:10px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;padding:4px 10px;border-radius:99px;background:var(--green);color:#fff}
+.card-velocity{font-size:10px;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink);display:flex;align-items:center;gap:5px;font-weight:600}
+.velocity-dot{width:6px;height:6px;border-radius:50%}
+.velocity-high{background:#D34A4A}
+.velocity-medium{background:#E0A53C}
+.velocity-low{background:#7FB069}
+.card-hook{font-family:'Fraunces';font-size:19px;line-height:1.25;font-weight:600;letter-spacing:-0.015em;margin-bottom:10px;color:var(--ink)}
+.card-detail{font-size:13px;line-height:1.55;color:var(--ink-soft);margin-bottom:12px}
+.card-play{background:var(--green-light);border-left:3px solid var(--green);padding:11px 13px;border-radius:0 6px 6px 0;font-size:13px;line-height:1.5;margin-bottom:12px;color:var(--ink)}
+.card-play-label{font-size:10px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;color:var(--green-deep);display:block;margin-bottom:4px}
+.card-meta-row{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:10px}
+.card-meta-chip{font-size:11px;background:var(--cream-deep);padding:4px 10px;border-radius:99px;color:var(--ink);font-weight:600;border:1px solid var(--border)}
+.card-dna-chip{font-size:10.5px;background:var(--ink);color:#fff;padding:4px 10px;border-radius:99px;font-weight:700;letter-spacing:0.02em;text-transform:uppercase}
+.card-sources{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;padding-top:10px;border-top:1px solid var(--border)}
+.source-chip{font-family:'JetBrains Mono',monospace;font-size:10.5px;background:var(--green-light);color:var(--green-deep);padding:3px 8px;border-radius:99px;letter-spacing:0;font-weight:600;border:1px solid rgba(111,175,77,0.4)}
+.source-chip:hover{background:var(--green);color:#fff;border-color:var(--green)}
+.card-actions{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.drop-btn{background:var(--green);color:#fff;font-size:10.5px;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;padding:7px 13px;border-radius:99px;display:flex;align-items:center;gap:6px;transition:background 0.15s,transform 0.1s}
+.drop-btn:hover{background:var(--green-deep);transform:translateY(-1px)}
+
+/* Pillar pips */
+.trend-pillars{display:flex;gap:4px;flex-wrap:wrap}
+.pillar-pip{font-size:9.5px;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;padding:2px 7px;border-radius:3px;color:#fff}
+.pip-magic{background:var(--green)}
+.pip-multiply{background:var(--coral)}
+.pip-mom{background:var(--turmeric)}
+.pip-squad{background:var(--lemon);color:var(--ink)}
+
+/* Pulse type colors */
+.type-meme{background:#F4DAE2;color:#A85575}
+.type-recipe{background:#E6F0DC;color:#5D7E47}
+.type-archetype{background:#FBE0CE;color:#A05E2D}
+.type-news{background:#E8E6F0;color:#5E5A8A}
+.type-cultural{background:#FDE8C4;color:#A07526}
+.type-entertainment{background:#F5DCEF;color:#854577}
+
+/* Competitor extras */
+.comp-direction{display:flex;align-items:center;gap:5px;font-size:11.5px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em}
+.dir-up{color:#A85959}
+.dir-down{color:#5D8054}
+.dir-flat{color:var(--ink-soft)}
+
+/* Ambassador */
+.amb-card{background:#fff;border:1.5px solid var(--border);border-radius:14px;padding:18px;display:flex;gap:14px;align-items:center}
+.amb-avatar{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--lemon));display:flex;align-items:center;justify-content:center;color:var(--ink);font-family:'Bagel Fat One',serif;font-weight:400;font-size:16px;flex-shrink:0;letter-spacing:0.01em}
+.amb-handle{font-weight:700;font-size:14px}
+.amb-handle-sub{font-size:11.5px;color:var(--ink-soft);margin-top:1px}
+.amb-stats{font-size:11px;color:var(--ink-soft);margin-top:5px;display:flex;gap:9px}
+.amb-status{margin-left:auto;font-size:10px;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;padding:3px 8px;border-radius:4px}
+.status-active{background:#E0F0D0;color:#5D7E47}
+.status-watch{background:#F4ECD0;color:#8A752B}
+.status-cold{background:#F0E5DA;color:#8A6E4D}
+
+/* Pillar section */
+.pillar-section{margin-bottom:36px}
+.pillar-header{display:flex;align-items:center;gap:14px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--border)}
+.pillar-swatch{width:18px;height:18px;border-radius:4px}
+.pillar-name{font-family:'Bagel Fat One',serif;font-weight:400;font-size:24px;letter-spacing:0.01em;color:var(--ink)}
+.pillar-meta{margin-left:auto;font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.1em;font-weight:600}
+
+/* Brief card */
+.brief-card{background:var(--paper);border:1.5px solid var(--green);border-radius:14px;padding:18px;cursor:pointer;transition:transform 0.12s,box-shadow 0.12s;position:relative;box-shadow:0 2px 0 var(--green)}
+.brief-card:hover{box-shadow:0 4px 0 var(--green),0 6px 18px rgba(42,31,18,0.1);transform:translateY(-1px)}
+.brief-tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:10px;align-items:center}
+.brief-priority{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;font-weight:800;padding:4px 10px;border-radius:99px}
+.priority-big{background:#FFE7AB;color:#8A5D0E}
+.priority-high{background:#FBDAD2;color:#A85F4F}
+.priority-standard{background:#F2EBD3;color:var(--ink-soft)}
+.brief-platform{font-size:10.5px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:0.08em}
+.brief-sku{font-size:10.5px;font-weight:700;background:var(--green-light);color:var(--green-deep);padding:3px 9px;border-radius:99px;border:1px solid rgba(111,175,77,0.35)}
+.brief-concept{font-family:'Fraunces';font-size:17px;line-height:1.3;font-weight:500;letter-spacing:-0.005em;color:var(--ink);margin:8px 0 11px}
+.brief-bottom{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--ink-soft);padding-top:10px;border-top:1px solid var(--border)}
+.brief-time{font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink)}
+.brief-id{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--green-deep)}
+
+/* Modal */
+.modal-bg{position:fixed;inset:0;background:rgba(42,31,18,0.55);backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;padding:40px 16px;z-index:100}
+.modal{background:var(--cream);border-radius:16px;max-width:880px;width:100%;max-height:90vh;overflow-y:auto;border:1px solid var(--border);box-shadow:var(--shadow-lg)}
+.modal-head{display:flex;justify-content:space-between;align-items:flex-start;padding:24px 30px 18px;border-bottom:1px solid var(--border);position:sticky;top:0;background:var(--cream);z-index:2}
+.modal-head h2{font-family:'Bagel Fat One',serif;font-weight:400;font-size:30px;letter-spacing:0.005em;line-height:1.1;max-width:80%;color:var(--ink)}
+.modal-close{font-size:24px;color:var(--ink-soft);width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0}
+.modal-close:hover{background:var(--paper);color:var(--ink)}
+.modal-body{padding:24px 30px 30px}
+.modal-section{margin-bottom:24px}
+.modal-section-label{font-size:10.5px;text-transform:uppercase;letter-spacing:0.16em;color:var(--ink-soft);font-weight:700;margin-bottom:9px;display:flex;align-items:center;gap:8px}
+.modal-section-label::before{content:"";display:block;width:14px;height:1.5px;background:var(--ink-soft)}
+.modal-grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+.modal-row{padding:10px 0;border-bottom:1px solid var(--border);font-size:13.5px;line-height:1.5}
+.modal-row:last-child{border-bottom:0}
+.modal-row-label{font-size:11px;text-transform:uppercase;letter-spacing:0.1em;color:var(--ink-soft);font-weight:600;margin-bottom:3px}
+
+.caption-box{background:var(--paper);border:1px solid var(--border);border-radius:10px;padding:14px 16px;margin-bottom:10px;font-size:13.5px;line-height:1.55;white-space:pre-line}
+.caption-label{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+.caption-label-text{font-family:'Fraunces';font-weight:700;font-size:14px;letter-spacing:-0.01em}
+.caption-label-sub{font-size:10px;text-transform:uppercase;letter-spacing:0.14em;color:var(--ink-soft);font-weight:600}
+
+.scene-row{display:grid;grid-template-columns:80px 60px 1fr;gap:14px;padding:11px 0;border-bottom:1px solid var(--border);font-size:13px;line-height:1.5}
+.scene-row:last-child{border-bottom:0}
+.scene-num{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);text-transform:uppercase;letter-spacing:0.06em}
+.scene-time{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--turmeric);font-weight:600}
+
+.intel-row{display:flex;gap:14px;padding:10px 0;border-bottom:1px solid var(--border);font-size:13px;align-items:flex-start}
+.intel-row:last-child{border-bottom:0}
+.intel-tag{font-size:10px;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;padding:3px 8px;border-radius:3px;flex-shrink:0;min-width:78px;text-align:center}
+.tag-trend{background:#F4ECD0;color:#8A752B}
+.tag-pulse{background:#F4DAE2;color:#A85575}
+.tag-audience{background:#E0F0D0;color:#5D7E47}
+.tag-competitor{background:#F0E5DA;color:#8A6E4D}
+
+.hook-row{padding:9px 14px;background:var(--paper);border:1px solid var(--border);border-radius:8px;margin-bottom:7px;font-size:13.5px;line-height:1.45;display:flex;justify-content:space-between;gap:14px;align-items:flex-start}
+.hook-rec{border-color:var(--green);background:var(--green-light)}
+.hook-tag{font-size:9.5px;text-transform:uppercase;letter-spacing:0.14em;font-weight:800;color:var(--green-deep);flex-shrink:0;padding-top:1px}
+
+.driven-by{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.driven-chip{font-family:'JetBrains Mono',monospace;font-size:10.5px;background:var(--cream-deep);color:var(--ink);padding:2.5px 7px;border-radius:3px;font-weight:500}
+
+/* Welcome popup — the "wait you already built this for us" moment */
+.welcome-bg{position:fixed;inset:0;background:rgba(42,31,18,0.6);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:32px 16px;z-index:200}
+.welcome{background:var(--cream);border-radius:18px;max-width:960px;width:100%;max-height:92vh;overflow:hidden;display:grid;grid-template-columns:320px 1fr;box-shadow:var(--shadow-lg);border:1px solid var(--border)}
+.welcome-left{background:var(--green);padding:32px 28px;display:flex;flex-direction:column;color:var(--ink);position:relative;overflow:hidden}
+.welcome-arch{position:absolute;top:18px;right:18px;width:90px;height:100px;opacity:0.22;color:var(--ink)}
+.welcome-issue{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;font-weight:700;margin-bottom:10px;opacity:0.9}
+.welcome-date{font-family:'Bagel Fat One',serif;font-weight:400;font-size:42px;line-height:0.95;letter-spacing:0.005em;margin-bottom:18px;color:var(--ink)}
+.welcome-thesis{font-family:'Fraunces';font-size:16px;line-height:1.4;font-weight:500;font-style:italic;margin-bottom:auto;color:var(--ink)}
+.welcome-sig{font-size:11px;letter-spacing:0.04em;margin-top:22px;border-top:1px solid rgba(42,31,18,0.3);padding-top:14px;opacity:0.85;line-height:1.5}
+.welcome-right{padding:30px 32px;overflow-y:auto;max-height:92vh;display:flex;flex-direction:column;gap:18px;background:var(--cream)}
+.welcome-close{position:absolute;top:14px;right:18px;font-size:22px;color:var(--ink);width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(42,31,18,0.18);z-index:2}
+.welcome-close:hover{background:rgba(42,31,18,0.32)}
+.welcome-section h3{font-family:'Bagel Fat One',serif;font-weight:400;font-size:24px;letter-spacing:0.005em;margin-bottom:10px;display:flex;align-items:center;gap:10px;color:var(--ink)}
+.welcome-section h3::before{content:"";width:18px;height:3px;background:var(--green);border-radius:99px}
+.welcome-thesis-body{font-size:13px;line-height:1.55;color:var(--ink-soft)}
+.welcome-thesis-body strong{color:var(--ink);font-weight:600}
+.evidence-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:4px}
+.evidence-cell{background:var(--paper);border:1.5px solid var(--green-soft);border-radius:10px;padding:12px 14px}
+.evidence-stat{font-family:'Bagel Fat One',serif;font-weight:400;font-size:26px;line-height:1;letter-spacing:0.005em;margin-bottom:4px;color:var(--green-deep)}
+.evidence-label{font-size:11px;font-weight:700;color:var(--ink);margin-bottom:3px}
+.evidence-detail{font-size:11px;color:var(--ink-soft);line-height:1.4;margin-bottom:6px}
+.evidence-src{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--green-deep);background:var(--green-light);padding:2px 6px;border-radius:99px;border:1px solid rgba(111,175,77,0.35)}
+.welcome-cta{background:var(--ink);color:#fff;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;padding:14px 18px;border-radius:99px;text-align:center;margin-top:6px;width:100%;transition:background 0.15s}
+.welcome-cta:hover{background:var(--green-deep)}
+.moves-list{display:flex;flex-direction:column;gap:9px}
+.move-item{background:var(--paper);border:1.5px solid var(--green-soft);border-radius:10px;padding:12px 14px}
+.move-verb{font-family:'Fraunces';font-weight:700;font-size:15px;letter-spacing:-0.005em;margin-bottom:3px;line-height:1.3;color:var(--ink)}
+.move-why{font-size:11.5px;color:var(--ink-soft);line-height:1.5}
+
+/* Decisions feed */
+.dec-list{display:flex;flex-direction:column;gap:10px}
+.dec-row{display:flex;gap:12px;padding:12px 14px;background:var(--paper);border:1px solid var(--border);border-radius:10px;align-items:flex-start}
+.dec-tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;font-weight:800;padding:4px 9px;border-radius:99px;flex-shrink:0;text-transform:uppercase}
+.dec-killed{background:#F8DCD7;color:#9E3F31}
+.dec-queued{background:#FAEED1;color:#8B6F1F}
+.dec-promoted{background:#DAEDC8;color:#3B6B2D}
+.dec-text{font-size:13px;line-height:1.5;color:var(--ink)}
+.dec-text strong{font-weight:700;color:var(--ink)}
+.dec-why{font-size:11.5px;color:var(--ink-soft);margin-top:3px;line-height:1.45}
+
+/* Studio teaser */
+.studio-hero{background:linear-gradient(135deg,var(--green) 0%,var(--green-deep) 100%);border-radius:18px;padding:48px;color:#fff;margin-bottom:24px;position:relative;overflow:hidden}
+.studio-hero-arch{position:absolute;right:30px;top:30px;width:140px;height:160px;opacity:0.18}
+.studio-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;font-weight:700;text-transform:uppercase;margin-bottom:12px;opacity:0.92}
+.studio-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:48px;line-height:0.95;letter-spacing:0.01em;margin-bottom:14px;max-width:680px}
+.studio-sub{font-family:'Fraunces';font-size:17px;font-weight:500;line-height:1.45;max-width:600px;font-style:italic;opacity:0.95}
+.studio-features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.studio-feat{background:var(--paper);border:1.5px solid var(--green);border-radius:14px;padding:22px;box-shadow:0 2px 0 var(--green)}
+.studio-feat-num{font-family:'Bagel Fat One',serif;font-size:22px;color:var(--green);margin-bottom:8px}
+.studio-feat-title{font-family:'Fraunces';font-size:17px;font-weight:700;letter-spacing:-0.01em;color:var(--ink);margin-bottom:8px;line-height:1.25}
+.studio-feat-body{font-size:13px;line-height:1.55;color:var(--ink-soft)}
+
+/* How-It-Works modal */
+.hiw-section{margin-bottom:28px}
+.hiw-section h3{font-family:'Bagel Fat One',serif;font-weight:400;font-size:24px;letter-spacing:0.005em;margin-bottom:10px;color:var(--ink)}
+.hiw-step{display:grid;grid-template-columns:48px 1fr;gap:14px;padding:14px 0;border-bottom:1px dashed var(--border)}
+.hiw-step:last-child{border-bottom:0}
+.hiw-num{font-family:'Bagel Fat One',serif;font-size:32px;line-height:1;color:var(--green);text-align:center}
+.hiw-title{font-family:'Fraunces';font-size:16px;font-weight:700;letter-spacing:-0.005em;color:var(--ink);margin-bottom:4px}
+.hiw-body{font-size:13px;line-height:1.55;color:var(--ink-soft)}
+
+/* Empty / soon */
+.soon-card{background:var(--paper);border:2px dashed var(--border);border-radius:14px;padding:32px;text-align:center;color:var(--ink-soft)}
+.soon-card h3{font-family:'Bagel Fat One',serif;font-weight:400;font-size:22px;color:var(--ink);margin-bottom:8px}
+
+/* Wholesale Lens */
+.wl-hero{background:var(--ink);color:#fff;border-radius:18px;padding:36px 40px;margin-bottom:28px;position:relative;overflow:hidden}
+.wl-hero-arch{position:absolute;right:30px;top:50%;transform:translateY(-50%);width:140px;height:160px;opacity:0.14;color:var(--green-soft)}
+.wl-hero-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;font-weight:700;text-transform:uppercase;color:var(--green-soft);margin-bottom:10px}
+.wl-hero-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:44px;line-height:0.98;letter-spacing:0.005em;margin-bottom:14px;color:#fff;max-width:760px}
+.wl-hero-read{font-family:'Fraunces';font-size:16px;font-weight:500;line-height:1.45;max-width:680px;color:rgba(255,255,255,0.92);font-style:italic;letter-spacing:-0.005em}
+.wl-hero-strong{color:var(--green-soft);font-style:normal;font-weight:600}
+.wl-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+@media(max-width:1100px){.wl-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:680px){.wl-grid{grid-template-columns:1fr}}
+.wl-card{background:var(--paper);border:1.5px solid var(--green);border-radius:14px;padding:22px;position:relative;box-shadow:0 2px 0 var(--green);display:flex;flex-direction:column;gap:12px}
+.wl-card-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.wl-card-health{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;font-weight:700;text-transform:uppercase;padding:4px 9px;border-radius:99px}
+.health-strong{background:#DAEDC8;color:#3B6B2D}
+.health-mixed{background:#FAEED1;color:#8B6F1F}
+.health-gap{background:#F8DCD7;color:#9E3F31}
+.wl-card-eye{font-size:18px;opacity:0.5}
+.wl-card-stat{font-family:'Bagel Fat One',serif;font-weight:400;font-size:42px;line-height:0.95;letter-spacing:0.005em;color:var(--green-deep)}
+.wl-card-stat-soft{font-family:'Bagel Fat One',serif;font-weight:400;font-size:28px;line-height:0.95;letter-spacing:0.005em;color:var(--green-deep)}
+.wl-card-label{font-size:12px;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;color:var(--ink);margin-top:-4px}
+.wl-buyer{background:var(--green-light);border-left:3px solid var(--green);padding:11px 13px;border-radius:0 8px 8px 0;font-size:13px;line-height:1.5;color:var(--ink)}
+.wl-buyer-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;font-weight:700;color:var(--green-deep);display:block;margin-bottom:4px;text-transform:uppercase}
+.wl-move{background:var(--cream-deep);border-left:3px solid var(--ink);padding:11px 13px;border-radius:0 8px 8px 0;font-size:13px;line-height:1.5;color:var(--ink)}
+.wl-move-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;font-weight:700;color:var(--ink);display:block;margin-bottom:4px;text-transform:uppercase}
+.wl-src{margin-top:auto;padding-top:6px;display:flex;flex-wrap:wrap;gap:6px}
+.wl-src-chip{font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--cream-deep);color:var(--ink-soft);padding:2.5px 7px;border-radius:3px;font-weight:500}
+
+@media (max-width:900px){
+  .app{grid-template-columns:1fr}
+  .sb{position:relative;height:auto;flex-direction:row;flex-wrap:wrap}
+  .welcome{grid-template-columns:1fr}
+  .modal-grid-2{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script type="text/babel">
+const { useState, useEffect, useMemo } = React;
+
+/* ============================================================
+   MAAZAH ARCH — the twin-women-under-palm icon as inline SVG.
+   Simplified geometric reference to the brand mark. Used as
+   sidebar logo + Welcome popup ornament + Studio hero accent.
+   ============================================================ */
+const MaazahArch = ({ className = "" }) => (
+  <svg className={className} viewBox="0 0 42 48" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+    <path d="M21 4 Q 4 4 4 22 L 4 46 L 38 46 L 38 22 Q 38 4 21 4 Z" stroke="currentColor" strokeWidth="2" fill="none"/>
+    <circle cx="21" cy="9" r="1.6" fill="currentColor"/>
+    <path d="M21 12 L 21 28" stroke="currentColor" strokeWidth="1.4"/>
+    <path d="M13 14 Q 9 16 8 20 M16 14 Q 13 17 12 21 M18 16 Q 16 19 15 22" stroke="currentColor" strokeWidth="1.2" fill="none"/>
+    <path d="M29 14 Q 33 16 34 20 M26 14 Q 29 17 30 21 M24 16 Q 26 19 27 22" stroke="currentColor" strokeWidth="1.2" fill="none"/>
+    <ellipse cx="14" cy="34" rx="5" ry="7" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+    <ellipse cx="28" cy="34" rx="5" ry="7" stroke="currentColor" strokeWidth="1.5" fill="none"/>
+    <circle cx="15" cy="32" r="0.7" fill="currentColor"/>
+    <circle cx="27" cy="32" r="0.7" fill="currentColor"/>
+  </svg>
+);
+
+/* ============================================================
+   DATA — one populated week, May 25-31, 2026
+   ============================================================ */
+
+const WEEK_LABEL = "MAY 25 – 31, 2026";
+const TODAY = "2026-05-25";
+
+const TICKER = [
+  { tag: "COSTCO WK2", text: "Roasted Red Pepper on Midwest shelves · day 9 of 8-12wk window" },
+  { tag: "ALBERTSONS", text: "Top 10 Innovation Launchpad finalist · pitch panel pending" },
+  { tag: "SPROUTS", text: "Nationwide since Dec 18, 2025 · 18mo of retail compounding" },
+  { tag: "WHOLE FOODS", text: "All 3 sauces nationwide since Nov 2024" },
+  { tag: "TIMES SQ", text: "Maazah billboard moment · Dec 20, 2024" },
+  { tag: "EXPO WEST", text: "Booth of Year (MN Pavilion) · 600+ brands · Mar '26" },
+  { tag: "TIKTOK GAP", text: "Cross-platform engagement gap — category-explainer activated WK2" },
+  { tag: "SNACKLE BOX", text: "May 24 lakeside post · 41 likes in 23h · recurring format" }
+];
+
+const WELCOME = {
+  date: WEEK_LABEL,
+  thesis: `Twelve briefs ready to ship this week — calibrated to your voice, your Costco repeat-window cohort, the TikTok format register that actually works for you (saves > likes), and the read your Costco / Sprouts / Albertsons buyer gets when they pull up your handles on a Tuesday morning. Every line editable. Nothing requires Mom.`,
+  signature: "OBSOLETE — Maazah engine v0.2.\n12 briefs · 4 pillars · IG + TikTok split.",
+  moves: [
+    {
+      verb: "Ship the 3-day Roasted Red Pepper IG series (Mon → Wed → Fri).",
+      why: "Mid-week is the repeat-trial window for any Costco SKU. Eggs Mon → chicken Wed → pizza Fri builds 'put it on everything' before Memorial Day fades. (P01–P03)"
+    },
+    {
+      verb: "Drop the Costco-aisle Reel Tuesday AM on IG (sister-fronted).",
+      why: "IG sister-led milestone content earns ~426 likes for you. The cohort that bought Saturday wants the meta-moment Tuesday. (M01)"
+    },
+    {
+      verb: "Activate TikTok with the weekly category-explainer brief.",
+      why: "Your TikTok is severely under-leveraged — but the 'What is chutney?' explainer earned 211 likes + 71 saves (30× normal). The format works; nothing else there does. New M04 brief drops Thursday. (M04)"
+    },
+    {
+      verb: "Run the first-gen heritage Reel on IG Thursday late-night.",
+      why: "IG founder-content + 1990s family photos already in your archive. 'Things I used to explain. Things I now sell at Costco.' No Mom required — just sister POV. (T01)"
+    },
+    {
+      verb: "Hold on Albertsons content until result lands.",
+      why: "Pitch live this week. Pre-announcing dilutes either outcome. Engine has 4 branched briefs queued. (queued, not shipped)"
+    }
+  ],
+  evidence: [
+    { stat: "8–12wk", label: "Costco repeat window", detail: "Buyer review cycle on new SKU velocity before reset.", src: "industry std" },
+    { stat: "30×", label: "TikTok format gap", detail: "'What is chutney?' (211 likes) vs. cross-posted IG content (avg 2-11). Category-explainer is the lane.", src: "engine voice corpus" },
+    { stat: "71", label: "Saves on best post", detail: "Saves = buyer-readable category authority. Replicate weekly.", src: "@maazahmagic TikTok" },
+    { stat: "6", label: "Retail milestones / 18mo", detail: "Whole Foods → Times Sq → Fancy Food → Sprouts → Booth of Year + Albertsons Top 10 → Costco.", src: "retail audit" }
+  ]
+};
+
+const LEDE = {
+  thesis: "Costco week 2: convert trial to repeat. IG cadence steady, TikTok format-register fix activated.",
+  competitive: "Hope Foods + Boar's Head expanding the non-hummus dip set — category-creation tailwind is real and lentil-dip vocabulary is yours to shape.",
+  pulse: "Category-explainer format (211 likes, 71 saves on 'What is chutney?') is the TikTok lane that actually works. Activate weekly."
+};
+
+const TRENDS = [
+  {
+    id: "T-1", type: "RETAIL", velocity: "high",
+    hook: "Refrigerated dip set fragments past hummus.",
+    detail: "Hope Foods expanded white-bean + beet dips; Boar's Head launched specialty dips this spring. Category buyers are actively merchandising 'non-hummus' as its own subset — Maazah's lentil dips slot directly in.",
+    play: "Frame Maazah lentil dips as the 'we got here first' answer to the new dip subset — not 'hummus alternative,' just lentil dip with confidence.",
+    pillars: ["multiply", "magic"],
+    sources: ["refrigeratedfrozenfoods.com", "boarshead.com"]
+  },
+  {
+    id: "T-2", type: "RETAIL", velocity: "high",
+    hook: "Costco Memorial Day demo cycle peaked May 23-26.",
+    detail: "First Memorial Day weekend post-rollout is the trial-density peak. Repeat-velocity math reviewed at week 8-12; the cohort that bought May 24-26 needs usage content in their feed weeks 2-4 to lift second purchase.",
+    play: "Three-day 'Day 1/Day 2/Day 3' Roasted Red Pepper Reel series (P01-P03) lands directly in this cohort's mid-week scroll.",
+    pillars: ["multiply"],
+    sources: ["costco.com", "specialtyfood.com"]
+  },
+  {
+    id: "T-3", type: "TRADE", velocity: "medium",
+    hook: "Albertsons Innovation Launchpad finalist pitches this week.",
+    detail: "Top 10 of 600+ brands. Outcome announcement expected late May / early June. National Albertsons + Safeway distribution if won; high-credibility 'finalist' marker even if not.",
+    play: "Hold launch-window content until result. Pre-announcing dilutes either outcome. 4 branched briefs queued in engine; pick the path the result picks for you.",
+    pillars: ["magic"],
+    sources: ["expowest.com", "albertsons.com"]
+  },
+  {
+    id: "T-4", type: "INGREDIENT", velocity: "medium",
+    hook: "Lentil consumption up 18% YoY in CPG snack + dip.",
+    detail: "Pulses (lentils, chickpeas, mung) are the fastest-growing plant-protein subcategory in retail snacking. Lentil leads on fiber + protein density vs. chickpea — a real differentiator most shoppers don't know.",
+    play: "Subtle category-education layer in dip captions — 'lentils carry more protein + fiber than chickpeas, same dip joy' — without lecturing.",
+    pillars: ["multiply"],
+    sources: ["pulses.org", "specialtyfood.com"]
+  },
+  {
+    id: "T-5", type: "CULTURE", velocity: "high",
+    hook: "Afghan-American food press cycle peaking.",
+    detail: "Lapis (DC), Bamiyan (Brooklyn) feature cycles + Humaira Ghilzai cookbook tour + Cherry Bombe heritage issue this quarter. The 'Afghan in America' story is news-eligible right now.",
+    play: "Position Yasameen + Sheilla for Cherry Bombe / Forbes 30-Under-30 / F&W Game Changers pitches. Engine drafts the press one-sheet on request.",
+    pillars: ["mom", "magic"],
+    sources: ["cherrybombe.com", "foodandwine.com"]
+  },
+  {
+    id: "T-6", type: "FORMAT", velocity: "high",
+    hook: "Snackle box format still has 6+ months of TikTok longevity.",
+    detail: "Search volume sustained since Memorial Day '24. Maazah's May 24 lakeside snackle box post hit 41 likes in 23 hours (above trail of recent posts). Format is repeatable + scalable across SKUs.",
+    play: "Weekly snackle-box brief through Labor Day. Rotate SKU: Roasted Red Pepper (Costco anchor) week 1, Mango Chutney week 2, Chili Aioli week 3, Basil Jalapeño week 4.",
+    pillars: ["multiply", "squad"],
+    sources: ["tiktok.com/discover/snackle-box", "pinterest.com"]
+  }
+];
+
+const CULTURAL_PULSE = [
+  {
+    id: "CP-1", type: "archetype", typeLabel: "ARCHETYPE",
+    hook: "'Things I used to explain. Things I now sell at Costco.'",
+    detail: "First-gen kid arc — childhood embarrassment over heritage food → adult success carrying it. Yasameen or Sheilla on-camera, quiet voice, the punchline lands in the closing frame: the Maazah tub on the Costco shelf.",
+    play: "T01 — sister-led Reel scheduled Thursday late-night. Roy Ayers slow-burn. Lowercase warmth, no exclamation chains.",
+    sources: ["tiktok.com/tag/firstgen", "tiktok.com/tag/immigrantkids"]
+  },
+  {
+    id: "CP-2", type: "recipe", typeLabel: "VIRAL RECIPE",
+    hook: "Cottage cheese + lentil dip + crackers / pita combos.",
+    detail: "TikTok's protein-dense snack format. Lentil dip outflanks hummus on the protein-stack the trend rewards. Roasted Red Pepper is the obvious anchor; could become a weekly format.",
+    play: "P04 mini-format — cottage cheese + Roasted Red Pepper swirl + Ritz/pita reveal. 20s loop. No founder, hands-only.",
+    sources: ["tiktok.com/tag/cottagecheese", "tiktok.com/tag/snackbowl"]
+  },
+  {
+    id: "CP-3", type: "meme", typeLabel: "MEME / FORMAT",
+    hook: "Lakeside snackle box (Memorial Day → Labor Day evergreen).",
+    detail: "Pinterest + TikTok snackle-box content sustained since '24. Maazah's May 24 build did the work; now repeat the format weekly with rotating SKU anchor.",
+    play: "Set as recurring weekly brief lane (S03 in next refresh). Rotate SKU anchor through summer.",
+    sources: ["tiktok.com/discover/snackle-box", "pinterest.com"]
+  },
+  {
+    id: "CP-4", type: "cultural", typeLabel: "CULTURAL",
+    hook: "Costco-haul content remains the most-saved format in retail UGC.",
+    detail: "@gvang101 already did a paid Costco-aisle reel for Roasted Red Pepper. UGC amplification + creator seed program in Midwest Costco-radius cities is high-leverage for next 6-8 weeks.",
+    play: "S01 — UGC compilation 'did you find us?' brief. Plus engine drafts outbound DM templates to 8 Midwest food creators for organic seed.",
+    sources: ["instagram.com/gvang101", "tiktok.com/tag/costcofind"]
+  },
+  {
+    id: "CP-5", type: "entertainment", typeLabel: "ENTERTAINMENT",
+    hook: "NBA Finals (starts ~June 5) + Stanley Cup Final overlap.",
+    detail: "Game-day dip / pizza / sliders content lane opens late next week. Roasted Red Pepper on pizza (P03) loops directly into game-day intent.",
+    play: "P03 publishes Friday — sets up the pizza-dip association for the game-day cohort one week before tipoff.",
+    sources: ["nba.com", "nhl.com"]
+  },
+  {
+    id: "CP-6", type: "news", typeLabel: "NEWS CYCLE",
+    hook: "Reem Assil cookbook tour stop in Minneapolis early June.",
+    detail: "Arab-American chef + cultural activist passing through the Twin Cities. Co-attendance / collab post / sister-meets-Reem moment — heritage-credibility goldmine that lasts longer than the press cycle.",
+    play: "Engine drafts a sister-led 'we went' carousel + outbound DM to @reemassil's team. Hold ship until event confirmed.",
+    sources: ["reemscalifornia.com", "minnpost.com"]
+  }
+];
+
+const COMPETITORS = [
+  {
+    id: "C-1", name: "Hope Foods",
+    direction: "up", change: "Expanding non-hummus dip line",
+    detail: "Quietly building white bean + beet dips. Proves dip-set is fragmenting past hummus — tailwind for Maazah's lentil-dip category-creation play.",
+    posture: "ALLY · don't punch · ride parallel category lift",
+    sources: ["hopefoods.com"]
+  },
+  {
+    id: "C-2", name: "Fly By Jing",
+    direction: "up", change: "Costco bundle SKU expansion",
+    detail: "Hit Costco bundles 2+ years ago, has been refining the multi-pack format. The closest playbook reference for what Maazah's national arc looks like — peer + muse.",
+    posture: "PEER + MUSE · study cadence + at-shelf storytelling",
+    sources: ["flybyjing.com", "costco.com"]
+  },
+  {
+    id: "C-3", name: "Yo Mama's Foods",
+    direction: "up", change: "Fridge sauce expansion Whole Foods nationwide",
+    detail: "Premium fridge sauces (alfredo, marinara) — same shelf strategy as Maazah's sauces. Different category, same buyer logic.",
+    posture: "PARALLEL · category co-creator, not competitor",
+    sources: ["yomamasfoods.com"]
+  },
+  {
+    id: "C-4", name: "Omsom",
+    direction: "flat", change: "New sauce starter pack",
+    detail: "Sibling-founder peer in heritage CPG. Vanessa + Kim Pham → Yasameen + Sheilla, same playbook lineage. Worth tracking their seasonal launch cadence + creator program.",
+    posture: "PEER · sibling-founder lineage · co-marketing potential",
+    sources: ["omsom.com"]
+  },
+  {
+    id: "C-5", name: "Trader Joe's house brand",
+    direction: "up", change: "Zhug + Cilantro Crema seasonal returns",
+    detail: "Private-label dip + sauce competition at TJ's price point. Different shopper (TJ's-only) but tests Maazah's category-creation logic — if TJ shoppers buy it, the lentil-dip / chutney-aioli set has cross-channel demand.",
+    posture: "QUIET REFERENCE · private-label proof point",
+    sources: ["traderjoes.com"]
+  },
+  {
+    id: "C-6", name: "[Hummus incumbent]",
+    direction: "flat", change: "Shelf-share defense / no new launches",
+    detail: "INTERNAL ONLY — the volume incumbent's silence is the wedge Maazah's voice was built against. Never named consumer-facing.",
+    posture: "SHELF NEIGHBOR · category critique without naming · never punch",
+    sources: ["internal · do not surface"]
+  }
+];
+
+const AMBASSADORS = [
+  { id: "A-1", handle: "@gvang101", sub: "Twin Cities food creator", initials: "GV", note: "Paid Costco-aisle reel (Roasted Red Pepper)", followers: "298K", status: "active" },
+  { id: "A-2", handle: "@stephaniesdish", sub: "Stephanie's Dish · Fox 9", initials: "SD", note: "TV segment Jan 10 · maazahchutney hashtag", followers: "31K", status: "active" },
+  { id: "A-3", handle: "@cravingsbychrissyteigen", sub: "Brand · Chrissy Teigen", initials: "CT", note: "Booth visit Expo West · co-mention potential", followers: "1.4M", status: "watch" },
+  { id: "A-4", handle: "@jesseandbens", sub: "Sibling-founder brand (fries)", initials: "JB", note: "Burger bowl collab Jan 5 · Lemon Aioli + Mango Chutney", followers: "52K", status: "active" },
+  { id: "A-5", handle: "@withmollyco", sub: "Recipe creator", initials: "MW", note: "Comment 'Maazah!! My favorite brand!' — DM seed candidate", followers: "127K", status: "watch" },
+  { id: "A-6", handle: "@lizannelately", sub: "Twin Cities lifestyle", initials: "LA", note: "Comments on Costco rollout — local amplifier", followers: "44K", status: "watch" }
+];
+
+const DECISIONS = [
+  {
+    tag: "PROMOTED", text: "Category-explainer (TikTok) → weekly recurring format.",
+    why: "The 'What is chutney?' post (Nov '24) earned 211 likes + 71 saves vs. your TikTok baseline of 2-11 likes. Category-explainer is the only format that works for you on TikTok — and saves are the buyer-readable category-authority signal. New M04 brief activates this lane this week, then recurring."
+  },
+  {
+    tag: "KILLED", text: "Cross-posting IG content as-is to TikTok.",
+    why: "Same Costco-cart push earned 426 likes on IG and 11 on TikTok. The platforms reward different format registers. Going forward: TikTok briefs draft in TikTok lane (category-explainer + meme-fluent audio + period-spaced descriptors)."
+  },
+  {
+    tag: "KILLED", text: "Celebrity-reaction TikTok briefs (Taylor / Kendrick patterns).",
+    why: "Both flopped in your archive — 2 likes (Taylor on Fallon, 'chut' line) + 4 likes (Kendrick Super Bowl wings). Celebrity-piggyback isn't your lane on TikTok. Category-education is."
+  },
+  {
+    tag: "KILLED", text: "Generic 'Memorial Day grilling' brief.",
+    why: "Would compete with Hope Foods + every dip incumbent for the same wide angle. Pivoted three slots to the Costco-window 'put it on everything' series (P01-P03) — narrower, sharper, owned."
+  },
+  {
+    tag: "PROMOTED", text: "Costco-aisle UGC repost cadence → 2x/week for next 6 weeks.",
+    why: "Repeat-velocity math reviewed at week 8-12. UGC amplification in Midwest Costco-radius cities is the highest-leverage organic play for second-tub conversion + buyer-readable foot-traffic evidence."
+  },
+  {
+    tag: "KILLED", text: "'Hummus alternative' positioning brief.",
+    why: "Defines Maazah by what it's not. Lentil dip is its own thing — confident, full-on. Replaced with the gentle category-education line baked into M04 + P04 + T01."
+  },
+  {
+    tag: "QUEUED", text: "Albertsons Top-10 result reaction (4 branched briefs).",
+    why: "Outcome shapes the brief. Pre-announcing dilutes either path. Engine drafts: win-path 'we made it' Reel + loss-path 'honored to be in the room' carousel + 2 supporting briefs each. Ship 24h after result."
+  },
+  {
+    tag: "QUEUED", text: "Reem Assil co-mention brief.",
+    why: "Cookbook tour confirms Minneapolis early June — held until event-locked. Heritage-credibility moment that compounds longer than the press cycle."
+  }
+];
+
+/* ============================================================
+   WHOLESALE LENS — the buyer-view surface
+   Calibrated from observed @maazahmagic data 2026-05-26
+   ============================================================ */
+
+const WHOLESALE_LENS = {
+  hero: {
+    eyebrow: "BUYER VIEW · WHAT YOUR COSTCO / SPROUTS / ALBERTSONS BUYER SEES TUESDAY MORNING",
+    title: "Strong + lopsided. Closing the TikTok gap is the highest-leverage move of the next 6 weeks.",
+    read: `Your IG presence is doing the buyer-signal work — sister-led milestone content is compounding, UGC velocity is real, the collab graph is healthy, the press cred is editorially-validated, and six retail milestones in 18 months tells a buyer the brand is on an arc. Your TikTok is severely under-leveraged but you have a proven format that works (the "What is chutney?" pattern earned 71 saves vs. your baseline of 2-11 likes). Activate it weekly and 4-6 weeks from now your buyer's TikTok glance returns a different read.`
+  },
+  metrics: [
+    {
+      health: "STRONG",
+      stat: "6 / 18mo",
+      label: "Retail-buyer-grade milestones",
+      buyer: "Compounding momentum. Brand is on an arc, not a plateau. Defensible at every reset meeting.",
+      move: "Maintain milestone density + ship monthly 'moment map' content series. Engine drafts the cadence.",
+      src: ["retail audit 2026-05-26"]
+    },
+    {
+      health: "STRONG",
+      stat: "426",
+      label: "Top IG post / past 14 days",
+      buyer: "Sister-led milestone content compounds on Instagram. Account is in growth phase, not maintenance.",
+      move: "Hold the line: 6-8 sister-led IG briefs/week per the Sister Rule. M01 + M02 + M03 anchor this week.",
+      src: ["@maazahmagic IG", "Costco-cart push May 17"]
+    },
+    {
+      health: "GAP",
+      stat: "11 vs 426",
+      label: "Same content. TikTok vs IG.",
+      buyer: "Cross-posting without platform adaptation. To a TikTok-aware buyer the account reads as flat / under-deployed.",
+      move: "Activated this week — M04 category-explainer + dual audio rosters codified. 4-6 weeks to compound to a healthy floor.",
+      src: ["TikTok cross-platform audit"]
+    },
+    {
+      health: "STRONG",
+      stat: "71",
+      label: "Saves on 'What is chutney?'",
+      buyer: "Save-driven category-explainer content is the clearest signal a buyer reads as 'this brand is teaching the category.' This is your authority lane.",
+      move: "M04 makes it weekly + recurring. Pattern: period-spaced descriptors + Mom-coded origin line + brand-voice category-creation.",
+      src: ["@maazahmagic TikTok Nov 21, 2024"]
+    },
+    {
+      health: "STRONG",
+      stat: "10",
+      label: "States with UGC Costco-aisle tags",
+      buyer: "Real shoppers tagging real Costco shelves. Geographic spread = renewal-defensible foot-traffic evidence.",
+      move: "S01 + new S03 in next refresh = 2x/week UGC repost cadence. Outbound DM templates queued for 8 Midwest creators.",
+      src: ["organic UGC scrape", "@gvang101 paid post"]
+    },
+    {
+      health: "STRONG",
+      stat: "4",
+      label: "Named press features",
+      buyer: "NYT · F&W · Forbes · Mpls St Paul. Editorially-validated. Defensible at the next reset meeting.",
+      move: "Engine drafts press one-sheet + outbound pitches for Cherry Bombe + F&W Game Changers + Forbes 30 Under 30.",
+      src: ["maazah.com/press"]
+    },
+    {
+      health: "STRONG",
+      stat: "8",
+      label: "Active brand collabs / 6mo",
+      buyer: "Healthy peer-network. Cross-marketing throughput strong. Buyer reads brand as 'in the ecosystem,' not isolated.",
+      move: "Maintain cadence + expand to retailer-aligned partners (Old Wisconsin, Vlasic, Ritz, Ellsworth Creamery for Costco-state co-promos).",
+      src: ["Expo West tag-graph", "snackle-box post May 24"]
+    },
+    {
+      health: "MIXED",
+      stat: "+312",
+      label: "IG followers / past 7 days",
+      buyer: "Above-trend growth post-Costco. Indicates real momentum, but a buyer wants to see the velocity sustain past Memorial Day.",
+      move: "Costco-window briefs (P01-P03 + S01 + M01) are calibrated to sustain follower velocity for the 8-12wk repeat window.",
+      src: ["@maazahmagic IG insights, estimated"]
+    },
+    {
+      health: "GAP",
+      stat: "0",
+      label: "Wholesale-Lens-style content on your feed",
+      buyer: "N/A — your buyer doesn't know you're already thinking about them. They notice when this changes.",
+      move: "Quarterly 'the past 90 days' wholesale-readable carousel for IG. Numbers + UGC + press + collabs. Engine drafts on request.",
+      src: ["engine recommendation"]
+    }
+  ]
+};
+
+/* ============================================================
+   BRIEFS — 13 briefs, 4 pillars, one week (May 25-31, 2026)
+   ============================================================ */
+
+const BRIEFS = [
+  /* ─── MAGIC IS REAL (3) ─── */
+  {
+    id: "MAGIC25-COSTCO-R1",
+    pillar: "magic",
+    pillarLabel: "MAGIC IS REAL",
+    priority: "big",
+    priorityLabel: "BIG SWING",
+    platform: "IG REEL + TIKTOK",
+    sku: "Roasted Red Pepper Lentil Dip",
+    skuChip: "RRP DIP",
+    concept: "A year ago: our mom's kitchen. Last week: Costco shelves. The magic is real, we've tasted it — and so has the Midwest.",
+    dnaPattern: "sister-led",
+    publishWindow: "TUE 8:30AM CT",
+    audio: "Roy Ayers Ubiquity — 'Everybody Loves The Sunshine' (chorus segment)",
+    duration: "45s",
+    why: "First Costco rollout milestone post that ties origin → current moment. Caption uses the Magic-Is-Real hero line. Sister-fronted so the credibility is unmistakable.",
+    captions: {
+      ig: `a year ago: our mom's kitchen.\nlast week: Costco shelves. 🛒\n\nour Roasted Red Pepper Lentil Dip is officially in Midwest Costcos and we're still pinching ourselves.\n\nMAGIC IS REAL. WE'VE TASTED IT. (and now you can too, in like 8 states.) 🟢\n\nXx Yasameen + Sheilla`,
+      tiktok: `farmers market table to Costco shelf in (counts on fingers) okay a few years.\n\nour mom's recipe is on a CART. someone please tell her again because she'll cry every time.\n\n#maazahmagic #costcofind #firstgen`
+    },
+    scenes: [
+      { num: "01", time: "0:00", text: "Yasameen + Sheilla in matching MAAZAH tees (Expo West merch), pushing a Costco cart. Wide shot, Midwest store interior visible." },
+      { num: "02", time: "0:08", text: "Cut to a 1990s family photo (the throwback collage shot from the site's Our Story) — kitchen, Mom in frame, sisters as kids." },
+      { num: "03", time: "0:14", text: "Cut back: present-day, sisters spotting the Maazah tub on the shelf. Real reaction — eyes wide, hand over mouth." },
+      { num: "04", time: "0:24", text: "Close-up: hand lifting the Roasted Red Pepper tub off shelf. The arch wordmark fills frame." },
+      { num: "05", time: "0:32", text: "Text overlay: 'MAGIC IS REAL. WE'VE TASTED IT.' Roy Ayers chorus hits." },
+      { num: "06", time: "0:40", text: "Sisters in cart together, dip in hand, smiling. End card: arch logo + 'find us in your Midwest Costco.'" }
+    ],
+    hooks: [
+      { text: "a year ago: our mom's kitchen. last week: Costco shelves.", tag: "REC" },
+      { text: "if you'd told us in 2018 we'd be on a Costco shelf, we'd have laughed." },
+      { text: "this is what 'mom's recipe goes national' actually looks like." }
+    ],
+    drivers: ["T-2: Costco demo cycle peak", "T-5: Afghan-American press moment", "CP-4: Costco-haul format"]
+  },
+  {
+    id: "MAGIC25-BOOTH-R2",
+    pillar: "magic",
+    pillarLabel: "MAGIC IS REAL",
+    priority: "high",
+    priorityLabel: "HIGH",
+    platform: "IG CAROUSEL",
+    sku: "Brand · all SKUs",
+    skuChip: "BRAND",
+    concept: "Expo West behind-the-scenes — the booth that won, the celebs that came, the Top-10 stage we earned. (No spoilers on Albertsons yet.)",
+    dnaPattern: "shelf-spotted",
+    publishWindow: "WED 12:00PM CT",
+    audio: "Original audio · sister voiceover",
+    duration: "10 carousel slides",
+    why: "Recap the Expo West moment that the inner-circle saw but the wider audience hasn't gotten the full story on. Builds peer-recognition credibility without sounding self-congratulatory.",
+    captions: {
+      ig: `okay we promised ourselves we'd post this BEFORE we got too deep into Costco week and here we are 😅\n\nExpo West 2026 in 10 slides — including the moment the Booth of Year (MN Pavilion) award was called, the @ringostudiodesign masterpiece, and yes Chrissy + John walking the booth.\n\nThe Top 10 of 600+ brands part still feels fake. We'll let you know how the pitch went 🤞🟢`,
+      tiktok: ""
+    },
+    scenes: [
+      { num: "01", time: "Slide 1", text: "Hero shot: Yasameen + Sheilla in front of the green-subway-tile wall under the giant arch wordmark." },
+      { num: "02", time: "Slide 2", text: "Booth wide angle — terraced shelves, sauce bottles + dip tubs, fresh florals." },
+      { num: "03", time: "Slide 3", text: "Chrissy + John at the booth (with their permission to repost)." },
+      { num: "04", time: "Slide 4", text: "Booth-of-Year award moment, in-camera reaction shot." },
+      { num: "05", time: "Slide 5", text: "Top 10 / Innovation Launchpad stage." },
+      { num: "06", time: "Slide 6", text: "Belgian Boys collab breakfast." },
+      { num: "07", time: "Slide 7", text: "Maazah tote bags in the wild (Ringo + Sunami fabrication credits)." },
+      { num: "08", time: "Slide 8", text: "Zestie Bestie crew group photo." },
+      { num: "09", time: "Slide 9", text: "Behind-the-scenes booth-build with Sunami Fab team." },
+      { num: "10", time: "Slide 10", text: "Closing card: arch wordmark + 'see you at Expo West 2027.'" }
+    ],
+    hooks: [
+      { text: "we promised ourselves we'd post this before Costco week...", tag: "REC" },
+      { text: "expo west 2026 in 10 slides ↓" },
+      { text: "the booth our friends built. the show our team showed up for." }
+    ],
+    drivers: ["T-3: Albertsons launchpad", "T-5: Afghan-American press moment"]
+  },
+  {
+    id: "MAGIC25-WEEKINSIDE-R3",
+    pillar: "magic",
+    pillarLabel: "MAGIC IS REAL",
+    priority: "standard",
+    priorityLabel: "STD",
+    platform: "IG REEL",
+    sku: "Brand · founder POV",
+    skuChip: "BRAND",
+    concept: "Sheilla solo Reel — first-person POV on what a Costco rollout week actually feels like (the sleep that doesn't happen, the Mom call, the celebration coffee).",
+    dnaPattern: "sister-led",
+    publishWindow: "FRI 7:00PM CT",
+    audio: "Original audio · Sheilla voiceover + ambient",
+    duration: "60s",
+    why: "Founder-honesty format. Yasameen got Tue's reel; Sheilla solo balances the sister-led mix this week. Confessional energy is one of Maazah's underused lanes.",
+    captions: {
+      ig: `a week inside Costco rollout week:\n\n→ sleep: less\n→ phone time: more\n→ texts to Mom: hourly\n→ feelings: confusingly massive about a refrigerated dip tub\n\nif we look tired in the next 6 weeks of content, this is why. (also: we're not tired we're just GLOWING WITH IMPOSTOR SYNDROME.) 🟢\n\nXx Sheilla`,
+      tiktok: ""
+    },
+    scenes: [
+      { num: "01", time: "0:00", text: "Sheilla, no makeup, kitchen morning light. To camera: 'so. this is week 1 of being in Costco.'" },
+      { num: "02", time: "0:08", text: "Phone screen: 47 unread texts. Cut." },
+      { num: "03", time: "0:14", text: "Sheilla, voiceover: 'I called Mom three times yesterday just to make sure she actually saw the tub on a shelf.'" },
+      { num: "04", time: "0:22", text: "B-roll: laptop with spreadsheet of demo schedule. Coffee. Phone calls." },
+      { num: "05", time: "0:34", text: "Sheilla, to camera, more relaxed: 'we built this together so I'm gonna stop spiraling and just say — thank you for showing up.'" },
+      { num: "06", time: "0:50", text: "End card: arch + 'Xx Sheilla' typed slowly on screen." }
+    ],
+    hooks: [
+      { text: "a week inside Costco rollout week, by the numbers", tag: "REC" },
+      { text: "if I look tired in the next 6 weeks of content, this is why" },
+      { text: "the only person who's cried more about this than me is my mom" }
+    ],
+    drivers: ["T-2: Costco demo cycle"]
+  },
+
+  {
+    id: "MAGIC25-LENTILEXPLAIN-M04",
+    pillar: "magic",
+    pillarLabel: "MAGIC IS REAL",
+    priority: "big",
+    priorityLabel: "BIG SWING · TIKTOK FIX",
+    platform: "TIKTOK (primary) + IG cross-post",
+    sku: "All 4 lentil dips · category-explainer",
+    skuChip: "LENTIL DIP",
+    concept: "\"What is lentil dip?\" — period-spaced descriptor explainer. Modeled on your 211-like \"What is chutney?\" post (71 saves). The format that actually works for you on TikTok. Activates a weekly recurring TikTok lane.",
+    dnaPattern: "category-explainer",
+    publishWindow: "THU 12:00PM CT",
+    audio: "TikTok lane: meme-fluent shopping-discovery (e.g., 'Oh You Cant Find This In The Store' template style) · original-audio category-explainer hybrid",
+    duration: "22s",
+    why: "Your TikTok is severely under-leveraged — 11-likes-on-the-Costco-push under-leveraged. But your ONE breakout post (211 likes, 71 saves on 'What is chutney?') shows the exact pattern that works: period-spaced descriptors, brand-voice category-education, a Mom-coded origin line, no founder on camera, save-driven utility. The 71 saves are the kicker — saves = buyer-readable category authority. Replicate the format weekly. This is the highest-leverage 22 seconds of content you'll ship this week.",
+    captions: {
+      tiktok: `✨ What is lentil dip? ✨\nIf you ask us, lentil dip is the rest-of-the-world's chickpea dip — except lentils carry more protein, more fiber, and we grew up dipping with them before we knew the word for it. It was Mom's magic, in a bowl 💚\n\n🌶️ Roasted Red Pepper: Smoky. Creamy. With a kick.\n🧄 Classic Lemon: Bright. Citrus. Foundational.\n🌿 Basil Jalapeño: Herby. Hot. Green.\n🌅 Turmeric Ginger: Warming. Spiced. Golden.\n\nPUT IT ON EVERYTHING. (lentils know what they're doing.) 💚\n\n#lentildip #chutney #afghanfood #costcofind #fyp #snackideas`,
+      ig: `What is lentil dip? ✨\n\nlentils carry more protein + more fiber than chickpeas — and we grew up dipping with them before we knew the word for it. Mom's magic, in a bowl 💚\n\nmeet the dip squad:\n🌶️ Roasted Red Pepper: Smoky. Creamy. With a kick.\n🧄 Classic Lemon: Bright. Citrus. Foundational.\n🌿 Basil Jalapeño: Herby. Hot. Green.\n🌅 Turmeric Ginger: Warming. Spiced. Golden.\n\nput it on EVERYTHING.`
+    },
+    scenes: [
+      { num: "01", time: "0:00", text: "Top-down marble surface. Empty bowls. ASMR. Text overlay slides in: 'What is lentil dip? ✨'" },
+      { num: "02", time: "0:03", text: "Hands spoon a dollop of Roasted Red Pepper into bowl 1. Text overlay: 'Smoky. Creamy. With a kick.'" },
+      { num: "03", time: "0:08", text: "Classic Lemon into bowl 2. Text overlay: 'Bright. Citrus. Foundational.'" },
+      { num: "04", time: "0:12", text: "Basil Jalapeño into bowl 3. Text overlay: 'Herby. Hot. Green.'" },
+      { num: "05", time: "0:16", text: "Turmeric Ginger into bowl 4. Text overlay: 'Warming. Spiced. Golden.'" },
+      { num: "06", time: "0:19", text: "Pull-back shot: all four bowls + pita + crackers + raw veg. Text overlay: 'PUT IT ON EVERYTHING.' arch wordmark." },
+      { num: "07", time: "0:22", text: "End card: arch + 'lentils know what they're doing 💚' + Costco-shelf cutaway (2 frames)." }
+    ],
+    hooks: [
+      { text: "What is lentil dip? ✨", tag: "REC (proven format)" },
+      { text: "lentils carry more protein than chickpeas. dip joy stays the same." },
+      { text: "mom's magic, in a bowl — four ways" }
+    ],
+    drivers: ["TikTok format-gap finding: 'What is chutney?' = 211 likes / 71 saves", "T-4: lentil consumption +18% YoY", "Wholesale Lens: TikTok presence currently flat"]
+  },
+
+  /* ─── PUT IT ON EVERYTHING (5) ─── */
+  {
+    id: "MULT25-RRP-EGGS-P01",
+    pillar: "multiply",
+    pillarLabel: "PUT IT ON EVERYTHING",
+    priority: "big",
+    priorityLabel: "BIG SWING · DAY 1",
+    platform: "IG REEL + TIKTOK",
+    sku: "Roasted Red Pepper Lentil Dip",
+    skuChip: "RRP DIP",
+    concept: "Day 1 of the 3-day Costco-repeat Reel series. Scrambled eggs + a dollop of Roasted Red Pepper. Caption opens lowercase, lands with all-caps PUT IT ON EVERYTHING.",
+    dnaPattern: "sauce-pour",
+    publishWindow: "MON 7:30AM CT",
+    audio: "Original audio · ASMR scramble + dollop sound",
+    duration: "18s",
+    why: "Costco buyers from Saturday open the tub Monday-Tuesday. Eggs is the obvious-but-overlooked Monday morning play. No founder; hands + product + dish is 70% of Maazah's social.",
+    captions: {
+      ig: `if you bought the tub at Costco this weekend, this is your Monday move.\n\nscrambled eggs (any way) + a dollop of Roasted Red Pepper Lentil Dip on top. that's it. that's the post.\n\nPUT IT ON EVERYTHING (literally everything, even your eggs) 🥚🟠`,
+      tiktok: `Monday breakfast tip if you got the new Maazah dip at Costco: PUT IT ON YOUR EGGS. like. on top. as a dollop. trust the chaos.`
+    },
+    scenes: [
+      { num: "01", time: "0:00", text: "Top-down kitchen counter. Cast iron pan, butter melting. ASMR." },
+      { num: "02", time: "0:04", text: "Eggs cracked in. Whisk + scramble." },
+      { num: "03", time: "0:10", text: "Plate transfer. Soft-scramble pile." },
+      { num: "04", time: "0:12", text: "The dollop: spoon of Roasted Red Pepper dip onto eggs. Slo-mo." },
+      { num: "05", time: "0:15", text: "Cut + bite, fork close-up. Text overlay: 'PUT IT ON EVERYTHING.'" },
+      { num: "06", time: "0:17", text: "End card: arch + 'find us at Costco.'" }
+    ],
+    hooks: [
+      { text: "if you bought the tub at Costco this weekend, this is your Monday move.", tag: "REC" },
+      { text: "monday breakfast hack from your favorite saucy sisters." },
+      { text: "we will not be taking questions about whether dip belongs on eggs." }
+    ],
+    drivers: ["T-2: Costco demo cycle", "CP-4: Costco-haul format"]
+  },
+  {
+    id: "MULT25-RRP-CHIX-P02",
+    pillar: "multiply",
+    pillarLabel: "PUT IT ON EVERYTHING",
+    priority: "big",
+    priorityLabel: "BIG SWING · DAY 2",
+    platform: "IG REEL + TIKTOK",
+    sku: "Roasted Red Pepper Lentil Dip",
+    skuChip: "RRP DIP",
+    concept: "Day 2 of the 3-day series. Grilled chicken thighs + Roasted Red Pepper as the marinade-meets-sauce. Same SKU, midweek dinner use.",
+    dnaPattern: "sauce-pour",
+    publishWindow: "WED 5:30PM CT",
+    audio: "Original audio · grill sizzle",
+    duration: "22s",
+    why: "Midweek dinner inspiration for the Costco-cohort. Chicken thighs is a Costco staple — pairs the new SKU with what's already in their cart. Calendar-coded to the dinner-prep scroll.",
+    captions: {
+      ig: `day 2 of 'what to do with the Costco dip.'\n\ntake out 6 chicken thighs. rub HALF the Roasted Red Pepper Lentil Dip on like it's a marinade (because it is). grill. spoon the rest on after.\n\nyou now have a sauce, a marinade, and dinner. PUT IT ON EVERYTHING 🟠🍗`,
+      tiktok: `day 2 of dip = dinner. chicken thighs + Maazah Roasted Red Pepper as the marinade AND the sauce after. honestly best $$ at Costco this month.`
+    },
+    scenes: [
+      { num: "01", time: "0:00", text: "Counter top-down. Chicken thighs, container of Roasted Red Pepper Lentil Dip." },
+      { num: "02", time: "0:04", text: "Half the tub spooned onto thighs in a bowl. Hand massage — hands-only." },
+      { num: "03", time: "0:10", text: "Grill scene. Sizzle. Smoke." },
+      { num: "04", time: "0:16", text: "Plated thighs. Remaining dip spooned on top as sauce." },
+      { num: "05", time: "0:20", text: "Bite cut. Text: 'PUT IT ON EVERYTHING. (and rub it on stuff.)'" },
+      { num: "06", time: "0:22", text: "End card: arch + 'day 3 friday.'" }
+    ],
+    hooks: [
+      { text: "day 2 of 'what to do with the Costco dip.'", tag: "REC" },
+      { text: "this dip works as a marinade. that's all I have to say." },
+      { text: "wednesday dinner solved." }
+    ],
+    drivers: ["T-2: Costco demo cycle", "CP-2: cottage cheese / protein-stack viral"]
+  },
+  {
+    id: "MULT25-RRP-PIZZA-P03",
+    pillar: "multiply",
+    pillarLabel: "PUT IT ON EVERYTHING",
+    priority: "big",
+    priorityLabel: "BIG SWING · DAY 3",
+    platform: "IG REEL + TIKTOK",
+    sku: "Roasted Red Pepper Lentil Dip",
+    skuChip: "RRP DIP",
+    concept: "Day 3 of the 3-day series. Roasted Red Pepper as the pizza sauce alternative (or dollop topping). Closes the 'put it on everything' arc with the most-unexpected use.",
+    dnaPattern: "sauce-pour",
+    publishWindow: "FRI 5:00PM CT",
+    audio: "John Summit 'Absolutely' (drop segment)",
+    duration: "25s",
+    why: "Friday game-day-prep scroll. Pizza-with-dip primes the NBA Finals / weekend cohort. 'Wait, on pizza?' is the meme-payload format — surprise turns into save.",
+    captions: {
+      ig: `day 3. final boss.\n\npizza dough (store bought, no judgment) + Roasted Red Pepper Lentil Dip as the sauce. cheese. veg. bake.\n\nwe started this series with eggs and ended it with PIZZA. there are no rules. there is only PUT IT ON EVERYTHING 🍕🟠`,
+      tiktok: `pizza... but the sauce is Maazah Roasted Red Pepper Lentil Dip. WHAT? WHAT?? you have to try it ok. trust.`
+    },
+    scenes: [
+      { num: "01", time: "0:00", text: "Pizza dough stretched on parchment. ASMR." },
+      { num: "02", time: "0:05", text: "Spoon of Roasted Red Pepper Lentil Dip → spreading across dough like sauce." },
+      { num: "03", time: "0:12", text: "Cheese pile, fresh basil, drizzle of olive oil." },
+      { num: "04", time: "0:16", text: "Oven shot. Drop hits." },
+      { num: "05", time: "0:20", text: "Pulled pizza, bubbling cheese. Cut. Pull a slice. Cheese stretch." },
+      { num: "06", time: "0:25", text: "End card: arch + '3 days, 1 dip, 0 rules. PUT IT ON EVERYTHING.'" }
+    ],
+    hooks: [
+      { text: "day 3. final boss.", tag: "REC" },
+      { text: "we started the week with eggs. we're ending it with PIZZA." },
+      { text: "there are no rules. there is only put it on everything." }
+    ],
+    drivers: ["T-2: Costco demo cycle", "CP-5: NBA finals game-day"]
+  },
+  {
+    id: "MULT25-LEMON-FRIES-P04",
+    pillar: "multiply",
+    pillarLabel: "PUT IT ON EVERYTHING",
+    priority: "standard",
+    priorityLabel: "STD",
+    platform: "IG REEL",
+    sku: "Lemon Aioli sauce",
+    skuChip: "LEMON AIOLI",
+    concept: "Lemon Aioli on air-fryer zucchini fries — exact recipe from Maazah's own recipe page, formatted for short-form. 'Sunshine in a squeeze' tagline does the work.",
+    dnaPattern: "sauce-pour",
+    publishWindow: "TUE 6:00PM CT",
+    audio: "Roy Ayers 'Searching' (groove intro)",
+    duration: "22s",
+    why: "Reanimates the brand's own recipe library as content. Lemon Aioli is the underused SKU. Air-fryer + summer-veg is the everyday-utility lane.",
+    captions: {
+      ig: `air-fryer zucchini fries + Lemon Aioli dip = the dinner you didn't know you needed on a Tuesday 🍋✨\n\nrecipe straight from our site (link in bio). 18 minutes. crispy. bright. one bowl of cleanup.\n\nsunshine in a squeeze. PUT IT ON EVERYTHING (start with the fries).`
+    },
+    scenes: [
+      { num: "01", time: "0:00", text: "Zucchini batons. Olive oil + spice toss." },
+      { num: "02", time: "0:06", text: "Air fryer slide-in. Timer ticker." },
+      { num: "03", time: "0:11", text: "Crispy reveal." },
+      { num: "04", time: "0:16", text: "Lemon Aioli bottle squeeze into ramekin." },
+      { num: "05", time: "0:20", text: "Dip-in shot. Crunch." },
+      { num: "06", time: "0:22", text: "End card: 'sunshine in a squeeze.' arch." }
+    ],
+    hooks: [
+      { text: "air-fryer zucchini fries + Lemon Aioli = your Tuesday now", tag: "REC" },
+      { text: "sunshine in a squeeze, on something crispy" },
+      { text: "this recipe lives on our site and you ignored it. that ends today." }
+    ],
+    drivers: ["T-6: snackle-box format longevity"]
+  },
+  {
+    id: "MULT25-MANGO-MOCK-P05",
+    pillar: "multiply",
+    pillarLabel: "PUT IT ON EVERYTHING",
+    priority: "standard",
+    priorityLabel: "STD",
+    platform: "IG REEL + TIKTOK",
+    sku: "Mango Chutney sauce",
+    skuChip: "MANGO CHUTNEY",
+    concept: "Mango Chutney mocktail (sparkling water + lime + chutney). Alcohol-free summer drink + dessert-savory crossover. Opens the chutney-as-drink lane.",
+    dnaPattern: "swicy-wordplay",
+    publishWindow: "THU 4:00PM CT",
+    audio: "Original audio · sister whisper-reveal + glass clink",
+    duration: "20s",
+    why: "Underdeployed SKU + alcohol-free summer drink trend. The dessert-savory format Maazah's recipe page already pioneered (NY cheesecake + chutney) extends naturally here.",
+    captions: {
+      ig: `mocktail of the summer:\n\n→ 2 tbsp Mango Chutney\n→ juice of 1/2 lime\n→ ice\n→ topped with sparkling water\n→ mint to flex\n\nsweet + spicy = swicy 🥭🌶️ try it before you ask why. PUT IT ON EVERYTHING (yes, including in your glass).`
+    },
+    scenes: [
+      { num: "01", time: "0:00", text: "Empty glass on counter. Cocktail spoon. Mango Chutney bottle visible." },
+      { num: "02", time: "0:05", text: "Spoon of chutney into glass. Lime squeeze." },
+      { num: "03", time: "0:10", text: "Ice. Sparkling water pour with bubble close-up." },
+      { num: "04", time: "0:15", text: "Stir + mint sprig. Quick cheers clink." },
+      { num: "05", time: "0:18", text: "Sip POV. Reaction blink." },
+      { num: "06", time: "0:20", text: "End card: 'sweet + spicy = swicy.' arch." }
+    ],
+    hooks: [
+      { text: "mocktail of the summer (i'm not joking)", tag: "REC" },
+      { text: "Mango Chutney in your glass. it works. trust." },
+      { text: "sweet + spicy = swicy 🥭" }
+    ],
+    drivers: ["T-6: snackle-box / summer formats"]
+  },
+
+  /* ─── MOM'S TABLE (2) ─── */
+  {
+    id: "MOM25-FIRSTGEN-T01",
+    pillar: "mom",
+    pillarLabel: "MOM'S TABLE",
+    priority: "big",
+    priorityLabel: "BIG SWING",
+    platform: "IG REEL + TIKTOK",
+    sku: "Brand · heritage",
+    skuChip: "BRAND",
+    concept: "First-gen kid arc — 'things I used to explain. things I now sell at Costco.' Yasameen on-camera, voice quiet, the punchline lands when the final frame shows the Maazah tub on the Costco shelf.",
+    dnaPattern: "sister-led",
+    publishWindow: "THU 9:30PM CT",
+    audio: "Roy Ayers 'Sweet Tears' (slow segment)",
+    duration: "55s",
+    why: "First-gen TikTok content over-performs Thursday late-night. The arc is universal but the destination (Costco shelf) is specifically Maazah. This is the quietest brief in the mix — lowercase warmth, no exclamations.",
+    captions: {
+      ig: `things i used to explain.\nthings i now sell at Costco.\n\n— bolani\n— the chutney that's green, not red\n— why our mom packed cardamom-spiced rice in our lunch and we wanted lunchables\n— what 'maazah' means (it's farsi for flavor + taste + joy)\n— how it's pronounced (it's 'mah-zah')\n— that we're sisters, not just brand partners\n\nthe arc bends slow. but it bends.\n\nXx Yasameen 🟢`,
+      tiktok: `things i used to explain → things i now sell at Costco. the bolani arc. the chutney arc. the 'how do you say it' arc. all of it.`
+    },
+    scenes: [
+      { num: "01", time: "0:00", text: "Yasameen, kitchen golden hour, no narration. Text overlay: 'things i used to explain.'" },
+      { num: "02", time: "0:06", text: "Cut to childhood photo — sisters small, lunchbox open, Mom in frame." },
+      { num: "03", time: "0:12", text: "Text overlay: 'bolani.' Cut to Mom's bolani being rolled (b-roll from kitchen)." },
+      { num: "04", time: "0:20", text: "Text overlay: 'cardamom in everything.' Cut to spice tin." },
+      { num: "05", time: "0:28", text: "Text overlay: 'the chutney that's green.' Cut to Cilantro Chutney bottle." },
+      { num: "06", time: "0:36", text: "Text overlay: 'how to say maazah.' Yasameen, to camera: 'mah-zah.'" },
+      { num: "07", time: "0:44", text: "Text overlay: 'things i now sell at Costco.' Cut to wide of the Maazah tub on Costco shelf, slow zoom in." },
+      { num: "08", time: "0:55", text: "End card: arch + Farsi script مزه + 'Maazah / mah-zah'." }
+    ],
+    hooks: [
+      { text: "things i used to explain. things i now sell at Costco.", tag: "REC" },
+      { text: "the bolani arc is real and so is the lunchbox damage" },
+      { text: "1996 yasameen wouldn't believe this" }
+    ],
+    drivers: ["CP-1: first-gen archetype", "T-5: Afghan-American press moment"]
+  },
+  {
+    id: "MOM25-BOLANI-T02",
+    pillar: "mom",
+    pillarLabel: "MOM'S TABLE",
+    priority: "high",
+    priorityLabel: "HIGH",
+    platform: "IG CAROUSEL + REEL",
+    sku: "Cilantro Chutney sauce",
+    skuChip: "CILANTRO CHUTNEY",
+    concept: "Mom's Bolani — the recipe she taught us, finally written down. Sister hands, sister kitchen. Served with Cilantro Chutney (the OG mom's-magic-green-sauce SKU). Recipe is the canonical reference; Mom does NOT appear.",
+    dnaPattern: "mom-recipe",
+    publishWindow: "SAT 11:00AM CT",
+    audio: "Original audio · sister voiceover · kitchen ambient",
+    duration: "carousel 8 slides + 30s recipe reel",
+    why: "The MOM'S TABLE pillar's anchor format — heritage recipe done right (specific dish, specific measurements, attributed to Mom in the caption) tied to the original SKU. Saturday late-morning is peak recipe-save window. Recipe is the heritage anchor; the sisters cook it themselves — no Mom appearance required, no awkward family-recruitment ask.",
+    captions: {
+      ig: `Mom's Bolani. her recipe. finally written down.\n\nbolani is an afghan flatbread stuffed with leeks, potato, and herbs — pan-fried until golden — served with chutney. our mom's version is the dish we built Maazah on.\n\nrecipe + measurements in slides ↓ chutney pairing: Cilantro Chutney (it's literally mom's recipe in a bottle).\n\nXx`,
+      tiktok: ""
+    },
+    scenes: [
+      { num: "01", time: "Slide 1", text: "Hero: a stack of golden bolani + bowl of Cilantro Chutney + sister hand pulling one off the stack. (Sister kitchen — could be Yasameen's or Sheilla's home.)" },
+      { num: "02", time: "Slide 2", text: "Ingredient list typed on cream card, photographed flat-lay." },
+      { num: "03", time: "Slide 3", text: "Dough stage — rolling pin, hands only, cloud of flour. (Sister hands.)" },
+      { num: "04", time: "Slide 4", text: "Filling: leeks + potato + cilantro + garlic in mixing bowl." },
+      { num: "05", time: "Slide 5", text: "Stuffing + sealing the dough. Hands only." },
+      { num: "06", time: "Slide 6", text: "Pan-fry shot. Sizzle close-up." },
+      { num: "07", time: "Slide 7", text: "Plated. Cilantro Chutney bottle visible. Steam rising." },
+      { num: "08", time: "Slide 8", text: "Closing: 'Mom's recipe, in our bottle.' Cilantro Chutney close-up + arch logo." },
+      { num: "*", time: "OPTIONAL", text: "If — and only if — Mom is comfortable and has time, swap Slide 3 (dough rolling) for a hands-only shot of Mom rolling dough at her own pace. Brief ships fine without it." }
+    ],
+    hooks: [
+      { text: "Mom's Bolani. her recipe. finally written down.", tag: "REC" },
+      { text: "the dish we built Maazah on, in 8 slides" },
+      { text: "if you've ever wanted the green chutney with the bread it was made for: now you can." }
+    ],
+    drivers: ["T-5: Afghan-American press moment", "CP-1: first-gen archetype"]
+  },
+
+  /* ─── SAUCY SQUAD (2) ─── */
+  {
+    id: "SQUAD25-COSTCO-HUNT-S01",
+    pillar: "squad",
+    pillarLabel: "SAUCY SQUAD",
+    priority: "high",
+    priorityLabel: "HIGH",
+    platform: "IG CAROUSEL + STORY SET",
+    sku: "Roasted Red Pepper Lentil Dip",
+    skuChip: "RRP DIP",
+    concept: "'Did you find us?' UGC repost compilation from Costco-aisle haul reels (gvang101, organic spotters) + a CTA to tag for repost.",
+    dnaPattern: "shelf-spotted",
+    publishWindow: "TUE 2:00PM CT + Story refresh THU",
+    audio: "Original — sister excited voiceover",
+    duration: "carousel 6 slides + story set refresh",
+    why: "Costco-haul UGC is one of the most-saved formats; amplifying it locks in 'this is a real product real people are finding' social proof. Also opens the UGC seed loop for next 6 weeks.",
+    captions: {
+      ig: `MAAZAH × COSTCO sightings of the week 👀🛒\n\nshout out @gvang101 for the first haul + everyone tagging us from your aisle\n\nyou spotted us in: MN · WI · IA · IL · MI · OH · IN · SD · ND · NE\n\ntag #maazahmagic at your Costco and we'll repost — the Saucy Squad is HERE for it 🟢`,
+      tiktok: ""
+    },
+    scenes: [
+      { num: "01", time: "Slide 1", text: "Hero: a stitched grid of 6 Costco-aisle reposts (with permission)." },
+      { num: "02", time: "Slide 2", text: "@gvang101 paid reel screenshot + credit." },
+      { num: "03", time: "Slide 3", text: "Map graphic of states where we've been spotted." },
+      { num: "04", time: "Slide 4", text: "Close-up of the tub on shelf." },
+      { num: "05", time: "Slide 5", text: "Sister thank-you frame. Yasameen + Sheilla together." },
+      { num: "06", time: "Slide 6", text: "End: 'tag #maazahmagic at your Costco.' arch." }
+    ],
+    hooks: [
+      { text: "Maazah × Costco sightings of the week", tag: "REC" },
+      { text: "the saucy squad is doing the work" },
+      { text: "we see you in the aisle and we ARE crying" }
+    ],
+    drivers: ["CP-4: Costco-haul format", "T-2: Costco demo cycle"]
+  },
+  {
+    id: "SQUAD25-SNACKLE-S02",
+    pillar: "squad",
+    pillarLabel: "SAUCY SQUAD",
+    priority: "standard",
+    priorityLabel: "STD",
+    platform: "IG REEL",
+    sku: "Roasted Red Pepper Lentil Dip + crackers/pita",
+    skuChip: "MULTI SKU",
+    concept: "Midwest snackle box, this week's edition — Roasted Red Pepper at the center, with named Midwest brand co-mentions (Old Wisconsin, Vlasic, Ellsworth Creamery, Ritz). Extends the May 24 lakeside post format into a recurring weekly lane.",
+    dnaPattern: "collab-cameo",
+    publishWindow: "SAT 1:00PM CT",
+    audio: "Roy Ayers 'Everybody Loves The Sunshine' (verse)",
+    duration: "25s",
+    why: "The May 24 lakeside snackle box hit 41 likes in 23h — top of recent. Format is repeatable + builds the Midwest co-marketing graph. Saturday afternoon is peak snackle-box save window.",
+    captions: {
+      ig: `midwest snackle box, week 2:\n\n🍃 Maazah Roasted Red Pepper Lentil Dip (Costco, baby)\n🥒 @realvlasicpickles\n🧀 @oldwisconsin\n🥖 @ellsworthcreamery cheese curds\n🍪 @ritzcrackers\n\nthe dip ties it all together. PUT IT ON EVERYTHING (especially a snackle box) 🟠`
+    },
+    scenes: [
+      { num: "01", time: "0:00", text: "Empty fishing-tackle snackle box, lid up. Top-down." },
+      { num: "02", time: "0:05", text: "Quick build — each component dropped into its compartment in beat." },
+      { num: "03", time: "0:15", text: "Roasted Red Pepper Lentil Dip tub placed center. Lid label visible." },
+      { num: "04", time: "0:20", text: "Sister hand reaches in, dips a cracker. Crunch." },
+      { num: "05", time: "0:25", text: "End card: arch + 'midwest snackle box · weekly.'" }
+    ],
+    hooks: [
+      { text: "midwest snackle box, week 2:", tag: "REC" },
+      { text: "the dip is what holds the box together (metaphor of summer)" },
+      { text: "if your snackle box doesn't have lentil dip, what are we even doing" }
+    ],
+    drivers: ["T-6: snackle-box format", "CP-3: snackle-box meme"]
+  }
+];
+
+/* ============================================================
+   APP
+   ============================================================ */
+
+function MaazahApp() {
+  const [page, setPage] = useState("intel");
+  const [intelTab, setIntelTab] = useState("trends");
+  const [briefOpen, setBriefOpen] = useState(null);
+  const [welcomeOpen, setWelcomeOpen] = useState(true);
+  const [hiwOpen, setHiwOpen] = useState(false);
+
+  const briefById = (id) => BRIEFS.find(b => b.id === id);
+
+  return (
+    <div className="app">
+      {/* SIDEBAR */}
+      <aside className="sb">
+        <div className="sb-brand">
+          <MaazahArch className="sb-logo" />
+          <div>
+            <div className="sb-brand-name">MAAZAH</div>
+            <div className="sb-brand-sub">Engine · v0.1</div>
+          </div>
+        </div>
+
+        <div className="sb-section-label">This Week</div>
+        <button className={`sb-item ${page==="intel"?"active":""}`} onClick={() => setPage("intel")}>
+          <span className="sb-item-icon">⌘</span> Intelligence Brief
+        </button>
+        <button className={`sb-item ${page==="briefs"?"active":""}`} onClick={() => setPage("briefs")}>
+          <span className="sb-item-icon">⊞</span> Content Briefs <span className="sb-item-soon">{BRIEFS.length}</span>
+        </button>
+        <button className={`sb-item ${page==="decisions"?"active":""}`} onClick={() => setPage("decisions")}>
+          <span className="sb-item-icon">⊙</span> Decisions <span className="sb-item-soon">{DECISIONS.length}</span>
+        </button>
+
+        <div className="sb-section-label">Buyer View</div>
+        <button className={`sb-item ${page==="wholesale"?"active":""}`} onClick={() => setPage("wholesale")}>
+          <span className="sb-item-icon">👁</span> Wholesale Lens <span className="sb-item-soon">{WHOLESALE_LENS.metrics.length}</span>
+        </button>
+
+        <div className="sb-section-label">Studio</div>
+        <button className={`sb-item ${page==="studio"?"active":""}`} onClick={() => setPage("studio")}>
+          <span className="sb-item-icon">✦</span> Studio Canvas <span className="sb-item-soon">Soon</span>
+        </button>
+
+        <div className="sb-footer">
+          <strong>Built for Yasameen + Sheilla</strong>
+          OBSOLETE · May 25, 2026
+          <button className="sb-howit" onClick={() => setHiwOpen(true)}>↗ how this engine works</button>
+        </div>
+      </aside>
+
+      {/* MAIN */}
+      <main className="main">
+        {page === "intel" && <IntelPage tab={intelTab} setTab={setIntelTab} />}
+        {page === "briefs" && <BriefsPage onOpen={setBriefOpen} />}
+        {page === "decisions" && <DecisionsPage />}
+        {page === "wholesale" && <WholesaleLensPage />}
+        {page === "studio" && <StudioPage />}
+
+        {briefOpen && <BriefModal brief={briefById(briefOpen)} onClose={() => setBriefOpen(null)} />}
+        {welcomeOpen && <WelcomePopup onClose={() => setWelcomeOpen(false)} onJump={() => { setWelcomeOpen(false); setPage("briefs"); }} />}
+        {hiwOpen && <HowItWorksModal onClose={() => setHiwOpen(false)} />}
+      </main>
+    </div>
+  );
+}
+
+/* ============================================================
+   WELCOME POPUP
+   ============================================================ */
+function WelcomePopup({ onClose, onJump }) {
+  return (
+    <div className="welcome-bg" onClick={onClose}>
+      <div className="welcome" onClick={(e) => e.stopPropagation()}>
+        <div className="welcome-left">
+          <MaazahArch className="welcome-arch" />
+          <button className="welcome-close" onClick={onClose}>×</button>
+          <div className="welcome-issue">THIS WEEK · MAAZAH ENGINE</div>
+          <div className="welcome-date">{WELCOME.date}</div>
+          <div className="welcome-thesis">{WELCOME.thesis}</div>
+          <div className="welcome-sig">{WELCOME.signature}</div>
+        </div>
+        <div className="welcome-right">
+
+          <div className="welcome-section">
+            <h3>The Moves</h3>
+            <div className="moves-list">
+              {WELCOME.moves.map((m, i) => (
+                <div key={i} className="move-item">
+                  <div className="move-verb">{m.verb}</div>
+                  <div className="move-why">{m.why}</div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className="welcome-section">
+            <h3>The Watch</h3>
+            <div className="evidence-grid">
+              {WELCOME.evidence.map((e, i) => (
+                <div key={i} className="evidence-cell">
+                  <div className="evidence-stat">{e.stat}</div>
+                  <div className="evidence-label">{e.label}</div>
+                  <div className="evidence-detail">{e.detail}</div>
+                  <span className="evidence-src">{e.src}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <button className="welcome-cta" onClick={onJump}>
+            JUMP TO THIS WEEK'S BRIEFS →
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   INTELLIGENCE BRIEF PAGE
+   ============================================================ */
+function IntelPage({ tab, setTab }) {
+  return (
+    <>
+      <PageHead eyebrow="Engine · This Week" title="Intelligence Brief" />
+      <Ticker />
+      <Lede />
+      <div className="subtabs">
+        <button className={`subtab ${tab==="trends"?"active":""}`} onClick={() => setTab("trends")}>
+          Trends <span className="subtab-count">{TRENDS.length}</span>
+        </button>
+        <button className={`subtab ${tab==="pulse"?"active":""}`} onClick={() => setTab("pulse")}>
+          Cultural Pulse <span className="subtab-count">{CULTURAL_PULSE.length}</span>
+        </button>
+        <button className={`subtab ${tab==="comp"?"active":""}`} onClick={() => setTab("comp")}>
+          Competitors <span className="subtab-count">{COMPETITORS.length}</span>
+        </button>
+        <button className={`subtab ${tab==="amb"?"active":""}`} onClick={() => setTab("amb")}>
+          Ambassadors <span className="subtab-count">{AMBASSADORS.length}</span>
+        </button>
+      </div>
+
+      {tab === "trends" && (
+        <div className="grid grid-3">
+          {TRENDS.map(t => <TrendCard key={t.id} t={t} />)}
+        </div>
+      )}
+      {tab === "pulse" && (
+        <div className="grid grid-3">
+          {CULTURAL_PULSE.map(p => <PulseCard key={p.id} p={p} />)}
+        </div>
+      )}
+      {tab === "comp" && (
+        <div className="grid grid-2">
+          {COMPETITORS.map(c => <CompCard key={c.id} c={c} />)}
+        </div>
+      )}
+      {tab === "amb" && (
+        <div className="grid grid-2">
+          {AMBASSADORS.map(a => <AmbCard key={a.id} a={a} />)}
+        </div>
+      )}
+    </>
+  );
+}
+
+function PageHead({ eyebrow, title }) {
+  return (
+    <div className="page-head">
+      <div>
+        <div className="eyebrow">{eyebrow}</div>
+        <h1>{title}</h1>
+      </div>
+      <div className="meta">
+        <span className="date-pill">{WEEK_LABEL}</span>
+        <span className="refresh-pill"><span className="refresh-dot"></span>last refresh: {TODAY} · 8:14 PM</span>
+      </div>
+    </div>
+  );
+}
+
+function Ticker() {
+  return (
+    <div className="ticker">
+      <div className="ticker-label">⚡ THIS WEEK</div>
+      <div className="ticker-track">
+        {[...TICKER, ...TICKER].map((t, i) => (
+          <span key={i}><strong>{t.tag}:</strong>{t.text}</span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function Lede() {
+  return (
+    <div className="lede">
+      <div className="lede-col"><div className="lede-label">THE THESIS</div><div className="lede-text">{LEDE.thesis}</div></div>
+      <div className="lede-col"><div className="lede-label">THE CATEGORY</div><div className="lede-text">{LEDE.competitive}</div></div>
+      <div className="lede-col"><div className="lede-label">THE PULSE</div><div className="lede-text">{LEDE.pulse}</div></div>
+    </div>
+  );
+}
+
+/* ============================================================
+   CARDS
+   ============================================================ */
+function TrendCard({ t }) {
+  return (
+    <div className="card">
+      <div className="card-head">
+        <span className="card-type">{t.type}</span>
+        <span className="card-velocity">
+          <span className={`velocity-dot velocity-${t.velocity}`}></span>{t.velocity}
+        </span>
+      </div>
+      <div className="card-hook">{t.hook}</div>
+      <div className="card-detail">{t.detail}</div>
+      <div className="card-play">
+        <span className="card-play-label">▶ THE PLAY</span>
+        {t.play}
+      </div>
+      <div className="card-meta-row">
+        <div className="trend-pillars">
+          {t.pillars.map(p => <span key={p} className={`pillar-pip pip-${p}`}>{p}</span>)}
+        </div>
+      </div>
+      <div className="card-sources">
+        {t.sources.map(s => <span key={s} className="source-chip">{s}</span>)}
+      </div>
+    </div>
+  );
+}
+
+function PulseCard({ p }) {
+  return (
+    <div className="card">
+      <div className="card-head">
+        <span className={`card-type type-${p.type}`}>{p.typeLabel}</span>
+      </div>
+      <div className="card-hook">{p.hook}</div>
+      <div className="card-detail">{p.detail}</div>
+      <div className="card-play">
+        <span className="card-play-label">▶ THE PLAY</span>
+        {p.play}
+      </div>
+      <div className="card-sources">
+        {p.sources.map(s => <span key={s} className="source-chip">{s}</span>)}
+      </div>
+    </div>
+  );
+}
+
+function CompCard({ c }) {
+  const dirSym = c.direction === "up" ? "↑" : c.direction === "down" ? "↓" : "→";
+  return (
+    <div className="card">
+      <div className="card-head">
+        <span className="card-type" style={{background:"#8A6E4D"}}>COMPETITOR</span>
+        <span className={`comp-direction dir-${c.direction}`}>{dirSym} {c.change}</span>
+      </div>
+      <div className="card-hook">{c.name}</div>
+      <div className="card-detail">{c.detail}</div>
+      <div className="card-play">
+        <span className="card-play-label">▶ POSTURE</span>
+        {c.posture}
+      </div>
+      <div className="card-sources">
+        {c.sources.map(s => <span key={s} className="source-chip">{s}</span>)}
+      </div>
+    </div>
+  );
+}
+
+function AmbCard({ a }) {
+  return (
+    <div className="amb-card">
+      <div className="amb-avatar">{a.initials}</div>
+      <div style={{flex:1, minWidth:0}}>
+        <div className="amb-handle">{a.handle}</div>
+        <div className="amb-handle-sub">{a.sub}</div>
+        <div className="amb-stats">
+          <span>{a.followers} followers</span> · <span>{a.note}</span>
+        </div>
+      </div>
+      <span className={`amb-status status-${a.status}`}>{a.status}</span>
+    </div>
+  );
+}
+
+/* ============================================================
+   CONTENT BRIEFS PAGE
+   ============================================================ */
+function BriefsPage({ onOpen }) {
+  const pillars = [
+    { id: "magic", label: "MAGIC IS REAL", color: "var(--green)", desc: "Milestone moments · founder-led · the hero pillar." },
+    { id: "multiply", label: "PUT IT ON EVERYTHING", color: "var(--coral)", desc: "Usage multiplication · sauce-pour · repeat-velocity engine." },
+    { id: "mom", label: "MOM'S TABLE", color: "var(--turmeric)", desc: "Heritage · Afghan recipes · first-gen storytelling depth." },
+    { id: "squad", label: "SAUCY SQUAD", color: "var(--lemon)", desc: "Community · collabs · UGC · the shelf-spotted lane." }
+  ];
+
+  return (
+    <>
+      <PageHead eyebrow="Engine · This Week" title="Content Briefs" />
+      <Ticker />
+      <div style={{display:"flex",gap:18,marginBottom:24,flexWrap:"wrap"}}>
+        <SummaryStat num={BRIEFS.length} label="briefs" sub="this week" />
+        <SummaryStat num={BRIEFS.filter(b => b.priority === "big").length} label="big swings" sub="anchor moves" />
+        <SummaryStat num={BRIEFS.filter(b => b.dnaPattern === "sister-led").length} label="IG sister-led" sub="of 6-8 target" />
+        <SummaryStat num={BRIEFS.filter(b => b.dnaPattern === "category-explainer").length} label="TikTok explainer" sub="format-gap fix" />
+        <SummaryStat num="4 / 4" label="pillars" sub="full mix" />
+        <SummaryStat num="31%" label="magic ratio" sub="≤60% cap ✓" />
+      </div>
+      {pillars.map(p => {
+        const briefsInPillar = BRIEFS.filter(b => b.pillar === p.id);
+        return (
+          <div key={p.id} className="pillar-section">
+            <div className="pillar-header">
+              <div className="pillar-swatch" style={{background:p.color}}></div>
+              <div className="pillar-name">{p.label}</div>
+              <div className="pillar-meta">{briefsInPillar.length} {briefsInPillar.length === 1 ? "brief" : "briefs"} · {p.desc}</div>
+            </div>
+            <div className="grid grid-3">
+              {briefsInPillar.map(b => <BriefCard key={b.id} b={b} onOpen={onOpen} />)}
+            </div>
+          </div>
+        );
+      })}
+    </>
+  );
+}
+
+function SummaryStat({ num, label, sub }) {
+  return (
+    <div style={{background:"var(--paper)",border:"1.5px solid var(--green)",borderRadius:12,padding:"14px 20px",boxShadow:"0 2px 0 var(--green)",minWidth:120}}>
+      <div className="display" style={{fontSize:28,color:"var(--green-deep)",lineHeight:1}}>{num}</div>
+      <div style={{fontSize:11,textTransform:"uppercase",letterSpacing:"0.12em",fontWeight:700,color:"var(--ink)",marginTop:6}}>{label}</div>
+      <div style={{fontSize:11,color:"var(--ink-soft)",marginTop:2}}>{sub}</div>
+    </div>
+  );
+}
+
+function BriefCard({ b, onOpen }) {
+  return (
+    <div className="brief-card" onClick={() => onOpen(b.id)}>
+      <div className="brief-tags">
+        <span className={`brief-priority priority-${b.priority}`}>{b.priorityLabel}</span>
+        <span className="brief-platform">{b.platform}</span>
+        <span className="brief-sku">{b.skuChip}</span>
+      </div>
+      <div className="brief-concept">{b.concept}</div>
+      <div className="brief-bottom">
+        <span className="brief-time">{b.publishWindow}</span>
+        <span className="brief-id">{b.id}</span>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   BRIEF MODAL
+   ============================================================ */
+function BriefModal({ brief, onClose }) {
+  if (!brief) return null;
+  return (
+    <div className="modal-bg" onClick={onClose}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-head">
+          <h2>{brief.concept}</h2>
+          <button className="modal-close" onClick={onClose}>×</button>
+        </div>
+        <div className="modal-body">
+
+          <div className="modal-section">
+            <div className="modal-grid-2">
+              <div>
+                <div className="modal-row">
+                  <div className="modal-row-label">PILLAR</div>
+                  {brief.pillarLabel}
+                </div>
+                <div className="modal-row">
+                  <div className="modal-row-label">SKU</div>
+                  {brief.sku}
+                </div>
+                <div className="modal-row">
+                  <div className="modal-row-label">DNA PATTERN</div>
+                  <span className="card-dna-chip">{brief.dnaPattern}</span>
+                </div>
+                <div className="modal-row">
+                  <div className="modal-row-label">PRIORITY</div>
+                  <span className={`brief-priority priority-${brief.priority}`}>{brief.priorityLabel}</span>
+                </div>
+              </div>
+              <div>
+                <div className="modal-row">
+                  <div className="modal-row-label">PLATFORM</div>
+                  {brief.platform}
+                </div>
+                <div className="modal-row">
+                  <div className="modal-row-label">PUBLISH</div>
+                  {brief.publishWindow}
+                </div>
+                <div className="modal-row">
+                  <div className="modal-row-label">DURATION</div>
+                  {brief.duration}
+                </div>
+                <div className="modal-row">
+                  <div className="modal-row-label">AUDIO</div>
+                  {brief.audio}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div className="modal-section">
+            <div className="modal-section-label">WHY THIS, WHY NOW</div>
+            <div style={{fontSize:14,lineHeight:1.55,color:"var(--ink)"}}>{brief.why}</div>
+          </div>
+
+          {brief.captions?.ig && (
+            <div className="modal-section">
+              <div className="modal-section-label">CAPTION VARIANTS</div>
+              <div className="caption-box">
+                <div className="caption-label">
+                  <span className="caption-label-text">Instagram</span>
+                  <span className="caption-label-sub">primary</span>
+                </div>
+                {brief.captions.ig}
+              </div>
+              {brief.captions.tiktok && (
+                <div className="caption-box">
+                  <div className="caption-label">
+                    <span className="caption-label-text">TikTok</span>
+                    <span className="caption-label-sub">native trim</span>
+                  </div>
+                  {brief.captions.tiktok}
+                </div>
+              )}
+            </div>
+          )}
+
+          {brief.hooks?.length > 0 && (
+            <div className="modal-section">
+              <div className="modal-section-label">HOOK OPTIONS</div>
+              {brief.hooks.map((h, i) => (
+                <div key={i} className={`hook-row ${h.tag ? "hook-rec" : ""}`}>
+                  <span>{h.text}</span>
+                  {h.tag && <span className="hook-tag">{h.tag}</span>}
+                </div>
+              ))}
+            </div>
+          )}
+
+          {brief.scenes?.length > 0 && (
+            <div className="modal-section">
+              <div className="modal-section-label">SCRIPT / SCENES</div>
+              {brief.scenes.map(s => (
+                <div key={s.num} className="scene-row">
+                  <div className="scene-num">{s.num}</div>
+                  <div className="scene-time">{s.time}</div>
+                  <div>{s.text}</div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {brief.drivers?.length > 0 && (
+            <div className="modal-section">
+              <div className="modal-section-label">DRIVEN BY (ENGINE TRACE)</div>
+              <div className="driven-by">
+                {brief.drivers.map((d, i) => (
+                  <span key={i} className="driven-chip">{d}</span>
+                ))}
+              </div>
+            </div>
+          )}
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   DECISIONS PAGE
+   ============================================================ */
+function DecisionsPage() {
+  return (
+    <>
+      <PageHead eyebrow="Engine · This Week" title="Decisions" />
+      <div className="lede" style={{gridTemplateColumns:"1fr"}}>
+        <div className="lede-col" style={{borderRight:0}}>
+          <div className="lede-label">WHY THIS EXISTS</div>
+          <div className="lede-text">The engine makes informed calls so you don't have to. Every call is visible, traceable, and override-able. You scan. You veto if needed. You stay in control without micromanaging every decision.</div>
+        </div>
+      </div>
+      <div className="dec-list">
+        {DECISIONS.map((d, i) => (
+          <div key={i} className="dec-row">
+            <span className={`dec-tag dec-${d.tag.toLowerCase()}`}>{d.tag}</span>
+            <div>
+              <div className="dec-text"><strong>{d.text}</strong></div>
+              <div className="dec-why">{d.why}</div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+/* ============================================================
+   WHOLESALE LENS PAGE
+   ============================================================ */
+function WholesaleLensPage() {
+  const hero = WHOLESALE_LENS.hero;
+  return (
+    <>
+      <PageHead eyebrow="Buyer View · The Second Audience" title="Wholesale Lens" />
+      <div className="wl-hero">
+        <MaazahArch className="wl-hero-arch" />
+        <div className="wl-hero-eyebrow">{hero.eyebrow}</div>
+        <div className="wl-hero-title">{hero.title}</div>
+        <div className="wl-hero-read">{hero.read}</div>
+      </div>
+      <div className="wl-grid">
+        {WHOLESALE_LENS.metrics.map((m, i) => (
+          <div key={i} className="wl-card">
+            <div className="wl-card-top">
+              <span className={`wl-card-health health-${m.health.toLowerCase()}`}>{m.health}</span>
+              <span className="wl-card-eye" role="img" aria-label="buyer-view">👁</span>
+            </div>
+            <div className={m.stat.length > 8 ? "wl-card-stat-soft" : "wl-card-stat"}>{m.stat}</div>
+            <div className="wl-card-label">{m.label}</div>
+            <div className="wl-buyer">
+              <span className="wl-buyer-label">▶ Your buyer reads this as</span>
+              {m.buyer}
+            </div>
+            <div className="wl-move">
+              <span className="wl-move-label">⊙ Engine's next move</span>
+              {m.move}
+            </div>
+            <div className="wl-src">
+              {m.src.map((s, idx) => <span key={idx} className="wl-src-chip">{s}</span>)}
+            </div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+/* ============================================================
+   STUDIO TEASER PAGE
+   ============================================================ */
+function StudioPage() {
+  return (
+    <>
+      <PageHead eyebrow="Engine · Roadmap" title="Studio" />
+      <div className="studio-hero">
+        <MaazahArch className="studio-hero-arch" />
+        <div className="studio-eyebrow">COMING IN PHASE 2</div>
+        <div className="studio-title">The Sister Co-Pilot — drop ANY signal into Studio, get a ready-to-ship brief in your voice.</div>
+        <div className="studio-sub">Click any Trend, Pulse, or Competitor card and "send to Studio." The engine drafts a hook, caption, script, music, and hashtag set tuned to your voice compass. You edit in-canvas + drop it into the briefs queue. Goal: 60-90 seconds from signal → shippable.</div>
+      </div>
+      <div className="studio-features">
+        <div className="studio-feat">
+          <div className="studio-feat-num">01</div>
+          <div className="studio-feat-title">"Send to Studio" on every card</div>
+          <div className="studio-feat-body">Every signal in the Intelligence Brief gets a one-click handoff. Studio reads the signal, your voice compass, your SKU rules, and drafts.</div>
+        </div>
+        <div className="studio-feat">
+          <div className="studio-feat-num">02</div>
+          <div className="studio-feat-title">Live voice training</div>
+          <div className="studio-feat-body">Weekly: you upload a voice-note reaction to last week's briefs. The engine tightens the voice compass each refresh. The longer it runs, the more it sounds like you.</div>
+        </div>
+        <div className="studio-feat">
+          <div className="studio-feat-num">03</div>
+          <div className="studio-feat-title">Counter-Strike (90-min response)</div>
+          <div className="studio-feat-body">If a competitor moves or a cultural moment opens unexpectedly, the engine pings you with a draft within 90 minutes. Approve, edit, ship.</div>
+        </div>
+      </div>
+      <div style={{marginTop:24}} className="soon-card">
+        <h3>This is the V2 surface. We'll demo a working prototype in the diagnostic if you want to dig in.</h3>
+        <p style={{marginTop:8}}>For Thursday: focus on the Intelligence Brief + Content Briefs. They're the proof that the read produces.</p>
+      </div>
+    </>
+  );
+}
+
+/* ============================================================
+   HOW IT WORKS MODAL
+   ============================================================ */
+function HowItWorksModal({ onClose }) {
+  return (
+    <div className="modal-bg" onClick={onClose}>
+      <div className="modal" onClick={(e) => e.stopPropagation()}>
+        <div className="modal-head">
+          <h2>How this engine works</h2>
+          <button className="modal-close" onClick={onClose}>×</button>
+        </div>
+        <div className="modal-body">
+
+          <div className="hiw-section">
+            <h3>The weekly ritual</h3>
+            <div className="hiw-step">
+              <div className="hiw-num">1</div>
+              <div>
+                <div className="hiw-title">Signal sweep</div>
+                <div className="hiw-body">Every Sunday, the engine pulls from ~20 free signal sources — TikTok hashtags + Pinterest + Google Trends + retail-trade press + competitor sites + creator graphs + cultural-moment trackers — through the multi-tenant signal pipeline.</div>
+              </div>
+            </div>
+            <div className="hiw-step">
+              <div className="hiw-num">2</div>
+              <div>
+                <div className="hiw-title">Filter through your tonal territories</div>
+                <div className="hiw-body">A signal qualifies for the Pulse only if it maps to ≥1 of your 8 tonal territories (Magic, Heritage, Saucy Squad, Sisters, Mom's Magic Green, Put It On Everything, Category Creation, Costco-Aisle Moment). Everything else gets dropped before it touches a brief.</div>
+              </div>
+            </div>
+            <div className="hiw-step">
+              <div className="hiw-num">3</div>
+              <div>
+                <div className="hiw-title">Generate briefs in your voice compass — platform-aware</div>
+                <div className="hiw-body">The engine drafts 12-14 briefs across 4 pillars, passing every line through the Voice Compass and SPLITS them by platform. Instagram: 6-8 sister-led milestone + recipe + community content (the lane that already works for you — 426 likes on the Costco push). TikTok: weekly category-explainer in the "What is chutney?" pattern (71 saves) + meme-fluent audio. The IG audio lane and the TikTok audio lane are different rosters.</div>
+              </div>
+            </div>
+            <div className="hiw-step">
+              <div className="hiw-num">4</div>
+              <div>
+                <div className="hiw-title">Human-Filter Audit (24 checks)</div>
+                <div className="hiw-body">Before you ever see the dashboard, every brief passes 24 audit checks — pillar tags, DNA balance, Sister Rule, magic-cap ratio, SKU spelling, no competitor names in consumer copy, music-lane fit, and 17 more. Anything that fails gets fixed silently before ship.</div>
+              </div>
+            </div>
+            <div className="hiw-step">
+              <div className="hiw-num">5</div>
+              <div>
+                <div className="hiw-title">Publish Sunday night for Monday morning</div>
+                <div className="hiw-body">You open the dashboard. The Welcome popup tells you the moves of the week + what to watch. You scan, approve, and ship — or use any brief as a starting point and edit in your voice.</div>
+              </div>
+            </div>
+          </div>
+
+          <div className="hiw-section">
+            <h3>The training loop</h3>
+            <div className="hiw-body" style={{fontSize:14,lineHeight:1.6}}>
+              Every Friday you drop a voice-note reaction to the briefs that shipped — what felt right, what felt off, what you'd change. The engine pulls those notes into the next weekly refresh. The longer it runs, the closer it sounds to you.
+              <br/><br/>
+              <strong>Goal of the engine:</strong> never face a blank page on Monday morning. Buy back the 20+ hours a week you're currently spending being your own social team + signal-watcher + competitive analyst + content strategist + buyer-signal monitor. The engine does those jobs in your voice. You stay the founders.
+            </div>
+          </div>
+
+          <div className="hiw-section">
+            <h3>The unspoken second audience</h3>
+            <div className="hiw-body" style={{fontSize:14,lineHeight:1.6}}>
+              Every Costco, Sprouts, Whole Foods, and Albertsons buyer pulls up @maazahmagic before they renew, extend, or cut a SKU. Your IG presence is foot-traffic evidence + momentum proof + account-quality reflection. Most CPG founders don't think about this. The <strong>Wholesale Lens</strong> tab makes it visible — what your buyer sees Tuesday morning, scored on the metrics they actually use, with the engine's recommended next moves.
+              <br/><br/>
+              Every brief implicitly serves both audiences. The engine is built around it.
+            </div>
+          </div>
+
+          <div className="hiw-section">
+            <h3>What this dashboard is (and isn't)</h3>
+            <div className="hiw-body" style={{fontSize:14,lineHeight:1.6}}>
+              This is a PITCH SPEC built from public sources only — your site, your IG, your retail footprint, your press, and the May 2026 category landscape. Every claim is a starting hypothesis to refine with you in the 30-Day Quest diagnostic.
+              <br/><br/>
+              We didn't have founder interviews, voice-fidelity calibration sessions, or your retail-buyer data. What you're seeing is what the engine produces with zero direct input from you. The diagnostic + the OPERATE retainer is where the engine gets <em>tuned</em> to you specifically.
+              <br/><br/>
+              The full read on the brand lives in <code>BRAND_THESIS.md</code> in the project folder. The operating playbook lives in <code>CLAUDE.md</code>. This dashboard is the proof the read can produce.
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   MOUNT
+   ============================================================ */
+ReactDOM.createRoot(document.getElementById("root")).render(<MaazahApp />);
+</script>
+</body>
+</html>
