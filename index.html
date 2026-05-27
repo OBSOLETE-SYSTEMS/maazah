@@ -1045,12 +1045,12 @@ const TICKER = [
    Ported from the OBSOLETE engine pattern, Maazah voice.
    ============================================================ */
 
-const WELCOME_PULLQUOTE = "Costco week 2. The repeat-velocity window is open. The next 8 weeks decide the next 12 months.";
+const WELCOME_PULLQUOTE = "Costco week 2. What ships in their feed over the next 8 weeks shapes whether Costco extends — and that shapes the next 12 months.";
 
 const WELCOME_THESIS = {
-  happening: "Roasted Red Pepper hit Midwest Costco shelves nine days ago. The shoppers who tossed a tub in their cart Saturday open it Tuesday — and they decide whether to grab another in three weeks based on what they see in their feed between now and then. Cross-channel, your TikTok is a different story than IG: same Costco-cart content earned 426 likes on IG and 11 on TikTok. The format register is the gap, not the audience.",
-  edge: "Two visible sister-founders, a saucy-squad voice that already earns 350+ likes on milestone IG posts, a category-explainer TikTok pattern that earned 71 saves on a single post, and an 18-month arc of six retail milestones — Whole Foods nationwide, Times Square billboard, Fancy Food Show NYC, Sprouts nationwide, Booth of Year at Expo West, Albertsons Top 10 finalist, Costco Midwest. Most CPG brands your age have had two milestones. The story's already there.",
-  job: "Flood the Costco-cohort's IG feed with usage multiplication (Mon → Wed → Fri 'put it on everything' Roasted Red Pepper series). Activate TikTok with the category-explainer pattern that proved itself (M04 — 'What is lentil dip?'). Drop one first-gen heritage Reel for the Thursday late-night cohort (T01). Hold on Albertsons content until result lands."
+  happening: "Your Roasted Red Pepper tub hit Midwest Costco shelves nine days ago. The shoppers who grabbed one this past weekend will open it this week — and decide whether to grab another in three weeks based on what they see from you between now and then. One thing worth knowing: your Instagram and TikTok are landing very differently right now. The same Costco-cart post earned 426 likes on Instagram and 11 on TikTok. The two platforms want different things from you.",
+  edge: "You're not starting from zero. Sister-led Instagram posts already earn 350+ likes on milestone moments. A single TikTok — 'What is chutney?' — earned 71 saves, which is the rarest signal a wholesale buyer pulls up your account looking for. And you've stacked six retail wins in 18 months: Whole Foods nationwide, Times Square billboard, Fancy Food Show NYC, Sprouts nationwide, Booth of Year + Albertsons Top 10 finalist at Expo West, and now Costco Midwest. Most brands your age have hit two. The story's already there.",
+  job: "Three things we'd suggest, plus one to hold.\n\n· On Instagram, a three-day series showing Roasted Red Pepper used three different ways — Monday eggs, Wednesday grilled chicken, Friday pizza. Keeps last weekend's Costco shoppers reaching for the tub.\n\n· On TikTok, a 'What is lentil dip?' post in the same format that earned 71 saves last fall — period-spaced descriptors, Mom-coded origin line.\n\n· Thursday late-night, one heritage Reel — 'things I used to explain. things I now sell at Costco.'\n\n· Hold all Albertsons content until the result lands. Pre-announcing dilutes either outcome."
 };
 
 const WELCOME_HIGHLIGHTS = [
@@ -1960,7 +1960,7 @@ function MondayMemoModal({ onClose, onShipIt }) {
         <div className="mmm-hero">
           <div className="mmm-hero-date">{WEEK_LABEL}</div>
           <h2 className="mmm-hero-title">The Monday Memo</h2>
-          <div className="mmm-hero-sig">— The Strategist · OBSOLETE Engine</div>
+          <div className="mmm-hero-sig">— The Strategist</div>
         </div>
 
         <div className="mmm-body">
@@ -1977,8 +1977,8 @@ function MondayMemoModal({ onClose, onShipIt }) {
               <p className="mmm-read">{WELCOME_THESIS.edge}</p>
             </div>
             <div className="mmm-read-block">
-              <div className="mmm-read-sub-eye">This week's job</div>
-              <p className="mmm-read">{WELCOME_THESIS.job}</p>
+              <div className="mmm-read-sub-eye">What we'd recommend</div>
+              <p className="mmm-read" style={{whiteSpace:"pre-line"}}>{WELCOME_THESIS.job}</p>
             </div>
           </div>
 
