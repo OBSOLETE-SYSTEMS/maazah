@@ -670,6 +670,51 @@ a{color:inherit;text-decoration:none}
 .status-cold{background:#F0E5DA;color:#8A6E4D}
 
 /* Pillar section */
+/* MAAZAH PANEL — per-brief synthetic pre-test (inside Brief Modal) */
+.mzp-section{background:linear-gradient(135deg,rgba(111,175,77,0.06) 0%,rgba(214,122,90,0.07) 100%);border:1.5px solid var(--brand-light);border-radius:14px;padding:20px 22px;margin-top:6px}
+.mzp-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:14px}
+.mzp-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.18em;color:var(--brand-deep);font-weight:700;text-transform:uppercase;margin-bottom:5px}
+.mzp-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:21px;letter-spacing:0.005em;color:var(--ink);line-height:1.05}
+.mzp-avg{display:flex;align-items:baseline;gap:4px;padding:8px 14px;border-radius:99px;font-weight:700;flex-shrink:0;font-family:'Bagel Fat One',serif}
+.mzp-avg span:first-child{font-size:22px;line-height:1;letter-spacing:0.01em}
+.mzp-avg span:last-child{font-size:11px;letter-spacing:0.04em;font-family:'JetBrains Mono',monospace;font-weight:600}
+.mzp-avg-high{background:#E7F0DD;color:#3B6B2D;border:1.5px solid #B9D89A}
+.mzp-avg-mid{background:#FAEED1;color:#8B6F1F;border:1.5px solid #E8C547}
+.mzp-avg-low{background:#F8DCD7;color:#9E3F31;border:1.5px solid #E8B89E}
+.mzp-headline{font-family:'Fraunces';font-size:14.5px;line-height:1.55;color:var(--ink);font-weight:500;font-style:italic;padding:12px 16px;background:#fff;border-left:3px solid var(--brand-primary);border-radius:0 8px 8px 0;margin-bottom:14px;letter-spacing:-0.005em}
+.mzp-error{background:rgba(232,134,66,0.18);color:#9E3F31;padding:10px 14px;border-radius:8px;font-size:13px;margin-bottom:12px;font-family:'JetBrains Mono',monospace}
+.mzp-run-btn{background:var(--brand-accent);color:#fff;border:0;padding:9px 18px;border-radius:99px;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;font-weight:800;text-transform:uppercase;cursor:pointer;transition:background 0.15s,transform 0.1s,box-shadow 0.15s;box-shadow:0 3px 0 var(--brand-accent-deep,#9E3F31);flex-shrink:0}
+.mzp-run-btn:hover:not(:disabled){background:var(--brand-accent-deep,#9E3F31);transform:translateY(-1px);box-shadow:0 4px 0 #7E2E20}
+.mzp-run-btn:disabled{opacity:0.45;cursor:not-allowed}
+.mzp-running-tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;color:var(--brand-accent);font-weight:700;text-transform:uppercase;animation:mzp-pulse-loading 1.4s ease-in-out infinite}
+@keyframes mzp-pulse-loading{0%,100%{opacity:0.5}50%{opacity:1}}
+.mzp-prerun{display:flex;align-items:flex-start;gap:14px;padding:12px 16px;background:var(--butter-light);border:1.5px dashed var(--brand-light);border-radius:10px}
+.mzp-prerun-icon{font-size:24px;line-height:1;flex-shrink:0}
+.mzp-prerun-title{font-family:'Fraunces';font-size:13.5px;line-height:1.4;color:var(--ink);font-weight:600;letter-spacing:-0.005em;margin-bottom:4px}
+.mzp-prerun-sub{font-family:'Inter',sans-serif;font-size:11.5px;line-height:1.55;color:var(--ink-soft);font-weight:500}
+.mzp-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:680px){.mzp-grid{grid-template-columns:1fr}}
+.mzp-card{background:#fff;border:1.5px solid var(--brand-light);border-radius:10px;padding:13px 15px;display:flex;flex-direction:column;gap:9px}
+.mzp-card-head{display:grid;grid-template-columns:auto 1fr auto;gap:11px;align-items:center}
+.mzp-card-emoji{font-size:24px;line-height:1;flex-shrink:0}
+.mzp-card-id{min-width:0}
+.mzp-card-name{font-family:'Bagel Fat One',serif;font-weight:400;font-size:15px;letter-spacing:0.005em;color:var(--ink);line-height:1}
+.mzp-card-age{font-family:'JetBrains Mono',monospace;font-size:10.5px;font-weight:500;color:var(--ink-soft);letter-spacing:0.04em}
+.mzp-card-role{font-family:'JetBrains Mono',monospace;font-size:9.5px;font-weight:600;color:var(--ink-soft);letter-spacing:0.06em;text-transform:uppercase;margin-top:3px;line-height:1.35}
+.mzp-score{display:flex;align-items:baseline;gap:1px;padding:5px 10px;border-radius:99px;font-weight:800;flex-shrink:0}
+.mzp-score-num{font-family:'Bagel Fat One',serif;font-size:18px;font-weight:400;letter-spacing:0.01em;line-height:1}
+.mzp-score-denom{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:600;letter-spacing:0.04em;opacity:0.7}
+.mzp-score-high{background:#E7F0DD;color:#3B6B2D}
+.mzp-score-mid{background:#FAEED1;color:#8B6F1F}
+.mzp-score-low{background:#F8DCD7;color:#9E3F31}
+.mzp-score-loading{background:rgba(214,122,90,0.12);color:var(--brand-accent);font-family:'JetBrains Mono',monospace;letter-spacing:0.1em;animation:mzp-pulse-loading 1.4s ease-in-out infinite}
+.mzp-card-quote{font-family:'Fraunces';font-size:13.5px;line-height:1.5;color:var(--ink);font-style:italic;font-weight:500;letter-spacing:-0.005em}
+.mzp-card-edit{display:flex;gap:8px;align-items:flex-start;padding-top:8px;border-top:1px dashed var(--brand-light);font-size:11.5px;line-height:1.45}
+.mzp-card-edit-tag{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;color:var(--brand-deep);font-weight:800;text-transform:uppercase;flex-shrink:0;padding-top:1px}
+.mzp-card-edit-text{color:var(--ink-soft);font-style:italic}
+.mzp-card-pulse{height:32px;background:linear-gradient(90deg,rgba(111,175,77,0.06) 25%,rgba(111,175,77,0.16) 50%,rgba(111,175,77,0.06) 75%);background-size:200% 100%;border-radius:6px;animation:mzp-shimmer 1.4s ease-in-out infinite}
+@keyframes mzp-shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
 /* MEET THE PANEL — synthetic-reader roster (bottom of Briefs page) */
 .panel-roster{margin-top:32px;padding:24px 26px 22px;background:linear-gradient(135deg,#F4FAEC 0%,#FDF1EB 100%);border:1.5px solid var(--brand-light);border-radius:16px}
 .panel-roster-head{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:start;margin-bottom:18px}
@@ -3494,6 +3539,123 @@ function AmplifyCard({ plan }) {
   );
 }
 
+function MaazahPanel({ brief }) {
+  const [loading, setLoading] = React.useState(false);
+  const [data, setData] = React.useState(null);
+  const [error, setError] = React.useState(null);
+  const [requested, setRequested] = React.useState(false);
+
+  React.useEffect(() => {
+    setData(null);
+    setError(null);
+    setRequested(false);
+  }, [brief.id]);
+
+  function runPanel() {
+    setRequested(true);
+    setLoading(true);
+    setData(null);
+    setError(null);
+    fetch('/api/panel', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({ brief })
+    })
+      .then(r => r.json())
+      .then(d => {
+        if (d.reactions) setData(d);
+        else setError(d.detail || d.error || 'panel failed');
+        setLoading(false);
+      })
+      .catch(e => {
+        setError(String(e));
+        setLoading(false);
+      });
+  }
+
+  const scoreColor = (s) => s >= 8 ? 'high' : s >= 5 ? 'mid' : 'low';
+  const avg = data ? Math.round((data.reactions.reduce((a, r) => a + r.score, 0) / data.reactions.length) * 10) / 10 : null;
+
+  return (
+    <div className="mzp-section">
+      <div className="mzp-head">
+        <div>
+          <div className="mzp-eyebrow">// THE PANEL READS THIS</div>
+          <div className="mzp-title">4 synthetic customers · brief pre-test</div>
+        </div>
+        {avg != null ? (
+          <div className={"mzp-avg mzp-avg-" + scoreColor(avg)}>
+            <span>{avg}</span>
+            <span>/10 avg</span>
+          </div>
+        ) : !requested ? (
+          <button className="mzp-run-btn" onClick={runPanel} disabled={loading}>
+            {loading ? "Running…" : "▷ Run pre-test"}
+          </button>
+        ) : loading ? (
+          <span className="mzp-running-tag">running…</span>
+        ) : null}
+      </div>
+
+      {data?.headline_insight && (
+        <div className="mzp-headline">{data.headline_insight}</div>
+      )}
+
+      {!requested && !error && (
+        <div className="mzp-prerun">
+          <span className="mzp-prerun-icon">👥</span>
+          <div>
+            <div className="mzp-prerun-title">Pressure-test this brief against 4 simulated Maazah customers</div>
+            <div className="mzp-prerun-sub">Layla (Afghan-American heritage · Twin Cities) · Brenna (Costco-mom · Naperville IL) · Marcus (category-curious foodie · Brooklyn) · Priya (working mom of 2 · Eden Prairie MN). Each scores it 1-10 with a reaction and an edit suggestion. ~3-5 seconds.</div>
+          </div>
+        </div>
+      )}
+
+      {error && <div className="mzp-error">⚠ {error}</div>}
+
+      {(requested || data) && (
+        <div className="mzp-grid">
+          {MAAZAH_PANEL.map(p => {
+            const reaction = data?.reactions?.find(r => r.persona === p.name);
+            return (
+              <div key={p.id} className="mzp-card">
+                <div className="mzp-card-head">
+                  <div className="mzp-card-emoji">{p.emoji}</div>
+                  <div className="mzp-card-id">
+                    <div className="mzp-card-name">{p.name} <span className="mzp-card-age">· {p.age}</span></div>
+                    <div className="mzp-card-role">{p.label.toLowerCase().replace(/-/g, " ")} · {p.city}</div>
+                  </div>
+                  {reaction ? (
+                    <div className={"mzp-score mzp-score-" + scoreColor(reaction.score)}>
+                      <span className="mzp-score-num">{reaction.score}</span>
+                      <span className="mzp-score-denom">/10</span>
+                    </div>
+                  ) : loading ? (
+                    <div className="mzp-score mzp-score-loading"><span>·</span><span>·</span><span>·</span></div>
+                  ) : null}
+                </div>
+                {reaction ? (
+                  <>
+                    <div className="mzp-card-quote">"{reaction.reaction}"</div>
+                    {reaction.suggested_edit && reaction.suggested_edit !== "null" && reaction.suggested_edit !== null && (
+                      <div className="mzp-card-edit">
+                        <span className="mzp-card-edit-tag">+ edit</span>
+                        <span className="mzp-card-edit-text">{reaction.suggested_edit}</span>
+                      </div>
+                    )}
+                  </>
+                ) : loading ? (
+                  <div className="mzp-card-pulse"></div>
+                ) : null}
+              </div>
+            );
+          })}
+        </div>
+      )}
+    </div>
+  );
+}
+
 function BriefModal({ brief, onClose, onDrop }) {
   if (!brief) return null;
   const conv = getConviction(brief.id);
@@ -3606,6 +3768,11 @@ function BriefModal({ brief, onClose, onDrop }) {
               <AmplifyCard plan={ampPlan} />
             </div>
           )}
+
+          {/* PANEL PRE-TEST — 4 synthetic customers (Gemini 2.5 Flash, live) */}
+          <div className="modal-section">
+            <MaazahPanel brief={brief} />
+          </div>
 
           {/* SEND TO STUDIO CTA */}
           {onDrop && (
