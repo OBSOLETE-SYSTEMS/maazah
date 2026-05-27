@@ -3481,19 +3481,50 @@ function StudioModal({ onClose, initialSeed }) {
     setListening(true);
   };
 
-  const handleSend = (override) => {
+  const [sending, setSending] = React.useState(false);
+
+  const handleSend = async (override) => {
     const content = (override ?? text).trim();
-    if (!content) return;
-    setMessages(m => [...m, { role: "user", text: content }]);
+    if (!content || sending) return;
+    const newUserMsg = { role: "user", content };
+    setMessages(m => [...m, newUserMsg]);
     setText("");
-    // Phase 6 is shell-only — show graceful "API not configured" assistant message.
-    // Phase 7 (Wednesday) wires Gemini Flash via /api/studio.js
-    setTimeout(() => {
-      setMessages(m => [...m, {
-        role: "assistant",
-        text: "📡 *Studio API not yet wired on this Vercel project.*\n\nOnce Alex adds **GEMINI_API_KEY** to maazah.vercel.app environment variables (Wednesday), I'll respond live in your voice with full engine context loaded — average 2-5 second responses via Gemini 2.5 Flash with `thinkingBudget:0`.\n\nFor now: every signal card has a `↓ Send to Studio` button that pre-loads this textarea with a smart seed. You can review + edit the seed and the Wednesday-live version will pick up right here."
-      }]);
-    }, 350);
+    setSending(true);
+
+    // Build full history for API (only last 8 turns to keep payload sane)
+    const fullHistory = [...messages, newUserMsg]
+      .slice(-8)
+      .map(m => ({ role: m.role, content: m.content || m.text }));
+
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 55000);
+
+    try {
+      const res = await fetch("/api/studio", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ messages: fullHistory }),
+        signal: controller.signal
+      });
+      clearTimeout(timer);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        const errText = data?.error === "missing_env_var"
+          ? "📡 *Studio API key not yet set on this Vercel project.*\n\nDrop **GEMINI_API_KEY** in maazah.vercel.app env vars and redeploy — Studio responds live in your voice with full engine context loaded (~2-5s via Gemini 2.5 Flash)."
+          : `Studio API error (${res.status}): ${data?.detail || data?.error || "unknown"}. Try again or refresh.`;
+        setMessages(m => [...m, { role: "assistant", content: errText }]);
+      } else {
+        setMessages(m => [...m, { role: "assistant", content: data?.message?.content || "(empty response)" }]);
+      }
+    } catch (e) {
+      clearTimeout(timer);
+      const errText = e.name === "AbortError"
+        ? "Studio request timed out at 55s. The model may be cold-starting — try again."
+        : `Studio request failed: ${e.message || "network error"}. Check the connection and try again.`;
+      setMessages(m => [...m, { role: "assistant", content: errText }]);
+    } finally {
+      setSending(false);
+    }
   };
 
   // Smart-seed auto-fire — only once per modal open
@@ -3544,9 +3575,16 @@ function StudioModal({ onClose, initialSeed }) {
             <div className="studio-messages">
               {messages.map((m, i) => (
                 <div key={i} className={"studio-msg studio-msg-" + m.role}>
-                  <div className="studio-msg-bubble">{m.text}</div>
+                  <div className="studio-msg-bubble">{m.content || m.text}</div>
                 </div>
               ))}
+              {sending && (
+                <div className="studio-msg studio-msg-assistant">
+                  <div className="studio-msg-bubble" style={{fontStyle:"italic",opacity:0.7,fontFamily:"'JetBrains Mono',monospace",fontSize:12}}>
+                    The Strategist is thinking...
+                  </div>
+                </div>
+              )}
             </div>
           )}
           {mode === "voice" && (
@@ -3574,7 +3612,7 @@ function StudioModal({ onClose, initialSeed }) {
               rows={2}
             />
             <button className={`studio-mic ${listening?"listening":""}`} onClick={toggleVoice} title={listening ? "Stop listening" : "Voice input"}>🎙️</button>
-            <button className="studio-send" onClick={() => handleSend()} disabled={!text.trim()}>Send</button>
+            <button className="studio-send" onClick={() => handleSend()} disabled={!text.trim() || sending}>{sending ? "..." : "Send"}</button>
           </div>
         </div>
       </div>

@@ -1,0 +1,10 @@
+{
+  "name": "obsolete-maazah-engine",
+  "version": "0.2.0",
+  "description": "Maazah strategic intelligence engine — OBSOLETE Signal Pipeline tenant",
+  "private": true,
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  }
+}
