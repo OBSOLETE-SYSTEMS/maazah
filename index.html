@@ -951,18 +951,18 @@ const BRAND_FENCE = [
 ];
 
 const SOURCES_SUMMARY = {
-  totalSources: 145,
+  totalSources: 200,
   lanes: 8,
   agents: 6,
   workers: 10,
   cronSchedules: 13,
   perLane: [
-    { lane: "Cultural · TV/film/music/memes/first-gen/diaspora", count: 49 },
-    { lane: "Ingredients · recipes + Afghan + heritage cooking", count: 32 },
-    { lane: "Competitive · ads + launches + heritage CPG peer set", count: 21 },
-    { lane: "Health · functional + lentil/plant protein", count: 18 },
-    { lane: "Retail · grocery trade + Costco UGC + buyer", count: 15 },
-    { lane: "Reviews · brand discovery + women-founded peer", count: 14 },
+    { lane: "Cultural · cooking shows + food TikTok + first-gen + entertainment", count: 67 },
+    { lane: "Ingredients · recipes + heritage + mainstream cooking + YouTube chefs", count: 57 },
+    { lane: "Competitive · ads + launches + sauce/condiment + heritage CPG peers", count: 25 },
+    { lane: "Health · functional + lentil/plant protein + dip-set", count: 24 },
+    { lane: "Retail · Costco UGC + grocery trade + haul channels", count: 20 },
+    { lane: "Reviews · brand discovery + tastemaker + women-founded + JBF/SFA", count: 17 },
     { lane: "Policy · cert culture + regulatory", count: 3 },
     { lane: "Parenting · light coverage (not Maazah wedge)", count: 2 }
   ]
@@ -975,14 +975,14 @@ const SOURCES_SUMMARY = {
 const PIPELINE_STATUS = {
   lastRefresh: "2026-05-26 · 4:25 PM CT",
   nextRefresh: "Sunday 9:00 PM CT",
-  sourcesWatching: 145,
+  sourcesWatching: 200,
   signalsLast7d: 24,
   workersActive: 2,
   workersTotal: 10,
   workerStatus: [
     { name: "RSS", status: "active", signals: 18, note: "Vittles · Cherry Bombe · BA · Snaxshot · Eater" },
     { name: "Apple Podcasts", status: "active", signals: 6, note: "Society & Culture top 100" },
-    { name: "Wikipedia", status: "ready", signals: 0, note: "32 pages monitored · all below velocity threshold this week (no press-cycle spikes) · working as designed" },
+    { name: "Wikipedia", status: "ready", signals: 0, note: "52 pages monitored · all below velocity threshold this week (no press-cycle spikes) · working as designed" },
     { name: "GDELT", status: "deploying", signals: 0, note: "global news + cultural-theme feed · maxDuration fix deployed yesterday · resumes Sunday refresh" },
     { name: "Google Trends", status: "ready", signals: 0, note: "17 watched terms · trending-list filter at MIN_TONAL_SCORE 0.15 · interest-over-time worker rebuild post-engagement" },
     { name: "Spotify", status: "auth-pending", signals: 0, note: "needs SPOTIFY_CLIENT_ID / SECRET env vars · Wednesday once Alex registers app" },
