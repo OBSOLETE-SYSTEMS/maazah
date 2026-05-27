@@ -314,6 +314,95 @@ a{color:inherit;text-decoration:none}
 .studio-send:disabled{opacity:0.5;cursor:not-allowed}
 .studio-shell-notice{background:rgba(214,122,90,0.12);border:1px dashed var(--brand-accent);color:var(--brand-accent-deep);padding:8px 12px;border-radius:8px;font-size:11.5px;line-height:1.45;margin-top:10px;font-family:'JetBrains Mono',monospace}
 
+/* ============================================================
+   Phone Shot List — swipeable phone-mockup carousel
+   ============================================================ */
+.psl-wrap{margin-bottom:20px;padding:18px 20px;background:linear-gradient(135deg,var(--butter-light) 0%,#FFF7C9 100%);border:1.5px solid var(--brand-light);border-radius:14px}
+.psl-header{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:16px;flex-wrap:wrap}
+.psl-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;color:var(--brand-deep);font-weight:700;text-transform:uppercase;margin-bottom:4px}
+.psl-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:20px;letter-spacing:0.005em;color:var(--ink);line-height:1.1}
+.psl-audio{display:flex;gap:10px;align-items:flex-start;background:#fff;border:1px solid var(--brand-light);border-radius:10px;padding:10px 14px;max-width:380px;min-width:240px}
+.psl-audio-icon{font-size:18px;color:var(--brand-accent-deep);line-height:1.2}
+.psl-audio-label{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;color:var(--ink-soft);font-weight:700;text-transform:uppercase;margin-bottom:3px}
+.psl-audio-text{font-size:12px;color:var(--ink);line-height:1.4;font-weight:500}
+.psl-carousel{display:flex;gap:12px;overflow-x:auto;padding:6px 6px 12px;margin:0 -6px;scrollbar-width:thin;scrollbar-color:var(--brand-light) transparent}
+.psl-carousel::-webkit-scrollbar{height:8px}
+.psl-carousel::-webkit-scrollbar-thumb{background:var(--brand-light);border-radius:99px}
+.psl-phone{flex-shrink:0;width:170px;border-radius:22px;padding:8px 0;display:flex;flex-direction:column;cursor:pointer;border:0;background:#1a1a1a;transition:all 0.18s;aspect-ratio:9/16;position:relative;overflow:hidden;color:#fff;text-align:left}
+.psl-phone-dim{opacity:0.55;background:#3a3326}
+.psl-phone-dim:hover{opacity:0.85}
+.psl-phone-active{box-shadow:0 8px 24px rgba(42,31,18,0.22);padding:5px 0}
+.psl-theme-magic.psl-phone-active{background:linear-gradient(160deg,var(--brand-primary) 0%,var(--brand-deep) 100%)}
+.psl-theme-multiply.psl-phone-active{background:linear-gradient(160deg,var(--pillar-multiply) 0%,#B5563B 100%)}
+.psl-theme-mom.psl-phone-active{background:linear-gradient(160deg,var(--pillar-mom) 0%,#B5612D 100%)}
+.psl-theme-squad.psl-phone-active{background:linear-gradient(160deg,var(--pillar-squad) 0%,#C9A930 100%)}
+.psl-phone-notch{width:46px;height:14px;background:#000;border-radius:99px;margin:0 auto 8px;flex-shrink:0}
+.psl-phone-scene{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:rgba(255,255,255,0.85);font-weight:700;text-transform:uppercase;padding:0 14px;margin-bottom:8px}
+.psl-phone-body{flex:1;padding:6px 14px;display:flex;flex-direction:column;justify-content:center;min-height:0}
+.psl-phone-text{font-family:'Fraunces',Georgia,serif;font-size:13.5px;line-height:1.35;font-weight:500;color:#fff;letter-spacing:-0.005em;overflow:hidden;text-wrap:pretty}
+.psl-phone-text-hook{font-family:'Bagel Fat One',serif;font-size:17px;font-weight:400;line-height:1.1;letter-spacing:0.005em}
+.psl-phone-text-endcard{font-family:'Bagel Fat One',serif;font-size:15px;font-weight:400;line-height:1.15;letter-spacing:0.005em;text-align:center}
+.psl-phone-bottom{padding:10px 14px 14px;display:flex;justify-content:space-between;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9.5px;color:rgba(255,255,255,0.78);letter-spacing:0.04em;font-weight:700}
+
+/* ============================================================
+   Footage Inspo — 4-lane grid (shoot · found · meme · archive)
+   ============================================================ */
+.footage-section{margin-bottom:20px}
+.footage-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
+.footage-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:var(--brand-accent-deep);font-weight:700;text-transform:uppercase}
+.footage-hint{font-family:'Fraunces',Georgia,serif;font-size:12.5px;color:var(--ink-soft);font-style:italic}
+.footage-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:720px){.footage-grid{grid-template-columns:1fr}}
+.footage-cat{padding:12px 14px;background:#fff;border:1px solid var(--border);border-radius:8px}
+.footage-cat-head{display:flex;gap:8px;align-items:center;margin-bottom:6px}
+.footage-cat-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.footage-cat-shoot .footage-cat-dot{background:var(--brand-primary)}
+.footage-cat-found .footage-cat-dot{background:var(--brand-accent)}
+.footage-cat-memes .footage-cat-dot{background:#5E5A8A}
+.footage-cat-archive .footage-cat-dot{background:#8A6E4D}
+.footage-cat-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;font-weight:800;text-transform:uppercase;color:var(--ink)}
+.footage-cat-list{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:6px}
+.footage-cat-list li{font-size:12px;line-height:1.45;color:var(--ink);padding-left:12px;position:relative}
+.footage-cat-list li::before{content:"·";position:absolute;left:2px;top:0;color:var(--brand-accent);font-weight:800}
+
+/* ============================================================
+   Amplify — paid media plan card with stat tiles + placements
+   ============================================================ */
+.amp-block{margin-bottom:20px}
+.amp-block-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--brand-light)}
+.amp-block-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;color:var(--ink);font-weight:800;text-transform:uppercase}
+.amp-agent-stamp{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--ink-soft);font-weight:600}
+.amp-thesis{padding:0 0 14px 14px;border-left:3px solid var(--brand-accent);margin-bottom:16px}
+.amp-thesis-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.14em;background:var(--brand-accent);color:#fff;padding:4px 9px;border-radius:4px;margin-bottom:10px;font-weight:800;text-transform:uppercase}
+.amp-thesis-headline{font-family:'Fraunces',Georgia,serif;font-size:15.5px;line-height:1.4;color:var(--ink);font-weight:500;margin-bottom:7px;letter-spacing:-0.005em}
+.amp-thesis-why{font-size:12.5px;line-height:1.55;color:var(--ink-soft)}
+.amp-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--brand-light);border:1px solid var(--brand-light);border-radius:10px;overflow:hidden;margin-bottom:18px}
+@media(max-width:720px){.amp-stats{grid-template-columns:1fr 1fr}}
+.amp-stat{background:#fff;padding:11px 14px;min-width:0}
+.amp-stat-label{font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.14em;color:var(--ink-soft);font-weight:700;text-transform:uppercase;margin-bottom:5px}
+.amp-stat-num{font-family:'Bagel Fat One',serif;font-weight:400;font-size:20px;color:var(--ink);line-height:1.05;letter-spacing:0.005em}
+.amp-stat-text{font-family:'Fraunces',Georgia,serif;font-size:13px;line-height:1.3;font-weight:500}
+.amp-stat-guard{background:#FEF2F2}
+.amp-stat-guard .amp-stat-label{color:#DC2626}
+.amp-stat-guard .amp-stat-num{color:#991B1B;font-size:12px;font-family:'Fraunces',Georgia,serif;font-weight:500}
+.amp-placements-head{display:flex;justify-content:space-between;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;color:var(--ink-soft);font-weight:600;text-transform:uppercase;margin-bottom:10px}
+.amp-placements{display:flex;flex-direction:column;gap:9px}
+.amp-placement{padding:12px 14px;background:#fff;border:1px solid var(--brand-light);border-radius:10px}
+.amp-placement-head{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:8px}
+.amp-placement-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+.amp-placement-dot-meta{background:#1877F2}
+.amp-placement-dot-tiktok{background:#FF0050}
+.amp-placement-dot-pinterest{background:#E60023}
+.amp-placement-dot-default{background:var(--brand-primary)}
+.amp-placement-platform{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.12em;font-weight:800;color:var(--ink)}
+.amp-placement-format{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.06em;color:var(--ink-soft);font-weight:600}
+.amp-placement-budget{font-family:'Bagel Fat One',serif;font-size:14px;color:var(--brand-deep);margin-left:auto;letter-spacing:0.005em}
+.amp-placement-reach{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--ink-soft);font-weight:600}
+.amp-placement-audience{font-size:11.5px;line-height:1.5;color:var(--ink);margin-bottom:5px}
+.amp-placement-lookalike{font-size:11px;line-height:1.5;color:var(--ink-soft);margin-bottom:5px}
+.amp-placement-lookalike strong{color:var(--ink);font-weight:700;text-transform:uppercase;letter-spacing:0.08em;font-size:9.5px;font-family:'JetBrains Mono',monospace}
+.amp-placement-note{font-size:11px;line-height:1.5;color:var(--ink-soft);font-style:italic;padding-top:6px;border-top:1px dashed var(--border);margin-top:6px}
+
 /* WIP under-construction banner — used by Calendar + Performance + Diagnostic Inbox modal */
 .wip-banner{background:var(--butter-light);border:2px dashed var(--brand-accent);border-radius:12px;padding:18px 22px;margin-bottom:24px;display:flex;align-items:flex-start;gap:14px}
 .wip-banner-icon{font-size:24px;line-height:1;flex-shrink:0;margin-top:2px}
@@ -754,6 +843,224 @@ const MaazahArch = ({ className = "" }) => (
 
 const WEEK_LABEL = "MAY 25 – 31, 2026";
 const TODAY = "2026-05-25";
+
+/* ============================================================
+   FOOTAGE_INSPO — per-brief shot recommendations across 4 lanes
+   (shoot · found/stitch · gif/meme · archive)
+   ============================================================ */
+const FOOTAGE_INSPO = {
+  "MAGIC25-COSTCO-R1": {
+    shoot: [
+      "Yasameen + Sheilla together in the Costco aisle pushing a cart — wide angle, in-store ambient sound",
+      "Tight cut of the Roasted Red Pepper tub on a Midwest Costco shelf with the price tag visible",
+      "Sister reaction shot — first moment they spot the tub (eyes wide, hand on mouth, genuine)",
+      "End frame: arch wordmark + 'magic is real, we've tasted it' text overlay"
+    ],
+    found: [
+      "@gvang101's May 23 paid Costco-aisle Reel — license a 2-sec stitch as the 'and now everyone is finding us' beat",
+      "Costco-haul UGC compilation across MN/WI/IA/IL/MI — pull 5-6 organic tag posts",
+      "Family throwback collage from Maazah's site — 1990s Mom + sisters as kids"
+    ],
+    memes: [
+      "'A year ago / now' before-after format — TikTok evergreen, perfect for Costco-arrival storytelling",
+      "Roy Ayers 'Everybody Loves The Sunshine' chorus drop as the timing-cue audio"
+    ],
+    archive: [
+      "Maazah's farmers-market origin footage (2018-2019) — the table, the early branding",
+      "Mom's-kitchen B-roll if available (no on-camera Mom required; just hands + counter + dish)"
+    ]
+  },
+  "MAGIC25-LENTILEXPLAIN-M04": {
+    shoot: [
+      "Top-down marble counter, four empty bowls in a row — clean light, no clutter",
+      "Hands dollop each dip into its bowl, slow methodical (one shot per SKU)",
+      "Pull-back shot with pita + crackers + raw veg around the four bowls"
+    ],
+    found: [
+      "Stitch the 'What is chutney?' Nov 2024 post — 2-sec callback as the format-anchor reference",
+      "Pull Pinterest 'lentil dip recipe' search-trend graph as an overlay slide"
+    ],
+    memes: [
+      "Period-spaced descriptor text-overlay format (Herby. Vibrant. Fresh.) — proven Maazah pattern, replicate",
+      "TikTok 'Oh You Cant Find This In The Store' meme audio template"
+    ],
+    archive: [
+      "All 4 lentil dip tubs in current packaging — pull from product-shoot Q4 2025",
+      "Costco-shelf cutaway from the May 17 push — 2-sec close-up to land the end card"
+    ]
+  },
+  "MULT25-RRP-EGGS-P01": {
+    shoot: [
+      "Cast iron skillet on stove, butter melting, top-down angle",
+      "Eggs cracked + scrambled, then plated as a soft pile",
+      "The dollop moment: spoon of Roasted Red Pepper Lentil Dip on the eggs, slo-mo"
+    ],
+    found: [
+      "Costco-haul TikTok creators showing 'what I bought this weekend' — adjacent context",
+      "Existing 'put it on everything' recipe Reels from @maazahmagic IG archive"
+    ],
+    memes: [
+      "Day 1 / Day 2 / Day 3 series format — series-of-three landing pattern peaking on TikTok",
+      "ASMR scramble + dollop audio without narration"
+    ],
+    archive: [
+      "Roasted Red Pepper Lentil Dip product photography (high-res tub)",
+      "Sister-kitchen B-roll from prior Maazah recipe shoots"
+    ]
+  },
+  "MOM25-FIRSTGEN-T01": {
+    shoot: [
+      "Yasameen in golden-hour kitchen, no narration, text overlays only",
+      "Childhood family photos from the site's Our Story collage — slow zoom + cuts",
+      "Hands rolling bolani dough (Mom-coded, sister hands)",
+      "Close on the Maazah tub on the Costco shelf — slow push-in"
+    ],
+    found: [
+      "Stitch '#firstgen' or '#immigrantkids' high-engagement TikTok from the past week",
+      "Pull a 'what I used to bring to school' viral pattern for the lunchbox section"
+    ],
+    memes: [
+      "'Things I used to explain' / 'Things I now ___' contrast-card format",
+      "Roy Ayers slow-burn / quiet original audio with sister voiceover"
+    ],
+    archive: [
+      "Maazah's Our Story page family photos — already public-safe",
+      "Mom's bolani b-roll if available (recipe-only — Mom doesn't need to be on camera)"
+    ]
+  },
+  "SQUAD25-COSTCO-HUNT-S01": {
+    shoot: [
+      "Grid build of 6 UGC reposts (with permission) — animate as a stitched collage",
+      "Sister thank-you reaction at the end — together, briefly to camera",
+      "Map graphic of 10 states where Maazah's been spotted at Costco"
+    ],
+    found: [
+      "@gvang101 paid Costco reel + 5-8 organic Costco-haul creator clips (with permission)",
+      "Cross-state Costco shelf photos from r/Costco UGC threads"
+    ],
+    memes: [
+      "'We see you' acknowledgment-pattern Reels — community-shoutout format",
+      "Map-of-states reveal format with Roy Ayers / John Summit audio"
+    ],
+    archive: [
+      "Maazah arch wordmark + tagline ('tag #maazahmagic at your Costco')",
+      "Existing UGC repost frames from prior weeks"
+    ]
+  }
+};
+
+/* ============================================================
+   AMPLIFY_PLANS — per-brief paid media plan
+   Budget · Test Window · Objective · Guardrail + platform placements
+   ============================================================ */
+const AMPLIFY_PLANS = {
+  "MAGIC25-COSTCO-R1": {
+    headline: "Costco-cart sister Reel · ride the Midwest-rollout discovery wave with founder-led brand-heritage posture",
+    totalBudget: 380,
+    testWindow: "5 days (Tue May 26 → Sat May 30)",
+    objective: "Saves + Profile Visits + Reach",
+    guardrail: "Auto-pause if CPM > $13 or sentiment drops below 0.85. Watch for any negative comment thread around 'corporate Costco brand' framing — kill if 3+ critical comments in first 6h.",
+    why: "Week 2 of Costco Midwest rollout is the prime trial-to-repeat window. Sister-led milestone content already earns Maazah's highest IG engagement (Costco-cart May 17 = 426 likes). Paid amplification turns the cohort that bought Saturday into the cohort that talks about it on Tuesday — and the cohort that grabs another tub in 3 weeks.",
+    placements: [
+      { platform: "Meta", format: "IG Reels Ad + FB Reels", budget: 240,
+        audience: "Interest: Sabra, Cedar's, Fly By Jing, Trader Joe's, refrigerated dips · Age 28–48 · Midwest geo-targeting (MN, WI, IA, IL, MI, OH, IN) · Costco shopper signal · Engaged with first-gen + heritage food content (30 days)",
+        lookalike: "Sprouts purchaser LAL + Fly By Jing engaged audience LAL",
+        expectedReach: "65K–110K video views",
+        note: "Lead the asset with sister faces + the tub in 1.5s. Sister-led milestone is the share engine. Optimize for Saves over Likes."
+      },
+      { platform: "TikTok", format: "Spark Ad (boost the organic post)", budget: 140,
+        audience: "Interest: #costcofind, #firstgen, #afghanfood · Age 24–44 · Engaged with Costco-haul + heritage food creators",
+        lookalike: "TikTok pixel LAL from maazah.com",
+        expectedReach: "30K–55K video views",
+        note: "Boost only if organic save-rate > 1.5% in first 18h. Auto-kill if comments skew negative or off-tone."
+      }
+    ]
+  },
+  "MAGIC25-LENTILEXPLAIN-M04": {
+    headline: "TikTok category-explainer · 'What is lentil dip?' replicating the 71-save chutney pattern at scale",
+    totalBudget: 220,
+    testWindow: "4 days (Thu May 28 → Sun May 31)",
+    objective: "Saves (primary) + Profile Visits",
+    guardrail: "Auto-pause if CPM > $10 or save-rate drops below 0.8% (the explainer format's job IS saves — anything below floor means the format isn't translating)",
+    why: "The 'What is chutney?' Nov 2024 post earned 211 likes and 71 saves — Maazah's best TikTok performance by 30×. Paid amplification of the same format with new SKU lineup is the single highest-ROI move this week. Saves are the wholesale-buyer-readable signal of category authority — they compound into TikTok algorithmic distribution AND into Costco buyer's account-health glance.",
+    placements: [
+      { platform: "TikTok", format: "Spark Ad", budget: 180,
+        audience: "Interest: #foodtok, #saucetok, #cottagecheese, lentil-recipe creators · Age 22–42 · TikTok food creators engaged · Cottage-cheese-bowl viewers (30d)",
+        lookalike: "maazah.com TikTok pixel LAL + Maazah IG follower LAL crossover",
+        expectedReach: "45K–80K video views",
+        note: "Optimize for Saves. The period-spaced-descriptor format works because it's screenshot-able. Keep the four-bowl reveal in the first 4s; education in the next 12s; end card with all 4 SKUs in last 4s."
+      },
+      { platform: "Meta", format: "IG Reels Ad (cross-post)", budget: 40,
+        audience: "Interest: lentil dip, vegan dip, hummus alternative — Age 28–48 · Whole Foods / Sprouts shopper",
+        expectedReach: "8K–15K video views",
+        note: "Lower-spend cross-platform layer. Track if IG saves match TikTok's lift (testing format portability)."
+      }
+    ]
+  },
+  "MULT25-RRP-EGGS-P01": {
+    headline: "Day 1 RRP series · usage-multiplication for the Costco cohort — eggs + dollop opener for the 3-day arc",
+    totalBudget: 180,
+    testWindow: "3 days (Mon May 26 → Wed May 28)",
+    objective: "Saves + Profile Visits · prime the cohort for Day 2 + Day 3 organic pickup",
+    guardrail: "Auto-pause if CPM > $9. Series content is meant to compound — Day 1 paid budget is lower because Days 2 + 3 inherit the discovery flywheel.",
+    why: "Mon → Wed → Fri series content is decay-sensitive. Day 1 needs paid lift to seed the cohort; Days 2 + 3 ride the algorithmic recall. Eggs + dollop is the simplest, lowest-friction usage moment — pairs the new SKU with what's already in the Costco shopper's cart Sunday.",
+    placements: [
+      { platform: "Meta", format: "IG Reels Ad", budget: 130,
+        audience: "Interest: meal prep, weeknight cooking, breakfast Reels · Age 28–48 · Recent Costco engagement",
+        lookalike: "Maazah purchaser LAL + Fly By Jing IG engaged LAL",
+        expectedReach: "35K–60K video views",
+        note: "Lead with the dollop moment. The 'PUT IT ON EVERYTHING' text overlay at 0:15 is the share-trigger — make sure it's bold + held for 2s."
+      },
+      { platform: "TikTok", format: "In-Feed Ad", budget: 50,
+        audience: "Interest: #weeknightcooking, #dinneridea, #sauce, #costcofind · Age 24–44",
+        expectedReach: "10K–22K video views",
+        note: "Smaller budget — testing whether the eggs angle reads on TikTok or stays IG-only."
+      }
+    ]
+  },
+  "MOM25-FIRSTGEN-T01": {
+    headline: "First-gen heritage Reel · 'things I used to explain. things I now sell at Costco.' — Thursday late-night cultural window",
+    totalBudget: 260,
+    testWindow: "5 days (Thu May 28 → Mon Jun 2)",
+    objective: "Profile Visits + Saves (long-tail discovery)",
+    guardrail: "Lower performance bar — heritage-storytelling content compounds 30-60 days out, not first-week. Auto-pause only if CPM > $14.",
+    why: "First-gen identity content is at peak cultural permission right now (#firstgen + #immigrantkids spiking late-night Thursday). This is Maazah's biggest brand-fit storytelling moment of the season. Paid amplification ensures the heritage story reaches outside the existing follower base — and the 'now I sell at Costco' framing converts cultural-permission into commercial-discovery.",
+    placements: [
+      { platform: "Meta", format: "IG Reels Ad", budget: 160,
+        audience: "Interest: first-gen creators, immigrant family content, women-owned food, heritage cooking · Age 28–55 · Educated-audience markers",
+        lookalike: "Maazah IG follower LAL + Cherry Bombe subscriber LAL",
+        expectedReach: "40K–75K video views",
+        note: "Lead the asset with Yasameen's face + the heritage line — not the Costco tub. The relationship IS the moat; commerce is the payoff."
+      },
+      { platform: "TikTok", format: "Spark Ad", budget: 100,
+        audience: "Interest: #firstgen, #immigrantkids, #afghanfood, #thirdculturekid · Age 22–42 · Thursday late-night engaged",
+        expectedReach: "22K–40K video views",
+        note: "Thursday late-night is when the cohort lights up. Schedule the boost for 9pm-1am CT slot. Optimize for Saves."
+      }
+    ]
+  },
+  "SQUAD25-COSTCO-HUNT-S01": {
+    headline: "Costco UGC compilation · amplify the organic shopper signal across 10 Midwest states",
+    totalBudget: 160,
+    testWindow: "4 days (Tue May 26 → Fri May 29)",
+    objective: "Profile Visits + Saves · prime the next wave of organic UGC",
+    guardrail: "Auto-pause if CPM > $10. UGC-compilation content is the lowest-cost amplification in the slate — keep budget modest, recycle savings into Day 2 of RRP series.",
+    why: "Real shoppers already tagging Roasted Red Pepper across 10 Midwest states is the highest-value social-proof signal we have. Paid amplification turns the first wave of UGC into the second wave — Maazah's MN/WI/IA shoppers see other Midwest shoppers tagging the same product, social proof compounds, more UGC follows. Buyer-readable foot-traffic evidence multiplies.",
+    placements: [
+      { platform: "Meta", format: "IG Reels Ad", budget: 110,
+        audience: "Interest: Costco, refrigerated dips, Midwest shopper · Age 28–48 · Geo: MN, WI, IA, IL, MI, OH, IN, SD, ND, NE",
+        lookalike: "Maazah IG engaged LAL + Costco-tagged-Maazah UGC creator LAL",
+        expectedReach: "28K–48K video views",
+        note: "Optimize for Profile Visits — the goal is to drive new UGC, not direct conversion. Caption CTA: 'tag #maazahmagic at your Costco — we'll repost.'"
+      },
+      { platform: "TikTok", format: "Spark Ad", budget: 50,
+        audience: "Interest: #costcofind, #costcohaul · Geo: Midwest · Age 24–44",
+        expectedReach: "8K–18K video views",
+        note: "Smaller budget — TikTok is the discovery layer; IG is the conversion layer for this content type."
+      }
+    ]
+  }
+};
 
 /* ============================================================
    Conviction Score system
@@ -2433,7 +2740,6 @@ function BriefsPage({ onOpen }) {
             <div className="pillar-header">
               <div className="pillar-swatch" style={{background:p.color}}></div>
               <div className="pillar-name">{p.label}</div>
-              <div className="pillar-meta">{briefsInPillar.length} {briefsInPillar.length === 1 ? "brief" : "briefs"} · {p.desc}</div>
             </div>
             <div className="grid grid-3">
               {briefsInPillar.map(b => <BriefCard key={b.id} b={b} onOpen={onOpen} railColor={p.color} />)}
@@ -2478,7 +2784,6 @@ function BriefCard({ b, onOpen, railColor }) {
       <div className="brief-concept">{b.concept}</div>
       <div className="brief-bottom">
         <span className="brief-time">{b.publishWindow}</span>
-        <span className="brief-id">{b.id}</span>
       </div>
     </div>
   );
@@ -2487,6 +2792,152 @@ function BriefCard({ b, onOpen, railColor }) {
 /* ============================================================
    BRIEF MODAL
    ============================================================ */
+function PhoneShotList({ brief }) {
+  const [activeFrame, setActiveFrame] = React.useState(0);
+  if (!brief.scenes?.length) return null;
+  const scenes = brief.scenes;
+  const pillarTheme = brief.pillar || "magic";
+  const isHookFrame = (i) => i === 1 && scenes.length >= 3;
+  const isEndFrame = (i) => i === scenes.length - 1;
+  return (
+    <div className="psl-wrap">
+      <div className="psl-header">
+        <div>
+          <div className="psl-eyebrow">// SHOT LIST · {brief.duration || "video"}</div>
+          <div className="psl-title">{scenes.length} {scenes.length === 1 ? "frame" : "frames"} · {brief.platform.split(" ")[0]}</div>
+        </div>
+        {brief.audio && (
+          <div className="psl-audio">
+            <span className="psl-audio-icon">♪</span>
+            <div>
+              <div className="psl-audio-label">audio reference</div>
+              <div className="psl-audio-text">{brief.audio}</div>
+            </div>
+          </div>
+        )}
+      </div>
+      <div className="psl-carousel">
+        {scenes.map((s, k) => {
+          const active = activeFrame === k;
+          const hook = isHookFrame(k);
+          const end = isEndFrame(k);
+          return (
+            <button
+              key={k}
+              className={`psl-phone ${active ? "psl-phone-active" : "psl-phone-dim"} psl-theme-${pillarTheme}`}
+              onClick={() => setActiveFrame(k)}
+            >
+              <div className="psl-phone-notch"></div>
+              <div className="psl-phone-scene">{s.num ? `Frame ${s.num}` : `Frame ${k+1}`}</div>
+              <div className="psl-phone-body">
+                <div className={`psl-phone-text ${hook ? "psl-phone-text-hook" : ""} ${end ? "psl-phone-text-endcard" : ""}`}>{s.text}</div>
+              </div>
+              <div className="psl-phone-bottom">
+                <span>{s.time}</span>
+                <span>{k + 1}/{scenes.length}</span>
+              </div>
+            </button>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
+function FootageInspoSection({ footage }) {
+  if (!footage) return null;
+  const lanes = [
+    { key: "shoot",   label: "Shoot This",     items: footage.shoot   },
+    { key: "found",   label: "Found / Stitch", items: footage.found   },
+    { key: "memes",   label: "GIF / Meme",     items: footage.memes   },
+    { key: "archive", label: "Archive",        items: footage.archive }
+  ].filter(l => l.items?.length);
+  if (!lanes.length) return null;
+  return (
+    <div className="footage-section">
+      <div className="footage-head">
+        <div className="footage-eyebrow">// FOOTAGE INSPO · 4 LANES</div>
+        <div className="footage-hint">what to shoot, what to stitch, what to riff, what to pull from archive</div>
+      </div>
+      <div className="footage-grid">
+        {lanes.map(l => (
+          <div key={l.key} className={`footage-cat footage-cat-${l.key}`}>
+            <div className="footage-cat-head">
+              <span className="footage-cat-dot"></span>
+              <span className="footage-cat-label">{l.label}</span>
+            </div>
+            <ul className="footage-cat-list">
+              {l.items.map((it, i) => <li key={i}>{it}</li>)}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+function AmplifyCard({ plan }) {
+  if (!plan) return null;
+  const total = plan.placements?.reduce((s, p) => s + (p.budget || 0), 0) || plan.totalBudget;
+  return (
+    <div className="amp-block">
+      <div className="amp-block-head">
+        <span className="amp-block-eyebrow">⚡ AMPLIFY · PAID MEDIA PLAN</span>
+        <span className="amp-agent-stamp">drafted by Shelf Watch · auto-generated</span>
+      </div>
+      <div className="amp-thesis">
+        <span className="amp-thesis-tag">◆ Paid Media Planner</span>
+        <div className="amp-thesis-headline">{plan.headline}</div>
+        <div className="amp-thesis-why">{plan.why}</div>
+      </div>
+      <div className="amp-stats">
+        <div className="amp-stat">
+          <div className="amp-stat-label">Budget</div>
+          <div className="amp-stat-num">${plan.totalBudget}</div>
+        </div>
+        <div className="amp-stat">
+          <div className="amp-stat-label">Test Window</div>
+          <div className="amp-stat-num amp-stat-text">{plan.testWindow}</div>
+        </div>
+        <div className="amp-stat">
+          <div className="amp-stat-label">Objective</div>
+          <div className="amp-stat-num amp-stat-text">{plan.objective}</div>
+        </div>
+        <div className="amp-stat amp-stat-guard">
+          <div className="amp-stat-label">⚠ Guardrail</div>
+          <div className="amp-stat-num">{plan.guardrail}</div>
+        </div>
+      </div>
+      <div className="amp-placements-head">
+        <span>Placements · {plan.placements?.length || 0}</span>
+        <span>Allocated: ${total} / ${plan.totalBudget}</span>
+      </div>
+      <div className="amp-placements">
+        {plan.placements?.map((p, i) => {
+          const dotClass = p.platform.toLowerCase().includes("meta") ? "amp-placement-dot-meta"
+            : p.platform.toLowerCase().includes("tiktok") ? "amp-placement-dot-tiktok"
+            : p.platform.toLowerCase().includes("pinterest") ? "amp-placement-dot-pinterest"
+            : "amp-placement-dot-default";
+          return (
+            <div key={i} className="amp-placement">
+              <div className="amp-placement-head">
+                <span className={`amp-placement-dot ${dotClass}`}></span>
+                <span className="amp-placement-platform">{p.platform}</span>
+                <span className="amp-placement-format">· {p.format}</span>
+                <span className="amp-placement-budget">${p.budget}</span>
+                <span className="amp-placement-reach">{p.expectedReach}</span>
+              </div>
+              <div className="amp-placement-audience">{p.audience}</div>
+              {p.lookalike && <div className="amp-placement-lookalike"><strong>Lookalike: </strong>{p.lookalike}</div>}
+              {p.note && <div className="amp-placement-note">{p.note}</div>}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+}
+
 function BriefModal({ brief, onClose, onDrop }) {
   if (!brief) return null;
   const conv = getConviction(brief.id);
@@ -2494,6 +2945,8 @@ function BriefModal({ brief, onClose, onDrop }) {
     "sauce-pour":"💦","sister-led":"👯","mom-recipe":"💚","shelf-spotted":"🛒",
     "swicy-wordplay":"🌶️","collab-cameo":"🤝","meme-payload":"🎭","category-explainer":"✨"
   }[brief.dnaPattern] || "✦";
+  const footage = FOOTAGE_INSPO[brief.id];
+  const ampPlan = AMPLIFY_PLANS[brief.id];
   return (
     <div className="modal-bg" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
@@ -2505,15 +2958,12 @@ function BriefModal({ brief, onClose, onDrop }) {
 
           {/* HEADER CHIP ROW — Conviction + Platform + SKU + DNA + Timing */}
           <div className="modal-section">
-            <div style={{display:"flex",flexWrap:"wrap",gap:8,alignItems:"center",marginBottom:6}}>
+            <div style={{display:"flex",flexWrap:"wrap",gap:8,alignItems:"center"}}>
               {conv && <ConvictionChip conv={conv} />}
               <span className="brief-platform">{brief.platform}</span>
               <span className="brief-sku">{brief.skuChip}</span>
               <span className="card-dna-chip">{dnaGlyph} {brief.dnaPattern}</span>
               <span style={{fontSize:11,color:"var(--ink-soft)",fontWeight:600,letterSpacing:"0.06em",textTransform:"uppercase"}}>· {brief.publishWindow}</span>
-            </div>
-            <div style={{fontSize:12.5,color:"var(--ink-soft)",lineHeight:1.5,paddingTop:8,borderTop:"1px dashed var(--border)"}}>
-              <strong style={{color:"var(--ink)",fontWeight:700}}>Pillar:</strong> {brief.pillarLabel} · <strong style={{color:"var(--ink)",fontWeight:700}}>SKU:</strong> {brief.sku} · <strong style={{color:"var(--ink)",fontWeight:700}}>Duration:</strong> {brief.duration} · <strong style={{color:"var(--ink)",fontWeight:700}}>Audio:</strong> {brief.audio}
             </div>
           </div>
 
@@ -2550,20 +3000,10 @@ function BriefModal({ brief, onClose, onDrop }) {
             </div>
           )}
 
-          {/* PHONE SHOT LIST — scenes rendered as phone-frame mockup rows */}
+          {/* PHONE SHOT LIST — swipeable phone-mockup carousel */}
           {brief.scenes?.length > 0 && (
             <div className="modal-section">
-              <div className="modal-section-label">PHONE SHOT LIST</div>
-              <div style={{background:"var(--ink)",borderRadius:14,padding:14,marginBottom:6}}>
-                <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9.5,letterSpacing:"0.14em",color:"rgba(255,255,255,0.5)",textTransform:"uppercase",marginBottom:8,paddingBottom:8,borderBottom:"1px dashed rgba(255,255,255,0.2)"}}>9:41 · {brief.platform.split(" ")[0]} · {brief.duration}</div>
-                {brief.scenes.map((s, i) => (
-                  <div key={i} style={{display:"grid",gridTemplateColumns:"54px 60px 1fr",gap:10,padding:"9px 0",borderBottom: i < brief.scenes.length - 1 ? "1px dashed rgba(255,255,255,0.14)" : "none",fontSize:12,lineHeight:1.45,color:"#fff"}}>
-                    <span style={{fontFamily:"'Bagel Fat One',serif",color:"var(--brand-light)",fontSize:14,letterSpacing:"0.04em"}}>{s.num}</span>
-                    <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10.5,color:"var(--brand-accent)",fontWeight:700,letterSpacing:"0.06em"}}>{s.time}</span>
-                    <span style={{color:"rgba(255,255,255,0.88)"}}>{s.text}</span>
-                  </div>
-                ))}
-              </div>
+              <PhoneShotList brief={brief} />
             </div>
           )}
 
@@ -2597,22 +3037,19 @@ function BriefModal({ brief, onClose, onDrop }) {
             </div>
           )}
 
-          {/* PRODUCTION accordion */}
-          <details className="modal-section" style={{background:"var(--butter-light)",border:"1px solid var(--border)",borderRadius:8,padding:"10px 14px"}}>
-            <summary style={{cursor:"pointer",fontFamily:"'JetBrains Mono',monospace",fontSize:11,letterSpacing:"0.14em",color:"var(--ink)",fontWeight:700,textTransform:"uppercase",listStyle:"none"}}>🎬 PRODUCTION ↓</summary>
-            <div style={{paddingTop:10,fontSize:12.5,lineHeight:1.55,color:"var(--ink)"}}>
-              <div style={{marginBottom:8}}><strong style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.12em",color:"var(--ink-soft)",textTransform:"uppercase",display:"block",marginBottom:4}}>Visual direction</strong>{brief.scenes?.[0]?.text || brief.concept}</div>
-              <div><strong style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.12em",color:"var(--ink-soft)",textTransform:"uppercase",display:"block",marginBottom:4}}>End-card stinger</strong>{brief.scenes?.[brief.scenes.length-1]?.text || "Maazah arch + 'magic is real, we've tasted it.'"}</div>
+          {/* FOOTAGE INSPO — 4-lane grid (shoot · found · meme · archive) */}
+          {footage && (
+            <div className="modal-section">
+              <FootageInspoSection footage={footage} />
             </div>
-          </details>
+          )}
 
-          {/* AMPLIFY accordion */}
-          <details className="modal-section" style={{background:"var(--butter-light)",border:"1px solid var(--border)",borderRadius:8,padding:"10px 14px"}}>
-            <summary style={{cursor:"pointer",fontFamily:"'JetBrains Mono',monospace",fontSize:11,letterSpacing:"0.14em",color:"var(--ink)",fontWeight:700,textTransform:"uppercase",listStyle:"none"}}>⚡ AMPLIFY (paid plan) ↓</summary>
-            <div style={{paddingTop:10,fontSize:12.5,lineHeight:1.55,color:"var(--ink-soft)"}}>
-              <em>Engine drafts a paid-amplification spec on demand — geo, audience, spend cap, creative variants — calibrated to the brief's pillar + Wholesale Lens priority. Drop this brief into Studio to generate.</em>
+          {/* AMPLIFY — rich paid-media plan with stat tiles + placements */}
+          {ampPlan && (
+            <div className="modal-section">
+              <AmplifyCard plan={ampPlan} />
             </div>
-          </details>
+          )}
 
           {/* SEND TO STUDIO CTA */}
           {onDrop && (
