@@ -1030,14 +1030,16 @@ const COUNTER_STRIKE_LOG = [
    ============================================================ */
 const CULTURE_MOMENTUM = {
   popping: [
-    { label: "First-gen kid arc on TikTok", note: "'Things I used to explain' format peaking — T01 brief direct ride window" },
-    { label: "Snackle box format", note: "still ascending into Memorial Day → Labor Day evergreen — weekly SKU rotation locked" },
-    { label: "Category-explainer save velocity", note: "save-driven content rewarding period-spaced-descriptor format — M04 brief catches the wave" }
+    { label: "Heritage-cuisine TV renaissance", note: "Stanley Tucci's 'What I Eat in a Day' + The Bear S5 + Padma's Taste the Nation S3 — specific-cuisine storytelling is in season" },
+    { label: "First-gen content on TikTok", note: "#firstgen + #immigrantkids late-night engagement spiking · heritage food creators rewarded" },
+    { label: "Snackle-box format into summer", note: "Pinterest + TikTok saves climbing through Memorial Day → Labor Day · multi-SKU rotation evergreen" },
+    { label: "Anti-restriction food culture", note: "food-as-joy framing replacing diet-culture / GLP-1 restriction · abundance language outperforms" }
   ],
   cooling: [
-    { label: "Celebrity-reaction meme content", note: "Taylor/Kendrick-style reactions flopped for Maazah · skip without exception" },
-    { label: "Cross-posted IG-format Reels on TikTok", note: "10-30× engagement gap proves format mismatch · TikTok needs its own register" },
-    { label: "Generic 'hummus alternative' framing", note: "anti-pattern · defines Maazah by what it's not · engine downweights any signal that surfaces this" }
+    { label: "Generic 'wellness aesthetic' CPG", note: "sunset-light + grain-bowl + affirmation register fading on TikTok · wellness-as-religion is out" },
+    { label: "Sabra's 'dips beyond hummus' defensive creative", note: "incumbent's catch-up ad framing reads as following, not leading · category-creators are setting the pace" },
+    { label: "Celebrity-endorsement plays", note: "viral celebrity reactions getting smaller returns · founder-fronted authenticity is outperforming" },
+    { label: "Cross-posted IG-format on TikTok", note: "industry-wide engagement penalty for repurposed lifestyle content · TikTok rewards native register" }
   ]
 };
 
@@ -1222,6 +1224,34 @@ const CULTURAL_PULSE = [
     detail: "Arab-American chef + cultural activist passing through the Twin Cities. Co-attendance / collab post / sister-meets-Reem moment — heritage-credibility goldmine that lasts longer than the press cycle.",
     play: "Engine drafts a sister-led 'we went' carousel + outbound DM to @reemassil's team. Hold ship until event confirmed.",
     sources: ["reemscalifornia.com", "minnpost.com"]
+  },
+  {
+    id: "CP-7", type: "entertainment", typeLabel: "ENTERTAINMENT",
+    hook: "Heritage-cuisine TV is having a renaissance.",
+    detail: "Stanley Tucci's 'What I Eat in a Day' on Apple TV+, The Bear S5 finale arc going into chef-family territory, Padma Lakshmi's Taste the Nation S3 on Hulu. Audiences are leaning into specific-cuisine storytelling — chefs, families, recipes with names. Maazah's Afghan-American heritage is exactly the lane TV is rewarding right now.",
+    play: "Heritage Trace agent watching cookbook + press cycles. Drafts a 'cooking with auntie' Reel format that mirrors the TV moment without referencing it directly. Sister-led, MOM'S TABLE pillar.",
+    sources: ["apple.com/tv-pr", "hulu.com/press", "tvline.com"]
+  },
+  {
+    id: "CP-8", type: "archetype", typeLabel: "ARCHETYPE",
+    hook: "'Eating like an immigrant mom' as a TikTok showcase format.",
+    detail: "Distinct from the #firstgen storytelling archetype (CP-1) — this is the SHOWCASE format: creators making their mom's actual recipes, framing as nutritional abundance instead of restriction. Search interest on 'mom's recipe' content +180% YoY. Direct primary lane for Maazah's MOM'S TABLE pillar.",
+    play: "Heritage Trace + Cultural Pulse Tracker both watching. Recurring weekly format proposal: 'Mom's _____, the way we eat it' — rotating dish each week from the family recipe book (bolani → mantu → kabob → aushak).",
+    sources: ["tiktok.com/tag/momsrecipes", "tiktok.com/tag/immigrantmom", "trends.google.com"]
+  },
+  {
+    id: "CP-9", type: "cultural", typeLabel: "CULTURAL",
+    hook: "Anti-restriction wellness backlash gaining momentum.",
+    detail: "TikTok creators pushing back hard on diet-culture / GLP-1 / restrictive eating with food-as-joy framing. Abundance language is replacing restriction language across food-creator content. Maazah's literal name (Farsi for 'flavor, taste, JOY') is positioned exactly in this lane — joy is the brand promise, not a marketing flourish.",
+    play: "Lead with joy-coded framing across all captions this week. The 'magic' master metaphor + 'put it on everything' usage diversity wins over 'low-fat' / 'macros' / 'clean' positioning. Voice Compass downweights any signal pushing macros-as-hero.",
+    sources: ["tiktok.com/tag/foodjoy", "tiktok.com/tag/antidietculture", "garbageday.email"]
+  },
+  {
+    id: "CP-10", type: "cultural", typeLabel: "CULTURAL",
+    hook: "Hot honey wave continues — premium-condiment category validating.",
+    detail: "Mike's Hot Honey expanded into 5+ new co-launches in 2026 (Garrett popcorn, Snak Club snack mix, more). Truff + Brightland + Graza all riding the premium-condiment design-led playbook. Validates Maazah's category exactly. Chili Aioli (NEW Dec '25) sits in adjacent fridge-sauce-with-heat lane.",
+    play: "Shelf Watch tracking the wave. Chili Aioli content can ride on hot-honey momentum without copying. 'Spicy + creamy fridge-sauce' is a more open lane than 'spicy-on-everything' (Mike's owns that).",
+    sources: ["mikeshothoney.com", "modernretail.co", "snaxshot.substack.com"]
   }
 ];
 
@@ -2048,15 +2078,12 @@ function MondayMemoModal({ onClose, onShipIt }) {
 function IntelPage({ tab, setTab, openMemo, openStudioWith }) {
   return (
     <>
-      <PageHead eyebrow="Engine · This Week" title="Intelligence Brief" />
+      <PageHead title="Intelligence Brief" />
       <Ticker />
 
       {/* Memo trigger — re-open this week's strategic read */}
       <button className="memo-trigger" onClick={openMemo}>
-        <div>
-          <div className="memo-trigger-eye">// THIS WEEK'S MEMO</div>
-          <div className="memo-trigger-title">re-read the read · 5 signals · 3 moves</div>
-        </div>
+        <div className="memo-trigger-eye">// THIS WEEK'S MEMO</div>
         <span className="memo-trigger-sub">Open Memo →</span>
       </button>
 
@@ -2116,7 +2143,7 @@ function CultureMomentum() {
       <div className="cm-header">
         <div className="cm-eyebrow">// CULTURE MOMENTUM</div>
         <h3 className="cm-title">What's popping. What's cooling.</h3>
-        <div className="cm-sub">The signals worth riding this week vs. the ones the engine is consciously skipping. Tells you what's NOT in the brief mix and why.</div>
+        <div className="cm-sub">What culture is rewarding this week — and what the engine is consciously skipping.</div>
       </div>
       <div className="cm-cols">
         <div className="cm-col cm-col-popping">
@@ -2187,7 +2214,7 @@ function PageHead({ eyebrow, title }) {
   return (
     <div className="page-head">
       <div>
-        <div className="eyebrow">{eyebrow}</div>
+        {eyebrow && <div className="eyebrow">{eyebrow}</div>}
         <h1>{title}</h1>
       </div>
       <div className="meta">
@@ -2369,7 +2396,7 @@ function BriefsPage({ onOpen }) {
 
   return (
     <>
-      <PageHead eyebrow="Engine · This Week" title="Content Briefs" />
+      <PageHead title="Content Briefs" />
       <Ticker />
 
       {/* Ride-now hero — culturally-decay-sensitive briefs */}
@@ -2606,7 +2633,7 @@ function BriefModal({ brief, onClose, onDrop }) {
 function DecisionsPage() {
   return (
     <>
-      <PageHead eyebrow="Engine · This Week" title="Decisions" />
+      <PageHead title="Decisions" />
       <div className="lede" style={{gridTemplateColumns:"1fr"}}>
         <div className="lede-col" style={{borderRight:0}}>
           <div className="lede-label">WHY THIS EXISTS</div>
@@ -2635,7 +2662,7 @@ function WholesaleLensPage() {
   const hero = WHOLESALE_LENS.hero;
   return (
     <>
-      <PageHead eyebrow="Buyer View · The Second Audience" title="Wholesale Lens" />
+      <PageHead title="Wholesale Lens" />
       <div className="wl-hero">
         <MaazahArch className="wl-hero-arch" />
         <div className="wl-hero-eyebrow">{hero.eyebrow}</div>
@@ -2684,7 +2711,7 @@ function HowItWorksTab() {
 
   return (
     <>
-      <PageHead eyebrow="Engine · In Motion" title="How It Works" />
+      <PageHead title="How It Works" />
 
       <div className="hiw-hero">
         <div className="hiw-hero-eye">// THE ENGINE, IN MOTION</div>
@@ -2968,7 +2995,7 @@ function CalendarPreview() {
 
   return (
     <>
-      <PageHead eyebrow="Engine · Roadmap" title="Calendar" />
+      <PageHead title="Calendar" />
       <div className="wip-banner">
         <span className="wip-banner-icon">🚧</span>
         <div>
@@ -3035,7 +3062,7 @@ function PerformancePreview() {
   ];
   return (
     <>
-      <PageHead eyebrow="Engine · Roadmap" title="Performance" />
+      <PageHead title="Performance" />
       <div className="wip-banner">
         <span className="wip-banner-icon">🚧</span>
         <div>
