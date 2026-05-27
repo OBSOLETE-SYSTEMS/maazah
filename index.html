@@ -366,16 +366,24 @@ a{color:inherit;text-decoration:none}
 .footage-cat-list li::before{content:"·";position:absolute;left:2px;top:0;color:var(--brand-accent);font-weight:800}
 
 /* ============================================================
-   Amplify — paid media plan card with stat tiles + placements
+   Amplify — collapsible paid-media-plan card
+   Outer: details accordion with header bar
+   Inner: thesis + 4 stat tiles + placements
    ============================================================ */
-.amp-block{margin-bottom:20px}
-.amp-block-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--brand-light)}
-.amp-block-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;color:var(--ink);font-weight:800;text-transform:uppercase}
-.amp-agent-stamp{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.06em;color:var(--ink-soft);font-weight:600}
+.amp-acc{background:var(--butter-light);border:1.5px solid var(--brand-light);border-radius:12px;margin-bottom:20px;overflow:hidden;transition:box-shadow 0.15s}
+.amp-acc[open]{box-shadow:0 4px 14px rgba(42,31,18,0.08)}
+.amp-acc summary{list-style:none;cursor:pointer;padding:13px 18px;display:flex;align-items:center;gap:14px;outline:none}
+.amp-acc summary::-webkit-details-marker{display:none}
+.amp-acc summary:hover{background:rgba(214,122,90,0.06)}
+.amp-acc-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.18em;color:var(--brand-accent-deep);font-weight:800;text-transform:uppercase;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.amp-acc-title{font-family:'Fraunces',Georgia,serif;font-size:14px;line-height:1.4;color:var(--ink);font-weight:600;letter-spacing:-0.005em;flex:1;min-width:0}
+.amp-acc-chev{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);font-weight:700;transition:transform 0.2s;flex-shrink:0}
+.amp-acc[open] .amp-acc-chev{transform:rotate(180deg)}
+.amp-acc-body{padding:18px;border-top:1px solid var(--brand-light)}
+.amp-card-inner{background:#fff;border:1px solid var(--brand-light);border-radius:10px;padding:18px 20px}
 .amp-thesis{padding:0 0 14px 14px;border-left:3px solid var(--brand-accent);margin-bottom:16px}
-.amp-thesis-tag{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:8.5px;letter-spacing:0.14em;background:var(--brand-accent);color:#fff;padding:4px 9px;border-radius:4px;margin-bottom:10px;font-weight:800;text-transform:uppercase}
-.amp-thesis-headline{font-family:'Fraunces',Georgia,serif;font-size:15.5px;line-height:1.4;color:var(--ink);font-weight:500;margin-bottom:7px;letter-spacing:-0.005em}
-.amp-thesis-why{font-size:12.5px;line-height:1.55;color:var(--ink-soft)}
+.amp-thesis-headline{font-family:'Fraunces',Georgia,serif;font-size:15.5px;line-height:1.4;color:var(--ink);font-weight:700;margin-bottom:8px;letter-spacing:-0.005em}
+.amp-thesis-why{font-size:12.5px;line-height:1.55;color:var(--ink-soft);font-style:italic}
 .amp-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--brand-light);border:1px solid var(--brand-light);border-radius:10px;overflow:hidden;margin-bottom:18px}
 @media(max-width:720px){.amp-stats{grid-template-columns:1fr 1fr}}
 .amp-stat{background:#fff;padding:11px 14px;min-width:0}
@@ -1045,7 +1053,7 @@ const AMPLIFY_PLANS = {
     testWindow: "4 days (Tue May 26 → Fri May 29)",
     objective: "Profile Visits + Saves · prime the next wave of organic UGC",
     guardrail: "Auto-pause if CPM > $10. UGC-compilation content is the lowest-cost amplification in the slate — keep budget modest, recycle savings into Day 2 of RRP series.",
-    why: "Real shoppers already tagging Roasted Red Pepper across 10 Midwest states is the highest-value social-proof signal we have. Paid amplification turns the first wave of UGC into the second wave — Maazah's MN/WI/IA shoppers see other Midwest shoppers tagging the same product, social proof compounds, more UGC follows. Buyer-readable foot-traffic evidence multiplies.",
+    why: "Real shoppers already tagging Roasted Red Pepper across 10 Midwest states is the highest-value social-proof signal we have. Paid amplification turns the first wave of UGC into the second wave — Midwest shoppers see other Midwest shoppers tagging the same product, social proof compounds, more UGC follows. Buyer-readable foot-traffic evidence multiplies.",
     placements: [
       { platform: "Meta", format: "IG Reels Ad", budget: 110,
         audience: "Interest: Costco, refrigerated dips, Midwest shopper · Age 28–48 · Geo: MN, WI, IA, IL, MI, OH, IN, SD, ND, NE",
@@ -1057,6 +1065,163 @@ const AMPLIFY_PLANS = {
         audience: "Interest: #costcofind, #costcohaul · Geo: Midwest · Age 24–44",
         expectedReach: "8K–18K video views",
         note: "Smaller budget — TikTok is the discovery layer; IG is the conversion layer for this content type."
+      }
+    ]
+  },
+  "MAGIC25-BOOTH-R2": {
+    headline: "Expo West recap carousel · credibility + peer-set signaling for the post-show window",
+    totalBudget: 160,
+    testWindow: "4 days (Wed May 27 → Sat May 30)",
+    objective: "Profile Visits + Reach · long-tail credibility",
+    guardrail: "Auto-pause if CPM > $12 or save-rate < 0.4%. Recap content is brand-momentum, not direct conversion — set expectations accordingly.",
+    why: "Expo West recap is credibility content for the food-industry-adjacent audience (CPG operators, journalists, retail buyers in their off-hours). Lower direct-conversion impact, but it compounds peer-recognition signal. Paid lift extends to non-followers in the trade-adjacent network.",
+    placements: [
+      { platform: "Meta", format: "IG Carousel Ad", budget: 160,
+        audience: "Interest: Expo West, Specialty Food Association, women-founded CPG, indie food brands · Age 28–55 · Industry markers (food + retail + CPG operators)",
+        lookalike: "Cherry Bombe subscriber LAL + Fly By Jing engaged audience LAL",
+        expectedReach: "20K–35K reach",
+        note: "Lead with the celebrity-visit slide (Chrissy + John). Industry audience reacts to the peer-recognition story, not the SKU shelf-spotted angle."
+      }
+    ]
+  },
+  "MAGIC25-WEEKINSIDE-R3": {
+    headline: "Sheilla solo confessional · founder-honest beat extending follower depth without acquisition spend",
+    totalBudget: 140,
+    testWindow: "3 days (Fri May 29 → Sun May 31)",
+    objective: "Profile Visits + brand-affinity lift",
+    guardrail: "Auto-pause if CPM > $13. Founder-confessional content has high engagement among existing followers but lower discovery — this is brand-depth paid, not acquisition.",
+    why: "Founder-honesty content is one of Maazah's strongest patterns. Existing followers love it; paid amplification extends to followers-of-followers (warm-network) without overspending on cold-acquisition. Builds the founder-brand connection that compounds future content trust.",
+    placements: [
+      { platform: "Meta", format: "IG Reels Ad", budget: 140,
+        audience: "Interest: women-founded brands, sister-founders, family business, indie food · Age 28–50 · Warm network (1° + 2° connections of Maazah followers)",
+        lookalike: "Maazah IG follower LAL (warm-network expansion, not cold acquisition)",
+        expectedReach: "22K–38K video views",
+        note: "Don't optimize for Saves on this one — confessional content gets liked and shared more than saved. Optimize for ThruPlays + Profile Visits."
+      }
+    ]
+  },
+  "MULT25-RRP-CHIX-P02": {
+    headline: "Day 2 RRP series · grilled chicken thighs · mid-week dinner-prep scroll prime time",
+    totalBudget: 200,
+    testWindow: "3 days (Wed May 28 → Fri May 30)",
+    objective: "Saves + Click-through to Roasted Red Pepper PDP",
+    guardrail: "Auto-pause if CPM > $10. Mid-series content rides Day 1 algorithmic recall — budget calibrated to extend that lift, not start fresh discovery.",
+    why: "Day 2 of the 3-day series is when the Day 1 audience returns to see what's next. Mid-week dinner-prep scroll is peak intent for ready-to-cook content. Chicken thighs is a Costco staple — pairs the new SKU with what's already in the shopper's cart. Use Day 1's discovery to amplify Day 2's repeat.",
+    placements: [
+      { platform: "Meta", format: "IG Reels Ad", budget: 150,
+        audience: "Interest: weeknight dinner, grilling, meal prep · Age 28–48 · Engaged with Day 1 (P01) creative · Midwest geo-priority",
+        lookalike: "Day 1 (P01) engaged audience LAL",
+        expectedReach: "30K–52K video views",
+        note: "Sequenced retargeting from Day 1. Don't show this to cohorts who didn't see Day 1 — series structure matters."
+      },
+      { platform: "TikTok", format: "In-Feed Ad", budget: 50,
+        audience: "Interest: #grilling, #weeknightcooking, #dinneridea · Age 24–44",
+        expectedReach: "11K–22K video views",
+        note: "Lower spend — testing whether sequenced storytelling carries across to TikTok or stays IG-native."
+      }
+    ]
+  },
+  "MULT25-RRP-PIZZA-P03": {
+    headline: "Day 3 RRP series · pizza-sauce reveal · Friday game-day-prep + NBA Finals adjacency",
+    totalBudget: 220,
+    testWindow: "4 days (Fri May 30 → Mon Jun 2)",
+    objective: "Saves + Click-through · weekend game-day recall",
+    guardrail: "Auto-pause if CPM > $10. Surprise-reveal content (RRP on pizza) tests well but can polarize — watch comment sentiment closely first 4h.",
+    why: "Friday game-day-prep scroll + NBA Finals + Stanley Cup overlap = peak snack-recipe intent window. The 'wait, on pizza?' surprise-format is the share-trigger. Day 3 closes the 'put it on everything' arc with the most-unexpected use, converting series-completion into save-and-revisit.",
+    placements: [
+      { platform: "Meta", format: "IG Reels Ad", budget: 150,
+        audience: "Interest: pizza, game day, NBA, weekend cooking · Age 28–48 · Engaged with Day 1 or Day 2 RRP series",
+        lookalike: "Maazah purchaser LAL + Truff IG engaged LAL",
+        expectedReach: "32K–55K video views",
+        note: "Sequenced retargeting from Day 2 (P02). Caption emphasizes the 3-day-series completion: 'we started with eggs, ended with PIZZA.' Series-completion is the share-trigger."
+      },
+      { platform: "TikTok", format: "Spark Ad (boost the organic post)", budget: 70,
+        audience: "Interest: #pizza, #gameday, #foodhack · Age 22–42",
+        expectedReach: "15K–28K video views",
+        note: "Boost only if organic save-rate > 1.2% in first 18h. The 'cheese stretch + dollop' is the visual hook — must be in first 3s of the boosted edit."
+      }
+    ]
+  },
+  "MULT25-LEMON-FRIES-P04": {
+    headline: "Lemon Aioli zucchini fries · underused-SKU recipe-trial test",
+    totalBudget: 140,
+    testWindow: "4 days (Wed May 28 → Sat May 31)",
+    objective: "Saves + Click-through to Lemon Aioli PDP",
+    guardrail: "Auto-pause if CPM > $11. Lemon Aioli is the underdeployed SKU — testing whether paid lift on a clear-utility recipe brief converts to SKU trial.",
+    why: "Lemon Aioli is Maazah's underutilized sauce. The air-fryer zucchini fries recipe is clear-utility (18 min total) + a clean SKU showcase. Paid amplification tests whether targeted recipe-trial content lifts Lemon Aioli's overall search velocity — if it works, repeat the playbook for Mango Chutney + Cilantro Chutney.",
+    placements: [
+      { platform: "Meta", format: "IG Reels Ad", budget: 90,
+        audience: "Interest: air fryer, easy recipes, weekday cooking · Age 28–48 · Recent Whole Foods or Sprouts engagement",
+        lookalike: "Maazah purchaser LAL (Lemon Aioli buyers if available)",
+        expectedReach: "18K–32K video views",
+        note: "Optimize for Saves over Likes. Recipe content's share-trigger is 'I'll make this' — saves are the proxy."
+      },
+      { platform: "Pinterest", format: "Idea Pin (promoted)", budget: 50,
+        audience: "Interest: air fryer recipes, summer recipes, sauce recipes · Pinterest food + cooking boards",
+        expectedReach: "10K–22K impressions",
+        note: "Pinterest is the recipe-save platform. Lower-traffic but higher save-to-trial conversion. Long-tail discovery 30-60 days out."
+      }
+    ]
+  },
+  "MULT25-MANGO-MOCK-P05": {
+    headline: "Mango Chutney mocktail · summer alcohol-free drink discovery · Pinterest-led format-portability test",
+    totalBudget: 120,
+    testWindow: "5 days (Thu May 28 → Mon Jun 1)",
+    objective: "Saves + Pinterest discovery + Mango Chutney SKU trial",
+    guardrail: "Auto-pause if CPM > $12. Drink-content audience is narrower — keep budget tight + measure format-portability before committing more.",
+    why: "Mocktail content + alcohol-free summer-drink discovery has a sustained long-tail on Pinterest. This is the lowest-conviction brief in the slate (drink-lane unproven for Maazah) — paid amplification tests whether Mango Chutney has cross-category portability beyond the dip set. If saves hit threshold, double down for Memorial Day → July 4 window.",
+    placements: [
+      { platform: "Pinterest", format: "Idea Pin (promoted)", budget: 80,
+        audience: "Interest: mocktail recipes, sober curious, summer drinks · Pinterest drinks + entertaining boards",
+        expectedReach: "18K–35K impressions",
+        note: "Pinterest is the natural home for mocktail discovery. Optimize for Saves. The 'swicy' wordplay payoff is the share-hook."
+      },
+      { platform: "Meta", format: "IG Reels Ad", budget: 40,
+        audience: "Interest: mocktail, sober curious, summer entertaining · Age 28–45",
+        expectedReach: "8K–15K video views",
+        note: "Small cross-platform layer. If Pinterest saves outperform IG by 3x, deprioritize IG for future mocktail content."
+      }
+    ]
+  },
+  "MOM25-BOLANI-T02": {
+    headline: "Mom's Bolani recipe · heritage-anchor brief for the long-tail save + revisit pattern",
+    totalBudget: 180,
+    testWindow: "5 days (Sat May 31 → Wed Jun 4)",
+    objective: "Saves + Profile Visits · long-tail recipe-trial",
+    guardrail: "Lower performance bar — heritage recipe content compounds 30-60 days out, not first-week. Auto-pause only if CPM > $14.",
+    why: "Bolani is Maazah's origin dish — the heritage anchor of MOM'S TABLE pillar. Paid amplification targets first-gen + heritage-cooking audiences who'll save the recipe + return to it weeks or months later. Long-tail recipe content has unusually high revisit rates (saves get re-opened during meal planning). Brand-depth content, not first-week conversion.",
+    placements: [
+      { platform: "Meta", format: "IG Carousel Ad", budget: 130,
+        audience: "Interest: Afghan cooking, heritage recipes, first-gen creators, Cherry Bombe subscribers · Age 28–55 · Educated-audience markers",
+        lookalike: "Maazah IG engaged LAL + Reem's California restaurant followers LAL",
+        expectedReach: "28K–48K reach",
+        note: "Lead the carousel with the hero stack image (golden bolani + Cilantro Chutney bowl). Saves are the win metric — recipe content gets revisited."
+      },
+      { platform: "Pinterest", format: "Idea Pin (promoted)", budget: 50,
+        audience: "Interest: Afghan recipes, heritage cooking, bread recipes · Pinterest food + heritage cooking boards",
+        expectedReach: "12K–24K impressions",
+        note: "Long-tail Pinterest discovery is where heritage recipes compound. Don't measure first-week — measure 60-day save velocity."
+      }
+    ]
+  },
+  "SQUAD25-SNACKLE-S02": {
+    headline: "Midwest snackle box weekly · recurring lane amplification with Memorial Day timing",
+    totalBudget: 120,
+    testWindow: "3 days (Sat May 31 → Mon Jun 2)",
+    objective: "Saves + Profile Visits · prime the recurring weekly lane",
+    guardrail: "Auto-pause if CPM > $10. Recurring-lane content has known performance baseline (May 24 organic post: 41 likes in 23h) — set guardrail tight to extend that benchmark.",
+    why: "May 24 lakeside snackle box hit 41 likes in 23 hours — top of recent. Format is repeatable + scalable across SKUs. Paid amplification this week extends reach for the recurring lane (week 1 of 4 planned through summer), seeds the audience for subsequent SKU-rotation entries (Mango Chutney week 2, Chili Aioli week 3, Basil Jalapeño week 4).",
+    placements: [
+      { platform: "Meta", format: "IG Reels Ad", budget: 90,
+        audience: "Interest: lakeside, summer entertaining, snackle box, Midwest lifestyle · Age 28–48 · Geo: MN, WI, IA, IL, MI",
+        lookalike: "Maazah IG engaged LAL + Old Wisconsin + Vlasic IG followers LAL (snackle-box brand partners)",
+        expectedReach: "20K–35K video views",
+        note: "Lead the asset with the snackle-box reveal — the 'midwest snackle box' framing is the share-hook. Co-tag the partner brands on organic, paid runs without co-tags."
+      },
+      { platform: "TikTok", format: "In-Feed Ad", budget: 30,
+        audience: "Interest: #snacklebox, #midwestlife, #summerlife · Age 24–44",
+        expectedReach: "6K–13K video views",
+        note: "Small budget — TikTok is testing format-portability for snackle-box content. If it lands, increase next week."
       }
     ]
   }
@@ -2878,63 +3043,63 @@ function FootageInspoSection({ footage }) {
 
 function AmplifyCard({ plan }) {
   if (!plan) return null;
-  const total = plan.placements?.reduce((s, p) => s + (p.budget || 0), 0) || plan.totalBudget;
+  const placementCount = plan.placements?.length || 0;
   return (
-    <div className="amp-block">
-      <div className="amp-block-head">
-        <span className="amp-block-eyebrow">⚡ AMPLIFY · PAID MEDIA PLAN</span>
-        <span className="amp-agent-stamp">drafted by Shelf Watch · auto-generated</span>
-      </div>
-      <div className="amp-thesis">
-        <span className="amp-thesis-tag">◆ Paid Media Planner</span>
-        <div className="amp-thesis-headline">{plan.headline}</div>
-        <div className="amp-thesis-why">{plan.why}</div>
-      </div>
-      <div className="amp-stats">
-        <div className="amp-stat">
-          <div className="amp-stat-label">Budget</div>
-          <div className="amp-stat-num">${plan.totalBudget}</div>
-        </div>
-        <div className="amp-stat">
-          <div className="amp-stat-label">Test Window</div>
-          <div className="amp-stat-num amp-stat-text">{plan.testWindow}</div>
-        </div>
-        <div className="amp-stat">
-          <div className="amp-stat-label">Objective</div>
-          <div className="amp-stat-num amp-stat-text">{plan.objective}</div>
-        </div>
-        <div className="amp-stat amp-stat-guard">
-          <div className="amp-stat-label">⚠ Guardrail</div>
-          <div className="amp-stat-num">{plan.guardrail}</div>
-        </div>
-      </div>
-      <div className="amp-placements-head">
-        <span>Placements · {plan.placements?.length || 0}</span>
-        <span>Allocated: ${total} / ${plan.totalBudget}</span>
-      </div>
-      <div className="amp-placements">
-        {plan.placements?.map((p, i) => {
-          const dotClass = p.platform.toLowerCase().includes("meta") ? "amp-placement-dot-meta"
-            : p.platform.toLowerCase().includes("tiktok") ? "amp-placement-dot-tiktok"
-            : p.platform.toLowerCase().includes("pinterest") ? "amp-placement-dot-pinterest"
-            : "amp-placement-dot-default";
-          return (
-            <div key={i} className="amp-placement">
-              <div className="amp-placement-head">
-                <span className={`amp-placement-dot ${dotClass}`}></span>
-                <span className="amp-placement-platform">{p.platform}</span>
-                <span className="amp-placement-format">· {p.format}</span>
-                <span className="amp-placement-budget">${p.budget}</span>
-                <span className="amp-placement-reach">{p.expectedReach}</span>
-              </div>
-              <div className="amp-placement-audience">{p.audience}</div>
-              {p.lookalike && <div className="amp-placement-lookalike"><strong>Lookalike: </strong>{p.lookalike}</div>}
-              {p.note && <div className="amp-placement-note">{p.note}</div>}
+    <details className="amp-acc" open>
+      <summary>
+        <span className="amp-acc-eyebrow">⚡ AMPLIFY</span>
+        <span className="amp-acc-title">Paid media plan · ${plan.totalBudget} across {placementCount} {placementCount === 1 ? "placement" : "placements"}</span>
+        <span className="amp-acc-chev">▲</span>
+      </summary>
+      <div className="amp-acc-body">
+        <div className="amp-card-inner">
+          <div className="amp-thesis">
+            <div className="amp-thesis-headline">{plan.headline}</div>
+            <div className="amp-thesis-why">{plan.why}</div>
+          </div>
+          <div className="amp-stats">
+            <div className="amp-stat">
+              <div className="amp-stat-label">Budget</div>
+              <div className="amp-stat-num">${plan.totalBudget}</div>
             </div>
-          );
-        })}
+            <div className="amp-stat">
+              <div className="amp-stat-label">Window</div>
+              <div className="amp-stat-num amp-stat-text">{plan.testWindow}</div>
+            </div>
+            <div className="amp-stat">
+              <div className="amp-stat-label">Objective</div>
+              <div className="amp-stat-num amp-stat-text">{plan.objective}</div>
+            </div>
+            <div className="amp-stat amp-stat-guard">
+              <div className="amp-stat-label">⚠ Guardrail</div>
+              <div className="amp-stat-num">{plan.guardrail}</div>
+            </div>
+          </div>
+          <div className="amp-placements">
+            {plan.placements?.map((p, i) => {
+              const dotClass = p.platform.toLowerCase().includes("meta") ? "amp-placement-dot-meta"
+                : p.platform.toLowerCase().includes("tiktok") ? "amp-placement-dot-tiktok"
+                : p.platform.toLowerCase().includes("pinterest") ? "amp-placement-dot-pinterest"
+                : "amp-placement-dot-default";
+              const fullAudience = p.lookalike ? `${p.audience} · ${p.lookalike}` : p.audience;
+              return (
+                <div key={i} className="amp-placement">
+                  <div className="amp-placement-head">
+                    <span className={`amp-placement-dot ${dotClass}`}></span>
+                    <span className="amp-placement-platform">{p.platform}</span>
+                    <span className="amp-placement-format">· {p.format}</span>
+                    <span className="amp-placement-budget">${p.budget}</span>
+                    <span className="amp-placement-reach">{p.expectedReach}</span>
+                  </div>
+                  <div className="amp-placement-audience">{fullAudience}</div>
+                  {p.note && <div className="amp-placement-note">{p.note}</div>}
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
-    </div>
+    </details>
   );
 }
 
