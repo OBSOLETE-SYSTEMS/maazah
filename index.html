@@ -180,6 +180,79 @@ a{color:inherit;text-decoration:none}
 .drop-btn{background:var(--green);color:#fff;font-size:10.5px;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;padding:7px 13px;border-radius:99px;display:flex;align-items:center;gap:6px;transition:background 0.15s,transform 0.1s}
 .drop-btn:hover{background:var(--green-deep);transform:translateY(-1px)}
 
+/* ============================================================
+   Intel card upgrades (Phase 3) — 5px rail + 32px glyph + drop button
+   ============================================================ */
+.intel-card{border-left-width:5px}
+.intel-glyph{width:32px;height:32px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:18px;line-height:1;flex-shrink:0;border:1px solid currentColor}
+.icard-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.icard-head-meta{flex:1;min-width:0;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+
+/* Memo trigger button — sits at top of Intel page, opens MondayMemoModal */
+.memo-trigger{display:flex;align-items:center;justify-content:space-between;gap:14px;width:100%;background:linear-gradient(135deg,var(--brand-primary) 0%,var(--brand-deep) 100%);color:#fff;border-radius:12px;padding:14px 18px;margin-bottom:18px;cursor:pointer;border:0;text-align:left;transition:transform 0.12s,box-shadow 0.15s;box-shadow:0 4px 14px rgba(63,123,40,0.32)}
+.memo-trigger:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(63,123,40,0.42)}
+.memo-trigger-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;font-weight:700;opacity:0.85;text-transform:uppercase}
+.memo-trigger-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:17px;letter-spacing:0.005em;line-height:1.15;margin-top:3px}
+.memo-trigger-sub{background:var(--brand-accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;font-weight:700;text-transform:uppercase;padding:8px 13px;border-radius:99px;flex-shrink:0;box-shadow:0 2px 8px rgba(214,122,90,0.4)}
+
+/* Competitor direction badge — chunky pill (replaces inline arrow text) */
+.comp-dir-badge{display:inline-flex;align-items:center;gap:5px;padding:5px 11px;border-radius:99px;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;font-weight:800;text-transform:uppercase;flex-shrink:0;border:1.5px solid currentColor;background:transparent}
+.comp-dir-badge-up{color:#A85959;background:rgba(168,89,89,0.08)}
+.comp-dir-badge-down{color:#5D8054;background:rgba(93,128,84,0.08)}
+.comp-dir-badge-flat{color:#7C7C7C;background:rgba(124,124,124,0.06)}
+.comp-dir-badge-arrow{font-family:'Bagel Fat One',serif;font-size:13px;line-height:1}
+
+/* ============================================================
+   Counter-Strike Log (Phase 3 — new subtab)
+   Native <details> accordion · collapsed shows 1-line · expanded shows full
+   ============================================================ */
+.cs-section{margin-top:8px}
+.cs-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:18px;padding-bottom:14px;border-bottom:1px solid var(--border);margin-bottom:14px}
+.cs-section-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;color:var(--brand-accent-deep);font-weight:700;text-transform:uppercase;margin-bottom:5px}
+.cs-section-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:26px;letter-spacing:0.005em;line-height:1;color:var(--ink)}
+.cs-section-sub{font-family:'Fraunces',Georgia,serif;font-size:13px;line-height:1.5;color:var(--ink-soft);font-style:italic;max-width:520px;margin-top:6px}
+.cs-section-count{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;color:var(--ink);background:var(--brand-light-soft);padding:5px 11px;border-radius:99px;font-weight:700;text-transform:uppercase;border:1px solid rgba(111,175,77,0.32);white-space:nowrap}
+
+.cs-log{display:flex;flex-direction:column;gap:12px}
+.cs-entry{background:var(--butter-light);border:1.5px solid var(--brand-primary);border-radius:14px;box-shadow:0 2px 0 var(--brand-primary);overflow:hidden}
+.cs-entry summary{list-style:none;cursor:pointer;padding:14px 18px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
+.cs-entry summary::-webkit-details-marker{display:none}
+.cs-entry[open] .cs-entry-chev{transform:rotate(180deg)}
+.cs-entry-chev{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--brand-primary);font-weight:700;transition:transform 0.2s;display:inline-block;margin-left:8px}
+.cs-entry-trigger{min-width:0}
+.cs-entry-stamp{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--brand-accent-deep);font-weight:700;text-transform:uppercase;margin-bottom:5px}
+.cs-entry-comp{font-family:'Bagel Fat One',serif;font-weight:400;font-size:18px;letter-spacing:0.005em;color:var(--ink);line-height:1.1;margin-bottom:5px}
+.cs-entry-detail-compact{font-size:12.5px;line-height:1.45;color:var(--ink-soft);max-width:640px;display:-webkit-box;-webkit-line-clamp:1;-webkit-box-orient:vertical;overflow:hidden}
+.cs-entry-meta{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
+.cs-entry-time{font-family:'Bagel Fat One',serif;font-size:26px;font-weight:400;color:var(--brand-accent);letter-spacing:0.005em;line-height:1}
+.cs-entry-resp{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink-soft);letter-spacing:0.04em;text-transform:uppercase}
+.cs-entry-status{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;text-transform:uppercase;font-weight:800;padding:4px 11px;border-radius:99px;margin-top:4px}
+.cs-status-shipped{background:#DAEDC8;color:#3B6B2D}
+.cs-status-ready{background:#FAEED1;color:#8B6F1F}
+.cs-status-tracking{background:#E5E0F2;color:#4F4885}
+.cs-entry-expanded{padding:14px 18px 18px;border-top:1px solid var(--brand-light);background:#fff}
+.cs-entry-expanded-full{font-size:13.5px;line-height:1.55;color:var(--ink);margin-bottom:12px}
+.cs-entry-source{font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--brand-deep);font-weight:600;letter-spacing:0.04em;text-transform:uppercase}
+.cs-entry-drafts{margin-top:12px;padding-top:12px;border-top:1px dashed var(--brand-light);font-size:12px;color:var(--ink-soft);line-height:1.5}
+.cs-entry-drafts strong{color:var(--ink);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;font-size:10.5px;display:block;margin-bottom:4px;font-family:'JetBrains Mono',monospace}
+
+/* Culture Momentum view (Phase 3 — top of Pulse subtab) */
+.cm-wrap{margin-bottom:20px;background:var(--butter-light);border:1.5px solid var(--brand-light);border-radius:14px;padding:18px 22px 20px}
+.cm-header{margin-bottom:16px}
+.cm-eyebrow{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.18em;color:var(--brand-deep);font-weight:700;text-transform:uppercase;margin-bottom:5px}
+.cm-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:22px;letter-spacing:0.005em;line-height:1.05;color:var(--ink);margin:0 0 5px}
+.cm-sub{font-family:'Fraunces',Georgia,serif;font-size:12.5px;line-height:1.5;color:var(--ink-soft);font-style:italic;max-width:660px}
+.cm-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:740px){.cm-cols{grid-template-columns:1fr}}
+.cm-col{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px}
+.cm-col-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.16em;font-weight:700;text-transform:uppercase;margin-bottom:10px;display:inline-block;padding:3px 8px;border-radius:99px}
+.cm-col-popping .cm-col-eye{color:#3B6B2D;background:rgba(111,175,77,0.18);border:1px solid rgba(111,175,77,0.35)}
+.cm-col-cooling .cm-col-eye{color:#8B6F1F;background:rgba(232,134,66,0.16);border:1px solid rgba(232,134,66,0.3)}
+.cm-item{padding:8px 0;border-bottom:1px dashed var(--border);font-size:13px;line-height:1.45;color:var(--ink)}
+.cm-item:last-child{border-bottom:0}
+.cm-item-label{font-weight:700;color:var(--ink);margin-bottom:2px}
+.cm-item-note{font-size:11.5px;color:var(--ink-soft);line-height:1.4}
+
 /* Pillar pips */
 .trend-pillars{display:flex;gap:4px;flex-wrap:wrap}
 .pillar-pip{font-size:9.5px;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;padding:2px 7px;border-radius:3px;color:#fff}
@@ -451,6 +524,95 @@ const MaazahArch = ({ className = "" }) => (
 
 const WEEK_LABEL = "MAY 25 – 31, 2026";
 const TODAY = "2026-05-25";
+
+/* ============================================================
+   Glyph + velocity maps (Phase 3) — drive intel-card visual identity
+   ============================================================ */
+const PULSE_TYPE_GLYPH = {
+  "archetype":"🎭",       // first-gen / cultural archetype waves
+  "recipe":"🍳",          // viral recipes
+  "meme":"🎬",            // meme templates / formats
+  "cultural":"💬",        // cultural conversations
+  "entertainment":"🎬",   // entertainment / festival moments
+  "news":"📰"             // news cycle / press
+};
+const VELOCITY_RAIL = {
+  "high":"#D67A5A",       // brand-accent coral — hot signal
+  "medium":"#E08642",     // turmeric — building
+  "low":"#7FB069"         // cilantro green — steady
+};
+const PILLAR_GLYPH = {
+  "magic":"✨",           // MAGIC IS REAL
+  "multiply":"🌶️",        // PUT IT ON EVERYTHING
+  "mom":"💚",             // MOM'S TABLE
+  "squad":"🤝"            // SAUCY SQUAD
+};
+const PILLAR_RAIL = {
+  "magic":"#6FAF4D",
+  "multiply":"#D67A5A",
+  "mom":"#E08642",
+  "squad":"#E8C547"
+};
+
+/* ============================================================
+   Counter-Strike Log (Phase 3 — competitor responses logged)
+   Reverse-chronological. Engine drafts within target SLA.
+   ============================================================ */
+const COUNTER_STRIKE_LOG = [
+  {
+    id: "CS-3",
+    stamp: "MAY 22 · 14:18 CT",
+    competitor: "Hope Foods · non-hummus dip expansion",
+    detailCompact: "4 new white-bean + beet dip flavors hit shelves. Press deck explicitly names 'lentil-and-bean dips' as growth category.",
+    detailFull: "Hope Foods launched a 4-SKU expansion (white bean basil, beet curry, white bean tomato, white bean ranch) on May 21. Their PR Newswire announcement specifically calls out 'lentil-and-bean dips' as their growth bet — validating the category-creation thesis Maazah's already running. The trade press picked it up within 24 hours. Hope's framing leans wellness-and-functional; Maazah's lane is heritage-and-saucy. Engine response: 3 briefs leaning into 'lentils are our specific magic' — no naming Hope.",
+    source: "PR Newswire · NOSH BFY trade",
+    responseTime: "6h",
+    status: "shipped",
+    statusLabel: "shipped",
+    drafts: "3 briefs · 1 Reel (RRP-as-protein-stack) + 2 IG carousels (lentil-vs-chickpea education) · all category-critique-only, names stay internal"
+  },
+  {
+    id: "CS-2",
+    stamp: "MAY 19 · 09:42 CT",
+    competitor: "Sabra · 'savory dips beyond hummus' creative",
+    detailCompact: "Volume incumbent's new Meta ad creative leans 'dips beyond hummus' — acknowledging the wave Maazah's already on.",
+    detailFull: "Sabra launched fresh Meta ad creative on May 17 emphasizing chili-coated and roasted varieties under a 'dips beyond hummus' banner. Spend signal: 2 creative variants in active rotation across IG + Reels placements. Sabra is the volume incumbent; their copying the category-creation language validates Maazah's positioning AND signals their narrative team is watching. Engine response: 2 briefs framing Maazah as 'dip with a backstory' (heritage-coded) — never name Sabra. Held the briefs because of pitch week.",
+    source: "Meta Ad Library",
+    responseTime: "4h",
+    status: "ready",
+    statusLabel: "ready · held",
+    drafts: "2 briefs · IG carousels (mom's-recipe-vs-grocery-aisle framing) · ship Friday post-pitch"
+  },
+  {
+    id: "CS-1",
+    stamp: "MAY 12 · 11:30 CT",
+    competitor: "Fly By Jing · seasonal Costco bundle",
+    detailCompact: "Direct retail-arc playbook reference — what Maazah's national arc looks like.",
+    detailFull: "Fly By Jing's seasonal sauce bundle hit 50 Costco stores on May 10. This is the closest national-arc analog Maazah has — single-founder cultural pride, Costco success, category creation around chili crisp. Tracking-only response — Fly By Jing is peer + muse, not competitor. Watch their UGC tag velocity, saves rate, and recipe co-uses for what Maazah's Costco-window playbook should look like in 8-12 weeks.",
+    source: "Costco UGC scrape · @flybyjing IG",
+    responseTime: "90min",
+    status: "tracking",
+    statusLabel: "tracking only",
+    drafts: "No counter-content. Engine logs the move + flags the playbook reference for the Costco-window analysis. Peer + muse, not competitor."
+  }
+];
+
+/* ============================================================
+   Culture Momentum view (Phase 3 — top of Pulse subtab)
+   Two columns · what's popping (rising) vs. what's cooling (decaying)
+   ============================================================ */
+const CULTURE_MOMENTUM = {
+  popping: [
+    { label: "First-gen kid arc on TikTok", note: "'Things I used to explain' format peaking — T01 brief direct ride window" },
+    { label: "Snackle box format", note: "still ascending into Memorial Day → Labor Day evergreen — weekly SKU rotation locked" },
+    { label: "Category-explainer save velocity", note: "save-driven content rewarding period-spaced-descriptor format — M04 brief catches the wave" }
+  ],
+  cooling: [
+    { label: "Celebrity-reaction meme content", note: "Taylor/Kendrick-style reactions flopped for Maazah · skip without exception" },
+    { label: "Cross-posted IG-format Reels on TikTok", note: "10-30× engagement gap proves format mismatch · TikTok needs its own register" },
+    { label: "Generic 'hummus alternative' framing", note: "anti-pattern · defines Maazah by what it's not · engine downweights any signal that surfaces this" }
+  ]
+};
 
 const TICKER = [
   { tag: "COSTCO WK2", text: "Roasted Red Pepper on Midwest shelves · day 9 of 8-12wk window" },
@@ -1279,13 +1441,18 @@ const BRIEFS = [
 
 function MaazahApp() {
   const [page, setPage] = useState("intel");
-  const [intelTab, setIntelTab] = useState("trends");
+  const [intelTab, setIntelTab] = useState("pulse");   // Phase 3: Pulse leads (was trends)
   const [briefOpen, setBriefOpen] = useState(null);
-  const [memoOpen, setMemoOpen] = useState(true);   // Monday Memo auto-opens (Phase 2 builds the new shape)
+  const [memoOpen, setMemoOpen] = useState(true);      // Monday Memo auto-opens
   const [hiwOpen, setHiwOpen] = useState(false);
-  const [diagOpen, setDiagOpen] = useState(false);  // Diagnostic Inbox (Phase 7 builds it)
+  const [diagOpen, setDiagOpen] = useState(false);
+  const [studioSeed, setStudioSeed] = useState(null);  // Phase 6 will wire to Studio modal
 
   const briefById = (id) => BRIEFS.find(b => b.id === id);
+  const openStudioWith = (seed) => {
+    setStudioSeed(seed);
+    setPage("studio");  // Phase 6 will switch this to open a Studio modal instead
+  };
 
   return (
     <div className="app">
@@ -1335,7 +1502,7 @@ function MaazahApp() {
 
       {/* MAIN */}
       <main className="main">
-        {page === "intel" && <IntelPage tab={intelTab} setTab={setIntelTab} />}
+        {page === "intel" && <IntelPage tab={intelTab} setTab={setIntelTab} openMemo={() => setMemoOpen(true)} openStudioWith={openStudioWith} />}
         {page === "briefs" && <BriefsPage onOpen={setBriefOpen} />}
         {page === "wholesale" && <WholesaleLensPage />}
         {page === "studio" && <StudioPage />}
@@ -1445,48 +1612,141 @@ function MondayMemoModal({ onClose, onShipIt }) {
 /* ============================================================
    INTELLIGENCE BRIEF PAGE
    ============================================================ */
-function IntelPage({ tab, setTab }) {
+function IntelPage({ tab, setTab, openMemo, openStudioWith }) {
   return (
     <>
       <PageHead eyebrow="Engine · This Week" title="Intelligence Brief" />
       <Ticker />
+
+      {/* Memo trigger — re-open this week's strategic read */}
+      <button className="memo-trigger" onClick={openMemo}>
+        <div>
+          <div className="memo-trigger-eye">// THIS WEEK'S MEMO</div>
+          <div className="memo-trigger-title">re-read the read · 5 signals · 3 moves</div>
+        </div>
+        <span className="memo-trigger-sub">Open Memo →</span>
+      </button>
+
       <Lede />
       <div className="subtabs">
-        <button className={`subtab ${tab==="trends"?"active":""}`} onClick={() => setTab("trends")}>
-          Trends <span className="subtab-count">{TRENDS.length}</span>
-        </button>
         <button className={`subtab ${tab==="pulse"?"active":""}`} onClick={() => setTab("pulse")}>
           Cultural Pulse <span className="subtab-count">{CULTURAL_PULSE.length}</span>
         </button>
+        <button className={`subtab ${tab==="trends"?"active":""}`} onClick={() => setTab("trends")}>
+          Category + Policy <span className="subtab-count">{TRENDS.length}</span>
+        </button>
         <button className={`subtab ${tab==="comp"?"active":""}`} onClick={() => setTab("comp")}>
-          Competitors <span className="subtab-count">{COMPETITORS.length}</span>
+          Competitor Watch <span className="subtab-count">{COMPETITORS.length}</span>
+        </button>
+        <button className={`subtab ${tab==="counter"?"active":""}`} onClick={() => setTab("counter")}>
+          Counter-Strike <span className="subtab-count" style={{background:tab==="counter"?"var(--brand-accent)":"rgba(214,122,90,0.18)",color:tab==="counter"?"#fff":"var(--brand-accent-deep)"}}>⚡ {COUNTER_STRIKE_LOG.length}</span>
         </button>
         <button className={`subtab ${tab==="amb"?"active":""}`} onClick={() => setTab("amb")}>
-          Ambassadors <span className="subtab-count">{AMBASSADORS.length}</span>
+          Brand Ambassadors <span className="subtab-count">{AMBASSADORS.length}</span>
         </button>
       </div>
 
+      {tab === "pulse" && (
+        <>
+          <CultureMomentum />
+          <div className="grid grid-3">
+            {CULTURAL_PULSE.map(p => <PulseCard key={p.id} p={p} openStudioWith={openStudioWith} />)}
+          </div>
+        </>
+      )}
       {tab === "trends" && (
         <div className="grid grid-3">
-          {TRENDS.map(t => <TrendCard key={t.id} t={t} />)}
-        </div>
-      )}
-      {tab === "pulse" && (
-        <div className="grid grid-3">
-          {CULTURAL_PULSE.map(p => <PulseCard key={p.id} p={p} />)}
+          {TRENDS.map(t => <TrendCard key={t.id} t={t} openStudioWith={openStudioWith} />)}
         </div>
       )}
       {tab === "comp" && (
         <div className="grid grid-2">
-          {COMPETITORS.map(c => <CompCard key={c.id} c={c} />)}
+          {COMPETITORS.map(c => <CompCard key={c.id} c={c} openStudioWith={openStudioWith} />)}
         </div>
       )}
+      {tab === "counter" && <CounterStrikeLog openStudioWith={openStudioWith} />}
       {tab === "amb" && (
         <div className="grid grid-2">
           {AMBASSADORS.map(a => <AmbCard key={a.id} a={a} />)}
         </div>
       )}
     </>
+  );
+}
+
+/* ============================================================
+   Culture Momentum view (Phase 3 — top of Pulse subtab)
+   ============================================================ */
+function CultureMomentum() {
+  return (
+    <div className="cm-wrap">
+      <div className="cm-header">
+        <div className="cm-eyebrow">// CULTURE MOMENTUM</div>
+        <h3 className="cm-title">What's popping. What's cooling.</h3>
+        <div className="cm-sub">The signals worth riding this week vs. the ones the engine is consciously skipping. Tells you what's NOT in the brief mix and why.</div>
+      </div>
+      <div className="cm-cols">
+        <div className="cm-col cm-col-popping">
+          <div className="cm-col-eye">↑ Popping</div>
+          {CULTURE_MOMENTUM.popping.map((it, i) => (
+            <div key={i} className="cm-item">
+              <div className="cm-item-label">{it.label}</div>
+              <div className="cm-item-note">{it.note}</div>
+            </div>
+          ))}
+        </div>
+        <div className="cm-col cm-col-cooling">
+          <div className="cm-col-eye">↓ Cooling / Skip</div>
+          {CULTURE_MOMENTUM.cooling.map((it, i) => (
+            <div key={i} className="cm-item">
+              <div className="cm-item-label">{it.label}</div>
+              <div className="cm-item-note">{it.note}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   Counter-Strike Log (Phase 3 — competitor responses)
+   ============================================================ */
+function CounterStrikeLog({ openStudioWith }) {
+  return (
+    <div className="cs-section">
+      <div className="cs-section-head">
+        <div>
+          <div className="cs-section-eye">// COUNTER-STRIKE LOG · COMPETITOR RESPONSES</div>
+          <div className="cs-section-title">When the category moves, the engine moves back.</div>
+          <div className="cs-section-sub">Every competitor launch / ad-creative shift gets logged with the engine's response time + drafted briefs. Click any entry to expand.</div>
+        </div>
+        <span className="cs-section-count">⚡ {COUNTER_STRIKE_LOG.length} this month</span>
+      </div>
+      <div className="cs-log">
+        {COUNTER_STRIKE_LOG.map(e => (
+          <details key={e.id} className="cs-entry">
+            <summary>
+              <div className="cs-entry-trigger">
+                <div className="cs-entry-stamp">⚡ {e.stamp}</div>
+                <div className="cs-entry-comp">{e.competitor} <span className="cs-entry-chev">▾</span></div>
+                <div className="cs-entry-detail-compact">{e.detailCompact}</div>
+              </div>
+              <div className="cs-entry-meta">
+                <div className="cs-entry-time">{e.responseTime}</div>
+                <div className="cs-entry-resp">response</div>
+                <span className={`cs-entry-status cs-status-${e.status}`}>{e.statusLabel}</span>
+              </div>
+            </summary>
+            <div className="cs-entry-expanded">
+              <div className="cs-entry-expanded-full">{e.detailFull}</div>
+              <div className="cs-entry-source">↗ source: {e.source}</div>
+              <div className="cs-entry-drafts"><strong>Engine drafted</strong>{e.drafts}</div>
+            </div>
+          </details>
+        ))}
+      </div>
+    </div>
   );
 }
 
@@ -1531,14 +1791,23 @@ function Lede() {
 /* ============================================================
    CARDS
    ============================================================ */
-function TrendCard({ t }) {
+/* ============================================================
+   Intel cards (Phase 3 upgrade) — rails + glyph + drop button
+   ============================================================ */
+function TrendCard({ t, openStudioWith }) {
+  const firstPillar = t.pillars[0] || "magic";
+  const railColor = PILLAR_RAIL[firstPillar] || "#6FAF4D";
+  const seed = `Sharpen the Maazah play on: "${t.hook}"\n\nDetail: ${t.detail}\n\nEngine's current angle: ${t.play}\n\nWhat sharper angle would you take?`;
   return (
-    <div className="card">
-      <div className="card-head">
-        <span className="card-type">{t.type}</span>
-        <span className="card-velocity">
-          <span className={`velocity-dot velocity-${t.velocity}`}></span>{t.velocity}
-        </span>
+    <div className="card intel-card" style={{borderLeftColor:railColor}}>
+      <div className="icard-head">
+        <span className="intel-glyph" style={{background:railColor+"22",color:railColor,borderColor:railColor+"55"}}>{PILLAR_GLYPH[firstPillar]||"✦"}</span>
+        <div className="icard-head-meta">
+          <span className="card-type">{t.type}</span>
+          <span className="card-velocity">
+            <span className={`velocity-dot velocity-${t.velocity}`}></span>{t.velocity}
+          </span>
+        </div>
       </div>
       <div className="card-hook">{t.hook}</div>
       <div className="card-detail">{t.detail}</div>
@@ -1554,15 +1823,27 @@ function TrendCard({ t }) {
       <div className="card-sources">
         {t.sources.map(s => <span key={s} className="source-chip">{s}</span>)}
       </div>
+      {openStudioWith && (
+        <div className="card-actions">
+          <span style={{fontSize:10.5,color:"var(--ink-soft)",letterSpacing:"0.06em",textTransform:"uppercase",fontWeight:600}}>signal: {t.id}</span>
+          <button className="drop-btn" onClick={() => openStudioWith(seed)}>↓ Send to Studio</button>
+        </div>
+      )}
     </div>
   );
 }
 
-function PulseCard({ p }) {
+function PulseCard({ p, openStudioWith }) {
+  const railColor = VELOCITY_RAIL[p.velocity || "high"] || "#D67A5A";
+  const glyph = PULSE_TYPE_GLYPH[p.type] || "✦";
+  const seed = `Sharpen the Maazah play on cultural pulse signal: "${p.hook}"\n\nDetail: ${p.detail}\n\nEngine's current angle: ${p.play}\n\nWhat sharper angle would you take?`;
   return (
-    <div className="card">
-      <div className="card-head">
-        <span className={`card-type type-${p.type}`}>{p.typeLabel}</span>
+    <div className="card intel-card" style={{borderLeftColor:railColor}}>
+      <div className="icard-head">
+        <span className="intel-glyph" style={{background:railColor+"22",color:railColor,borderColor:railColor+"55"}}>{glyph}</span>
+        <div className="icard-head-meta">
+          <span className={`card-type type-${p.type}`}>{p.typeLabel}</span>
+        </div>
       </div>
       <div className="card-hook">{p.hook}</div>
       <div className="card-detail">{p.detail}</div>
@@ -1573,17 +1854,31 @@ function PulseCard({ p }) {
       <div className="card-sources">
         {p.sources.map(s => <span key={s} className="source-chip">{s}</span>)}
       </div>
+      {openStudioWith && (
+        <div className="card-actions">
+          <span style={{fontSize:10.5,color:"var(--ink-soft)",letterSpacing:"0.06em",textTransform:"uppercase",fontWeight:600}}>signal: {p.id}</span>
+          <button className="drop-btn" onClick={() => openStudioWith(seed)}>↓ Send to Studio</button>
+        </div>
+      )}
     </div>
   );
 }
 
-function CompCard({ c }) {
+function CompCard({ c, openStudioWith }) {
+  const railColor = c.direction === "up" ? "#A85959" : c.direction === "down" ? "#5D8054" : "#8A6E4D";
   const dirSym = c.direction === "up" ? "↑" : c.direction === "down" ? "↓" : "→";
+  const dirLabel = c.direction === "up" ? "Heating up" : c.direction === "down" ? "Cooling" : "Flat";
+  const seed = `Sharpen the Maazah posture on competitor signal: "${c.name}"\n\nWhat they're doing: ${c.change}\n\nDetail: ${c.detail}\n\nEngine's current posture: ${c.posture}\n\nWhat sharper posture would you take?`;
   return (
-    <div className="card">
-      <div className="card-head">
-        <span className="card-type" style={{background:"#8A6E4D"}}>COMPETITOR</span>
-        <span className={`comp-direction dir-${c.direction}`}>{dirSym} {c.change}</span>
+    <div className="card intel-card" style={{borderLeftColor:railColor}}>
+      <div className="icard-head">
+        <span className="intel-glyph" style={{background:railColor+"22",color:railColor,borderColor:railColor+"55"}}>🛒</span>
+        <div className="icard-head-meta">
+          <span className="card-type" style={{background:"#8A6E4D"}}>COMPETITOR</span>
+          <span className={`comp-dir-badge comp-dir-badge-${c.direction}`}>
+            <span className="comp-dir-badge-arrow">{dirSym}</span> {dirLabel}
+          </span>
+        </div>
       </div>
       <div className="card-hook">{c.name}</div>
       <div className="card-detail">{c.detail}</div>
@@ -1591,16 +1886,24 @@ function CompCard({ c }) {
         <span className="card-play-label">▶ POSTURE</span>
         {c.posture}
       </div>
+      <div style={{fontSize:11.5,color:"var(--ink-soft)",marginTop:6,paddingBottom:6}}><strong style={{color:"var(--ink)",fontWeight:700}}>Move:</strong> {c.change}</div>
       <div className="card-sources">
         {c.sources.map(s => <span key={s} className="source-chip">{s}</span>)}
       </div>
+      {openStudioWith && (
+        <div className="card-actions">
+          <span style={{fontSize:10.5,color:"var(--ink-soft)",letterSpacing:"0.06em",textTransform:"uppercase",fontWeight:600}}>signal: {c.id}</span>
+          <button className="drop-btn" onClick={() => openStudioWith(seed)}>↓ Send to Studio</button>
+        </div>
+      )}
     </div>
   );
 }
 
 function AmbCard({ a }) {
+  const railColor = a.status === "active" ? "#6FAF4D" : a.status === "watch" ? "#E8C547" : "#8A6E4D";
   return (
-    <div className="amb-card">
+    <div className="amb-card" style={{borderLeft:`5px solid ${railColor}`}}>
       <div className="amb-avatar">{a.initials}</div>
       <div style={{flex:1, minWidth:0}}>
         <div className="amb-handle">{a.handle}</div>
@@ -1609,7 +1912,7 @@ function AmbCard({ a }) {
           <span>{a.followers} followers</span> · <span>{a.note}</span>
         </div>
       </div>
-      <span className={`amb-status status-${a.status}`}>{a.status}</span>
+      <span className={`amb-status status-${a.status}`}>{a.status === "active" ? "✓ active" : a.status === "watch" ? "👁 watching" : a.status}</span>
     </div>
   );
 }
