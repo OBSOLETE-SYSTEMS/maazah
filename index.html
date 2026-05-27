@@ -106,13 +106,13 @@ a{color:inherit;text-decoration:none}
 .sb-diag-btn{margin-top:auto;margin-bottom:10px;display:flex;align-items:center;gap:10px;width:100%;background:linear-gradient(135deg,var(--brand-accent) 0%,var(--brand-accent-deep) 100%);color:#fff;border:1px solid rgba(255,255,255,0.18);border-radius:10px;padding:10px 12px;text-align:left;cursor:pointer;box-shadow:0 4px 12px rgba(181,86,59,0.32);transition:transform 0.12s,box-shadow 0.12s;position:relative}
 .sb-diag-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(181,86,59,0.42)}
 
-/* Main footer — JetBrains Mono attribution line at bottom of every page (Phase 1 stub, Phase 10 polishes) */
+/* Main footer — JetBrains Mono attribution line at bottom of every page */
 .main-footer{margin-top:48px;padding:18px 0 6px;border-top:1px solid rgba(111,175,77,0.22);display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--ink-soft);font-weight:600;text-transform:uppercase}
 .main-footer strong{color:var(--ink);font-weight:800;text-transform:uppercase;letter-spacing:0.12em}
 .main-footer .footer-dot{width:5px;height:5px;border-radius:50%;background:var(--brand-primary);box-shadow:0 0 5px rgba(111,175,77,0.6)}
 
 /* ============================================================
-   How It Works tab (Phase 8) — engine in motion
+   How It Works tab — engine in motion
    ============================================================ */
 .hiw-hero{background:linear-gradient(135deg,var(--brand-deep) 0%,var(--brand-primary) 50%,var(--brand-accent-deep) 130%);color:#fff;border-radius:18px;padding:36px 40px 32px;margin-bottom:28px;position:relative;overflow:hidden}
 .hiw-hero-eye{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;font-weight:700;text-transform:uppercase;opacity:0.9;margin-bottom:12px}
@@ -212,7 +212,7 @@ a{color:inherit;text-decoration:none}
 .etf-nav-btn:disabled{opacity:0.4;cursor:not-allowed}
 .etf-nav-progress{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;color:var(--ink-soft);font-weight:600;text-transform:uppercase}
 
-/* HIW accordions (Phase 8.4) */
+/* HIW accordions — Decisions · Receipts · Brand Fence · Sources */
 .howit-acc{background:var(--butter-light);border:1.5px solid var(--brand-primary);border-radius:14px;margin-bottom:14px;overflow:hidden}
 .howit-acc summary{list-style:none;cursor:pointer;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px}
 .howit-acc summary::-webkit-details-marker{display:none}
@@ -226,7 +226,7 @@ a{color:inherit;text-decoration:none}
 .howit-acc-body-padded{padding-top:14px}
 
 /* ============================================================
-   Diagnostic Inbox (Phase 7) — operating tool, not pitch artifact
+   Diagnostic Inbox — operating tool, not pitch artifact
    ============================================================ */
 .diag-modal{max-width:780px}
 .diag-intro{font-family:'Fraunces',Georgia,serif;font-size:14px;line-height:1.55;color:var(--ink-soft);font-style:italic;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border)}
@@ -263,8 +263,8 @@ a{color:inherit;text-decoration:none}
 .diag-q-change:hover{color:var(--brand-primary)}
 
 /* ============================================================
-   Studio Modal (Phase 6) — shell UI for The Strategist chat
-   API wires Wednesday once GEMINI_API_KEY is added to maazah Vercel env.
+   Studio Modal — The Strategist chat surface
+   Backed by Gemini 2.5 Flash via /api/studio (thinkingBudget:0).
    ============================================================ */
 .studio-bg{position:fixed;inset:0;background:rgba(42,31,18,0.6);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:24px 16px;z-index:400}
 .studio-card{background:var(--butter);border-radius:18px;width:100%;max-width:760px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,0.4),0 0 0 1.5px var(--brand-primary);overflow:hidden}
@@ -314,7 +314,7 @@ a{color:inherit;text-decoration:none}
 .studio-send:disabled{opacity:0.5;cursor:not-allowed}
 .studio-shell-notice{background:rgba(214,122,90,0.12);border:1px dashed var(--brand-accent);color:var(--brand-accent-deep);padding:8px 12px;border-radius:8px;font-size:11.5px;line-height:1.45;margin-top:10px;font-family:'JetBrains Mono',monospace}
 
-/* WIP under-construction banner (Phase 1 stub for Calendar + Performance, Phase 9 polishes) */
+/* WIP under-construction banner — used by Calendar + Performance + Diagnostic Inbox modal */
 .wip-banner{background:var(--butter-light);border:2px dashed var(--brand-accent);border-radius:12px;padding:18px 22px;margin-bottom:24px;display:flex;align-items:flex-start;gap:14px}
 .wip-banner-icon{font-size:24px;line-height:1;flex-shrink:0;margin-top:2px}
 .wip-banner-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;font-weight:700;color:var(--brand-accent-deep);text-transform:uppercase;margin-bottom:4px}
@@ -394,7 +394,7 @@ a{color:inherit;text-decoration:none}
 .drop-btn:hover{background:var(--green-deep);transform:translateY(-1px)}
 
 /* ============================================================
-   Conviction Chip + tooltip (Phase 4)
+   Conviction Chip + hover tooltip
    ============================================================ */
 .brief-conviction{display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 7px;border-radius:99px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;font-weight:800;text-transform:uppercase;cursor:help;position:relative;border:1.5px solid currentColor}
 .conv-band-high{color:#3B6B2D}
@@ -420,7 +420,7 @@ a{color:inherit;text-decoration:none}
 .bct-foot{font-family:'Fraunces',Georgia,serif;font-size:11.5px;line-height:1.45;color:var(--ink);font-style:italic;font-weight:500}
 
 /* ============================================================
-   Ride-now hero (Phase 4) — sits at top of Content Briefs page
+   Ride-now hero — sits at top of Content Briefs page
    ============================================================ */
 .ride-hero{display:flex;align-items:center;justify-content:space-between;gap:24px;background:linear-gradient(135deg,var(--brand-deep) 0%,var(--brand-primary) 55%,var(--brand-accent-deep) 130%);color:#fff;border-radius:14px;padding:20px 28px;margin-bottom:24px;position:relative;overflow:hidden;box-shadow:0 6px 20px rgba(63,123,40,0.28)}
 .ride-hero::before{content:"";position:absolute;top:-40px;right:-30px;width:240px;height:240px;background:radial-gradient(circle,rgba(214,122,90,0.42) 0%,transparent 65%);pointer-events:none}
@@ -648,37 +648,6 @@ a{color:inherit;text-decoration:none}
 .mmm-cta{background:var(--ink);color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;font-weight:700;text-transform:uppercase;padding:13px 22px;border-radius:99px;cursor:pointer;border:0;transition:background 0.15s,transform 0.1s}
 .mmm-cta:hover{background:var(--brand-deep);transform:translateY(-1px)}
 
-/* Legacy V2 Welcome popup — kept temporarily so the old component still parses,
-   will be deleted in Phase 3. The router uses MondayMemoModal now. */
-/* Welcome popup — the "wait you already built this for us" moment */
-.welcome-bg{position:fixed;inset:0;background:rgba(42,31,18,0.6);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:32px 16px;z-index:200}
-.welcome{background:var(--cream);border-radius:18px;max-width:960px;width:100%;max-height:92vh;overflow:hidden;display:grid;grid-template-columns:320px 1fr;box-shadow:var(--shadow-lg);border:1px solid var(--border)}
-.welcome-left{background:var(--green);padding:32px 28px;display:flex;flex-direction:column;color:var(--ink);position:relative;overflow:hidden}
-.welcome-arch{position:absolute;top:18px;right:18px;width:90px;height:100px;opacity:0.22;color:var(--ink)}
-.welcome-issue{font-size:11px;text-transform:uppercase;letter-spacing:0.18em;font-weight:700;margin-bottom:10px;opacity:0.9}
-.welcome-date{font-family:'Bagel Fat One',serif;font-weight:400;font-size:42px;line-height:0.95;letter-spacing:0.005em;margin-bottom:18px;color:var(--ink)}
-.welcome-thesis{font-family:'Fraunces';font-size:16px;line-height:1.4;font-weight:500;font-style:italic;margin-bottom:auto;color:var(--ink)}
-.welcome-sig{font-size:11px;letter-spacing:0.04em;margin-top:22px;border-top:1px solid rgba(42,31,18,0.3);padding-top:14px;opacity:0.85;line-height:1.5}
-.welcome-right{padding:30px 32px;overflow-y:auto;max-height:92vh;display:flex;flex-direction:column;gap:18px;background:var(--cream)}
-.welcome-close{position:absolute;top:14px;right:18px;font-size:22px;color:var(--ink);width:30px;height:30px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:rgba(42,31,18,0.18);z-index:2}
-.welcome-close:hover{background:rgba(42,31,18,0.32)}
-.welcome-section h3{font-family:'Bagel Fat One',serif;font-weight:400;font-size:24px;letter-spacing:0.005em;margin-bottom:10px;display:flex;align-items:center;gap:10px;color:var(--ink)}
-.welcome-section h3::before{content:"";width:18px;height:3px;background:var(--green);border-radius:99px}
-.welcome-thesis-body{font-size:13px;line-height:1.55;color:var(--ink-soft)}
-.welcome-thesis-body strong{color:var(--ink);font-weight:600}
-.evidence-grid{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-top:4px}
-.evidence-cell{background:var(--paper);border:1.5px solid var(--green-soft);border-radius:10px;padding:12px 14px}
-.evidence-stat{font-family:'Bagel Fat One',serif;font-weight:400;font-size:26px;line-height:1;letter-spacing:0.005em;margin-bottom:4px;color:var(--green-deep)}
-.evidence-label{font-size:11px;font-weight:700;color:var(--ink);margin-bottom:3px}
-.evidence-detail{font-size:11px;color:var(--ink-soft);line-height:1.4;margin-bottom:6px}
-.evidence-src{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--green-deep);background:var(--green-light);padding:2px 6px;border-radius:99px;border:1px solid rgba(111,175,77,0.35)}
-.welcome-cta{background:var(--ink);color:#fff;font-size:11px;text-transform:uppercase;letter-spacing:0.14em;font-weight:700;padding:14px 18px;border-radius:99px;text-align:center;margin-top:6px;width:100%;transition:background 0.15s}
-.welcome-cta:hover{background:var(--green-deep)}
-.moves-list{display:flex;flex-direction:column;gap:9px}
-.move-item{background:var(--paper);border:1.5px solid var(--green-soft);border-radius:10px;padding:12px 14px}
-.move-verb{font-family:'Fraunces';font-weight:700;font-size:15px;letter-spacing:-0.005em;margin-bottom:3px;line-height:1.3;color:var(--ink)}
-.move-why{font-size:11.5px;color:var(--ink-soft);line-height:1.5}
-
 /* Decisions feed */
 .dec-list{display:flex;flex-direction:column;gap:10px}
 .dec-row{display:flex;gap:12px;padding:12px 14px;background:var(--paper);border:1px solid var(--border);border-radius:10px;align-items:flex-start}
@@ -689,27 +658,6 @@ a{color:inherit;text-decoration:none}
 .dec-text{font-size:13px;line-height:1.5;color:var(--ink)}
 .dec-text strong{font-weight:700;color:var(--ink)}
 .dec-why{font-size:11.5px;color:var(--ink-soft);margin-top:3px;line-height:1.45}
-
-/* Studio teaser */
-.studio-hero{background:linear-gradient(135deg,var(--green) 0%,var(--green-deep) 100%);border-radius:18px;padding:48px;color:#fff;margin-bottom:24px;position:relative;overflow:hidden}
-.studio-hero-arch{position:absolute;right:30px;top:30px;width:140px;height:160px;opacity:0.18}
-.studio-eyebrow{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;font-weight:700;text-transform:uppercase;margin-bottom:12px;opacity:0.92}
-.studio-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:48px;line-height:0.95;letter-spacing:0.01em;margin-bottom:14px;max-width:680px}
-.studio-sub{font-family:'Fraunces';font-size:17px;font-weight:500;line-height:1.45;max-width:600px;font-style:italic;opacity:0.95}
-.studio-features{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.studio-feat{background:var(--paper);border:1.5px solid var(--green);border-radius:14px;padding:22px;box-shadow:0 2px 0 var(--green)}
-.studio-feat-num{font-family:'Bagel Fat One',serif;font-size:22px;color:var(--green);margin-bottom:8px}
-.studio-feat-title{font-family:'Fraunces';font-size:17px;font-weight:700;letter-spacing:-0.01em;color:var(--ink);margin-bottom:8px;line-height:1.25}
-.studio-feat-body{font-size:13px;line-height:1.55;color:var(--ink-soft)}
-
-/* How-It-Works modal */
-.hiw-section{margin-bottom:28px}
-.hiw-section h3{font-family:'Bagel Fat One',serif;font-weight:400;font-size:24px;letter-spacing:0.005em;margin-bottom:10px;color:var(--ink)}
-.hiw-step{display:grid;grid-template-columns:48px 1fr;gap:14px;padding:14px 0;border-bottom:1px dashed var(--border)}
-.hiw-step:last-child{border-bottom:0}
-.hiw-num{font-family:'Bagel Fat One',serif;font-size:32px;line-height:1;color:var(--green);text-align:center}
-.hiw-title{font-family:'Fraunces';font-size:16px;font-weight:700;letter-spacing:-0.005em;color:var(--ink);margin-bottom:4px}
-.hiw-body{font-size:13px;line-height:1.55;color:var(--ink-soft)}
 
 /* Empty / soon */
 .soon-card{background:var(--paper);border:2px dashed var(--border);border-radius:14px;padding:32px;text-align:center;color:var(--ink-soft)}
@@ -743,7 +691,7 @@ a{color:inherit;text-decoration:none}
 .wl-src-chip{font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--cream-deep);color:var(--ink-soft);padding:2.5px 7px;border-radius:3px;font-weight:500}
 
 /* ============================================================
-   Responsive breakpoints (Phase 10)
+   Responsive breakpoints
    ============================================================ */
 @media (max-width:900px){
   .app{grid-template-columns:1fr}
@@ -808,10 +756,9 @@ const WEEK_LABEL = "MAY 25 – 31, 2026";
 const TODAY = "2026-05-25";
 
 /* ============================================================
-   Conviction Score system (Phase 4)
+   Conviction Score system
    Calibrated honestly per brief — voice + panel + pulse averaged,
    plus recency bonus. Bands: HIGH >=85 · MEDIUM 70-84 · WATCH <70.
-   Don't make them all HIGH or it loses meaning.
    ============================================================ */
 const CONVICTION_INPUTS = {
   "MAGIC25-COSTCO-R1":         { voice:93, panel:86, pulse:90, recency:14 },  // sister-led Costco reel — IG superpower + Tuesday timing
@@ -868,7 +815,7 @@ function ConvictionChip({ conv }) {
 }
 
 /* ============================================================
-   How It Works tab data (Phase 8)
+   How It Works tab data
    Engine Thinking Flow tells one specific story end-to-end:
    Costco UGC → tonal match → shelf math → pillar routing →
    brief generation → audit → ready to ship Thursday.
@@ -997,7 +944,7 @@ const PIPELINE_STATUS = {
     { name: "GDELT", status: "deploying", signals: 0, note: "global news + cultural-theme feed · maxDuration fix deployed yesterday · resumes Sunday refresh" },
     { name: "Google Trends · daily", status: "ready", signals: 0, note: "daily-trending-list filter at MIN_TONAL_SCORE 0.15 · functional, awaiting trending-term overlap with watchlist" },
     { name: "Google Trends · IoT", status: "platform-block", signals: 0, note: "interest-over-time worker built + deployed · Google Trends now 429-blocks public API across all IPs · awaiting Playwright headless / paid SerpAPI / residential proxy" },
-    { name: "Spotify", status: "auth-pending", signals: 0, note: "needs SPOTIFY_CLIENT_ID / SECRET env vars · Wednesday once Alex registers app" },
+    { name: "Spotify", status: "auth-pending", signals: 0, note: "needs SPOTIFY_CLIENT_ID + SECRET env vars · pending Spotify dev app registration" },
     { name: "Meta Ad Library", status: "auth-pending", signals: 0, note: "needs META_ACCESS_TOKEN env var · Meta app registration scoped for post-engagement" },
     { name: "Reddit", status: "platform-block", signals: 0, note: "Reddit started 403-ing Vercel IPs in '24 · OAuth migration scoped for post-engagement" },
     { name: "TikTok CC", status: "platform-block", signals: 0, note: "TikTok rotated creative_radar endpoint auth · re-discovery scoped for post-engagement" },
@@ -1923,13 +1870,12 @@ const BRIEFS = [
 
 function MaazahApp() {
   const [page, setPage] = useState("intel");
-  const [intelTab, setIntelTab] = useState("pulse");   // Phase 3: Pulse leads (was trends)
+  const [intelTab, setIntelTab] = useState("pulse");
   const [briefOpen, setBriefOpen] = useState(null);
-  const [memoOpen, setMemoOpen] = useState(true);      // Monday Memo auto-opens
-  const [hiwOpen, setHiwOpen] = useState(false);
+  const [memoOpen, setMemoOpen] = useState(true);      // Monday Memo auto-opens on first load
   const [diagOpen, setDiagOpen] = useState(false);
   const [studioSeed, setStudioSeed] = useState(null);
-  const [studioOpen, setStudioOpen] = useState(false);  // Phase 6 — Studio modal
+  const [studioOpen, setStudioOpen] = useState(false);
 
   const briefById = (id) => BRIEFS.find(b => b.id === id);
   const openStudioWith = (seed) => {
@@ -2000,7 +1946,6 @@ function MaazahApp() {
           setBriefOpen(null);
         }} />}
         {memoOpen && <MondayMemoModal onClose={() => setMemoOpen(false)} onShipIt={() => { setMemoOpen(false); setPage("intel"); }} />}
-        {hiwOpen && <HowItWorksModal onClose={() => setHiwOpen(false)} />}
         {diagOpen && <DiagnosticInboxModal onClose={() => setDiagOpen(false)} />}
         {studioOpen && <StudioModal onClose={() => { setStudioOpen(false); setStudioSeed(null); }} initialSeed={studioSeed} />}
       </main>
@@ -2727,43 +2672,8 @@ function WholesaleLensPage() {
 /* ============================================================
    STUDIO TEASER PAGE
    ============================================================ */
-function StudioPage() {
-  return (
-    <>
-      <PageHead eyebrow="Engine · Roadmap" title="Studio" />
-      <div className="studio-hero">
-        <MaazahArch className="studio-hero-arch" />
-        <div className="studio-eyebrow">COMING IN PHASE 2</div>
-        <div className="studio-title">The Sister Co-Pilot — drop ANY signal into Studio, get a ready-to-ship brief in your voice.</div>
-        <div className="studio-sub">Click any Trend, Pulse, or Competitor card and "send to Studio." The engine drafts a hook, caption, script, music, and hashtag set tuned to your voice compass. You edit in-canvas + drop it into the briefs queue. Goal: 60-90 seconds from signal → shippable.</div>
-      </div>
-      <div className="studio-features">
-        <div className="studio-feat">
-          <div className="studio-feat-num">01</div>
-          <div className="studio-feat-title">"Send to Studio" on every card</div>
-          <div className="studio-feat-body">Every signal in the Intelligence Brief gets a one-click handoff. Studio reads the signal, your voice compass, your SKU rules, and drafts.</div>
-        </div>
-        <div className="studio-feat">
-          <div className="studio-feat-num">02</div>
-          <div className="studio-feat-title">Live voice training</div>
-          <div className="studio-feat-body">Weekly: you upload a voice-note reaction to last week's briefs. The engine tightens the voice compass each refresh. The longer it runs, the more it sounds like you.</div>
-        </div>
-        <div className="studio-feat">
-          <div className="studio-feat-num">03</div>
-          <div className="studio-feat-title">Counter-Strike (90-min response)</div>
-          <div className="studio-feat-body">If a competitor moves or a cultural moment opens unexpectedly, the engine pings you with a draft within 90 minutes. Approve, edit, ship.</div>
-        </div>
-      </div>
-      <div style={{marginTop:24}} className="soon-card">
-        <h3>This is the V2 surface. We'll demo a working prototype in the diagnostic if you want to dig in.</h3>
-        <p style={{marginTop:8}}>For Thursday: focus on the Intelligence Brief + Content Briefs. They're the proof that the read produces.</p>
-      </div>
-    </>
-  );
-}
-
 /* ============================================================
-   HOW IT WORKS TAB (Phase 8)
+   HOW IT WORKS TAB
    Hero + 4-step flow + Engine Thinking Flow + 4 accordions
    ============================================================ */
 function HowItWorksTab() {
@@ -3037,94 +2947,7 @@ function HowItWorksTab() {
 }
 
 /* ============================================================
-   HOW IT WORKS MODAL (deprecated — kept for legacy state but unused)
-   ============================================================ */
-function HowItWorksModal({ onClose }) {
-  return (
-    <div className="modal-bg" onClick={onClose}>
-      <div className="modal" onClick={(e) => e.stopPropagation()}>
-        <div className="modal-head">
-          <h2>How this engine works</h2>
-          <button className="modal-close" onClick={onClose}>×</button>
-        </div>
-        <div className="modal-body">
-
-          <div className="hiw-section">
-            <h3>The weekly ritual</h3>
-            <div className="hiw-step">
-              <div className="hiw-num">1</div>
-              <div>
-                <div className="hiw-title">Signal sweep</div>
-                <div className="hiw-body">Every Sunday, the engine pulls from ~20 free signal sources — TikTok hashtags + Pinterest + Google Trends + retail-trade press + competitor sites + creator graphs + cultural-moment trackers — through the multi-tenant signal pipeline.</div>
-              </div>
-            </div>
-            <div className="hiw-step">
-              <div className="hiw-num">2</div>
-              <div>
-                <div className="hiw-title">Filter through your tonal territories</div>
-                <div className="hiw-body">A signal qualifies for the Pulse only if it maps to ≥1 of your 8 tonal territories (Magic, Heritage, Saucy Squad, Sisters, Mom's Magic Green, Put It On Everything, Category Creation, Costco-Aisle Moment). Everything else gets dropped before it touches a brief.</div>
-              </div>
-            </div>
-            <div className="hiw-step">
-              <div className="hiw-num">3</div>
-              <div>
-                <div className="hiw-title">Generate briefs in your voice compass — platform-aware</div>
-                <div className="hiw-body">The engine drafts 12-14 briefs across 4 pillars, passing every line through the Voice Compass and SPLITS them by platform. Instagram: 6-8 sister-led milestone + recipe + community content (the lane that already works for you — 426 likes on the Costco push). TikTok: weekly category-explainer in the "What is chutney?" pattern (71 saves) + meme-fluent audio. The IG audio lane and the TikTok audio lane are different rosters.</div>
-              </div>
-            </div>
-            <div className="hiw-step">
-              <div className="hiw-num">4</div>
-              <div>
-                <div className="hiw-title">Human-Filter Audit (24 checks)</div>
-                <div className="hiw-body">Before you ever see the dashboard, every brief passes 24 audit checks — pillar tags, DNA balance, Sister Rule, magic-cap ratio, SKU spelling, no competitor names in consumer copy, music-lane fit, and 17 more. Anything that fails gets fixed silently before ship.</div>
-              </div>
-            </div>
-            <div className="hiw-step">
-              <div className="hiw-num">5</div>
-              <div>
-                <div className="hiw-title">Publish Sunday night for Monday morning</div>
-                <div className="hiw-body">You open the dashboard. The Welcome popup tells you the moves of the week + what to watch. You scan, approve, and ship — or use any brief as a starting point and edit in your voice.</div>
-              </div>
-            </div>
-          </div>
-
-          <div className="hiw-section">
-            <h3>The training loop</h3>
-            <div className="hiw-body" style={{fontSize:14,lineHeight:1.6}}>
-              Every Friday you drop a voice-note reaction to the briefs that shipped — what felt right, what felt off, what you'd change. The engine pulls those notes into the next weekly refresh. The longer it runs, the closer it sounds to you.
-              <br/><br/>
-              <strong>Goal of the engine:</strong> never face a blank page on Monday morning. Buy back the 20+ hours a week you're currently spending being your own social team + signal-watcher + competitive analyst + content strategist + buyer-signal monitor. The engine does those jobs in your voice. You stay the founders.
-            </div>
-          </div>
-
-          <div className="hiw-section">
-            <h3>The unspoken second audience</h3>
-            <div className="hiw-body" style={{fontSize:14,lineHeight:1.6}}>
-              Every Costco, Sprouts, Whole Foods, and Albertsons buyer pulls up @maazahmagic before they renew, extend, or cut a SKU. Your IG presence is foot-traffic evidence + momentum proof + account-quality reflection. Most CPG founders don't think about this. The <strong>Wholesale Lens</strong> tab makes it visible — what your buyer sees Tuesday morning, scored on the metrics they actually use, with the engine's recommended next moves.
-              <br/><br/>
-              Every brief implicitly serves both audiences. The engine is built around it.
-            </div>
-          </div>
-
-          <div className="hiw-section">
-            <h3>What this dashboard is (and isn't)</h3>
-            <div className="hiw-body" style={{fontSize:14,lineHeight:1.6}}>
-              This is a PITCH SPEC built from public sources only — your site, your IG, your retail footprint, your press, and the May 2026 category landscape. Every claim is a starting hypothesis to refine with you in the 30-Day Quest diagnostic.
-              <br/><br/>
-              We didn't have founder interviews, voice-fidelity calibration sessions, or your retail-buyer data. What you're seeing is what the engine produces with zero direct input from you. The diagnostic + the OPERATE retainer is where the engine gets <em>tuned</em> to you specifically.
-              <br/><br/>
-              The full read on the brand lives in <code>BRAND_THESIS.md</code> in the project folder. The operating playbook lives in <code>CLAUDE.md</code>. This dashboard is the proof the read can produce.
-            </div>
-          </div>
-
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/* ============================================================
-   CALENDAR PREVIEW (Phase 9 — 7-day grid mockup)
+   CALENDAR PREVIEW — 7-day grid mockup (WIP surface)
    ============================================================ */
 function CalendarPreview() {
   const days = ["MON 5/25", "TUE 5/26", "WED 5/27", "THU 5/28", "FRI 5/29", "SAT 5/30", "SUN 5/31"];
@@ -3201,7 +3024,7 @@ function CalendarPreview() {
 }
 
 /* ============================================================
-   PERFORMANCE PREVIEW (Phase 1 stub — Phase 9 polishes)
+   PERFORMANCE PREVIEW — 4 KPI tiles + SOON watermark (WIP surface)
    ============================================================ */
 function PerformancePreview() {
   const kpis = [
@@ -3235,7 +3058,7 @@ function PerformancePreview() {
 }
 
 /* ============================================================
-   DIAGNOSTIC INBOX MODAL (Phase 7 — full operating tool)
+   DIAGNOSTIC INBOX MODAL
    Operating-tool framing (not pitch discovery). Multi-stage submit:
    pick option → optional textarea → Lock it in / Skip note → preserved state.
    ============================================================ */
@@ -3422,7 +3245,7 @@ function DiagnosticInboxModal({ onClose }) {
 }
 
 /* ============================================================
-   MAIN FOOTER (Phase 1 stub — Phase 10 polishes)
+   MAIN FOOTER
    ============================================================ */
 function MainFooter() {
   return (
@@ -3440,7 +3263,9 @@ function MainFooter() {
 }
 
 /* ============================================================
-   STUDIO MODAL (Phase 6 — shell UI only · API wires Wednesday)
+   STUDIO MODAL — The Strategist chat
+   Backed by Gemini 2.5 Flash via /api/studio (thinkingBudget:0).
+   Voice mic uses Web Speech API · smart seed via initialSeed prop.
    ============================================================ */
 const STUDIO_STARTERS = [
   { glyph: "✨", text: "What's the sharpest hook for this week's Costco-cart Reel?" },
@@ -3606,7 +3431,7 @@ function StudioModal({ onClose, initialSeed }) {
               <div className="studio-welcome-eye">// VOICE COMPASS</div>
               <div className="studio-welcome-title">Score a caption against Maazah's voice.</div>
               <div className="studio-welcome-sub">Paste a caption below. The engine scores it against your 8 tonal territories + anti-patterns + platform fit. Returns a score, verdict, and suggested rewrites.</div>
-              <div className="studio-shell-notice">📡 Voice Compass needs the ANTHROPIC_API_KEY env var to score live. Wires Wednesday alongside Studio chat. Until then: try the chat mode and ask "score this caption for me."</div>
+              <div className="studio-shell-notice">📡 Voice Compass scores caption fit against Maazah's voice fingerprint — needs ANTHROPIC_API_KEY env var to activate. Until then: try the chat mode and ask "score this caption for me" — Studio Chat (Gemini) is live and can do a strong first-pass.</div>
             </>
           )}
         </div>
