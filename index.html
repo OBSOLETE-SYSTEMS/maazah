@@ -112,6 +112,43 @@ a{color:inherit;text-decoration:none}
 .main-footer .footer-dot{width:5px;height:5px;border-radius:50%;background:var(--brand-primary);box-shadow:0 0 5px rgba(111,175,77,0.6)}
 
 /* ============================================================
+   Diagnostic Inbox (Phase 7) — operating tool, not pitch artifact
+   ============================================================ */
+.diag-modal{max-width:780px}
+.diag-intro{font-family:'Fraunces',Georgia,serif;font-size:14px;line-height:1.55;color:var(--ink-soft);font-style:italic;margin-bottom:18px;padding-bottom:14px;border-bottom:1px solid var(--border)}
+.diag-q-list{display:flex;flex-direction:column;gap:14px}
+.diag-q{background:#fff;border:1.5px solid var(--brand-light);border-radius:12px;padding:0;overflow:hidden;position:relative}
+.diag-q-onground{border-left:5px solid #6FAF4D}
+.diag-q-orbit{border-left:5px solid #E8C547}
+.diag-q-mood{border-left:5px solid #D67A5A}
+.diag-q-free{border-left:5px solid #5E5A8A}
+.diag-q-head{padding:14px 18px 10px;display:flex;align-items:flex-start;gap:12px}
+.diag-q-glyph{font-size:24px;line-height:1;flex-shrink:0;margin-top:2px}
+.diag-q-body{flex:1}
+.diag-q-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;font-weight:700;color:var(--ink-soft);text-transform:uppercase;margin-bottom:4px}
+.diag-q-text{font-family:'Fraunces',Georgia,serif;font-size:15px;font-weight:600;line-height:1.4;color:var(--ink);letter-spacing:-0.005em}
+.diag-q-opts{padding:6px 18px 14px;display:grid;grid-template-columns:1fr 1fr;gap:8px}
+@media(max-width:560px){.diag-q-opts{grid-template-columns:1fr}}
+.diag-q-opt{background:var(--butter-light);border:1.5px solid var(--border);color:var(--ink);font-size:12.5px;line-height:1.4;padding:10px 12px;border-radius:8px;cursor:pointer;text-align:left;transition:all 0.12s;font-weight:500}
+.diag-q-opt:hover{border-color:var(--brand-primary);transform:translateY(-1px)}
+.diag-q-opt.selected{background:var(--brand-accent);color:#fff;border-color:var(--brand-accent-deep);font-weight:600}
+.diag-q-detail{padding:0 18px 14px;animation:diag-fade 0.18s ease-out}
+@keyframes diag-fade{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:translateY(0)}}
+.diag-q-detail textarea{width:100%;min-height:60px;padding:10px 12px;border:1.5px solid var(--brand-light);border-radius:8px;background:var(--butter-light);font-family:'Inter',sans-serif;font-size:13px;line-height:1.5;color:var(--ink);resize:vertical;outline:none;transition:border-color 0.15s}
+.diag-q-detail textarea:focus{border-color:var(--brand-accent)}
+.diag-q-actions{display:flex;gap:8px;margin-top:10px}
+.diag-q-lock{background:var(--brand-accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;font-weight:700;text-transform:uppercase;padding:9px 16px;border-radius:99px;cursor:pointer;border:0;transition:background 0.15s,transform 0.1s}
+.diag-q-lock:hover{background:var(--brand-accent-deep);transform:translateY(-1px)}
+.diag-q-skip{background:transparent;color:var(--ink-soft);font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;font-weight:700;text-transform:uppercase;padding:9px 16px;border-radius:99px;cursor:pointer;border:1.5px solid var(--border)}
+.diag-q-skip:hover{background:var(--butter-light)}
+.diag-q-locked{padding:14px 18px;background:var(--brand-light-soft);border-top:1px dashed var(--brand-light)}
+.diag-q-locked-pill{display:inline-flex;align-items:center;gap:6px;background:#DAEDC8;color:#3B6B2D;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;font-weight:800;text-transform:uppercase;padding:5px 11px;border-radius:99px;margin-bottom:8px}
+.diag-q-locked-value{font-size:13.5px;font-weight:600;color:var(--ink);margin-bottom:4px}
+.diag-q-locked-note{font-size:12.5px;line-height:1.5;color:var(--ink-soft);background:#fff;padding:9px 12px;border-radius:6px;border:1px solid var(--border);margin-bottom:8px;white-space:pre-line}
+.diag-q-change{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;font-weight:700;color:var(--brand-deep);background:transparent;border:0;cursor:pointer;text-transform:uppercase}
+.diag-q-change:hover{color:var(--brand-primary)}
+
+/* ============================================================
    Studio Modal (Phase 6) — shell UI for The Strategist chat
    API wires Wednesday once GEMINI_API_KEY is added to maazah Vercel env.
    ============================================================ */
@@ -2577,39 +2614,185 @@ function PerformancePreview() {
 }
 
 /* ============================================================
-   DIAGNOSTIC INBOX MODAL (Phase 1 stub — Phase 7 builds full version)
+   DIAGNOSTIC INBOX MODAL (Phase 7 — full operating tool)
+   Operating-tool framing (not pitch discovery). Multi-stage submit:
+   pick option → optional textarea → Lock it in / Skip note → preserved state.
    ============================================================ */
+const DIAG_QUESTIONS = [
+  {
+    id: "onground",
+    glyph: "📍",
+    eye: "ON-THE-GROUND",
+    text: "Any sampling events, store demos, or shoots planned this week?",
+    railClass: "diag-q-onground",
+    needsDetail: true,
+    detailPlaceholder: "e.g. 'Costco demo Tuesday in Maple Grove' or 'kitchen shoot Wed for bolani recipe Reel'",
+    opts: [
+      { value: "demo", label: "In-store demo (Costco / Sprouts / WF)" },
+      { value: "shoot", label: "Shoot day in the kitchen" },
+      { value: "event", label: "Trade show / market appearance" },
+      { value: "none", label: "Nothing planned this week" }
+    ]
+  },
+  {
+    id: "orbit",
+    glyph: "🎙️",
+    eye: "ORBIT THE MOMENT",
+    text: "Any PR, podcast, or press appearances on the calendar?",
+    railClass: "diag-q-orbit",
+    needsDetail: true,
+    detailPlaceholder: "e.g. 'Cherry Bombe Radio Thursday' or 'Star Tribune feature dropping Friday'",
+    opts: [
+      { value: "podcast", label: "Podcast recording" },
+      { value: "press", label: "Press interview / feature drop" },
+      { value: "appearance", label: "Live appearance / event" },
+      { value: "none", label: "Nothing planned this week" }
+    ]
+  },
+  {
+    id: "mood",
+    glyph: "🎚️",
+    eye: "MOOD DIAL",
+    text: "What's the mood this week — warmer founder-voice, or sharper category-fight?",
+    railClass: "diag-q-mood",
+    needsDetail: false,
+    opts: [
+      { value: "warm", label: "Lean warmer · sister-fronted + heritage" },
+      { value: "sharp", label: "Lean sharper · category-creation + buyer-signal" },
+      { value: "mix", label: "Mix · keep balanced" }
+    ]
+  }
+];
+
 function DiagnosticInboxModal({ onClose }) {
+  const [answers, setAnswers] = useState({});
+  const [drafts, setDrafts] = useState({});
+  const [freeForm, setFreeForm] = useState("");
+  const [freeFormLocked, setFreeFormLocked] = useState(false);
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
+
+  const selectOption = (qid, opt) => {
+    setDrafts(d => ({ ...d, [qid]: { value: opt.value, label: opt.label, note: d[qid]?.note || "" } }));
+  };
+  const setDraftNote = (qid, note) => {
+    setDrafts(d => ({ ...d, [qid]: { ...d[qid], note } }));
+  };
+  const lockAnswer = (qid) => {
+    const draft = drafts[qid];
+    if (!draft) return;
+    setAnswers(a => ({ ...a, [qid]: { ...draft, locked: true } }));
+  };
+  const lockAnswerNoNote = (qid) => {
+    const draft = drafts[qid];
+    if (!draft) return;
+    setAnswers(a => ({ ...a, [qid]: { ...draft, note: "", locked: true } }));
+  };
+  const changeAnswer = (qid) => {
+    setAnswers(a => { const c = {...a}; delete c[qid]; return c; });
+    setDrafts(d => { const c = {...d}; delete c[qid]; return c; });
+  };
+
   return (
     <div className="modal-bg" onClick={onClose}>
-      <div className="modal" style={{maxWidth:720}} onClick={(e) => e.stopPropagation()}>
+      <div className="modal diag-modal" onClick={(e) => e.stopPropagation()}>
         <div className="modal-head">
           <h2>Diagnostic Inbox</h2>
           <button className="modal-close" onClick={onClose}>×</button>
         </div>
         <div className="modal-body">
-          <div className="wip-banner">
-            <span className="wip-banner-icon">🚧</span>
-            <div>
-              <div className="wip-banner-eyebrow">UNDER CONSTRUCTION</div>
-              <div className="wip-banner-body">A preview of what's coming · <strong>3 weekly questions only you know the answers to</strong> (on-the-ground events · press / podcast bookings · mood dial) + a free-form catch-all. The engine threads your answers into next week's briefs. Below is the structure.</div>
-            </div>
-          </div>
-          <div style={{display:"flex",flexDirection:"column",gap:14,marginTop:8}}>
-            {[
-              {glyph:"📍", eye:"ON-THE-GROUND", label:"sampling events, retailer demos, kitchen content shoots"},
-              {glyph:"🎙️", eye:"ORBIT THE MOMENT", label:"PR + podcast + press appearances on the calendar"},
-              {glyph:"🎚️", eye:"MOOD DIAL", label:"warmer founder-voice vs. sharper category-fight this week"},
-              {glyph:"💭", eye:"ANYTHING ELSE", label:"free-form — anything the engine should know"}
-            ].map((q,i) => (
-              <div key={i} style={{background:"var(--butter-light)",border:"1.5px solid var(--border)",borderRadius:10,padding:"14px 16px",display:"flex",alignItems:"flex-start",gap:12}}>
-                <span style={{fontSize:22,lineHeight:1,flexShrink:0,marginTop:1}}>{q.glyph}</span>
-                <div>
-                  <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.14em",fontWeight:700,color:"var(--brand-deep)",textTransform:"uppercase",marginBottom:4}}>{q.eye}</div>
-                  <div style={{fontSize:13,color:"var(--ink-soft)",lineHeight:1.5}}>{q.label}</div>
+          <div className="diag-intro">Three questions the engine can't answer from public signals. Your answers thread directly into next week's brief mix — sister availability, press timing, mood. Skip any that don't apply this week.</div>
+
+          <div className="diag-q-list">
+            {DIAG_QUESTIONS.map(q => {
+              const locked = answers[q.id];
+              const draft = drafts[q.id];
+              return (
+                <div key={q.id} className={`diag-q ${q.railClass}`}>
+                  <div className="diag-q-head">
+                    <span className="diag-q-glyph">{q.glyph}</span>
+                    <div className="diag-q-body">
+                      <div className="diag-q-eye">// {q.eye}</div>
+                      <div className="diag-q-text">{q.text}</div>
+                    </div>
+                  </div>
+                  {!locked && (
+                    <>
+                      <div className="diag-q-opts">
+                        {q.opts.map(opt => (
+                          <button key={opt.value} className={`diag-q-opt ${draft?.value === opt.value ? "selected" : ""}`} onClick={() => selectOption(q.id, opt)}>
+                            {opt.label}
+                          </button>
+                        ))}
+                      </div>
+                      {draft && q.needsDetail && draft.value !== "none" && (
+                        <div className="diag-q-detail">
+                          <textarea
+                            value={draft.note || ""}
+                            onChange={(e) => setDraftNote(q.id, e.target.value)}
+                            placeholder={q.detailPlaceholder}
+                          />
+                          <div className="diag-q-actions">
+                            <button className="diag-q-lock" onClick={() => lockAnswer(q.id)}>Lock it in →</button>
+                            <button className="diag-q-skip" onClick={() => lockAnswerNoNote(q.id)}>Skip note</button>
+                          </div>
+                        </div>
+                      )}
+                      {draft && (!q.needsDetail || draft.value === "none") && (
+                        <div className="diag-q-detail">
+                          <div className="diag-q-actions">
+                            <button className="diag-q-lock" onClick={() => lockAnswer(q.id)}>Lock it in →</button>
+                          </div>
+                        </div>
+                      )}
+                    </>
+                  )}
+                  {locked && (
+                    <div className="diag-q-locked">
+                      <span className="diag-q-locked-pill">✓ LOCKED IN</span>
+                      <div className="diag-q-locked-value">{locked.label}</div>
+                      {locked.note && <div className="diag-q-locked-note">{locked.note}</div>}
+                      <button className="diag-q-change" onClick={() => changeAnswer(q.id)}>↺ change my answer</button>
+                    </div>
+                  )}
+                </div>
+              );
+            })}
+
+            {/* Free-form catch-all */}
+            <div className="diag-q diag-q-free">
+              <div className="diag-q-head">
+                <span className="diag-q-glyph">💭</span>
+                <div className="diag-q-body">
+                  <div className="diag-q-eye">// ANYTHING ELSE</div>
+                  <div className="diag-q-text">Anything else the engine should know this week?</div>
                 </div>
               </div>
-            ))}
+              {!freeFormLocked && (
+                <div className="diag-q-detail">
+                  <textarea
+                    value={freeForm}
+                    onChange={(e) => setFreeForm(e.target.value)}
+                    placeholder="e.g. 'we're running low on Chili Aioli inventory at Costco — don't push that SKU' or 'Yasameen has a baby coming in 6 weeks — taper sister-led briefs after July 8'"
+                    style={{minHeight:80}}
+                  />
+                  <div className="diag-q-actions">
+                    <button className="diag-q-lock" onClick={() => freeForm.trim() && setFreeFormLocked(true)} disabled={!freeForm.trim()}>Send to engine →</button>
+                  </div>
+                </div>
+              )}
+              {freeFormLocked && (
+                <div className="diag-q-locked">
+                  <span className="diag-q-locked-pill">✓ NOTED</span>
+                  <div className="diag-q-locked-note">{freeForm}</div>
+                  <button className="diag-q-change" onClick={() => setFreeFormLocked(false)}>↺ edit</button>
+                </div>
+              )}
+            </div>
           </div>
         </div>
       </div>
