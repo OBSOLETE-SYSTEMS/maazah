@@ -506,7 +506,10 @@ a{color:inherit;text-decoration:none}
 .conv-band-medium{color:#8B6F1F}
 .conv-band-watch{color:#9E3F31}
 .brief-conviction-label{letter-spacing:0.12em}
-.brief-conviction-num{font-family:'Bagel Fat One',serif;font-weight:400;font-size:13px;line-height:1;letter-spacing:0;padding:2px 6px 1px;background:currentColor;color:#fff !important;border-radius:99px;min-width:24px;text-align:center}
+.brief-conviction-num{font-family:'Bagel Fat One',serif;font-weight:400;font-size:13px;line-height:1;letter-spacing:0;padding:3px 7px 2px;color:#fff;border-radius:99px;min-width:24px;text-align:center}
+.conv-band-high .brief-conviction-num{background:#6FAF4D}
+.conv-band-medium .brief-conviction-num{background:#D9A93A}
+.conv-band-watch .brief-conviction-num{background:#C84A38}
 .brief-conviction-tt{position:absolute;top:calc(100% + 8px);left:0;z-index:60;width:320px;background:#fff;border:1.5px solid var(--brand-primary);border-radius:10px;padding:14px 16px;box-shadow:0 8px 24px rgba(42,31,18,0.18);opacity:0;transform:translateY(-4px);transition:opacity 0.15s,transform 0.15s;pointer-events:none;text-transform:none;letter-spacing:0;font-weight:normal;font-family:'Inter',sans-serif}
 .brief-conviction:hover .brief-conviction-tt{opacity:1;transform:translateY(0);pointer-events:auto}
 .brief-conviction-tt::before{content:"";position:absolute;top:-7px;left:18px;width:12px;height:12px;background:#fff;border-left:1.5px solid var(--brand-primary);border-top:1.5px solid var(--brand-primary);transform:rotate(45deg)}
@@ -683,9 +686,18 @@ a{color:inherit;text-decoration:none}
 .priority-standard{background:#F2EBD3;color:var(--ink-soft)}
 .brief-platform{font-size:10.5px;font-weight:700;color:var(--ink);text-transform:uppercase;letter-spacing:0.08em}
 .brief-sku{font-size:10.5px;font-weight:700;background:var(--green-light);color:var(--green-deep);padding:3px 9px;border-radius:99px;border:1px solid rgba(111,175,77,0.35)}
-.brief-concept{font-family:'Fraunces';font-size:14.5px;line-height:1.35;font-weight:500;letter-spacing:-0.005em;color:var(--ink);margin:7px 0 9px}
-.brief-bottom{display:flex;justify-content:space-between;align-items:center;font-size:11px;color:var(--ink-soft);padding-top:10px;border-top:1px solid var(--border)}
-.brief-time{font-weight:700;text-transform:uppercase;letter-spacing:0.06em;color:var(--ink)}
+.brief-concept{font-family:'Fraunces';font-size:14.5px;line-height:1.35;font-weight:500;letter-spacing:-0.005em;color:var(--ink);margin:7px 0 12px}
+.brief-chips{display:flex;flex-wrap:wrap;gap:6px;padding-top:11px;border-top:1px solid var(--border)}
+.brief-chip{display:inline-flex;align-items:center;font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;font-weight:800;text-transform:uppercase;padding:4px 9px;border-radius:99px;line-height:1}
+.brief-chip-dna{background:#F0EAD8;color:#5A4A2F;border:1px solid #DCD0A8}
+.brief-chip-sku{border:1px solid transparent}
+.brief-chip-sku-rrp-dip,.brief-chip-sku-lentil-dip{background:#F2D5C2;color:#9E3F31;border-color:#E0B8A0}
+.brief-chip-sku-lemon-aioli{background:#F4E4A8;color:#8B6F1F;border-color:#E0CC78}
+.brief-chip-sku-mango-chutney{background:#F3D1A8;color:#8B5A2B;border-color:#E0B888}
+.brief-chip-sku-cilantro-chutney{background:#C8E6AB;color:#2E5B22;border-color:#A9D386}
+.brief-chip-sku-chili-aioli{background:#F4C0B5;color:#7E2E20;border-color:#E09E8E}
+.brief-chip-sku-brand{background:#C8E6AB;color:#2E5B22;border-color:#A9D386}
+.brief-chip-sku-multi-sku{background:#F0E5C8;color:#5A4A2F;border-color:#DCC998}
 .brief-id{font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--green-deep)}
 
 /* Modal */
@@ -3175,6 +3187,8 @@ function BriefCard({ b, onOpen, railColor }) {
     "meme-payload":"🎭",
     "category-explainer":"✨"
   }[b.dnaPattern] || "✦";
+  const dnaLabel = (b.dnaPattern || "").replace(/-/g, " ").toUpperCase();
+  const skuSlug = (b.skuChip || "").toLowerCase().replace(/\s+/g, "-");
   return (
     <div className="brief-card" style={{borderLeft:`5px solid ${pillarRail}`}} onClick={() => onOpen(b.id)}>
       <div className="brief-tags" style={{alignItems:"center"}}>
@@ -3183,8 +3197,9 @@ function BriefCard({ b, onOpen, railColor }) {
         <span className="brief-platform">{b.platform.split(" ")[0]}</span>
       </div>
       <div className="brief-concept">{b.concept}</div>
-      <div className="brief-bottom">
-        <span className="brief-time">{b.publishWindow}</span>
+      <div className="brief-chips">
+        <span className="brief-chip brief-chip-dna">{dnaLabel}</span>
+        {b.skuChip && <span className={`brief-chip brief-chip-sku brief-chip-sku-${skuSlug}`}>{b.skuChip}</span>}
       </div>
     </div>
   );
