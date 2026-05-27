@@ -114,7 +114,13 @@ a{color:inherit;text-decoration:none}
 /* ============================================================
    How It Works tab — engine in motion
    ============================================================ */
-.hiw-hero{background:linear-gradient(135deg,var(--brand-deep) 0%,var(--brand-primary) 50%,var(--brand-accent-deep) 130%);color:#fff;border-radius:18px;padding:36px 40px 32px;margin-bottom:28px;position:relative;overflow:hidden}
+.hiw-hero{background:linear-gradient(135deg,var(--brand-deep) 0%,var(--brand-primary) 50%,var(--brand-accent-deep) 130%);color:#fff;border-radius:18px;padding:36px 40px 32px;margin-bottom:20px;position:relative;overflow:hidden}
+.hiw-cadence{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:28px}
+@media(max-width:880px){.hiw-cadence{grid-template-columns:1fr 1fr}}
+.hiw-cadence-item{background:var(--paper);border:1.5px solid var(--brand-light);border-radius:12px;padding:16px 18px;box-shadow:0 2px 0 var(--brand-light)}
+.hiw-cadence-num{font-family:'Bagel Fat One',serif;font-weight:400;font-size:32px;line-height:1;letter-spacing:0.005em;color:var(--brand-deep);margin-bottom:6px}
+.hiw-cadence-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;font-weight:800;text-transform:uppercase;color:var(--ink);margin-bottom:4px}
+.hiw-cadence-sub{font-family:'Fraunces',Georgia,serif;font-size:12px;line-height:1.4;color:var(--ink-soft);font-style:italic}
 .hiw-hero-eye{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;font-weight:700;text-transform:uppercase;opacity:0.9;margin-bottom:12px}
 .hiw-hero-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:38px;line-height:1.05;letter-spacing:0.005em;max-width:680px}
 
@@ -4020,61 +4026,28 @@ function HowItWorksTab() {
         <div className="hiw-hero-title">Your monday opens with the brief — not the research.</div>
       </div>
 
-      {/* PIPELINE STATUS — live engine state · now lives ABOVE the conceptual flow */}
-      <div className="ps-section">
-        <div className="ps-head">
-          <div>
-            <div className="ps-eyebrow"><span className="ps-eyebrow-dot"></span>// PIPELINE STATUS · LIVE</div>
-            <div className="ps-title">Engine state, right now.</div>
-          </div>
-          <div className="ps-meta">
-            <strong>Last refresh</strong>
-            {PIPELINE_STATUS.lastRefresh}<br/>
-            <span style={{opacity:0.7}}>Next: {PIPELINE_STATUS.nextRefresh}</span>
-          </div>
+      {/* Engine cadence strip — salvaged from old Pipeline Status: just the at-a-glance numbers */}
+      <div className="hiw-cadence">
+        <div className="hiw-cadence-item">
+          <div className="hiw-cadence-num">{PIPELINE_STATUS.sourcesWatching}</div>
+          <div className="hiw-cadence-label">sources watching</div>
+          <div className="hiw-cadence-sub">food · culture · retail · competition</div>
         </div>
-
-        <div className="ps-grid">
-          <div className="ps-stat">
-            <div className="ps-num">{PIPELINE_STATUS.sourcesWatching}</div>
-            <div className="ps-label">Sources watching</div>
-            <div className="ps-detail">8 lanes · 6 agents · 10 platform workers</div>
-          </div>
-          <div className="ps-stat">
-            <div className="ps-num">{PIPELINE_STATUS.signalsLast7d}</div>
-            <div className="ps-label">Signals landed</div>
-            <div className="ps-detail">past 7 days · first activation week</div>
-          </div>
-          <div className="ps-stat">
-            <div className="ps-num">{PIPELINE_STATUS.workersActive} / {PIPELINE_STATUS.workersTotal}</div>
-            <div className="ps-label">Workers active</div>
-            <div className="ps-detail">9 more built · most awaiting platform-side auth or proxy</div>
-          </div>
-          <div className="ps-stat">
-            <div className="ps-num">3</div>
-            <div className="ps-label">Tenants live</div>
-            <div className="ps-detail">Maazah + Willa's + Lil Bucks · shared infrastructure</div>
-          </div>
+        <div className="hiw-cadence-item">
+          <div className="hiw-cadence-num">6</div>
+          <div className="hiw-cadence-label">specialist agents</div>
+          <div className="hiw-cadence-sub">Flavor · Heritage · Pulse · Shelf · Voice · Strategist</div>
         </div>
-
-        <div className="ps-workers-eye">// PLATFORM WORKERS · STATUS</div>
-        <div className="ps-workers">
-          {PIPELINE_STATUS.workerStatus.map(w => (
-            <div key={w.name} className="ps-worker">
-              <div className={`ps-worker-dot ps-worker-dot-${w.status}`}></div>
-              <div className="ps-worker-body">
-                <div className="ps-worker-name">
-                  <span>{w.name}</span>
-                  {w.signals > 0 && <span className="ps-worker-count">{w.signals} signals</span>}
-                  <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,letterSpacing:"0.1em",opacity:0.65,padding:"2px 7px",borderRadius:99,border:"1px solid rgba(255,255,255,0.18)",textTransform:"uppercase"}}>{w.status}</span>
-                </div>
-                <div className="ps-worker-note">{w.note}</div>
-              </div>
-            </div>
-          ))}
+        <div className="hiw-cadence-item">
+          <div className="hiw-cadence-num">12–14</div>
+          <div className="hiw-cadence-label">briefs per week</div>
+          <div className="hiw-cadence-sub">production-ready · 4 pillars · 8 DNA formats</div>
         </div>
-
-        <div className="ps-foot">Multi-tenant Supabase pipeline · 13 cron schedules · weekly refresh Sun 9:00 PM CT · all signals tagged client_id = 'maazah'</div>
+        <div className="hiw-cadence-item">
+          <div className="hiw-cadence-num">Sun 9PM</div>
+          <div className="hiw-cadence-label">weekly refresh</div>
+          <div className="hiw-cadence-sub">your monday opens with the moves</div>
+        </div>
       </div>
 
       {/* 4-STEP FLOW BAND — engine philosophy at a high level */}
@@ -4162,31 +4135,7 @@ function HowItWorksTab() {
         </div>
       </div>
 
-      {/* 4 collapsible accordions */}
-      <details className="howit-acc" open>
-        <summary>
-          <div className="howit-acc-titles">
-            <div className="howit-acc-eye">// CALLS THE ENGINE MADE THIS WEEK</div>
-            <div className="howit-acc-title">Decisions</div>
-          </div>
-          <span className="howit-acc-count">{DECISIONS.length} this week</span>
-          <span className="howit-acc-chevron">▾</span>
-        </summary>
-        <div className="howit-acc-body howit-acc-body-padded">
-          <div className="dec-list">
-            {DECISIONS.map((d, i) => (
-              <div key={i} className="dec-row">
-                <span className={`dec-tag dec-${d.tag.toLowerCase()}`}>{d.tag}</span>
-                <div>
-                  <div className="dec-text"><strong>{d.text}</strong></div>
-                  <div className="dec-why">{d.why}</div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </details>
-
+      {/* 3 collapsible accordions (Decisions lives on its own page now) */}
       <details className="howit-acc">
         <summary>
           <div className="howit-acc-titles">
