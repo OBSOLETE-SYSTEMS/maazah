@@ -276,6 +276,50 @@ a{color:inherit;text-decoration:none}
 .driven-by{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
 .driven-chip{font-family:'JetBrains Mono',monospace;font-size:10.5px;background:var(--cream-deep);color:var(--ink);padding:2.5px 7px;border-radius:3px;font-weight:500}
 
+/* ============================================================
+   Monday Memo Modal (Phase 2) — the popup that auto-opens
+   Ported from Lil Bucks .mmm-* pattern with Maazah palette.
+   3 body sections (THE READ · 5 SIGNALS · 3 MOVES).
+   ============================================================ */
+.mmm-bg{position:fixed;inset:0;background:rgba(42,31,18,0.55);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:40px 16px;z-index:300;overflow-y:auto}
+.mmm-card{position:relative;background:var(--butter-light);border:1.5px solid var(--brand-primary);border-radius:18px;max-width:680px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 60px rgba(0,0,0,0.32)}
+.mmm-close{position:absolute;top:14px;right:14px;width:34px;height:34px;display:flex;align-items:center;justify-content:center;border-radius:50%;background:var(--butter);color:var(--ink);font-size:22px;line-height:1;z-index:5;border:1px solid var(--brand-light);cursor:pointer}
+.mmm-close:hover{background:var(--brand-primary);color:#fff}
+.mmm-hero{background:linear-gradient(135deg,var(--brand-deep) 0%,var(--brand-primary) 55%,var(--brand-accent) 130%);color:#fff;padding:26px 30px 24px;border-radius:18px 18px 0 0;position:relative;overflow:hidden}
+.mmm-hero::before{content:"";position:absolute;top:-40px;right:-40px;width:240px;height:240px;background:radial-gradient(circle,rgba(232,197,71,0.22) 0%,transparent 65%);pointer-events:none}
+.mmm-hero::after{content:"";position:absolute;bottom:-50px;left:-20px;width:200px;height:200px;background:radial-gradient(circle,rgba(214,122,90,0.34) 0%,transparent 65%);pointer-events:none}
+.mmm-hero-date{display:inline-block;background:var(--brand-accent);color:#fff;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;padding:4px 11px;border-radius:99px;font-weight:700;text-transform:uppercase;margin-bottom:12px;position:relative;z-index:2}
+.mmm-hero-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:34px;letter-spacing:0.005em;line-height:1.0;color:#fff;margin-bottom:8px;position:relative;z-index:2}
+.mmm-hero-sig{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;color:rgba(255,255,255,0.85);font-weight:600;text-transform:uppercase;position:relative;z-index:2}
+.mmm-body{padding:24px 30px 28px}
+.mmm-section{margin-bottom:26px}
+.mmm-section:last-child{margin-bottom:0}
+.mmm-section-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;color:var(--brand-accent-deep);font-weight:700;text-transform:uppercase;margin-bottom:10px}
+.mmm-pullquote{font-family:'Bagel Fat One',serif;font-weight:400;font-size:22px;letter-spacing:0.005em;line-height:1.18;color:var(--ink);margin-bottom:18px;padding:14px 18px;background:#fff;border-left:4px solid var(--brand-accent);border-radius:0 8px 8px 0}
+.mmm-read-block{margin-bottom:14px}
+.mmm-read-block:last-child{margin-bottom:0}
+.mmm-read-sub-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.18em;color:var(--brand-accent-deep);font-weight:700;text-transform:uppercase;margin-bottom:6px;display:inline-block;padding-bottom:3px;border-bottom:1.5px solid var(--brand-accent)}
+.mmm-read{font-family:'Fraunces',Georgia,serif;font-size:14.5px;line-height:1.55;color:var(--ink);font-weight:500;letter-spacing:-0.005em}
+.mmm-signals{display:flex;flex-direction:column;gap:9px}
+.mmm-signal{background:#fff;border:1px solid var(--brand-light);border-radius:10px;padding:12px 14px;display:flex;gap:14px;align-items:flex-start}
+.mmm-signal-stat{font-family:'Bagel Fat One',serif;font-weight:400;font-size:20px;line-height:1.05;color:var(--brand-accent-deep);flex-shrink:0;min-width:68px;letter-spacing:0.005em}
+.mmm-signal-body{flex:1;min-width:0}
+.mmm-signal-label{font-family:'Fraunces',Georgia,serif;font-size:13.5px;line-height:1.35;color:var(--ink);font-weight:700;letter-spacing:-0.005em;margin-bottom:4px}
+.mmm-signal-detail{font-size:12px;line-height:1.5;color:var(--ink-soft);margin-bottom:6px}
+.mmm-signal-src{font-family:'JetBrains Mono',monospace;font-size:9.5px;color:var(--brand-deep);background:var(--brand-light-soft);padding:2px 7px;border-radius:99px;font-weight:600;border:1px solid rgba(111,175,77,0.32);text-decoration:none;display:inline-block}
+.mmm-signal-src:hover{background:var(--brand-primary);color:#fff;border-color:var(--brand-primary)}
+.mmm-moves{display:flex;flex-direction:column;gap:10px}
+.mmm-move{background:#fff;border:1px solid var(--brand-light);border-radius:10px;padding:14px 16px;display:flex;gap:14px;align-items:flex-start}
+.mmm-move-num{font-family:'Bagel Fat One',serif;font-weight:400;font-size:24px;line-height:1;color:var(--brand-accent);flex-shrink:0;width:30px;text-align:center;letter-spacing:0.005em}
+.mmm-move-body{flex:1;min-width:0}
+.mmm-move-verb{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:15.5px;letter-spacing:-0.01em;line-height:1.3;color:var(--ink);margin-bottom:4px}
+.mmm-move-why{font-size:12.5px;line-height:1.5;color:var(--ink-soft)}
+.mmm-footer{padding:0 30px 28px;display:flex;justify-content:flex-end}
+.mmm-cta{background:var(--ink);color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.16em;font-weight:700;text-transform:uppercase;padding:13px 22px;border-radius:99px;cursor:pointer;border:0;transition:background 0.15s,transform 0.1s}
+.mmm-cta:hover{background:var(--brand-deep);transform:translateY(-1px)}
+
+/* Legacy V2 Welcome popup — kept temporarily so the old component still parses,
+   will be deleted in Phase 3. The router uses MondayMemoModal now. */
 /* Welcome popup — the "wait you already built this for us" moment */
 .welcome-bg{position:fixed;inset:0;background:rgba(42,31,18,0.6);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;padding:32px 16px;z-index:200}
 .welcome{background:var(--cream);border-radius:18px;max-width:960px;width:100%;max-height:92vh;overflow:hidden;display:grid;grid-template-columns:320px 1fr;box-shadow:var(--shadow-lg);border:1px solid var(--border)}
@@ -419,39 +463,74 @@ const TICKER = [
   { tag: "SNACKLE BOX", text: "May 24 lakeside post · 41 likes in 23h · recurring format" }
 ];
 
-const WELCOME = {
-  date: WEEK_LABEL,
-  thesis: `Twelve briefs ready to ship this week — calibrated to your voice, your Costco repeat-window cohort, the TikTok format register that actually works for you (saves > likes), and the read your Costco / Sprouts / Albertsons buyer gets when they pull up your handles on a Tuesday morning. Every line editable. Nothing requires Mom.`,
-  signature: "OBSOLETE — Maazah engine v0.2.\n12 briefs · 4 pillars · IG + TikTok split.",
-  moves: [
-    {
-      verb: "Ship the 3-day Roasted Red Pepper IG series (Mon → Wed → Fri).",
-      why: "Mid-week is the repeat-trial window for any Costco SKU. Eggs Mon → chicken Wed → pizza Fri builds 'put it on everything' before Memorial Day fades. (P01–P03)"
-    },
-    {
-      verb: "Drop the Costco-aisle Reel Tuesday AM on IG (sister-fronted).",
-      why: "IG sister-led milestone content earns ~426 likes for you. The cohort that bought Saturday wants the meta-moment Tuesday. (M01)"
-    },
-    {
-      verb: "Activate TikTok with the weekly category-explainer brief.",
-      why: "Your TikTok is severely under-leveraged — but the 'What is chutney?' explainer earned 211 likes + 71 saves (30× normal). The format works; nothing else there does. New M04 brief drops Thursday. (M04)"
-    },
-    {
-      verb: "Run the first-gen heritage Reel on IG Thursday late-night.",
-      why: "IG founder-content + 1990s family photos already in your archive. 'Things I used to explain. Things I now sell at Costco.' No Mom required — just sister POV. (T01)"
-    },
-    {
-      verb: "Hold on Albertsons content until result lands.",
-      why: "Pitch live this week. Pre-announcing dilutes either outcome. Engine has 4 branched briefs queued. (queued, not shipped)"
-    }
-  ],
-  evidence: [
-    { stat: "8–12wk", label: "Costco repeat window", detail: "Buyer review cycle on new SKU velocity before reset.", src: "industry std" },
-    { stat: "30×", label: "TikTok format gap", detail: "'What is chutney?' (211 likes) vs. cross-posted IG content (avg 2-11). Category-explainer is the lane.", src: "engine voice corpus" },
-    { stat: "71", label: "Saves on best post", detail: "Saves = buyer-readable category authority. Replicate weekly.", src: "@maazahmagic TikTok" },
-    { stat: "6", label: "Retail milestones / 18mo", detail: "Whole Foods → Times Sq → Fancy Food → Sprouts → Booth of Year + Albertsons Top 10 → Costco.", src: "retail audit" }
-  ]
+/* ============================================================
+   MONDAY MEMO — the popup that auto-opens
+   3 sections: THE READ · 5 SIGNALS · 3 MOVES
+   Ported from the OBSOLETE engine pattern, Maazah voice.
+   ============================================================ */
+
+const WELCOME_PULLQUOTE = "Costco week 2. The repeat-velocity window is open. The next 8 weeks decide the next 12 months.";
+
+const WELCOME_THESIS = {
+  happening: "Roasted Red Pepper hit Midwest Costco shelves nine days ago. The shoppers who tossed a tub in their cart Saturday open it Tuesday — and they decide whether to grab another in three weeks based on what they see in their feed between now and then. Cross-channel, your TikTok is a different story than IG: same Costco-cart content earned 426 likes on IG and 11 on TikTok. The format register is the gap, not the audience.",
+  edge: "Two visible sister-founders, a saucy-squad voice that already earns 350+ likes on milestone IG posts, a category-explainer TikTok pattern that earned 71 saves on a single post, and an 18-month arc of six retail milestones — Whole Foods nationwide, Times Square billboard, Fancy Food Show NYC, Sprouts nationwide, Booth of Year at Expo West, Albertsons Top 10 finalist, Costco Midwest. Most CPG brands your age have had two milestones. The story's already there.",
+  job: "Flood the Costco-cohort's IG feed with usage multiplication (Mon → Wed → Fri 'put it on everything' Roasted Red Pepper series). Activate TikTok with the category-explainer pattern that proved itself (M04 — 'What is lentil dip?'). Drop one first-gen heritage Reel for the Thursday late-night cohort (T01). Hold on Albertsons content until result lands."
 };
+
+const WELCOME_HIGHLIGHTS = [
+  {
+    stat: "8–12wk",
+    label: "Costco repeat-velocity window",
+    detail: "Buyer review cycle on new SKU velocity before resets. Day 9 of the window. Content shipped between now and week 12 decides whether Costco extends, expands, or pulls.",
+    src: "industry standard",
+    url: null
+  },
+  {
+    stat: "30×",
+    label: "TikTok format gap",
+    detail: "Same Costco-cart content: 426 likes on IG, 11 on TikTok. Cross-posted IG format doesn't match what TikTok rewards. The format-register fix is the highest-leverage single move.",
+    src: "@maazahmagic cross-platform audit",
+    url: "https://www.tiktok.com/@maazahmagic"
+  },
+  {
+    stat: "71",
+    label: "Saves on 'What is chutney?'",
+    detail: "The single TikTok post that broke through. 30× normal engagement. Pattern: period-spaced descriptors + Mom-coded origin + brand-voice category-education. Save-driven = buyer-readable authority.",
+    src: "@maazahmagic Nov 2024",
+    url: "https://www.tiktok.com/@maazahmagic"
+  },
+  {
+    stat: "426",
+    label: "Likes on Costco-cart Reel",
+    detail: "Your IG sister-led milestone content compounds. The May 17 Costco-shelf push is your highest-engagement post in the last 14 days. Don't under-front the sisters on IG.",
+    src: "@maazahmagic IG May 17, 2026",
+    url: "https://www.instagram.com/maazahmagic"
+  },
+  {
+    stat: "6",
+    label: "Retail milestones in 18 months",
+    detail: "Whole Foods nationwide (Nov '24) → Times Square (Dec '24) → Fancy Food NYC (Jul '25) → Sprouts nationwide (Dec '25) → Expo West Booth of Year + Albertsons Top 10 finalist (Mar '26) → Costco Midwest (May '26). Compounding-arc proof.",
+    src: "retail audit 2026-05-26",
+    url: null
+  }
+];
+
+const WELCOME_MOVES = [
+  {
+    verb: "Ship the 3-day Roasted Red Pepper IG series.",
+    why: "Mon → Wed → Fri. Eggs → grilled chicken → pizza. The Costco cohort opens the tub Tuesday; usage multiplication keeps them reaching for it through Memorial Day. (P01–P03)"
+  },
+  {
+    verb: "Activate TikTok with the category-explainer pattern.",
+    why: "Your only TikTok post that broke through earned 71 saves on 'What is chutney?' Same formula, new SKU lineup: 'What is lentil dip?' drops Thursday. Then weekly. (M04)"
+  },
+  {
+    verb: "Run the first-gen heritage Reel Thursday late-night.",
+    why: "Sister-fronted Reel for the Thursday cohort. 'Things I used to explain. Things I now sell at Costco.' Childhood family photos + Mom's bolani b-roll (no Mom on camera required). (T01)"
+  }
+];
+
+const WELCOME_SIG = "— Built for Yasameen + Sheilla, by OBSOLETE.\nThe engine ran over the weekend so your Monday starts with the moves, not the research.";
 
 const LEDE = {
   thesis: "Costco week 2: convert trial to repeat. IG cadence steady, TikTok format-register fix activated.",
@@ -1266,7 +1345,7 @@ function MaazahApp() {
         <MainFooter />
 
         {briefOpen && <BriefModal brief={briefById(briefOpen)} onClose={() => setBriefOpen(null)} />}
-        {memoOpen && <WelcomePopup onClose={() => setMemoOpen(false)} onJump={() => { setMemoOpen(false); setPage("briefs"); }} />}
+        {memoOpen && <MondayMemoModal onClose={() => setMemoOpen(false)} onShipIt={() => { setMemoOpen(false); setPage("intel"); }} />}
         {hiwOpen && <HowItWorksModal onClose={() => setHiwOpen(false)} />}
         {diagOpen && <DiagnosticInboxModal onClose={() => setDiagOpen(false)} />}
       </main>
@@ -1275,51 +1354,88 @@ function MaazahApp() {
 }
 
 /* ============================================================
-   WELCOME POPUP
+   MONDAY MEMO MODAL (Phase 2)
+   Single popup, magazine card, 3 sections.
+   Auto-opens on first load · ESC to close · backdrop click to close.
    ============================================================ */
-function WelcomePopup({ onClose, onJump }) {
+function MondayMemoModal({ onClose, onShipIt }) {
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
   return (
-    <div className="welcome-bg" onClick={onClose}>
-      <div className="welcome" onClick={(e) => e.stopPropagation()}>
-        <div className="welcome-left">
-          <MaazahArch className="welcome-arch" />
-          <button className="welcome-close" onClick={onClose}>×</button>
-          <div className="welcome-issue">THIS WEEK · MAAZAH ENGINE</div>
-          <div className="welcome-date">{WELCOME.date}</div>
-          <div className="welcome-thesis">{WELCOME.thesis}</div>
-          <div className="welcome-sig">{WELCOME.signature}</div>
+    <div className="mmm-bg" onClick={onClose}>
+      <div className="mmm-card" onClick={(e) => e.stopPropagation()}>
+        <button className="mmm-close" onClick={onClose} aria-label="close">×</button>
+
+        <div className="mmm-hero">
+          <div className="mmm-hero-date">{WEEK_LABEL}</div>
+          <h2 className="mmm-hero-title">The Monday Memo</h2>
+          <div className="mmm-hero-sig">— The Strategist · OBSOLETE Engine</div>
         </div>
-        <div className="welcome-right">
 
-          <div className="welcome-section">
-            <h3>The Moves</h3>
-            <div className="moves-list">
-              {WELCOME.moves.map((m, i) => (
-                <div key={i} className="move-item">
-                  <div className="move-verb">{m.verb}</div>
-                  <div className="move-why">{m.why}</div>
+        <div className="mmm-body">
+          {/* THE READ */}
+          <div className="mmm-section">
+            <div className="mmm-section-eye">// THE READ</div>
+            <div className="mmm-pullquote">{WELCOME_PULLQUOTE}</div>
+            <div className="mmm-read-block">
+              <div className="mmm-read-sub-eye">What's happening</div>
+              <p className="mmm-read">{WELCOME_THESIS.happening}</p>
+            </div>
+            <div className="mmm-read-block">
+              <div className="mmm-read-sub-eye">Maazah's edge</div>
+              <p className="mmm-read">{WELCOME_THESIS.edge}</p>
+            </div>
+            <div className="mmm-read-block">
+              <div className="mmm-read-sub-eye">This week's job</div>
+              <p className="mmm-read">{WELCOME_THESIS.job}</p>
+            </div>
+          </div>
+
+          {/* 5 SIGNALS */}
+          <div className="mmm-section">
+            <div className="mmm-section-eye">// 5 SIGNALS DRIVING THE WEEK</div>
+            <div className="mmm-signals">
+              {WELCOME_HIGHLIGHTS.map((h, i) => (
+                <div key={i} className="mmm-signal">
+                  <div className="mmm-signal-stat">{h.stat}</div>
+                  <div className="mmm-signal-body">
+                    <div className="mmm-signal-label">{h.label}</div>
+                    <div className="mmm-signal-detail">{h.detail}</div>
+                    {h.url ? (
+                      <a className="mmm-signal-src" href={h.url} target="_blank" rel="noreferrer">{h.src}</a>
+                    ) : (
+                      <span className="mmm-signal-src">{h.src}</span>
+                    )}
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <div className="welcome-section">
-            <h3>The Watch</h3>
-            <div className="evidence-grid">
-              {WELCOME.evidence.map((e, i) => (
-                <div key={i} className="evidence-cell">
-                  <div className="evidence-stat">{e.stat}</div>
-                  <div className="evidence-label">{e.label}</div>
-                  <div className="evidence-detail">{e.detail}</div>
-                  <span className="evidence-src">{e.src}</span>
+          {/* 3 MOVES */}
+          <div className="mmm-section">
+            <div className="mmm-section-eye">// 3 RECOMMENDED MOVES</div>
+            <div className="mmm-moves">
+              {WELCOME_MOVES.map((m, i) => (
+                <div key={i} className="mmm-move">
+                  <div className="mmm-move-num">{String(i + 1).padStart(2, "0")}</div>
+                  <div className="mmm-move-body">
+                    <div className="mmm-move-verb">{m.verb}</div>
+                    <div className="mmm-move-why">{m.why}</div>
+                  </div>
                 </div>
               ))}
             </div>
           </div>
 
-          <button className="welcome-cta" onClick={onJump}>
-            JUMP TO THIS WEEK'S BRIEFS →
-          </button>
+          <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10.5,letterSpacing:"0.06em",color:"var(--ink-soft)",lineHeight:1.6,paddingTop:8,whiteSpace:"pre-line"}}>{WELCOME_SIG}</div>
+        </div>
+
+        <div className="mmm-footer">
+          <button className="mmm-cta" onClick={onShipIt}>SEE THIS WEEK'S ENGINE →</button>
         </div>
       </div>
     </div>
