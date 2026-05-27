@@ -347,13 +347,20 @@ a{color:inherit;text-decoration:none}
 /* ============================================================
    Footage Inspo — 4-lane grid (shoot · found · meme · archive)
    ============================================================ */
-.footage-section{margin-bottom:20px}
-.footage-head{display:flex;align-items:center;gap:10px;margin-bottom:12px}
-.footage-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;color:var(--brand-accent-deep);font-weight:700;text-transform:uppercase}
-.footage-hint{font-family:'Fraunces',Georgia,serif;font-size:12.5px;color:var(--ink-soft);font-style:italic}
+/* FOOTAGE INSPO accordion — yellow rail + circular chevron button */
+.footage-acc{background:#FFFCEC;border:1.5px solid #EBD879;border-left:5px solid #E8C547;border-radius:12px;margin-bottom:20px;overflow:hidden;transition:box-shadow 0.15s}
+.footage-acc[open]{box-shadow:0 4px 14px rgba(232,197,71,0.18)}
+.footage-acc summary{list-style:none;cursor:pointer;padding:13px 14px 13px 16px;display:flex;align-items:center;gap:14px;outline:none}
+.footage-acc summary::-webkit-details-marker{display:none}
+.footage-acc summary:hover{background:rgba(232,197,71,0.08)}
+.footage-acc-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.18em;color:#8B6F1F;font-weight:800;text-transform:uppercase;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.footage-acc-title{font-family:'Fraunces',Georgia,serif;font-size:14px;line-height:1.4;color:var(--ink);font-weight:600;letter-spacing:-0.005em;flex:1;min-width:0;font-style:italic}
+.footage-acc-chev{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#E8C547;color:#3F320A;font-size:12px;font-weight:900;flex-shrink:0;transition:transform 0.2s;box-shadow:0 1.5px 4px rgba(143,113,28,0.25)}
+.footage-acc[open] .footage-acc-chev{transform:rotate(180deg)}
+.footage-acc-body{padding:16px 18px 18px;border-top:1px solid #EBD879;background:#FFFEF5}
 .footage-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media(max-width:720px){.footage-grid{grid-template-columns:1fr}}
-.footage-cat{padding:12px 14px;background:#fff;border:1px solid var(--border);border-radius:8px}
+.footage-cat{padding:12px 14px;background:#fff;border:1px solid #EBD879;border-radius:8px}
 .footage-cat-head{display:flex;gap:8px;align-items:center;margin-bottom:6px}
 .footage-cat-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
 .footage-cat-shoot .footage-cat-dot{background:var(--brand-primary)}
@@ -363,23 +370,24 @@ a{color:inherit;text-decoration:none}
 .footage-cat-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.15em;font-weight:800;text-transform:uppercase;color:var(--ink)}
 .footage-cat-list{margin:0;padding-left:0;list-style:none;display:flex;flex-direction:column;gap:6px}
 .footage-cat-list li{font-size:12px;line-height:1.45;color:var(--ink);padding-left:12px;position:relative}
-.footage-cat-list li::before{content:"·";position:absolute;left:2px;top:0;color:var(--brand-accent);font-weight:800}
+.footage-cat-list li::before{content:"·";position:absolute;left:2px;top:0;color:#C7A623;font-weight:800}
 
 /* ============================================================
    Amplify — collapsible paid-media-plan card
    Outer: details accordion with header bar
    Inner: thesis + 4 stat tiles + placements
    ============================================================ */
-.amp-acc{background:var(--butter-light);border:1.5px solid var(--brand-light);border-radius:12px;margin-bottom:20px;overflow:hidden;transition:box-shadow 0.15s}
-.amp-acc[open]{box-shadow:0 4px 14px rgba(42,31,18,0.08)}
-.amp-acc summary{list-style:none;cursor:pointer;padding:13px 18px;display:flex;align-items:center;gap:14px;outline:none}
+/* AMPLIFY accordion — coral rail + circular chevron button */
+.amp-acc{background:#FDF1EB;border:1.5px solid #E8B89E;border-left:5px solid #D67A5A;border-radius:12px;margin-bottom:20px;overflow:hidden;transition:box-shadow 0.15s}
+.amp-acc[open]{box-shadow:0 4px 14px rgba(214,122,90,0.18)}
+.amp-acc summary{list-style:none;cursor:pointer;padding:13px 14px 13px 16px;display:flex;align-items:center;gap:14px;outline:none}
 .amp-acc summary::-webkit-details-marker{display:none}
-.amp-acc summary:hover{background:rgba(214,122,90,0.06)}
-.amp-acc-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.18em;color:var(--brand-accent-deep);font-weight:800;text-transform:uppercase;display:flex;align-items:center;gap:6px;flex-shrink:0}
-.amp-acc-title{font-family:'Fraunces',Georgia,serif;font-size:14px;line-height:1.4;color:var(--ink);font-weight:600;letter-spacing:-0.005em;flex:1;min-width:0}
-.amp-acc-chev{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--ink-soft);font-weight:700;transition:transform 0.2s;flex-shrink:0}
+.amp-acc summary:hover{background:rgba(214,122,90,0.08)}
+.amp-acc-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.18em;color:#9E3F31;font-weight:800;text-transform:uppercase;display:flex;align-items:center;gap:6px;flex-shrink:0}
+.amp-acc-title{font-family:'Fraunces',Georgia,serif;font-size:14px;line-height:1.4;color:var(--ink);font-weight:600;letter-spacing:-0.005em;flex:1;min-width:0;font-style:italic}
+.amp-acc-chev{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:#D67A5A;color:#fff;font-size:12px;font-weight:900;flex-shrink:0;transition:transform 0.2s;box-shadow:0 1.5px 4px rgba(158,63,49,0.28)}
 .amp-acc[open] .amp-acc-chev{transform:rotate(180deg)}
-.amp-acc-body{padding:18px;border-top:1px solid var(--brand-light)}
+.amp-acc-body{padding:18px;border-top:1px solid #E8B89E;background:#FFF8F3}
 .amp-card-inner{background:#fff;border:1px solid var(--brand-light);border-radius:10px;padding:18px 20px}
 .amp-thesis{padding:0 0 14px 14px;border-left:3px solid var(--brand-accent);margin-bottom:16px}
 .amp-thesis-headline{font-family:'Fraunces',Georgia,serif;font-size:15.5px;line-height:1.4;color:var(--ink);font-weight:700;margin-bottom:8px;letter-spacing:-0.005em}
@@ -590,22 +598,40 @@ a{color:inherit;text-decoration:none}
 .cs-entry-drafts{margin-top:12px;padding-top:12px;border-top:1px dashed var(--brand-light);font-size:12px;color:var(--ink-soft);line-height:1.5}
 .cs-entry-drafts strong{color:var(--ink);font-weight:700;text-transform:uppercase;letter-spacing:0.06em;font-size:10.5px;display:block;margin-bottom:4px;font-family:'JetBrains Mono',monospace}
 
-/* Culture Momentum view (Phase 3 — top of Pulse subtab) */
-.cm-wrap{margin-bottom:20px;background:var(--butter-light);border:1.5px solid var(--brand-light);border-radius:14px;padding:18px 22px 20px}
-.cm-header{margin-bottom:16px}
+/* Culture Momentum — popping/cooling, mirrored from Lil Bucks */
+.cm-wrap{margin-bottom:22px}
+.cm-header{margin-bottom:14px}
 .cm-eyebrow{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.18em;color:var(--brand-deep);font-weight:700;text-transform:uppercase;margin-bottom:5px}
 .cm-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:22px;letter-spacing:0.005em;line-height:1.05;color:var(--ink);margin:0 0 5px}
 .cm-sub{font-family:'Fraunces',Georgia,serif;font-size:12.5px;line-height:1.5;color:var(--ink-soft);font-style:italic;max-width:660px}
 .cm-cols{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media(max-width:740px){.cm-cols{grid-template-columns:1fr}}
-.cm-col{background:#fff;border:1px solid var(--border);border-radius:10px;padding:14px 16px}
-.cm-col-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.16em;font-weight:700;text-transform:uppercase;margin-bottom:10px;display:inline-block;padding:3px 8px;border-radius:99px}
-.cm-col-popping .cm-col-eye{color:#3B6B2D;background:rgba(111,175,77,0.18);border:1px solid rgba(111,175,77,0.35)}
-.cm-col-cooling .cm-col-eye{color:#8B6F1F;background:rgba(232,134,66,0.16);border:1px solid rgba(232,134,66,0.3)}
-.cm-item{padding:8px 0;border-bottom:1px dashed var(--border);font-size:13px;line-height:1.45;color:var(--ink)}
-.cm-item:last-child{border-bottom:0}
-.cm-item-label{font-weight:700;color:var(--ink);margin-bottom:2px}
-.cm-item-note{font-size:11.5px;color:var(--ink-soft);line-height:1.4}
+@media(max-width:880px){.cm-cols{grid-template-columns:1fr}}
+.cm-col{border-radius:14px;padding:16px 18px 18px}
+.cm-col-popping{background:#F4FAEC;border:1.5px solid #B9D89A}
+.cm-col-cooling{background:#FBEFE9;border:1.5px solid #E8B8A4}
+.cm-col-head{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-bottom:12px;padding-bottom:10px;border-bottom:1px dashed currentColor}
+.cm-col-popping .cm-col-head{color:rgba(59,107,45,0.32)}
+.cm-col-cooling .cm-col-head{color:rgba(158,63,49,0.32)}
+.cm-col-label{font-family:'Bagel Fat One',serif;font-weight:400;font-size:22px;letter-spacing:0.005em;line-height:1;display:flex;align-items:center;gap:8px}
+.cm-col-popping .cm-col-label{color:#2E5B22}
+.cm-col-cooling .cm-col-label{color:#7E2E20}
+.cm-col-status{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.16em;font-weight:700;text-transform:uppercase}
+.cm-col-popping .cm-col-status{color:#3B6B2D}
+.cm-col-cooling .cm-col-status{color:#9E3F31}
+.cm-items{display:flex;flex-direction:column;gap:10px}
+.cm-item{background:#fff;border-radius:10px;padding:12px 14px}
+.cm-col-popping .cm-item{border:1px solid #D4EAB8}
+.cm-col-cooling .cm-item{border:1px solid #F2C9B6}
+.cm-item-row1{display:flex;align-items:center;gap:10px;margin-bottom:7px}
+.cm-int{display:inline-flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.04em;font-weight:800;padding:3px 11px;border-radius:99px;min-width:46px;text-align:center}
+.cm-col-popping .cm-int{background:#C8E6AB;color:#2E5B22;border:1px solid #A9D386}
+.cm-col-cooling .cm-int{background:#F2C9B6;color:#7E2E20;border:1px solid #E0AA92}
+.cm-since{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.06em;color:var(--ink-soft);font-weight:600}
+.cm-item-title{font-family:'Fraunces',Georgia,serif;font-size:15px;font-weight:700;letter-spacing:-0.01em;line-height:1.25;color:var(--ink);margin-bottom:5px}
+.cm-item-verb{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;font-weight:700;text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:5px}
+.cm-col-popping .cm-item-verb{color:#3B6B2D}
+.cm-col-cooling .cm-item-verb{color:#9E3F31}
+.cm-item-body{font-size:12.5px;line-height:1.5;color:var(--ink-soft);font-style:italic}
 
 /* Pillar pips */
 .trend-pillars{display:flex;gap:4px;flex-wrap:wrap}
@@ -1502,16 +1528,50 @@ const COUNTER_STRIKE_LOG = [
    ============================================================ */
 const CULTURE_MOMENTUM = {
   popping: [
-    { label: "Heritage-cuisine TV renaissance", note: "Stanley Tucci's 'What I Eat in a Day' + The Bear S5 + Padma's Taste the Nation S3 — specific-cuisine storytelling is in season" },
-    { label: "First-gen content on TikTok", note: "#firstgen + #immigrantkids late-night engagement spiking · heritage food creators rewarded" },
-    { label: "Snackle-box format into summer", note: "Pinterest + TikTok saves climbing through Memorial Day → Labor Day · multi-SKU rotation evergreen" },
-    { label: "Anti-restriction food culture", note: "food-as-joy framing replacing diet-culture / GLP-1 restriction · abundance language outperforms" }
+    {
+      intensity: "+++",
+      since: "since May 24",
+      title: "Heritage-cuisine TV renaissance",
+      verb: "HOW WE RIDE",
+      body: "Tucci + The Bear S5 + Padma S3 all peaking. Specific-cuisine storytelling is in season — MOM'S TABLE pillar lands directly in this window."
+    },
+    {
+      intensity: "+++",
+      since: "since May 22",
+      title: "First-gen content on TikTok",
+      verb: "HOW WE RIDE",
+      body: "#firstgen + #immigrantkids hitting peak late-night engagement. Thursday late-night Reel (T01) catches the wave."
+    },
+    {
+      intensity: "++",
+      since: "since May 17",
+      title: "Snackle-box format into summer",
+      verb: "HOW WE RIDE",
+      body: "Pinterest + TikTok saves climbing through Labor Day. Multi-SKU weekly rotation is yours to claim — recurring lane."
+    }
   ],
   cooling: [
-    { label: "Generic 'wellness aesthetic' CPG", note: "sunset-light + grain-bowl + affirmation register fading on TikTok · wellness-as-religion is out" },
-    { label: "Sabra's 'dips beyond hummus' defensive creative", note: "incumbent's catch-up ad framing reads as following, not leading · category-creators are setting the pace" },
-    { label: "Celebrity-endorsement plays", note: "viral celebrity reactions getting smaller returns · founder-fronted authenticity is outperforming" },
-    { label: "Cross-posted IG-format on TikTok", note: "industry-wide engagement penalty for repurposed lifestyle content · TikTok rewards native register" }
+    {
+      intensity: "-",
+      since: "since May 19 Sabra creative",
+      title: "Sabra's 'dips beyond hummus' framing",
+      verb: "WHY WE SKIP",
+      body: "Incumbent's catch-up ad copy reads as following, not leading. Don't echo their language — Maazah is ahead of the lane."
+    },
+    {
+      intensity: "--",
+      since: "since 2024 platform shift",
+      title: "Cross-posted IG content on TikTok",
+      verb: "WHY WE SKIP",
+      body: "10-30× engagement penalty industry-wide. TikTok rewards native format register — category-explainer is Maazah's lane there."
+    },
+    {
+      intensity: "--",
+      since: "since Feb 2026 lesson",
+      title: "Celebrity-reaction meme content",
+      verb: "WHY WE SKIP",
+      body: "Permanent anti-pattern. Taylor/Kendrick-style reactions flopped for Maazah (2-4 likes). Founder-fronted authenticity outperforms."
+    }
   ]
 };
 
@@ -2619,22 +2679,42 @@ function CultureMomentum() {
       </div>
       <div className="cm-cols">
         <div className="cm-col cm-col-popping">
-          <div className="cm-col-eye">↑ Popping</div>
-          {CULTURE_MOMENTUM.popping.map((it, i) => (
-            <div key={i} className="cm-item">
-              <div className="cm-item-label">{it.label}</div>
-              <div className="cm-item-note">{it.note}</div>
-            </div>
-          ))}
+          <div className="cm-col-head">
+            <span className="cm-col-label">↑ POPPING</span>
+            <span className="cm-col-status">ACCELERATING · RIDE NOW</span>
+          </div>
+          <div className="cm-items">
+            {CULTURE_MOMENTUM.popping.map((it, i) => (
+              <div key={i} className="cm-item">
+                <div className="cm-item-row1">
+                  <span className="cm-int">{it.intensity}</span>
+                  <span className="cm-since">{it.since}</span>
+                </div>
+                <div className="cm-item-title">{it.title}</div>
+                <div className="cm-item-verb">▶ {it.verb}</div>
+                <div className="cm-item-body">{it.body}</div>
+              </div>
+            ))}
+          </div>
         </div>
         <div className="cm-col cm-col-cooling">
-          <div className="cm-col-eye">↓ Cooling / Skip</div>
-          {CULTURE_MOMENTUM.cooling.map((it, i) => (
-            <div key={i} className="cm-item">
-              <div className="cm-item-label">{it.label}</div>
-              <div className="cm-item-note">{it.note}</div>
-            </div>
-          ))}
+          <div className="cm-col-head">
+            <span className="cm-col-label">↓ COOLING</span>
+            <span className="cm-col-status">PAST PEAK · DON'T CHASE</span>
+          </div>
+          <div className="cm-items">
+            {CULTURE_MOMENTUM.cooling.map((it, i) => (
+              <div key={i} className="cm-item">
+                <div className="cm-item-row1">
+                  <span className="cm-int">{it.intensity}</span>
+                  <span className="cm-since">{it.since}</span>
+                </div>
+                <div className="cm-item-title">{it.title}</div>
+                <div className="cm-item-verb">× {it.verb}</div>
+                <div className="cm-item-body">{it.body}</div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
     </div>
@@ -3019,25 +3099,28 @@ function FootageInspoSection({ footage }) {
   ].filter(l => l.items?.length);
   if (!lanes.length) return null;
   return (
-    <div className="footage-section">
-      <div className="footage-head">
-        <div className="footage-eyebrow">// FOOTAGE INSPO · 4 LANES</div>
-        <div className="footage-hint">what to shoot, what to stitch, what to riff, what to pull from archive</div>
-      </div>
-      <div className="footage-grid">
-        {lanes.map(l => (
-          <div key={l.key} className={`footage-cat footage-cat-${l.key}`}>
-            <div className="footage-cat-head">
-              <span className="footage-cat-dot"></span>
-              <span className="footage-cat-label">{l.label}</span>
+    <details className="footage-acc" open>
+      <summary>
+        <span className="footage-acc-eyebrow">🎬 FOOTAGE INSPO</span>
+        <span className="footage-acc-title">Where to source every shot — shoot · found · meme · archive</span>
+        <span className="footage-acc-chev">▲</span>
+      </summary>
+      <div className="footage-acc-body">
+        <div className="footage-grid">
+          {lanes.map(l => (
+            <div key={l.key} className={`footage-cat footage-cat-${l.key}`}>
+              <div className="footage-cat-head">
+                <span className="footage-cat-dot"></span>
+                <span className="footage-cat-label">{l.label}</span>
+              </div>
+              <ul className="footage-cat-list">
+                {l.items.map((it, i) => <li key={i}>{it}</li>)}
+              </ul>
             </div>
-            <ul className="footage-cat-list">
-              {l.items.map((it, i) => <li key={i}>{it}</li>)}
-            </ul>
-          </div>
-        ))}
+          ))}
+        </div>
       </div>
-    </div>
+    </details>
   );
 }
 
