@@ -495,6 +495,17 @@ a{color:inherit;text-decoration:none}
 .source-chip{font-family:'JetBrains Mono',monospace;font-size:10.5px;background:var(--green-light);color:var(--green-deep);padding:3px 8px;border-radius:99px;letter-spacing:0;font-weight:600;border:1px solid rgba(111,175,77,0.4)}
 .source-chip:hover{background:var(--green);color:#fff;border-color:var(--green)}
 .card-actions{display:flex;justify-content:space-between;align-items:center;margin-top:10px;padding-top:10px;border-top:1px solid var(--border)}
+.card-actions-right{justify-content:flex-end}
+.brief-link{display:flex;align-items:center;gap:10px;width:100%;text-align:left;background:rgba(111,175,77,0.08);border:1px solid var(--brand-light);border-radius:8px;padding:9px 11px;margin:8px 0 0;cursor:pointer;transition:background 0.12s,border-color 0.12s;font-family:'Inter',sans-serif}
+button.brief-link{font:inherit;font-family:'Inter',sans-serif}
+.brief-link:hover{background:rgba(111,175,77,0.14);border-color:var(--brand-primary)}
+.brief-link-later{cursor:default;background:rgba(232,134,66,0.06);border-color:rgba(232,134,66,0.28)}
+.brief-link-later:hover{background:rgba(232,134,66,0.06);border-color:rgba(232,134,66,0.28)}
+.brief-link-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;font-weight:800;text-transform:uppercase;color:var(--brand-deep);flex-shrink:0;white-space:nowrap}
+.brief-link-later .brief-link-eye{color:#9E3F31}
+.brief-link-snippet{flex:1;min-width:0;font-size:12px;line-height:1.35;color:var(--ink);font-weight:500}
+.brief-link-arrow{flex-shrink:0;font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--brand-deep);font-weight:700;transition:transform 0.12s}
+.brief-link:hover .brief-link-arrow{transform:translateX(3px)}
 .drop-btn{background:var(--green);color:#fff;font-size:10.5px;text-transform:uppercase;letter-spacing:0.12em;font-weight:700;padding:7px 13px;border-radius:99px;display:flex;align-items:center;gap:6px;transition:background 0.15s,transform 0.1s}
 .drop-btn:hover{background:var(--green-deep);transform:translateY(-1px)}
 
@@ -1900,24 +1911,24 @@ const CULTURE_MOMENTUM = {
   cooling: [
     {
       intensity: "-",
-      since: "since May 19 Sabra creative",
-      title: "Sabra's 'dips beyond hummus' framing",
+      since: "fading since Q1 2026",
+      title: "Generic 'wellness aesthetic' CPG",
       verb: "WHY WE SKIP",
-      body: "Incumbent's catch-up ad copy reads as following, not leading. Don't echo their language — Maazah is ahead of the lane."
+      body: "Sunset-light + grain-bowl + affirmation-text register has saturated. TikTok food saves are migrating to specific-cuisine storytelling — wellness-as-religion is out, joy-as-religion is in."
     },
     {
       intensity: "--",
-      since: "since 2024 platform shift",
-      title: "Cross-posted IG content on TikTok",
+      since: "decline since GLP-1 fatigue cycle",
+      title: "Diet-culture + restriction language",
       verb: "WHY WE SKIP",
-      body: "10-30× engagement penalty industry-wide. TikTok rewards native format register — category-explainer is Maazah's lane there."
+      body: "'Low-fat,' 'macros,' 'clean,' GLP-1-coded register are losing share to anti-restriction abundance language. Food-as-joy posts outperform food-as-discipline 3-4× on TikTok this quarter."
     },
     {
       intensity: "--",
-      since: "since Feb 2026 lesson",
-      title: "Celebrity-reaction meme content",
+      since: "down sharply since 2025",
+      title: "Influencer-as-CPG-spokesperson plays",
       verb: "WHY WE SKIP",
-      body: "Permanent anti-pattern. Taylor/Kendrick-style reactions flopped for Maazah (2-4 likes). Founder-fronted authenticity outperforms."
+      body: "Paid creator endorsements without founder presence are losing engagement to founder-led authenticity. Trader Joe's, Fishwife, Graza all proving founder-fronted Reels outperform polished celebrity drops."
     }
   ]
 };
@@ -2004,18 +2015,13 @@ const WELCOME_MOVES = [
 
 const WELCOME_SIG = "— Built for Yasameen + Sheilla.\nThe engine ran over the weekend so your Monday starts with the moves, not the research.";
 
-const LEDE = {
-  thesis: "Costco week 2: convert trial to repeat. IG cadence steady, TikTok format-register fix activated.",
-  competitive: "Hope Foods + Boar's Head expanding the non-hummus dip set — category-creation tailwind is real and lentil-dip vocabulary is yours to shape.",
-  pulse: "Category-explainer format (211 likes, 71 saves on 'What is chutney?') is the TikTok lane that actually works. Activate weekly."
-};
-
 const TRENDS = [
   {
     id: "T-1", type: "RETAIL", velocity: "high",
     hook: "Refrigerated dip set fragments past hummus.",
     detail: "Hope Foods expanded white-bean + beet dips; Boar's Head launched specialty dips this spring. Category buyers are actively merchandising 'non-hummus' as its own subset — Maazah's lentil dips slot directly in.",
-    play: "Frame Maazah lentil dips as the 'we got here first' answer to the new dip subset — not 'hummus alternative,' just lentil dip with confidence.",
+    play: "Lean into the lentil-dip lane with confidence — not 'hummus alternative,' just lentil dip. We got here first.",
+    droveBrief: "MAGIC25-LENTILEXPLAIN-M04",
     pillars: ["multiply", "magic"],
     sources: ["refrigeratedfrozenfoods.com", "boarshead.com"]
   },
@@ -2023,7 +2029,8 @@ const TRENDS = [
     id: "T-2", type: "RETAIL", velocity: "high",
     hook: "Costco Memorial Day demo cycle peaked May 23-26.",
     detail: "First Memorial Day weekend post-rollout is the trial-density peak. Repeat-velocity math reviewed at week 8-12; the cohort that bought May 24-26 needs usage content in their feed weeks 2-4 to lift second purchase.",
-    play: "Three-day 'Day 1/Day 2/Day 3' Roasted Red Pepper Reel series (P01-P03) lands directly in this cohort's mid-week scroll.",
+    play: "Three-day Roasted Red Pepper Reel series lands directly in this cohort's mid-week scroll — eggs Tuesday, grilled chicken Wednesday, pizza Friday.",
+    droveBrief: "MULT25-RRP-EGGS-P01",
     pillars: ["multiply"],
     sources: ["costco.com", "specialtyfood.com"]
   },
@@ -2031,7 +2038,8 @@ const TRENDS = [
     id: "T-3", type: "TRADE", velocity: "medium",
     hook: "Albertsons Innovation Launchpad finalist pitches this week.",
     detail: "Top 10 of 600+ brands. Outcome announcement expected late May / early June. National Albertsons + Safeway distribution if won; high-credibility 'finalist' marker even if not.",
-    play: "Hold launch-window content until result. Pre-announcing dilutes either outcome. 4 branched briefs queued in engine; pick the path the result picks for you.",
+    play: "Hold launch-window content until result lands. Pre-announcing dilutes either outcome. Four branched briefs queued — engine picks the path the result picks for you.",
+    droveLater: "Queued — ships after result lands",
     pillars: ["magic"],
     sources: ["expowest.com", "albertsons.com"]
   },
@@ -2039,7 +2047,8 @@ const TRENDS = [
     id: "T-4", type: "INGREDIENT", velocity: "medium",
     hook: "Lentil consumption up 18% YoY in CPG snack + dip.",
     detail: "Pulses (lentils, chickpeas, mung) are the fastest-growing plant-protein subcategory in retail snacking. Lentil leads on fiber + protein density vs. chickpea — a real differentiator most shoppers don't know.",
-    play: "Subtle category-education layer in dip captions — 'lentils carry more protein + fiber than chickpeas, same dip joy' — without lecturing.",
+    play: "Layer subtle category-education into the TikTok explainer — 'lentils carry more protein + fiber than chickpeas, same dip joy' — without lecturing.",
+    droveBrief: "MAGIC25-LENTILEXPLAIN-M04",
     pillars: ["multiply"],
     sources: ["pulses.org", "specialtyfood.com"]
   },
@@ -2048,6 +2057,7 @@ const TRENDS = [
     hook: "Afghan-American food press cycle peaking.",
     detail: "Lapis (DC), Bamiyan (Brooklyn) feature cycles + Humaira Ghilzai cookbook tour + Cherry Bombe heritage issue this quarter. The 'Afghan in America' story is news-eligible right now.",
     play: "Position Yasameen + Sheilla for Cherry Bombe / Forbes 30-Under-30 / F&W Game Changers pitches. Engine drafts the press one-sheet on request.",
+    droveLater: "Press one-sheet drafted on diagnostic-confirm",
     pillars: ["mom", "magic"],
     sources: ["cherrybombe.com", "foodandwine.com"]
   },
@@ -2055,7 +2065,8 @@ const TRENDS = [
     id: "T-6", type: "FORMAT", velocity: "high",
     hook: "Snackle box format still has 6+ months of TikTok longevity.",
     detail: "Search volume sustained since Memorial Day '24. Maazah's May 24 lakeside snackle box post hit 41 likes in 23 hours (above trail of recent posts). Format is repeatable + scalable across SKUs.",
-    play: "Weekly snackle-box brief through Labor Day. Rotate SKU: Roasted Red Pepper (Costco anchor) week 1, Mango Chutney week 2, Chili Aioli week 3, Basil Jalapeño week 4.",
+    play: "Weekly snackle-box brief through Labor Day with rotating SKU anchors — Roasted Red Pepper this week, Mango Chutney next, then Chili Aioli, then Basil Jalapeño.",
+    droveBrief: "SQUAD25-SNACKLE-S02",
     pillars: ["multiply", "squad"],
     sources: ["tiktok.com/discover/snackle-box", "pinterest.com"]
   }
@@ -2066,70 +2077,80 @@ const CULTURAL_PULSE = [
     id: "CP-1", type: "archetype", typeLabel: "ARCHETYPE",
     hook: "'Things I used to explain. Things I now sell at Costco.'",
     detail: "First-gen kid arc — childhood embarrassment over heritage food → adult success carrying it. Yasameen or Sheilla on-camera, quiet voice, the punchline lands in the closing frame: the Maazah tub on the Costco shelf.",
-    play: "T01 — sister-led Reel scheduled Thursday late-night. Roy Ayers slow-burn. Lowercase warmth, no exclamation chains.",
+    play: "Sister-led Reel Thursday late-night, when the first-gen cohort lights up. Roy Ayers slow-burn audio, lowercase warmth, no exclamation chains.",
+    droveBrief: "MOM25-FIRSTGEN-T01",
     sources: ["tiktok.com/tag/firstgen", "tiktok.com/tag/immigrantkids"]
   },
   {
     id: "CP-2", type: "recipe", typeLabel: "VIRAL RECIPE",
     hook: "Cottage cheese + lentil dip + crackers / pita combos.",
     detail: "TikTok's protein-dense snack format. Lentil dip outflanks hummus on the protein-stack the trend rewards. Roasted Red Pepper is the obvious anchor; could become a weekly format.",
-    play: "P04 mini-format — cottage cheese + Roasted Red Pepper swirl + Ritz/pita reveal. 20s loop. No founder, hands-only.",
+    play: "Cottage-cheese + Roasted Red Pepper swirl + Ritz/pita reveal. 20s hands-only loop. Test as a mini-format, scale to weekly if saves clear threshold.",
+    droveLater: "Queued for next refresh (mini-format test)",
     sources: ["tiktok.com/tag/cottagecheese", "tiktok.com/tag/snackbowl"]
   },
   {
     id: "CP-3", type: "meme", typeLabel: "MEME / FORMAT",
     hook: "Lakeside snackle box (Memorial Day → Labor Day evergreen).",
     detail: "Pinterest + TikTok snackle-box content sustained since '24. Maazah's May 24 build did the work; now repeat the format weekly with rotating SKU anchor.",
-    play: "Set as recurring weekly brief lane (S03 in next refresh). Rotate SKU anchor through summer.",
+    play: "Recurring weekly snackle-box lane with rotating SKU anchor through summer.",
+    droveBrief: "SQUAD25-SNACKLE-S02",
     sources: ["tiktok.com/discover/snackle-box", "pinterest.com"]
   },
   {
     id: "CP-4", type: "cultural", typeLabel: "CULTURAL",
     hook: "Costco-haul content remains the most-saved format in retail UGC.",
     detail: "@gvang101 already did a paid Costco-aisle reel for Roasted Red Pepper. UGC amplification + creator seed program in Midwest Costco-radius cities is high-leverage for next 6-8 weeks.",
-    play: "S01 — UGC compilation 'did you find us?' brief. Plus engine drafts outbound DM templates to 8 Midwest food creators for organic seed.",
+    play: "UGC compilation 'did you find us?' Reel + outbound DM templates to 8 Midwest food creators for organic seed.",
+    droveBrief: "SQUAD25-COSTCO-HUNT-S01",
     sources: ["instagram.com/gvang101", "tiktok.com/tag/costcofind"]
   },
   {
     id: "CP-5", type: "entertainment", typeLabel: "ENTERTAINMENT",
     hook: "NBA Finals (starts ~June 5) + Stanley Cup Final overlap.",
-    detail: "Game-day dip / pizza / sliders content lane opens late next week. Roasted Red Pepper on pizza (P03) loops directly into game-day intent.",
-    play: "P03 publishes Friday — sets up the pizza-dip association for the game-day cohort one week before tipoff.",
+    detail: "Game-day dip / pizza / sliders content lane opens late next week. Roasted Red Pepper on pizza loops directly into game-day intent.",
+    play: "RRP-on-pizza Reel publishes Friday — sets up the pizza-dip association for the game-day cohort one week before tipoff.",
+    droveBrief: "MULT25-RRP-PIZZA-P03",
     sources: ["nba.com", "nhl.com"]
   },
   {
     id: "CP-6", type: "news", typeLabel: "NEWS CYCLE",
     hook: "Reem Assil cookbook tour stop in Minneapolis early June.",
     detail: "Arab-American chef + cultural activist passing through the Twin Cities. Co-attendance / collab post / sister-meets-Reem moment — heritage-credibility goldmine that lasts longer than the press cycle.",
-    play: "Engine drafts a sister-led 'we went' carousel + outbound DM to @reemassil's team. Hold ship until event confirmed.",
+    play: "Sister-led 'we went' carousel + outbound DM to @reemassil's team. Hold ship until event is confirmed.",
+    droveLater: "Drafts on diagnostic-confirm",
     sources: ["reemscalifornia.com", "minnpost.com"]
   },
   {
     id: "CP-7", type: "entertainment", typeLabel: "ENTERTAINMENT",
     hook: "Heritage-cuisine TV is having a renaissance.",
     detail: "Stanley Tucci's 'What I Eat in a Day' on Apple TV+, The Bear S5 finale arc going into chef-family territory, Padma Lakshmi's Taste the Nation S3 on Hulu. Audiences are leaning into specific-cuisine storytelling — chefs, families, recipes with names. Maazah's Afghan-American heritage is exactly the lane TV is rewarding right now.",
-    play: "Heritage Trace agent watching cookbook + press cycles. Drafts a 'cooking with auntie' Reel format that mirrors the TV moment without referencing it directly. Sister-led, MOM'S TABLE pillar.",
+    play: "Draft a sister-led 'cooking with auntie' Reel that mirrors the TV moment without referencing it directly. Lands in MOM'S TABLE pillar.",
+    droveBrief: "MOM25-BOLANI-T02",
     sources: ["apple.com/tv-pr", "hulu.com/press", "tvline.com"]
   },
   {
     id: "CP-8", type: "archetype", typeLabel: "ARCHETYPE",
     hook: "'Eating like an immigrant mom' as a TikTok showcase format.",
-    detail: "Distinct from the #firstgen storytelling archetype (CP-1) — this is the SHOWCASE format: creators making their mom's actual recipes, framing as nutritional abundance instead of restriction. Search interest on 'mom's recipe' content +180% YoY. Direct primary lane for Maazah's MOM'S TABLE pillar.",
-    play: "Heritage Trace + Cultural Pulse Tracker both watching. Recurring weekly format proposal: 'Mom's _____, the way we eat it' — rotating dish each week from the family recipe book (bolani → mantu → kabob → aushak).",
+    detail: "Distinct from the #firstgen storytelling archetype above — this is the SHOWCASE format: creators making their mom's actual recipes, framing as nutritional abundance instead of restriction. Search interest on 'mom's recipe' content +180% YoY. Direct primary lane for Maazah's MOM'S TABLE pillar.",
+    play: "Propose a recurring weekly format: 'Mom's _____, the way we eat it' — rotating dish each week from the family recipe book (bolani → mantu → kabob → aushak).",
+    droveLater: "Recurring format proposed for diagnostic",
     sources: ["tiktok.com/tag/momsrecipes", "tiktok.com/tag/immigrantmom", "trends.google.com"]
   },
   {
     id: "CP-9", type: "cultural", typeLabel: "CULTURAL",
     hook: "Anti-restriction wellness backlash gaining momentum.",
     detail: "TikTok creators pushing back hard on diet-culture / GLP-1 / restrictive eating with food-as-joy framing. Abundance language is replacing restriction language across food-creator content. Maazah's literal name (Farsi for 'flavor, taste, JOY') is positioned exactly in this lane — joy is the brand promise, not a marketing flourish.",
-    play: "Lead with joy-coded framing across all captions this week. The 'magic' master metaphor + 'put it on everything' usage diversity wins over 'low-fat' / 'macros' / 'clean' positioning. Voice Compass downweights any signal pushing macros-as-hero.",
+    play: "Lead with joy-coded framing across every caption this week. The 'magic' master metaphor + 'put it on everything' usage diversity beats 'low-fat' / 'macros' / 'clean' positioning every time.",
+    droveLater: "Voice direction applied across all 13 briefs",
     sources: ["tiktok.com/tag/foodjoy", "tiktok.com/tag/antidietculture", "garbageday.email"]
   },
   {
     id: "CP-10", type: "cultural", typeLabel: "CULTURAL",
     hook: "Hot honey wave continues — premium-condiment category validating.",
     detail: "Mike's Hot Honey expanded into 5+ new co-launches in 2026 (Garrett popcorn, Snak Club snack mix, more). Truff + Brightland + Graza all riding the premium-condiment design-led playbook. Validates Maazah's category exactly. Chili Aioli (NEW Dec '25) sits in adjacent fridge-sauce-with-heat lane.",
-    play: "Shelf Watch tracking the wave. Chili Aioli content can ride on hot-honey momentum without copying. 'Spicy + creamy fridge-sauce' is a more open lane than 'spicy-on-everything' (Mike's owns that).",
+    play: "Chili Aioli content can ride hot-honey momentum without copying. 'Spicy + creamy fridge-sauce' is a more open lane than 'spicy-on-everything' (Mike's owns that).",
+    droveLater: "Chili Aioli brief queued for next refresh",
     sources: ["mikeshothoney.com", "modernretail.co", "snaxshot.substack.com"]
   }
 ];
@@ -2232,7 +2253,7 @@ const WHOLESALE_LENS = {
   hero: {
     eyebrow: "BUYER VIEW · WHAT YOUR COSTCO / SPROUTS / ALBERTSONS BUYER SEES TUESDAY MORNING",
     title: "Strong + lopsided. Closing the TikTok gap is the single highest-leverage move of the next 6 weeks.",
-    read: `Six retail milestones in 18 months tells a buyer the brand is on an arc, not a plateau. Sister-led IG is compounding (426-like Costco-cart Reel proves it). UGC geographic spread is real (10 Midwest states tagging at-shelf). Press is editorially-validated. The only soft dimension is TikTok — you have a proven format (the "What is chutney?" pattern earned 71 saves vs. a 2-11 like baseline) that's been under-deployed for 18 months. Activate it weekly and 4-6 weeks from now your buyer's TikTok glance returns a different read entirely.`,
+    read: `Six retail milestones in 18 months reads as a brand on an arc, not a plateau. The one soft dimension — TikTok — is also the one with a proven pattern under-deployed; activate it weekly and your buyer's TikTok glance flips inside 6 weeks.`,
     score: {
       total: 80,
       delta: "+8 projected in 6wks",
@@ -2838,11 +2859,11 @@ function MaazahApp() {
         <button className={`sb-item ${page==="wholesale"?"active":""}`} onClick={() => setPage("wholesale")}>
           <span className="sb-item-icon">👁</span> Wholesale Lens
         </button>
-        <button className={`sb-item ${page==="decisions"?"active":""}`} onClick={() => setPage("decisions")}>
-          <span className="sb-item-icon">▶</span> Decisions Log <span className="sb-item-soon">{DECISIONS.length}</span>
-        </button>
         <button className="sb-item" onClick={() => { setStudioSeed(null); setStudioOpen(true); }}>
           <span className="sb-item-icon">✦</span> Studio
+        </button>
+        <button className={`sb-item ${page==="decisions"?"active":""}`} onClick={() => setPage("decisions")}>
+          <span className="sb-item-icon">▶</span> Decisions Log <span className="sb-item-soon">{DECISIONS.length}</span>
         </button>
         <button className={`sb-item ${page==="calendar"?"active":""}`} onClick={() => setPage("calendar")}>
           <span className="sb-item-icon">▢</span> Calendar <span className="sb-item-soon">WIP</span>
@@ -2867,7 +2888,7 @@ function MaazahApp() {
 
       {/* MAIN */}
       <main className="main">
-        {page === "intel" && <IntelPage tab={intelTab} setTab={setIntelTab} openMemo={() => setMemoOpen(true)} openStudioWith={openStudioWith} />}
+        {page === "intel" && <IntelPage tab={intelTab} setTab={setIntelTab} openMemo={() => setMemoOpen(true)} openStudioWith={openStudioWith} onBriefOpen={setBriefOpen} />}
         {page === "briefs" && <BriefsPage onOpen={setBriefOpen} />}
         {page === "wholesale" && <WholesaleLensPage />}
         {page === "decisions" && <DecisionsPage />}
@@ -2983,7 +3004,7 @@ function MondayMemoModal({ onClose, onShipIt }) {
 /* ============================================================
    INTELLIGENCE BRIEF PAGE
    ============================================================ */
-function IntelPage({ tab, setTab, openMemo, openStudioWith }) {
+function IntelPage({ tab, setTab, openMemo, openStudioWith, onBriefOpen }) {
   return (
     <>
       <PageHead title="Intelligence Brief" />
@@ -2995,7 +3016,6 @@ function IntelPage({ tab, setTab, openMemo, openStudioWith }) {
         <span className="memo-trigger-sub">Open Memo →</span>
       </button>
 
-      <Lede />
       <div className="subtabs">
         <button className={`subtab ${tab==="pulse"?"active":""}`} onClick={() => setTab("pulse")}>
           Cultural Pulse <span className="subtab-count">{CULTURAL_PULSE.length}</span>
@@ -3018,13 +3038,13 @@ function IntelPage({ tab, setTab, openMemo, openStudioWith }) {
         <>
           <CultureMomentum />
           <div className="grid grid-3">
-            {CULTURAL_PULSE.map(p => <PulseCard key={p.id} p={p} openStudioWith={openStudioWith} />)}
+            {CULTURAL_PULSE.map(p => <PulseCard key={p.id} p={p} openStudioWith={openStudioWith} onBriefOpen={onBriefOpen} />)}
           </div>
         </>
       )}
       {tab === "trends" && (
         <div className="grid grid-3">
-          {TRENDS.map(t => <TrendCard key={t.id} t={t} openStudioWith={openStudioWith} />)}
+          {TRENDS.map(t => <TrendCard key={t.id} t={t} openStudioWith={openStudioWith} onBriefOpen={onBriefOpen} />)}
         </div>
       )}
       {tab === "comp" && (
@@ -3168,23 +3188,13 @@ function Ticker() {
   );
 }
 
-function Lede() {
-  return (
-    <div className="lede">
-      <div className="lede-col"><div className="lede-label">THE THESIS</div><div className="lede-text">{LEDE.thesis}</div></div>
-      <div className="lede-col"><div className="lede-label">THE CATEGORY</div><div className="lede-text">{LEDE.competitive}</div></div>
-      <div className="lede-col"><div className="lede-label">THE PULSE</div><div className="lede-text">{LEDE.pulse}</div></div>
-    </div>
-  );
-}
-
 /* ============================================================
    CARDS
    ============================================================ */
 /* ============================================================
    Intel cards (Phase 3 upgrade) — rails + glyph + drop button
    ============================================================ */
-function TrendCard({ t, openStudioWith }) {
+function TrendCard({ t, openStudioWith, onBriefOpen }) {
   const firstPillar = t.pillars[0] || "magic";
   const railColor = PILLAR_RAIL[firstPillar] || "#6FAF4D";
   const seed = `Sharpen the Maazah play on: "${t.hook}"\n\nDetail: ${t.detail}\n\nEngine's current angle: ${t.play}\n\nWhat sharper angle would you take?`;
@@ -3205,6 +3215,7 @@ function TrendCard({ t, openStudioWith }) {
         <span className="card-play-label">▶ THE PLAY</span>
         {t.play}
       </div>
+      <BriefLink droveBrief={t.droveBrief} droveLater={t.droveLater} onBriefOpen={onBriefOpen} />
       <div className="card-meta-row">
         <div className="trend-pillars">
           {t.pillars.map(p => <span key={p} className={`pillar-pip pip-${p}`}>{p}</span>)}
@@ -3214,8 +3225,7 @@ function TrendCard({ t, openStudioWith }) {
         {t.sources.map(s => <span key={s} className="source-chip">{s}</span>)}
       </div>
       {openStudioWith && (
-        <div className="card-actions">
-          <span style={{fontSize:10.5,color:"var(--ink-soft)",letterSpacing:"0.06em",textTransform:"uppercase",fontWeight:600}}>signal: {t.id}</span>
+        <div className="card-actions card-actions-right">
           <button className="drop-btn" onClick={() => openStudioWith(seed)}>↓ Send to Studio</button>
         </div>
       )}
@@ -3223,7 +3233,7 @@ function TrendCard({ t, openStudioWith }) {
   );
 }
 
-function PulseCard({ p, openStudioWith }) {
+function PulseCard({ p, openStudioWith, onBriefOpen }) {
   const railColor = VELOCITY_RAIL[p.velocity || "high"] || "#D67A5A";
   const glyph = PULSE_TYPE_GLYPH[p.type] || "✦";
   const seed = `Sharpen the Maazah play on cultural pulse signal: "${p.hook}"\n\nDetail: ${p.detail}\n\nEngine's current angle: ${p.play}\n\nWhat sharper angle would you take?`;
@@ -3241,17 +3251,42 @@ function PulseCard({ p, openStudioWith }) {
         <span className="card-play-label">▶ THE PLAY</span>
         {p.play}
       </div>
+      <BriefLink droveBrief={p.droveBrief} droveLater={p.droveLater} onBriefOpen={onBriefOpen} />
       <div className="card-sources">
         {p.sources.map(s => <span key={s} className="source-chip">{s}</span>)}
       </div>
       {openStudioWith && (
-        <div className="card-actions">
-          <span style={{fontSize:10.5,color:"var(--ink-soft)",letterSpacing:"0.06em",textTransform:"uppercase",fontWeight:600}}>signal: {p.id}</span>
+        <div className="card-actions card-actions-right">
           <button className="drop-btn" onClick={() => openStudioWith(seed)}>↓ Send to Studio</button>
         </div>
       )}
     </div>
   );
+}
+
+function BriefLink({ droveBrief, droveLater, onBriefOpen }) {
+  if (droveBrief && onBriefOpen) {
+    const b = BRIEFS.find(x => x.id === droveBrief);
+    if (b) {
+      const snippet = b.concept.split(/[.—]/)[0].trim().slice(0, 80);
+      return (
+        <button className="brief-link" onClick={() => onBriefOpen(b.id)}>
+          <span className="brief-link-eye">▶ DROVE THIS WEEK</span>
+          <span className="brief-link-snippet">{snippet}{snippet.length >= 80 ? "…" : ""}</span>
+          <span className="brief-link-arrow">→</span>
+        </button>
+      );
+    }
+  }
+  if (droveLater) {
+    return (
+      <div className="brief-link brief-link-later">
+        <span className="brief-link-eye">▷ ENGINE NEXT MOVE</span>
+        <span className="brief-link-snippet">{droveLater}</span>
+      </div>
+    );
+  }
+  return null;
 }
 
 function CompCard({ c, openStudioWith }) {
@@ -3386,14 +3421,6 @@ function BriefsPage({ onOpen }) {
         <div className="ride-hero-right">
           <div className="ride-hero-mini">{BRIEFS.length} total briefs · {totalScripted} scripted video</div>
         </div>
-      </div>
-
-      <div style={{display:"flex",gap:18,marginBottom:24,flexWrap:"wrap"}}>
-        <SummaryStat num={BRIEFS.length} label="briefs" sub="this week" />
-        <SummaryStat num={BRIEFS.filter(b => getConviction(b.id)?.band === "HIGH").length} label="HIGH conviction" sub="ship first" />
-        <SummaryStat num={BRIEFS.filter(b => b.dnaPattern === "sister-led").length} label="IG sister-led" sub="of 6-8 target" />
-        <SummaryStat num={BRIEFS.filter(b => b.dnaPattern === "category-explainer").length} label="TikTok explainer" sub="format-gap fix" />
-        <SummaryStat num="4 / 4" label="pillars" sub="full mix" />
       </div>
 
       {pillars.map(p => {
