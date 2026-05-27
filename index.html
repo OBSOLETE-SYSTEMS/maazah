@@ -978,13 +978,14 @@ const PIPELINE_STATUS = {
   sourcesWatching: 200,
   signalsLast7d: 24,
   workersActive: 2,
-  workersTotal: 10,
+  workersTotal: 11,
   workerStatus: [
     { name: "RSS", status: "active", signals: 18, note: "Vittles · Cherry Bombe · BA · Snaxshot · Eater" },
     { name: "Apple Podcasts", status: "active", signals: 6, note: "Society & Culture top 100" },
     { name: "Wikipedia", status: "ready", signals: 0, note: "52 pages monitored · all below velocity threshold this week (no press-cycle spikes) · working as designed" },
     { name: "GDELT", status: "deploying", signals: 0, note: "global news + cultural-theme feed · maxDuration fix deployed yesterday · resumes Sunday refresh" },
-    { name: "Google Trends", status: "ready", signals: 0, note: "17 watched terms · trending-list filter at MIN_TONAL_SCORE 0.15 · interest-over-time worker rebuild post-engagement" },
+    { name: "Google Trends · daily", status: "ready", signals: 0, note: "daily-trending-list filter at MIN_TONAL_SCORE 0.15 · functional, awaiting trending-term overlap with watchlist" },
+    { name: "Google Trends · IoT", status: "platform-block", signals: 0, note: "interest-over-time worker built + deployed · Google Trends now 429-blocks public API across all IPs · awaiting Playwright headless / paid SerpAPI / residential proxy" },
     { name: "Spotify", status: "auth-pending", signals: 0, note: "needs SPOTIFY_CLIENT_ID / SECRET env vars · Wednesday once Alex registers app" },
     { name: "Meta Ad Library", status: "auth-pending", signals: 0, note: "needs META_ACCESS_TOKEN env var · Meta app registration scoped for post-engagement" },
     { name: "Reddit", status: "platform-block", signals: 0, note: "Reddit started 403-ing Vercel IPs in '24 · OAuth migration scoped for post-engagement" },
@@ -2814,7 +2815,7 @@ function HowItWorksTab() {
           <div className="ps-stat">
             <div className="ps-num">{PIPELINE_STATUS.workersActive} / {PIPELINE_STATUS.workersTotal}</div>
             <div className="ps-label">Workers active</div>
-            <div className="ps-detail">8 more activating · platform-side auth + endpoint blockers</div>
+            <div className="ps-detail">9 more built · most awaiting platform-side auth or proxy</div>
           </div>
           <div className="ps-stat">
             <div className="ps-num">3</div>
