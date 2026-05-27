@@ -111,6 +111,58 @@ a{color:inherit;text-decoration:none}
 .main-footer strong{color:var(--ink);font-weight:800;text-transform:uppercase;letter-spacing:0.12em}
 .main-footer .footer-dot{width:5px;height:5px;border-radius:50%;background:var(--brand-primary);box-shadow:0 0 5px rgba(111,175,77,0.6)}
 
+/* ============================================================
+   Studio Modal (Phase 6) — shell UI for The Strategist chat
+   API wires Wednesday once GEMINI_API_KEY is added to maazah Vercel env.
+   ============================================================ */
+.studio-bg{position:fixed;inset:0;background:rgba(42,31,18,0.6);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:24px 16px;z-index:400}
+.studio-card{background:var(--butter);border-radius:18px;width:100%;max-width:760px;max-height:88vh;display:flex;flex-direction:column;box-shadow:0 24px 60px rgba(0,0,0,0.4),0 0 0 1.5px var(--brand-primary);overflow:hidden}
+.studio-head{display:flex;align-items:center;gap:14px;padding:18px 22px;background:linear-gradient(135deg,var(--brand-deep) 0%,var(--brand-primary) 100%);color:#fff;border-bottom:2px solid var(--brand-deep)}
+.studio-head-glyph{width:38px;height:38px;border-radius:10px;background:rgba(255,255,255,0.18);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;border:1px solid rgba(255,255,255,0.28)}
+.studio-head-titles{flex:1;min-width:0}
+.studio-head-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:20px;letter-spacing:0.005em;line-height:1.05}
+.studio-head-sub{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;opacity:0.88;margin-top:3px;text-transform:uppercase}
+.studio-mode-toggle{display:flex;background:rgba(255,255,255,0.14);border-radius:99px;padding:3px;gap:2px}
+.studio-mode-btn{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;font-weight:700;text-transform:uppercase;padding:6px 12px;border-radius:99px;color:rgba(255,255,255,0.78);cursor:pointer;background:transparent;border:0}
+.studio-mode-btn.active{background:var(--brand-accent);color:#fff;box-shadow:0 2px 6px rgba(214,122,90,0.4)}
+.studio-close{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,0.16);color:#fff;font-size:22px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:0;line-height:1;flex-shrink:0}
+.studio-close:hover{background:rgba(255,255,255,0.3)}
+
+.studio-body{flex:1;overflow-y:auto;padding:20px 24px}
+.studio-welcome-eye{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;color:var(--brand-accent-deep);font-weight:700;text-transform:uppercase;margin-bottom:8px}
+.studio-welcome-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:26px;letter-spacing:0.005em;line-height:1.1;color:var(--ink);margin-bottom:6px}
+.studio-welcome-sub{font-family:'Fraunces',Georgia,serif;font-size:13.5px;line-height:1.55;color:var(--ink-soft);font-style:italic;margin-bottom:18px;max-width:580px}
+.studio-starters{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+@media(max-width:680px){.studio-starters{grid-template-columns:1fr}}
+.studio-starter{background:#fff;border:1.5px solid var(--brand-light);border-radius:12px;padding:13px 15px;cursor:pointer;text-align:left;display:flex;gap:11px;align-items:flex-start;transition:transform 0.12s,border-color 0.12s,box-shadow 0.12s}
+.studio-starter:hover{transform:translateY(-1px);border-color:var(--brand-primary);box-shadow:0 4px 12px rgba(63,123,40,0.15)}
+.studio-starter-glyph{font-size:20px;line-height:1;flex-shrink:0;margin-top:1px}
+.studio-starter-body{flex:1;min-width:0}
+.studio-starter-text{font-size:13px;line-height:1.4;color:var(--ink);font-weight:500}
+.studio-starter-arrow{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--brand-primary);font-weight:700;flex-shrink:0}
+
+.studio-messages{display:flex;flex-direction:column;gap:14px;padding-bottom:8px}
+.studio-msg{display:flex;gap:10px;align-items:flex-end}
+.studio-msg-user{justify-content:flex-end}
+.studio-msg-bubble{padding:11px 14px;border-radius:14px;font-size:13.5px;line-height:1.5;max-width:78%;white-space:pre-wrap}
+.studio-msg-user .studio-msg-bubble{background:var(--brand-accent);color:#fff;border-radius:14px 14px 4px 14px}
+.studio-msg-assistant .studio-msg-bubble{background:#fff;color:var(--ink);border:1px solid var(--brand-light);border-radius:14px 14px 14px 4px}
+
+.studio-input-section{padding:14px 20px 18px;border-top:1.5px solid var(--brand-light);background:var(--butter-light)}
+.studio-hint{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;color:var(--ink-soft);text-transform:uppercase;font-weight:600;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.studio-hint-dot{width:6px;height:6px;border-radius:50%;background:var(--brand-accent);animation:hint-pulse 2.4s ease-in-out infinite}
+@keyframes hint-pulse{0%,100%{opacity:0.4}50%{opacity:1}}
+.studio-input-row{display:flex;gap:8px;align-items:flex-end}
+.studio-textarea{flex:1;min-height:46px;max-height:150px;font-family:'Inter',sans-serif;font-size:13.5px;line-height:1.5;padding:12px 14px;border:1.5px solid var(--brand-light);border-radius:12px;background:#fff;color:var(--ink);resize:vertical;outline:none;transition:border-color 0.15s}
+.studio-textarea:focus{border-color:var(--brand-primary);box-shadow:0 0 0 3px rgba(111,175,77,0.15)}
+.studio-mic{width:46px;height:46px;border-radius:50%;background:#fff;border:1.5px solid var(--brand-light);color:var(--brand-primary);font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:background 0.15s,transform 0.1s}
+.studio-mic:hover{background:var(--brand-light-soft);transform:translateY(-1px)}
+.studio-mic.listening{background:var(--brand-accent);color:#fff;border-color:var(--brand-accent-deep);animation:hint-pulse 1.2s ease-in-out infinite}
+.studio-send{background:var(--ink);color:#fff;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;font-weight:700;text-transform:uppercase;padding:13px 20px;border-radius:99px;cursor:pointer;border:0;flex-shrink:0;transition:background 0.15s,transform 0.1s}
+.studio-send:hover:not(:disabled){background:var(--brand-deep);transform:translateY(-1px)}
+.studio-send:disabled{opacity:0.5;cursor:not-allowed}
+.studio-shell-notice{background:rgba(214,122,90,0.12);border:1px dashed var(--brand-accent);color:var(--brand-accent-deep);padding:8px 12px;border-radius:8px;font-size:11.5px;line-height:1.45;margin-top:10px;font-family:'JetBrains Mono',monospace}
+
 /* WIP under-construction banner (Phase 1 stub for Calendar + Performance, Phase 9 polishes) */
 .wip-banner{background:var(--butter-light);border:2px dashed var(--brand-accent);border-radius:12px;padding:18px 22px;margin-bottom:24px;display:flex;align-items:flex-start;gap:14px}
 .wip-banner-icon{font-size:24px;line-height:1;flex-shrink:0;margin-top:2px}
@@ -1550,12 +1602,13 @@ function MaazahApp() {
   const [memoOpen, setMemoOpen] = useState(true);      // Monday Memo auto-opens
   const [hiwOpen, setHiwOpen] = useState(false);
   const [diagOpen, setDiagOpen] = useState(false);
-  const [studioSeed, setStudioSeed] = useState(null);  // Phase 6 will wire to Studio modal
+  const [studioSeed, setStudioSeed] = useState(null);
+  const [studioOpen, setStudioOpen] = useState(false);  // Phase 6 — Studio modal
 
   const briefById = (id) => BRIEFS.find(b => b.id === id);
   const openStudioWith = (seed) => {
     setStudioSeed(seed);
-    setPage("studio");  // Phase 6 will switch this to open a Studio modal instead
+    setStudioOpen(true);
   };
 
   return (
@@ -1579,7 +1632,7 @@ function MaazahApp() {
         <button className={`sb-item ${page==="wholesale"?"active":""}`} onClick={() => setPage("wholesale")}>
           <span className="sb-item-icon">👁</span> Wholesale Lens
         </button>
-        <button className={`sb-item ${page==="studio"?"active":""}`} onClick={() => setPage("studio")}>
+        <button className="sb-item" onClick={() => { setStudioSeed(null); setStudioOpen(true); }}>
           <span className="sb-item-icon">✦</span> Studio Canvas
         </button>
         <button className={`sb-item ${page==="calendar"?"active":""}`} onClick={() => setPage("calendar")}>
@@ -1609,7 +1662,6 @@ function MaazahApp() {
         {page === "intel" && <IntelPage tab={intelTab} setTab={setIntelTab} openMemo={() => setMemoOpen(true)} openStudioWith={openStudioWith} />}
         {page === "briefs" && <BriefsPage onOpen={setBriefOpen} />}
         {page === "wholesale" && <WholesaleLensPage />}
-        {page === "studio" && <StudioPage />}
         {page === "calendar" && <CalendarPreview />}
         {page === "performance" && <PerformancePreview />}
 
@@ -1624,6 +1676,7 @@ function MaazahApp() {
         {memoOpen && <MondayMemoModal onClose={() => setMemoOpen(false)} onShipIt={() => { setMemoOpen(false); setPage("intel"); }} />}
         {hiwOpen && <HowItWorksModal onClose={() => setHiwOpen(false)} />}
         {diagOpen && <DiagnosticInboxModal onClose={() => setDiagOpen(false)} />}
+        {studioOpen && <StudioModal onClose={() => { setStudioOpen(false); setStudioSeed(null); }} initialSeed={studioSeed} />}
       </main>
     </div>
   );
@@ -2578,6 +2631,163 @@ function MainFooter() {
       <span>refreshed {TODAY}</span>
       <span>·</span>
       <span>powered by Gemini 2.5 Flash + Claude Sonnet 4.6</span>
+    </div>
+  );
+}
+
+/* ============================================================
+   STUDIO MODAL (Phase 6 — shell UI only · API wires Wednesday)
+   ============================================================ */
+const STUDIO_STARTERS = [
+  { glyph: "✨", text: "What's the sharpest hook for this week's Costco-cart Reel?" },
+  { glyph: "🌶️", text: "How do we frame Roasted Red Pepper without sounding wellness-coded?" },
+  { glyph: "💚", text: "Give me 3 caption variants for Mom's Bolani — Direct, Warm, Punchy." },
+  { glyph: "🤝", text: "Which collab brand should we DM this week to extend the snackle-box format?" }
+];
+
+function StudioModal({ onClose, initialSeed }) {
+  const [mode, setMode] = useState("chat");
+  const [text, setText] = useState(initialSeed || "");
+  const [messages, setMessages] = useState([]);
+  const [listening, setListening] = useState(false);
+  const recognitionRef = React.useRef(null);
+  const seedFiredRef = React.useRef(false);
+
+  useEffect(() => {
+    const onKey = (e) => { if (e.key === "Escape") onClose(); };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  });
+
+  // Voice mic — uses Web Speech API (Chrome/Edge/Safari). Live-transcribes into textarea.
+  const toggleVoice = () => {
+    const Rec = window.SpeechRecognition || window.webkitSpeechRecognition;
+    if (!Rec) {
+      alert("Voice input requires Chrome, Edge, or Safari. Your browser doesn't support it.");
+      return;
+    }
+    if (listening && recognitionRef.current) {
+      recognitionRef.current.stop();
+      setListening(false);
+      return;
+    }
+    const rec = new Rec();
+    rec.continuous = true;
+    rec.interimResults = true;
+    rec.lang = "en-US";
+    let buffer = "";
+    rec.onresult = (e) => {
+      let interim = "";
+      for (let i = e.resultIndex; i < e.results.length; i++) {
+        if (e.results[i].isFinal) buffer += e.results[i][0].transcript + " ";
+        else interim += e.results[i][0].transcript;
+      }
+      setText((buffer + interim).trim());
+    };
+    rec.onend = () => setListening(false);
+    rec.onerror = () => setListening(false);
+    recognitionRef.current = rec;
+    rec.start();
+    setListening(true);
+  };
+
+  const handleSend = (override) => {
+    const content = (override ?? text).trim();
+    if (!content) return;
+    setMessages(m => [...m, { role: "user", text: content }]);
+    setText("");
+    // Phase 6 is shell-only — show graceful "API not configured" assistant message.
+    // Phase 7 (Wednesday) wires Gemini Flash via /api/studio.js
+    setTimeout(() => {
+      setMessages(m => [...m, {
+        role: "assistant",
+        text: "📡 *Studio API not yet wired on this Vercel project.*\n\nOnce Alex adds **GEMINI_API_KEY** to maazah.vercel.app environment variables (Wednesday), I'll respond live in your voice with full engine context loaded — average 2-5 second responses via Gemini 2.5 Flash with `thinkingBudget:0`.\n\nFor now: every signal card has a `↓ Send to Studio` button that pre-loads this textarea with a smart seed. You can review + edit the seed and the Wednesday-live version will pick up right here."
+      }]);
+    }, 350);
+  };
+
+  // Smart-seed auto-fire — only once per modal open
+  useEffect(() => {
+    if (initialSeed && !seedFiredRef.current) {
+      seedFiredRef.current = true;
+      // pre-fill but DON'T auto-send — let user review the seed first
+      setText(initialSeed);
+    }
+  }, [initialSeed]);
+
+  return (
+    <div className="studio-bg" onClick={onClose}>
+      <div className="studio-card" onClick={(e) => e.stopPropagation()}>
+        <div className="studio-head">
+          <span className="studio-head-glyph">🧠</span>
+          <div className="studio-head-titles">
+            <div className="studio-head-title">The Strategist</div>
+            <div className="studio-head-sub">{mode === "chat" ? "Live · full Maazah engine context loaded" : "Voice Compass · score caption fit"}</div>
+          </div>
+          <div className="studio-mode-toggle">
+            <button className={`studio-mode-btn ${mode==="chat"?"active":""}`} onClick={() => setMode("chat")}>Chat</button>
+            <button className={`studio-mode-btn ${mode==="voice"?"active":""}`} onClick={() => setMode("voice")}>Voice Compass</button>
+          </div>
+          <button className="studio-close" onClick={onClose} aria-label="close">×</button>
+        </div>
+
+        <div className="studio-body">
+          {mode === "chat" && messages.length === 0 && (
+            <>
+              <div className="studio-welcome-eye">// ASK ME ANYTHING ABOUT MAAZAH</div>
+              <div className="studio-welcome-title">What do you want to sharpen?</div>
+              <div className="studio-welcome-sub">Drop a signal, a caption, a hook — or ask anything. I have your voice compass, every brief, every signal lane, every anti-pattern loaded. Try a starter below or just type.</div>
+              <div className="studio-starters">
+                {STUDIO_STARTERS.map((s, i) => (
+                  <button key={i} className="studio-starter" onClick={() => setText(s.text)}>
+                    <span className="studio-starter-glyph">{s.glyph}</span>
+                    <div className="studio-starter-body">
+                      <div className="studio-starter-text">{s.text}</div>
+                    </div>
+                    <span className="studio-starter-arrow">→</span>
+                  </button>
+                ))}
+              </div>
+            </>
+          )}
+          {mode === "chat" && messages.length > 0 && (
+            <div className="studio-messages">
+              {messages.map((m, i) => (
+                <div key={i} className={"studio-msg studio-msg-" + m.role}>
+                  <div className="studio-msg-bubble">{m.text}</div>
+                </div>
+              ))}
+            </div>
+          )}
+          {mode === "voice" && (
+            <>
+              <div className="studio-welcome-eye">// VOICE COMPASS</div>
+              <div className="studio-welcome-title">Score a caption against Maazah's voice.</div>
+              <div className="studio-welcome-sub">Paste a caption below. The engine scores it against your 8 tonal territories + anti-patterns + platform fit. Returns a score, verdict, and suggested rewrites.</div>
+              <div className="studio-shell-notice">📡 Voice Compass needs the ANTHROPIC_API_KEY env var to score live. Wires Wednesday alongside Studio chat. Until then: try the chat mode and ask "score this caption for me."</div>
+            </>
+          )}
+        </div>
+
+        <div className="studio-input-section">
+          <div className="studio-hint">
+            <span className="studio-hint-dot"></span>
+            <span>{listening ? "Listening — tap mic again to stop" : "Tap mic for voice · ⌘+Enter to send"}</span>
+          </div>
+          <div className="studio-input-row">
+            <textarea
+              className="studio-textarea"
+              value={text}
+              onChange={(e) => setText(e.target.value)}
+              onKeyDown={(e) => { if ((e.metaKey || e.ctrlKey) && e.key === "Enter") { e.preventDefault(); handleSend(); } }}
+              placeholder={mode === "chat" ? "Ask the strategist anything..." : "Paste a caption to score..."}
+              rows={2}
+            />
+            <button className={`studio-mic ${listening?"listening":""}`} onClick={toggleVoice} title={listening ? "Stop listening" : "Voice input"}>🎙️</button>
+            <button className="studio-send" onClick={() => handleSend()} disabled={!text.trim()}>Send</button>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
