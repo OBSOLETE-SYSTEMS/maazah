@@ -181,6 +181,50 @@ a{color:inherit;text-decoration:none}
 .drop-btn:hover{background:var(--green-deep);transform:translateY(-1px)}
 
 /* ============================================================
+   Conviction Chip + tooltip (Phase 4)
+   ============================================================ */
+.brief-conviction{display:inline-flex;align-items:center;gap:5px;padding:3px 9px 3px 7px;border-radius:99px;font-family:'JetBrains Mono',monospace;font-size:9px;letter-spacing:0.1em;font-weight:800;text-transform:uppercase;cursor:help;position:relative;border:1.5px solid currentColor}
+.conv-band-high{color:#3B6B2D}
+.conv-band-medium{color:#8B6F1F}
+.conv-band-watch{color:#9E3F31}
+.brief-conviction-label{letter-spacing:0.12em}
+.brief-conviction-num{font-family:'Bagel Fat One',serif;font-weight:400;font-size:13px;line-height:1;letter-spacing:0;padding:2px 6px 1px;background:currentColor;color:#fff !important;border-radius:99px;min-width:24px;text-align:center}
+.brief-conviction-tt{position:absolute;top:calc(100% + 8px);left:0;z-index:60;width:320px;background:#fff;border:1.5px solid var(--brand-primary);border-radius:10px;padding:14px 16px;box-shadow:0 8px 24px rgba(42,31,18,0.18);opacity:0;transform:translateY(-4px);transition:opacity 0.15s,transform 0.15s;pointer-events:none;text-transform:none;letter-spacing:0;font-weight:normal;font-family:'Inter',sans-serif}
+.brief-conviction:hover .brief-conviction-tt{opacity:1;transform:translateY(0);pointer-events:auto}
+.brief-conviction-tt::before{content:"";position:absolute;top:-7px;left:18px;width:12px;height:12px;background:#fff;border-left:1.5px solid var(--brand-primary);border-top:1.5px solid var(--brand-primary);transform:rotate(45deg)}
+.bct-head{display:flex;justify-content:space-between;align-items:baseline;padding-bottom:9px;border-bottom:1px dashed var(--brand-light);margin-bottom:9px}
+.bct-head-band{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;font-weight:800;color:var(--ink);text-transform:uppercase}
+.bct-head-num{font-family:'Bagel Fat One',serif;font-weight:400;font-size:22px;letter-spacing:0.005em;color:var(--ink);line-height:1}
+.bct-rows{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+.bct-row{display:flex;align-items:center;gap:8px;font-size:11px}
+.bct-row-label{flex:0 0 120px;font-family:'Inter',sans-serif;color:var(--ink-soft);font-weight:600;font-size:10.5px}
+.bct-row-bar{flex:1;height:5px;background:var(--brand-light-soft);border-radius:99px;overflow:hidden}
+.bct-row-fill{height:100%;background:linear-gradient(90deg,var(--brand-primary) 0%,var(--brand-accent) 100%);border-radius:99px}
+.bct-row-num{font-family:'JetBrains Mono',monospace;font-size:10px;font-weight:800;color:var(--ink);min-width:24px;text-align:right}
+.bct-math{display:flex;flex-direction:column;gap:3px;padding:8px 10px;background:var(--butter-light);border-radius:6px;font-family:'JetBrains Mono',monospace;font-size:10px;color:var(--ink);margin-bottom:8px}
+.bct-math strong{color:var(--brand-accent-deep);font-weight:800}
+.bct-math-total{padding-top:3px;border-top:1px dashed rgba(111,175,77,0.32);margin-top:2px}
+.bct-foot{font-family:'Fraunces',Georgia,serif;font-size:11.5px;line-height:1.45;color:var(--ink);font-style:italic;font-weight:500}
+
+/* ============================================================
+   Ride-now hero (Phase 4) — sits at top of Content Briefs page
+   ============================================================ */
+.ride-hero{display:flex;align-items:center;justify-content:space-between;gap:24px;background:linear-gradient(135deg,var(--brand-deep) 0%,var(--brand-primary) 55%,var(--brand-accent-deep) 130%);color:#fff;border-radius:14px;padding:20px 28px;margin-bottom:24px;position:relative;overflow:hidden;box-shadow:0 6px 20px rgba(63,123,40,0.28)}
+.ride-hero::before{content:"";position:absolute;top:-40px;right:-30px;width:240px;height:240px;background:radial-gradient(circle,rgba(214,122,90,0.42) 0%,transparent 65%);pointer-events:none}
+.ride-hero-left{display:flex;align-items:center;gap:20px;position:relative;z-index:2}
+.ride-hero-pill{display:flex;align-items:center;gap:10px;background:var(--brand-accent);padding:11px 20px;border-radius:99px;box-shadow:0 4px 14px rgba(214,122,90,0.5)}
+.ride-hero-icon{font-size:22px;line-height:1}
+.ride-hero-num{font-family:'Bagel Fat One',serif;font-weight:400;font-size:38px;color:#fff;letter-spacing:0.005em;line-height:1}
+.ride-hero-body{display:flex;flex-direction:column;gap:4px}
+.ride-hero-label{font-family:'Bagel Fat One',serif;font-weight:400;font-size:20px;letter-spacing:0.005em;line-height:1.1;color:#fff}
+.ride-hero-sub{font-family:'Fraunces',Georgia,serif;font-size:13px;line-height:1.4;color:rgba(255,255,255,0.92);font-weight:500;font-style:italic;letter-spacing:-0.005em}
+.ride-hero-right{position:relative;z-index:2;flex-shrink:0;text-align:right}
+.ride-hero-mini{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;color:rgba(255,255,255,0.85);font-weight:600;text-transform:uppercase}
+@media(max-width:740px){.ride-hero{flex-direction:column;align-items:flex-start;gap:14px}.ride-hero-right{align-self:flex-start;text-align:left}}
+
+/* Brief card — pillar rail color via inline style on intel-card wrapper */
+
+/* ============================================================
    Intel card upgrades (Phase 3) — 5px rail + 32px glyph + drop button
    ============================================================ */
 .intel-card{border-left-width:5px}
@@ -524,6 +568,66 @@ const MaazahArch = ({ className = "" }) => (
 
 const WEEK_LABEL = "MAY 25 – 31, 2026";
 const TODAY = "2026-05-25";
+
+/* ============================================================
+   Conviction Score system (Phase 4)
+   Calibrated honestly per brief — voice + panel + pulse averaged,
+   plus recency bonus. Bands: HIGH >=85 · MEDIUM 70-84 · WATCH <70.
+   Don't make them all HIGH or it loses meaning.
+   ============================================================ */
+const CONVICTION_INPUTS = {
+  "MAGIC25-COSTCO-R1":         { voice:93, panel:86, pulse:90, recency:14 },  // sister-led Costco reel — IG superpower + Tuesday timing
+  "MAGIC25-BOOTH-R2":          { voice:78, panel:72, pulse:58, recency:5  },  // Expo West recap — credibility chip but cooling
+  "MAGIC25-WEEKINSIDE-R3":     { voice:82, panel:71, pulse:62, recency:6  },  // Sheilla solo confessional — quieter brief
+  "MAGIC25-LENTILEXPLAIN-M04": { voice:88, panel:81, pulse:94, recency:14 },  // TikTok category-explainer — PROVEN pattern (71 saves)
+  "MULT25-RRP-EGGS-P01":       { voice:86, panel:82, pulse:88, recency:13 },  // RRP series Day 1 — Costco-window prime time
+  "MULT25-RRP-CHIX-P02":       { voice:85, panel:81, pulse:80, recency:11 },  // RRP series Day 2 — mid-series momentum
+  "MULT25-RRP-PIZZA-P03":      { voice:87, panel:85, pulse:86, recency:12 },  // RRP series Day 3 — surprise reveal + NBA-finals-adjacent
+  "MULT25-LEMON-FRIES-P04":    { voice:80, panel:74, pulse:71, recency:8  },  // Lemon Aioli zucchini — underused SKU
+  "MULT25-MANGO-MOCK-P05":     { voice:72, panel:65, pulse:58, recency:6  },  // Mango mocktail — drink lane unproven (hedge bet)
+  "MOM25-FIRSTGEN-T01":        { voice:90, panel:84, pulse:91, recency:13 },  // First-gen Reel — big cultural moment + Thursday late-night
+  "MOM25-BOLANI-T02":          { voice:84, panel:76, pulse:65, recency:5  },  // Mom's Bolani — heritage anchor but heavier production
+  "SQUAD25-COSTCO-HUNT-S01":   { voice:82, panel:80, pulse:85, recency:13 },  // Costco hunt UGC — low effort, high ROI, Tuesday cohort
+  "SQUAD25-SNACKLE-S02":       { voice:76, panel:72, pulse:68, recency:7  }   // Snackle box weekly — recurring lane, steady not breakout
+};
+
+function getConviction(briefId) {
+  const c = CONVICTION_INPUTS[briefId];
+  if (!c) return null;
+  const base = Math.round((c.voice + c.panel + c.pulse) / 3);
+  const score = base + c.recency;
+  const band = score >= 85 ? "HIGH" : score >= 70 ? "MEDIUM" : "WATCH";
+  return { ...c, base, score, band, rideNow: c.recency >= 12 };
+}
+
+function ConvictionChip({ conv }) {
+  const bandClass = "conv-band-" + conv.band.toLowerCase();
+  return (
+    <span className={"brief-conviction " + bandClass}>
+      <span className="brief-conviction-label">{conv.band}</span>
+      <span className="brief-conviction-num">{conv.score}</span>
+      <div className="brief-conviction-tt">
+        <div className="bct-head">
+          <span className="bct-head-band">{conv.band} CONVICTION</span>
+          <span className="bct-head-num">{conv.score}</span>
+        </div>
+        <div className="bct-rows">
+          <div className="bct-row"><span className="bct-row-label">Voice Compass</span><div className="bct-row-bar"><div className="bct-row-fill" style={{width:conv.voice+"%"}}></div></div><span className="bct-row-num">{conv.voice}</span></div>
+          <div className="bct-row"><span className="bct-row-label">Synthetic Panel</span><div className="bct-row-bar"><div className="bct-row-fill" style={{width:conv.panel+"%"}}></div></div><span className="bct-row-num">{conv.panel}</span></div>
+          <div className="bct-row"><span className="bct-row-label">Pulse fit</span><div className="bct-row-bar"><div className="bct-row-fill" style={{width:conv.pulse+"%"}}></div></div><span className="bct-row-num">{conv.pulse}</span></div>
+        </div>
+        <div className="bct-math">
+          <span>({conv.voice} + {conv.panel} + {conv.pulse}) ÷ 3 = <strong>{conv.base}</strong></span>
+          <span>+ Recency bonus: <strong>+{conv.recency}</strong></span>
+          <span className="bct-math-total">= <strong>{conv.score}</strong></span>
+        </div>
+        <div className="bct-foot">
+          {conv.band === "HIGH" ? "Ship this first." : conv.band === "MEDIUM" ? "Solid — slot in normally." : "Watch — needs sharpening or skip."}
+        </div>
+      </div>
+    </span>
+  );
+}
 
 /* ============================================================
    Glyph + velocity maps (Phase 3) — drive intel-card visual identity
@@ -1922,26 +2026,49 @@ function AmbCard({ a }) {
    ============================================================ */
 function BriefsPage({ onOpen }) {
   const pillars = [
-    { id: "magic", label: "MAGIC IS REAL", color: "var(--green)", desc: "Milestone moments · founder-led · the hero pillar." },
-    { id: "multiply", label: "PUT IT ON EVERYTHING", color: "var(--coral)", desc: "Usage multiplication · sauce-pour · repeat-velocity engine." },
-    { id: "mom", label: "MOM'S TABLE", color: "var(--turmeric)", desc: "Heritage · Afghan recipes · first-gen storytelling depth." },
-    { id: "squad", label: "SAUCY SQUAD", color: "var(--lemon)", desc: "Community · collabs · UGC · the shelf-spotted lane." }
+    { id: "magic", label: "MAGIC IS REAL", color: "var(--pillar-magic)", desc: "Milestone moments · founder-led · the hero pillar." },
+    { id: "multiply", label: "PUT IT ON EVERYTHING", color: "var(--pillar-multiply)", desc: "Usage multiplication · sauce-pour · repeat-velocity engine." },
+    { id: "mom", label: "MOM'S TABLE", color: "var(--pillar-mom)", desc: "Heritage · Afghan recipes · first-gen storytelling depth." },
+    { id: "squad", label: "SAUCY SQUAD", color: "var(--pillar-squad)", desc: "Community · collabs · UGC · the shelf-spotted lane." }
   ];
+
+  const rideNowBriefs = BRIEFS.filter(b => getConviction(b.id)?.rideNow);
+  const totalScripted = BRIEFS.filter(b => b.scenes?.length > 0).length;
 
   return (
     <>
       <PageHead eyebrow="Engine · This Week" title="Content Briefs" />
       <Ticker />
+
+      {/* Ride-now hero — culturally-decay-sensitive briefs */}
+      <div className="ride-hero">
+        <div className="ride-hero-left">
+          <div className="ride-hero-pill">
+            <span className="ride-hero-icon">⚡</span>
+            <span className="ride-hero-num">{rideNowBriefs.length}</span>
+          </div>
+          <div className="ride-hero-body">
+            <div className="ride-hero-label">RIDE-NOW BEATS THIS WEEK</div>
+            <div className="ride-hero-sub">culturally decay-sensitive · produce + ship before the window closes</div>
+          </div>
+        </div>
+        <div className="ride-hero-right">
+          <div className="ride-hero-mini">{BRIEFS.length} total briefs · {totalScripted} scripted video</div>
+        </div>
+      </div>
+
       <div style={{display:"flex",gap:18,marginBottom:24,flexWrap:"wrap"}}>
         <SummaryStat num={BRIEFS.length} label="briefs" sub="this week" />
-        <SummaryStat num={BRIEFS.filter(b => b.priority === "big").length} label="big swings" sub="anchor moves" />
+        <SummaryStat num={BRIEFS.filter(b => getConviction(b.id)?.band === "HIGH").length} label="HIGH conviction" sub="ship first" />
         <SummaryStat num={BRIEFS.filter(b => b.dnaPattern === "sister-led").length} label="IG sister-led" sub="of 6-8 target" />
         <SummaryStat num={BRIEFS.filter(b => b.dnaPattern === "category-explainer").length} label="TikTok explainer" sub="format-gap fix" />
         <SummaryStat num="4 / 4" label="pillars" sub="full mix" />
-        <SummaryStat num="31%" label="magic ratio" sub="≤60% cap ✓" />
       </div>
+
       {pillars.map(p => {
-        const briefsInPillar = BRIEFS.filter(b => b.pillar === p.id);
+        const briefsInPillar = BRIEFS
+          .filter(b => b.pillar === p.id)
+          .sort((a, b) => (getConviction(b.id)?.score || 0) - (getConviction(a.id)?.score || 0));
         return (
           <div key={p.id} className="pillar-section">
             <div className="pillar-header">
@@ -1950,7 +2077,7 @@ function BriefsPage({ onOpen }) {
               <div className="pillar-meta">{briefsInPillar.length} {briefsInPillar.length === 1 ? "brief" : "briefs"} · {p.desc}</div>
             </div>
             <div className="grid grid-3">
-              {briefsInPillar.map(b => <BriefCard key={b.id} b={b} onOpen={onOpen} />)}
+              {briefsInPillar.map(b => <BriefCard key={b.id} b={b} onOpen={onOpen} railColor={p.color} />)}
             </div>
           </div>
         );
@@ -1969,13 +2096,25 @@ function SummaryStat({ num, label, sub }) {
   );
 }
 
-function BriefCard({ b, onOpen }) {
+function BriefCard({ b, onOpen, railColor }) {
+  const conv = getConviction(b.id);
+  const pillarRail = railColor || `var(--pillar-${b.pillar})`;
+  const dnaGlyph = {
+    "sauce-pour":"💦",
+    "sister-led":"👯",
+    "mom-recipe":"💚",
+    "shelf-spotted":"🛒",
+    "swicy-wordplay":"🌶️",
+    "collab-cameo":"🤝",
+    "meme-payload":"🎭",
+    "category-explainer":"✨"
+  }[b.dnaPattern] || "✦";
   return (
-    <div className="brief-card" onClick={() => onOpen(b.id)}>
-      <div className="brief-tags">
-        <span className={`brief-priority priority-${b.priority}`}>{b.priorityLabel}</span>
-        <span className="brief-platform">{b.platform}</span>
-        <span className="brief-sku">{b.skuChip}</span>
+    <div className="brief-card" style={{borderLeft:`5px solid ${pillarRail}`}} onClick={() => onOpen(b.id)}>
+      <div className="brief-tags" style={{alignItems:"center"}}>
+        <span style={{display:"inline-flex",alignItems:"center",justifyContent:"center",width:28,height:28,borderRadius:7,background:pillarRail+"22",color:pillarRail,fontSize:15,border:`1px solid ${pillarRail}55`,flexShrink:0}}>{dnaGlyph}</span>
+        {conv && <ConvictionChip conv={conv} />}
+        <span className="brief-platform">{b.platform.split(" ")[0]}</span>
       </div>
       <div className="brief-concept">{b.concept}</div>
       <div className="brief-bottom">
