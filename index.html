@@ -12,27 +12,68 @@
 <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
 <style>
 :root{
-  /* Maazah brand palette — sampled from maazah.com + observed packaging 2026-05-25 */
-  --green:#6FAF4D;          /* Maazah kelly green — primary brand */
-  --green-deep:#3F7B28;     /* darker green for hover + ink-on-green */
-  --green-soft:#C6E29F;     /* soft lime — accent surface */
-  --green-light:#E8F2D5;    /* lightest green — subtle bg */
-  --ink:#2A1F12;            /* warm dark ink — matches wordmark */
-  --ink-soft:#5C4E3E;       /* softened ink */
-  --cream:#F7F3E5;          /* cream paper — main body bg */
-  --cream-deep:#EDE5C8;     /* elevated cream surface */
-  --paper:#FDFAF0;          /* lightest cream — card bg */
-  --border:#D8CFB0;         /* warm cream-edge border */
-  /* SKU + pillar palette */
-  --basil:#87B26F;          /* Basil Jalapeño */
-  --lemon:#E8C547;          /* Classic Lemon + Lemon Aioli + SAUCY SQUAD */
-  --coral:#D67A5A;          /* Roasted Red Pepper + PUT IT ON EVERYTHING */
-  --turmeric:#E08642;       /* Turmeric Ginger + MOM'S TABLE */
-  --cilantro:#7FB069;       /* Cilantro Chutney */
-  --mango:#E8A66F;          /* Mango Chutney */
-  --chili:#C84A38;          /* Chili Aioli — NEW */
+  /* ============================================================
+     Maazah brand palette — sampled from @maazahmagic + packaging.
+     Token structure mirrors the OBSOLETE engine pattern
+     (brand-primary / brand-accent / butter / ink / pillar-* / sku-*)
+     so structural components port cleanly across engines.
+     ============================================================ */
+
+  /* Brand — primary green (Maazah kelly) */
+  --brand-primary:#6FAF4D;        /* dominant — sidebar, header rules, primary CTAs */
+  --brand-deep:#3F7B28;           /* deeper green for hover + ink-on-green */
+  --brand-light:#C6E29F;          /* soft lime — accent surface */
+  --brand-light-soft:#E8F2D5;     /* lightest green — subtle bg */
+
+  /* Accent — Maazah's "magenta-equivalent" CTA color (chili coral) */
+  --brand-accent:#D67A5A;         /* drop buttons, "ride this" callouts, hot chips */
+  --brand-accent-deep:#B5563B;    /* deeper coral hover */
+
+  /* Ink + paper (cream-on-warm-dark) */
+  --ink:#2A1F12;                  /* warm dark ink — body text + headlines */
+  --ink-soft:#5C4E3E;             /* softened ink */
+  --butter:#F7F3E5;               /* cream paper — body bg */
+  --butter-deep:#EDE5C8;          /* elevated cream surface */
+  --butter-light:#FDFAF0;         /* lightest cream — card bg */
+  --border:#D8CFB0;               /* warm cream-edge border */
+
+  /* Pillar palette — one per Maazah content pillar */
+  --pillar-magic:#6FAF4D;         /* MAGIC IS REAL — kelly green */
+  --pillar-multiply:#D67A5A;      /* PUT IT ON EVERYTHING — chili coral */
+  --pillar-mom:#E08642;           /* MOM'S TABLE — turmeric orange */
+  --pillar-squad:#E8C547;         /* SAUCY SQUAD — lemon yellow */
+
+  /* SKU chip palette */
+  --sku-basil:#87B26F;            /* Basil Jalapeño dip */
+  --sku-lemon:#E8C547;            /* Classic Lemon dip + Lemon Aioli */
+  --sku-coral:#D67A5A;            /* Roasted Red Pepper dip */
+  --sku-turmeric:#E08642;         /* Turmeric Ginger dip */
+  --sku-cilantro:#7FB069;         /* Cilantro Chutney sauce */
+  --sku-mango:#E8A66F;            /* Mango Chutney sauce */
+  --sku-chili:#C84A38;            /* Chili Aioli sauce (NEW) */
+
+  /* Shadows */
   --shadow:0 2px 10px rgba(42,31,18,0.08);
   --shadow-lg:0 10px 40px rgba(42,31,18,0.14);
+
+  /* ============================================================
+     Legacy V2 aliases — keep so existing CSS keeps working
+     while new ported components reference abstract token names.
+     ============================================================ */
+  --green:#6FAF4D;                /* alias → --brand-primary */
+  --green-deep:#3F7B28;           /* alias → --brand-deep */
+  --green-soft:#C6E29F;           /* alias → --brand-light */
+  --green-light:#E8F2D5;          /* alias → --brand-light-soft */
+  --cream:#F7F3E5;                /* alias → --butter */
+  --cream-deep:#EDE5C8;           /* alias → --butter-deep */
+  --paper:#FDFAF0;                /* alias → --butter-light */
+  --basil:#87B26F;
+  --lemon:#E8C547;
+  --coral:#D67A5A;
+  --turmeric:#E08642;
+  --cilantro:#7FB069;
+  --mango:#E8A66F;
+  --chili:#C84A38;
 }
 .display{font-family:'Bagel Fat One','Cooper Std',Georgia,serif;font-weight:400;letter-spacing:0.005em}
 .serif{font-family:'Fraunces',Georgia,serif;letter-spacing:-0.01em}
@@ -56,10 +97,26 @@ a{color:inherit;text-decoration:none}
 .sb-item-icon{width:16px;height:16px;display:inline-flex;align-items:center;justify-content:center}
 .sb-item-soon{font-size:9px;letter-spacing:0.08em;text-transform:uppercase;background:rgba(255,255,255,0.20);color:rgba(255,255,255,0.92);padding:2px 6px;border-radius:3px;margin-left:auto;font-weight:600}
 .sb-item.active .sb-item-soon{background:rgba(255,255,255,0.28);color:#fff}
-.sb-footer{margin-top:auto;padding:14px 10px 4px;border-top:1px solid rgba(255,255,255,0.18);font-size:11px;color:rgba(255,255,255,0.85);line-height:1.55}
+.sb-footer{margin-top:8px;padding:14px 10px 4px;border-top:1px solid rgba(255,255,255,0.18);font-size:11px;color:rgba(255,255,255,0.85);line-height:1.55}
 .sb-footer strong{color:#fff;font-weight:700;display:block;margin-bottom:2px}
 .sb-howit{margin-top:10px;width:100%;text-align:left;font-size:11.5px;color:#fff;background:rgba(255,255,255,0.16);padding:9px 12px;border-radius:8px;font-weight:500;letter-spacing:0.01em}
 .sb-howit:hover{background:rgba(255,255,255,0.24)}
+
+/* Diagnostic Inbox button — coral gradient pill, bottom of sidebar (Phase 1) */
+.sb-diag-btn{margin-top:auto;margin-bottom:10px;display:flex;align-items:center;gap:10px;width:100%;background:linear-gradient(135deg,var(--brand-accent) 0%,var(--brand-accent-deep) 100%);color:#fff;border:1px solid rgba(255,255,255,0.18);border-radius:10px;padding:10px 12px;text-align:left;cursor:pointer;box-shadow:0 4px 12px rgba(181,86,59,0.32);transition:transform 0.12s,box-shadow 0.12s;position:relative}
+.sb-diag-btn:hover{transform:translateY(-1px);box-shadow:0 6px 18px rgba(181,86,59,0.42)}
+
+/* Main footer — JetBrains Mono attribution line at bottom of every page (Phase 1 stub, Phase 10 polishes) */
+.main-footer{margin-top:48px;padding:18px 0 6px;border-top:1px solid rgba(111,175,77,0.22);display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:var(--ink-soft);font-weight:600;text-transform:uppercase}
+.main-footer strong{color:var(--ink);font-weight:800;text-transform:uppercase;letter-spacing:0.12em}
+.main-footer .footer-dot{width:5px;height:5px;border-radius:50%;background:var(--brand-primary);box-shadow:0 0 5px rgba(111,175,77,0.6)}
+
+/* WIP under-construction banner (Phase 1 stub for Calendar + Performance, Phase 9 polishes) */
+.wip-banner{background:var(--butter-light);border:2px dashed var(--brand-accent);border-radius:12px;padding:18px 22px;margin-bottom:24px;display:flex;align-items:flex-start;gap:14px}
+.wip-banner-icon{font-size:24px;line-height:1;flex-shrink:0;margin-top:2px}
+.wip-banner-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;font-weight:700;color:var(--brand-accent-deep);text-transform:uppercase;margin-bottom:4px}
+.wip-banner-body{font-size:13px;line-height:1.5;color:var(--ink-soft)}
+.wip-banner-body strong{color:var(--ink);font-weight:700}
 
 /* Main */
 .main{padding:34px 44px 80px;max-width:1400px}
@@ -1145,8 +1202,9 @@ function MaazahApp() {
   const [page, setPage] = useState("intel");
   const [intelTab, setIntelTab] = useState("trends");
   const [briefOpen, setBriefOpen] = useState(null);
-  const [welcomeOpen, setWelcomeOpen] = useState(true);
+  const [memoOpen, setMemoOpen] = useState(true);   // Monday Memo auto-opens (Phase 2 builds the new shape)
   const [hiwOpen, setHiwOpen] = useState(false);
+  const [diagOpen, setDiagOpen] = useState(false);  // Diagnostic Inbox (Phase 7 builds it)
 
   const briefById = (id) => BRIEFS.find(b => b.id === id);
 
@@ -1158,35 +1216,41 @@ function MaazahApp() {
           <MaazahArch className="sb-logo" />
           <div>
             <div className="sb-brand-name">MAAZAH</div>
-            <div className="sb-brand-sub">Engine · v0.1</div>
+            <div className="sb-brand-sub">Engine · OBSOLETE V0.1</div>
           </div>
         </div>
 
-        <div className="sb-section-label">This Week</div>
         <button className={`sb-item ${page==="intel"?"active":""}`} onClick={() => setPage("intel")}>
           <span className="sb-item-icon">⌘</span> Intelligence Brief
         </button>
         <button className={`sb-item ${page==="briefs"?"active":""}`} onClick={() => setPage("briefs")}>
           <span className="sb-item-icon">⊞</span> Content Briefs <span className="sb-item-soon">{BRIEFS.length}</span>
         </button>
-        <button className={`sb-item ${page==="decisions"?"active":""}`} onClick={() => setPage("decisions")}>
-          <span className="sb-item-icon">⊙</span> Decisions <span className="sb-item-soon">{DECISIONS.length}</span>
-        </button>
-
-        <div className="sb-section-label">Buyer View</div>
         <button className={`sb-item ${page==="wholesale"?"active":""}`} onClick={() => setPage("wholesale")}>
-          <span className="sb-item-icon">👁</span> Wholesale Lens <span className="sb-item-soon">{WHOLESALE_LENS.metrics.length}</span>
+          <span className="sb-item-icon">👁</span> Wholesale Lens
+        </button>
+        <button className={`sb-item ${page==="studio"?"active":""}`} onClick={() => setPage("studio")}>
+          <span className="sb-item-icon">✦</span> Studio Canvas
+        </button>
+        <button className={`sb-item ${page==="calendar"?"active":""}`} onClick={() => setPage("calendar")}>
+          <span className="sb-item-icon">▢</span> Calendar <span className="sb-item-soon">WIP</span>
+        </button>
+        <button className={`sb-item ${page==="performance"?"active":""}`} onClick={() => setPage("performance")}>
+          <span className="sb-item-icon">↗</span> Performance <span className="sb-item-soon">WIP</span>
         </button>
 
-        <div className="sb-section-label">Studio</div>
-        <button className={`sb-item ${page==="studio"?"active":""}`} onClick={() => setPage("studio")}>
-          <span className="sb-item-icon">✦</span> Studio Canvas <span className="sb-item-soon">Soon</span>
+        <button className="sb-diag-btn" onClick={() => setDiagOpen(true)}>
+          <span style={{fontSize:16,lineHeight:1}}>💭</span>
+          <div style={{flex:1,minWidth:0}}>
+            <div style={{fontSize:11,fontWeight:700,letterSpacing:"0.02em",lineHeight:1.2}}>Diagnostic Inbox</div>
+            <div style={{fontSize:10,opacity:0.85,marginTop:2,lineHeight:1.3}}>tell the engine what's coming →</div>
+          </div>
         </button>
 
         <div className="sb-footer">
           <strong>Built for Yasameen + Sheilla</strong>
-          OBSOLETE · May 25, 2026
-          <button className="sb-howit" onClick={() => setHiwOpen(true)}>↗ how this engine works</button>
+          OBSOLETE · weekly refresh Sun PM
+          <button className="sb-howit" onClick={() => setHiwOpen(true)}>↓ how it works</button>
         </div>
       </aside>
 
@@ -1194,13 +1258,17 @@ function MaazahApp() {
       <main className="main">
         {page === "intel" && <IntelPage tab={intelTab} setTab={setIntelTab} />}
         {page === "briefs" && <BriefsPage onOpen={setBriefOpen} />}
-        {page === "decisions" && <DecisionsPage />}
         {page === "wholesale" && <WholesaleLensPage />}
         {page === "studio" && <StudioPage />}
+        {page === "calendar" && <CalendarPreview />}
+        {page === "performance" && <PerformancePreview />}
+
+        <MainFooter />
 
         {briefOpen && <BriefModal brief={briefById(briefOpen)} onClose={() => setBriefOpen(null)} />}
-        {welcomeOpen && <WelcomePopup onClose={() => setWelcomeOpen(false)} onJump={() => { setWelcomeOpen(false); setPage("briefs"); }} />}
+        {memoOpen && <WelcomePopup onClose={() => setMemoOpen(false)} onJump={() => { setMemoOpen(false); setPage("briefs"); }} />}
         {hiwOpen && <HowItWorksModal onClose={() => setHiwOpen(false)} />}
+        {diagOpen && <DiagnosticInboxModal onClose={() => setDiagOpen(false)} />}
       </main>
     </div>
   );
@@ -1818,9 +1886,157 @@ function HowItWorksModal({ onClose }) {
 }
 
 /* ============================================================
+   CALENDAR PREVIEW (Phase 1 stub — Phase 9 polishes)
+   ============================================================ */
+function CalendarPreview() {
+  return (
+    <>
+      <PageHead eyebrow="Engine · Roadmap" title="Calendar" />
+      <div className="wip-banner">
+        <span className="wip-banner-icon">🚧</span>
+        <div>
+          <div className="wip-banner-eyebrow">UNDER CONSTRUCTION</div>
+          <div className="wip-banner-body">A preview of what's coming · <strong>7-day grid · brief slots per day · format-mix bar · paid-amplification markers.</strong> Below is FPO content so you can see the shape.</div>
+        </div>
+      </div>
+      <div style={{background:"var(--butter-light)",border:"1.5px dashed var(--border)",borderRadius:14,padding:48,textAlign:"center",color:"var(--ink-soft)"}}>
+        <div style={{fontFamily:"'Bagel Fat One',serif",fontSize:48,color:"var(--brand-primary)",opacity:0.18,lineHeight:1}}>SOON</div>
+        <div style={{marginTop:14,fontSize:13,fontFamily:"'Fraunces',Georgia,serif",fontStyle:"italic"}}>weekly publish cadence visualized · 7-day view · brief → slot → ship status</div>
+      </div>
+    </>
+  );
+}
+
+/* ============================================================
+   PERFORMANCE PREVIEW (Phase 1 stub — Phase 9 polishes)
+   ============================================================ */
+function PerformancePreview() {
+  const kpis = [
+    { label: "ENGAGEMENT (IG)", note: "save-rate-weighted" },
+    { label: "TIKTOK SAVES", note: "category-authority proxy" },
+    { label: "UGC TAG-COUNT", note: "Costco-window cohort" },
+    { label: "BUYER LENS DELTA", note: "Wholesale Lens score Δ" }
+  ];
+  return (
+    <>
+      <PageHead eyebrow="Engine · Roadmap" title="Performance" />
+      <div className="wip-banner">
+        <span className="wip-banner-icon">🚧</span>
+        <div>
+          <div className="wip-banner-eyebrow">UNDER CONSTRUCTION</div>
+          <div className="wip-banner-body">A preview of what's coming · <strong>4 KPI tiles + week-over-week deltas + brief-to-result attribution.</strong> Connects once the OPERATE retainer feeds back results weekly. Below is FPO content so you can see the shape.</div>
+        </div>
+      </div>
+      <div className="grid grid-2" style={{gridTemplateColumns:"repeat(4,1fr)",gap:14}}>
+        {kpis.map((k,i) => (
+          <div key={i} style={{background:"var(--butter-light)",border:"1.5px solid var(--border)",borderRadius:14,padding:22,position:"relative",overflow:"hidden",minHeight:130}}>
+            <div style={{position:"absolute",inset:0,display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'Bagel Fat One',serif",fontSize:64,color:"var(--brand-primary)",opacity:0.08,pointerEvents:"none"}}>SOON</div>
+            <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.14em",color:"var(--ink-soft)",fontWeight:700}}>{k.label}</div>
+            <div style={{fontFamily:"'Bagel Fat One',serif",fontSize:42,color:"var(--ink-soft)",opacity:0.5,marginTop:10,lineHeight:1}}>—</div>
+            <div style={{fontSize:11,color:"var(--ink-soft)",marginTop:10,position:"relative",zIndex:1}}>{k.note}</div>
+          </div>
+        ))}
+      </div>
+    </>
+  );
+}
+
+/* ============================================================
+   DIAGNOSTIC INBOX MODAL (Phase 1 stub — Phase 7 builds full version)
+   ============================================================ */
+function DiagnosticInboxModal({ onClose }) {
+  return (
+    <div className="modal-bg" onClick={onClose}>
+      <div className="modal" style={{maxWidth:720}} onClick={(e) => e.stopPropagation()}>
+        <div className="modal-head">
+          <h2>Diagnostic Inbox</h2>
+          <button className="modal-close" onClick={onClose}>×</button>
+        </div>
+        <div className="modal-body">
+          <div className="wip-banner">
+            <span className="wip-banner-icon">🚧</span>
+            <div>
+              <div className="wip-banner-eyebrow">UNDER CONSTRUCTION</div>
+              <div className="wip-banner-body">A preview of what's coming · <strong>3 weekly questions only you know the answers to</strong> (on-the-ground events · press / podcast bookings · mood dial) + a free-form catch-all. The engine threads your answers into next week's briefs. Below is the structure.</div>
+            </div>
+          </div>
+          <div style={{display:"flex",flexDirection:"column",gap:14,marginTop:8}}>
+            {[
+              {glyph:"📍", eye:"ON-THE-GROUND", label:"sampling events, retailer demos, kitchen content shoots"},
+              {glyph:"🎙️", eye:"ORBIT THE MOMENT", label:"PR + podcast + press appearances on the calendar"},
+              {glyph:"🎚️", eye:"MOOD DIAL", label:"warmer founder-voice vs. sharper category-fight this week"},
+              {glyph:"💭", eye:"ANYTHING ELSE", label:"free-form — anything the engine should know"}
+            ].map((q,i) => (
+              <div key={i} style={{background:"var(--butter-light)",border:"1.5px solid var(--border)",borderRadius:10,padding:"14px 16px",display:"flex",alignItems:"flex-start",gap:12}}>
+                <span style={{fontSize:22,lineHeight:1,flexShrink:0,marginTop:1}}>{q.glyph}</span>
+                <div>
+                  <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.14em",fontWeight:700,color:"var(--brand-deep)",textTransform:"uppercase",marginBottom:4}}>{q.eye}</div>
+                  <div style={{fontSize:13,color:"var(--ink-soft)",lineHeight:1.5}}>{q.label}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ============================================================
+   MAIN FOOTER (Phase 1 stub — Phase 10 polishes)
+   ============================================================ */
+function MainFooter() {
+  return (
+    <div className="main-footer">
+      <span className="footer-dot"></span>
+      <strong>Maazah Engine</strong>
+      <span>·</span>
+      <span>OBSOLETE V0.1</span>
+      <span>·</span>
+      <span>refreshed {TODAY}</span>
+      <span>·</span>
+      <span>powered by Gemini 2.5 Flash + Claude Sonnet 4.6</span>
+    </div>
+  );
+}
+
+/* ============================================================
+   ERROR BOUNDARY — catches render-time exceptions in any subtree
+   and shows a recoverable fallback in Maazah's voice.
+   ============================================================ */
+class ErrorBoundary extends React.Component {
+  constructor(props){ super(props); this.state = { error:null, info:null }; }
+  static getDerivedStateFromError(error){ return { error }; }
+  componentDidCatch(error, info){
+    console.error("ErrorBoundary caught:", error, info);
+    this.setState({ info });
+  }
+  reset(){ this.setState({ error:null, info:null }); }
+  render(){
+    if (this.state.error) {
+      return (
+        <div style={{padding:"40px 32px",maxWidth:680,margin:"0 auto"}}>
+          <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.18em",color:"#B5563B",fontWeight:700,textTransform:"uppercase",marginBottom:8}}>// ENGINE HICCUP</div>
+          <h2 style={{fontFamily:"'Bagel Fat One',serif",fontWeight:400,fontSize:30,color:"#2A1F12",marginBottom:10,lineHeight:1.05,letterSpacing:"0.005em"}}>something glitched. the engine's still running.</h2>
+          <p style={{fontFamily:"'Fraunces',Georgia,serif",fontSize:14.5,lineHeight:1.55,color:"#5C4E3E",marginBottom:18}}>a component threw during render. click reload to recover — your week's intel and briefs are still cached server-side.</p>
+          <details style={{marginBottom:18,fontSize:11,fontFamily:"'JetBrains Mono',monospace",color:"#7A6D5E"}}>
+            <summary style={{cursor:"pointer",marginBottom:6}}>technical details</summary>
+            <pre style={{background:"#FDFAF0",padding:12,borderRadius:6,border:"1px solid #D8CFB0",whiteSpace:"pre-wrap",fontSize:10,maxHeight:180,overflow:"auto"}}>{String(this.state.error?.stack || this.state.error)}</pre>
+          </details>
+          <button onClick={()=>window.location.reload()} style={{background:"#D67A5A",color:"#fff",border:0,padding:"10px 18px",borderRadius:99,fontFamily:"'JetBrains Mono',monospace",fontSize:11,letterSpacing:"0.14em",fontWeight:700,textTransform:"uppercase",cursor:"pointer",marginRight:8}}>↻ RELOAD</button>
+          <button onClick={()=>this.reset()} style={{background:"transparent",color:"#3F7B28",border:"1.5px solid #6FAF4D",padding:"10px 18px",borderRadius:99,fontFamily:"'JetBrains Mono',monospace",fontSize:11,letterSpacing:"0.14em",fontWeight:700,textTransform:"uppercase",cursor:"pointer"}}>try again</button>
+        </div>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+/* ============================================================
    MOUNT
    ============================================================ */
-ReactDOM.createRoot(document.getElementById("root")).render(<MaazahApp />);
+const ROOT = ReactDOM.createRoot(document.getElementById("root"));
+ROOT.render(<ErrorBoundary><MaazahApp /></ErrorBoundary>);
 </script>
 </body>
 </html>
