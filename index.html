@@ -166,6 +166,37 @@ a{color:inherit;text-decoration:none}
 .etf-card-verdict{background:linear-gradient(135deg,rgba(111,175,77,0.18) 0%,rgba(111,175,77,0.08) 100%);border-left:3px solid var(--brand-primary);padding:11px 14px;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.5;color:var(--brand-deep);font-weight:600;letter-spacing:-0.005em}
 .etf-card-verdict::before{content:"✓ ";color:var(--brand-primary);font-weight:800;font-family:'Bagel Fat One',serif}
 
+/* Pipeline Status panel (Phase C) — live engine state */
+.ps-section{background:var(--ink);color:#fff;border-radius:18px;padding:24px 28px;margin-bottom:32px;position:relative;overflow:hidden}
+.ps-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px dashed rgba(255,255,255,0.18)}
+.ps-eyebrow{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;font-weight:700;color:var(--brand-light);text-transform:uppercase;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.ps-eyebrow-dot{width:7px;height:7px;border-radius:50%;background:var(--brand-primary);box-shadow:0 0 6px rgba(111,175,77,0.9);animation:ps-pulse 2.4s ease-in-out infinite}
+@keyframes ps-pulse{0%,100%{opacity:0.5;box-shadow:0 0 4px rgba(111,175,77,0.6)}50%{opacity:1;box-shadow:0 0 10px rgba(111,175,77,1)}}
+.ps-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:22px;letter-spacing:0.005em;line-height:1.05;color:#fff}
+.ps-meta{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;color:rgba(255,255,255,0.65);text-align:right;line-height:1.5;text-transform:uppercase}
+.ps-meta strong{color:#fff;font-weight:700;display:block}
+.ps-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-bottom:20px}
+@media(max-width:820px){.ps-grid{grid-template-columns:1fr 1fr}}
+.ps-stat{background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.14);border-radius:10px;padding:14px 16px}
+.ps-num{font-family:'Bagel Fat One',serif;font-weight:400;font-size:32px;line-height:1;letter-spacing:0.005em;color:var(--brand-light);margin-bottom:4px}
+.ps-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:#fff;font-weight:700;text-transform:uppercase;margin-bottom:4px}
+.ps-detail{font-size:11px;color:rgba(255,255,255,0.72);line-height:1.45}
+.ps-workers-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.18em;color:var(--brand-light);font-weight:700;text-transform:uppercase;margin-bottom:8px}
+.ps-workers{display:grid;grid-template-columns:1fr 1fr;gap:6px}
+@media(max-width:680px){.ps-workers{grid-template-columns:1fr}}
+.ps-worker{background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.10);border-radius:6px;padding:8px 11px;display:flex;align-items:flex-start;gap:8px;font-size:11px}
+.ps-worker-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;margin-top:5px}
+.ps-worker-dot-active{background:#7FB069;box-shadow:0 0 4px rgba(127,176,105,0.6)}
+.ps-worker-dot-ready{background:#E8C547}
+.ps-worker-dot-deploying{background:#D67A5A}
+.ps-worker-dot-auth-pending,.ps-worker-dot-bug{background:#E08642}
+.ps-worker-dot-platform-block{background:#9E3F31}
+.ps-worker-body{flex:1;min-width:0}
+.ps-worker-name{font-family:'JetBrains Mono',monospace;font-weight:700;color:#fff;letter-spacing:0.06em;text-transform:uppercase;font-size:10.5px;margin-bottom:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
+.ps-worker-count{font-family:'Bagel Fat One',serif;font-weight:400;font-size:13px;color:var(--brand-light);letter-spacing:0.02em}
+.ps-worker-note{font-size:10.5px;color:rgba(255,255,255,0.6);line-height:1.4}
+.ps-foot{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;color:rgba(255,255,255,0.45);text-transform:uppercase;font-weight:600;margin-top:18px;padding-top:14px;border-top:1px dashed rgba(255,255,255,0.14);text-align:center}
+
 /* ETF nav buttons */
 .etf-nav{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:18px;border-top:1px dashed var(--border)}
 .etf-nav-btn{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;font-weight:700;text-transform:uppercase;padding:9px 16px;border-radius:99px;cursor:pointer;background:transparent;border:1.5px solid var(--brand-primary);color:var(--brand-deep);transition:background 0.15s,color 0.15s}
@@ -920,20 +951,45 @@ const BRAND_FENCE = [
 ];
 
 const SOURCES_SUMMARY = {
-  totalSources: 104,
+  totalSources: 145,
   lanes: 8,
   agents: 6,
   workers: 10,
   cronSchedules: 13,
   perLane: [
-    { lane: "Cultural · TV/film/music/memes/first-gen", count: 30 },
-    { lane: "Ingredients · recipes + heritage cooking", count: 17 },
-    { lane: "Competitive · ads + launches + trade press", count: 14 },
-    { lane: "Health · functional + plant protein", count: 13 },
-    { lane: "Reviews · Costco hauls + UGC discovery", count: 10 },
-    { lane: "Retail · grocery trade + retail buyer", count: 9 },
+    { lane: "Cultural · TV/film/music/memes/first-gen/diaspora", count: 49 },
+    { lane: "Ingredients · recipes + Afghan + heritage cooking", count: 32 },
+    { lane: "Competitive · ads + launches + heritage CPG peer set", count: 21 },
+    { lane: "Health · functional + lentil/plant protein", count: 18 },
+    { lane: "Retail · grocery trade + Costco UGC + buyer", count: 15 },
+    { lane: "Reviews · brand discovery + women-founded peer", count: 14 },
     { lane: "Policy · cert culture + regulatory", count: 3 },
     { lane: "Parenting · light coverage (not Maazah wedge)", count: 2 }
+  ]
+};
+
+/* ============================================================
+   Pipeline Status — live engine state for the HIW tab
+   Reflects actual signal landing data from pipeline.signals as of last refresh
+   ============================================================ */
+const PIPELINE_STATUS = {
+  lastRefresh: "2026-05-26 · 4:25 PM CT",
+  nextRefresh: "Sunday 9:00 PM CT",
+  sourcesWatching: 145,
+  signalsLast7d: 24,
+  workersActive: 2,
+  workersTotal: 10,
+  workerStatus: [
+    { name: "RSS", status: "active", signals: 18, note: "Vittles · Cherry Bombe · BA · Snaxshot · Eater" },
+    { name: "Apple Podcasts", status: "active", signals: 6, note: "Society & Culture top 100" },
+    { name: "Wikipedia", status: "ready", signals: 0, note: "all targets below velocity threshold this week — system working as designed" },
+    { name: "GDELT", status: "deploying", signals: 0, note: "maxDuration bump pushed · awaiting Vercel auto-redeploy" },
+    { name: "Spotify", status: "auth-pending", signals: 0, note: "needs SPOTIFY_CLIENT_ID / SECRET env vars · Wed" },
+    { name: "Meta Ad Library", status: "auth-pending", signals: 0, note: "needs META_ACCESS_TOKEN env var · Wed" },
+    { name: "Reddit", status: "platform-block", signals: 0, note: "Reddit blocking Vercel IPs · OAuth migration scoped for post-engagement" },
+    { name: "TikTok CC", status: "platform-block", signals: 0, note: "TikTok rotated endpoint auth · re-discovery scoped for post-engagement" },
+    { name: "Pinterest", status: "platform-block", signals: 0, note: "Pinterest URL pattern changed · fix scoped for post-engagement" },
+    { name: "Google Trends", status: "bug", signals: 0, note: "10 trending terms surfaced but upsert returning 0 · investigation queued" }
   ]
 };
 
@@ -2728,6 +2784,63 @@ function HowItWorksTab() {
             {i < 3 && <span className="hiw-step-arrow">→</span>}
           </div>
         ))}
+      </div>
+
+      {/* PIPELINE STATUS — live engine state (Phase C) */}
+      <div className="ps-section">
+        <div className="ps-head">
+          <div>
+            <div className="ps-eyebrow"><span className="ps-eyebrow-dot"></span>// PIPELINE STATUS · LIVE</div>
+            <div className="ps-title">Engine state, right now.</div>
+          </div>
+          <div className="ps-meta">
+            <strong>Last refresh</strong>
+            {PIPELINE_STATUS.lastRefresh}<br/>
+            <span style={{opacity:0.7}}>Next: {PIPELINE_STATUS.nextRefresh}</span>
+          </div>
+        </div>
+
+        <div className="ps-grid">
+          <div className="ps-stat">
+            <div className="ps-num">{PIPELINE_STATUS.sourcesWatching}</div>
+            <div className="ps-label">Sources watching</div>
+            <div className="ps-detail">8 lanes · 6 agents · 10 platform workers</div>
+          </div>
+          <div className="ps-stat">
+            <div className="ps-num">{PIPELINE_STATUS.signalsLast7d}</div>
+            <div className="ps-label">Signals landed</div>
+            <div className="ps-detail">past 7 days · first activation week</div>
+          </div>
+          <div className="ps-stat">
+            <div className="ps-num">{PIPELINE_STATUS.workersActive} / {PIPELINE_STATUS.workersTotal}</div>
+            <div className="ps-label">Workers active</div>
+            <div className="ps-detail">8 more activating · platform-side auth + endpoint blockers</div>
+          </div>
+          <div className="ps-stat">
+            <div className="ps-num">3</div>
+            <div className="ps-label">Tenants live</div>
+            <div className="ps-detail">Maazah + Willa's + Lil Bucks · shared infrastructure</div>
+          </div>
+        </div>
+
+        <div className="ps-workers-eye">// PLATFORM WORKERS · STATUS</div>
+        <div className="ps-workers">
+          {PIPELINE_STATUS.workerStatus.map(w => (
+            <div key={w.name} className="ps-worker">
+              <div className={`ps-worker-dot ps-worker-dot-${w.status}`}></div>
+              <div className="ps-worker-body">
+                <div className="ps-worker-name">
+                  <span>{w.name}</span>
+                  {w.signals > 0 && <span className="ps-worker-count">{w.signals} signals</span>}
+                  <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:8.5,letterSpacing:"0.1em",opacity:0.65,padding:"2px 7px",borderRadius:99,border:"1px solid rgba(255,255,255,0.18)",textTransform:"uppercase"}}>{w.status}</span>
+                </div>
+                <div className="ps-worker-note">{w.note}</div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div className="ps-foot">Multi-tenant Supabase pipeline · 13 cron schedules · weekly refresh Sun 9:00 PM CT · all signals tagged client_id = 'maazah'</div>
       </div>
 
       {/* ENGINE THINKING FLOW — the centerpiece */}
