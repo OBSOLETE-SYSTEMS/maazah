@@ -112,6 +112,81 @@ a{color:inherit;text-decoration:none}
 .main-footer .footer-dot{width:5px;height:5px;border-radius:50%;background:var(--brand-primary);box-shadow:0 0 5px rgba(111,175,77,0.6)}
 
 /* ============================================================
+   How It Works tab (Phase 8) — engine in motion
+   ============================================================ */
+.hiw-hero{background:linear-gradient(135deg,var(--brand-deep) 0%,var(--brand-primary) 50%,var(--brand-accent-deep) 130%);color:#fff;border-radius:18px;padding:36px 40px 32px;margin-bottom:28px;position:relative;overflow:hidden}
+.hiw-hero-eye{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;font-weight:700;text-transform:uppercase;opacity:0.9;margin-bottom:12px}
+.hiw-hero-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:38px;line-height:1.05;letter-spacing:0.005em;max-width:680px}
+
+.hiw-flow-band{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1.5px solid var(--brand-primary);border-radius:14px;background:var(--brand-primary);margin-bottom:32px;overflow:hidden}
+.hiw-step{background:var(--butter-light);padding:22px 22px 26px;position:relative}
+.hiw-step:last-child{background:linear-gradient(135deg,var(--brand-accent) 0%,var(--brand-accent-deep) 100%);color:#fff}
+.hiw-step-num{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.16em;font-weight:700;color:var(--ink-soft);text-transform:uppercase;border-bottom:1px dashed var(--border);padding-bottom:6px;margin-bottom:10px}
+.hiw-step:last-child .hiw-step-num{color:rgba(255,255,255,0.85);border-bottom-color:rgba(255,255,255,0.3)}
+.hiw-step-name{font-family:'Bagel Fat One',serif;font-weight:400;font-size:24px;letter-spacing:0.005em;line-height:1;color:var(--ink);margin-bottom:8px}
+.hiw-step:last-child .hiw-step-name{color:#fff}
+.hiw-step-body{font-family:'Fraunces',Georgia,serif;font-size:13px;line-height:1.5;color:var(--ink-soft);font-weight:500;letter-spacing:-0.005em}
+.hiw-step:last-child .hiw-step-body{color:rgba(255,255,255,0.92)}
+.hiw-step-arrow{position:absolute;right:-12px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:var(--brand-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;z-index:2}
+.hiw-step:last-child .hiw-step-arrow{display:none}
+
+/* Engine Thinking Flow — 7 nodes + per-step card */
+.etf-section{margin-bottom:32px;background:var(--butter-light);border:1.5px solid var(--brand-primary);border-radius:18px;padding:28px 32px}
+.etf-head{margin-bottom:24px}
+.etf-eye{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;color:var(--brand-accent-deep);font-weight:700;text-transform:uppercase;margin-bottom:6px}
+.etf-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:30px;letter-spacing:0.005em;line-height:1.05;color:var(--ink);margin-bottom:6px}
+.etf-sub{font-family:'Fraunces',Georgia,serif;font-size:14px;line-height:1.5;color:var(--ink-soft);font-style:italic;max-width:680px}
+
+.etf-pipeline{display:flex;align-items:center;justify-content:space-between;position:relative;margin-bottom:28px;padding:0 12px}
+.etf-rail{position:absolute;top:50%;left:32px;right:32px;height:3px;background:var(--brand-light);transform:translateY(-50%);z-index:1;border-radius:99px}
+.etf-rail-fill{position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,var(--brand-primary) 0%,var(--brand-accent) 100%);border-radius:99px;transition:width 0.4s cubic-bezier(0.4,0,0.2,1)}
+.etf-node{width:46px;height:46px;border-radius:50%;background:#fff;border:2.5px solid var(--brand-light);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;position:relative;z-index:2;transition:transform 0.2s,box-shadow 0.2s,background 0.2s,border-color 0.2s}
+.etf-node:hover{transform:scale(1.06)}
+.etf-node.done{background:var(--brand-primary);border-color:var(--brand-deep);color:#fff}
+.etf-node.active{background:var(--brand-accent);border-color:var(--brand-accent-deep);color:#fff;transform:scale(1.15);box-shadow:0 0 0 6px rgba(214,122,90,0.22),0 4px 14px rgba(214,122,90,0.4);animation:etf-pulse 2.2s ease-in-out infinite}
+@keyframes etf-pulse{0%,100%{box-shadow:0 0 0 6px rgba(214,122,90,0.22),0 4px 14px rgba(214,122,90,0.4)}50%{box-shadow:0 0 0 10px rgba(214,122,90,0.12),0 4px 18px rgba(214,122,90,0.5)}}
+.etf-node-num{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;color:var(--ink-soft);font-weight:700;white-space:nowrap}
+
+.etf-card{background:#fff;border:1.5px solid var(--brand-primary);border-radius:14px;padding:24px 28px;box-shadow:0 4px 16px rgba(63,123,40,0.1)}
+.etf-card-row1{display:flex;align-items:center;gap:14px;margin-bottom:14px}
+.etf-card-icon{width:48px;height:48px;border-radius:12px;background:var(--brand-light-soft);color:var(--brand-primary);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;border:1.5px solid var(--brand-light)}
+.etf-card-agent{flex:1;min-width:0}
+.etf-card-agent-name{font-family:'Bagel Fat One',serif;font-weight:400;font-size:20px;letter-spacing:0.005em;color:var(--ink);line-height:1}
+.etf-card-agent-focus{font-size:11.5px;color:var(--ink-soft);margin-top:3px;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em}
+.etf-card-step-counter{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--brand-accent-deep);background:rgba(214,122,90,0.14);padding:5px 11px;border-radius:99px;font-weight:700;text-transform:uppercase;border:1px solid rgba(214,122,90,0.32);white-space:nowrap}
+.etf-card-incoming{display:inline-flex;align-items:center;gap:6px;background:var(--brand-light-soft);color:var(--brand-deep);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;font-weight:700;padding:5px 11px;border-radius:99px;text-transform:uppercase;margin-bottom:12px;border:1px dashed rgba(111,175,77,0.4)}
+.etf-card-watches{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.etf-card-watch-chip{font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--brand-light-soft);color:var(--brand-deep);padding:3px 9px;border-radius:99px;letter-spacing:0.04em;font-weight:600;border:1px solid rgba(111,175,77,0.32)}
+.etf-card-title{font-family:'Fraunces',Georgia,serif;font-size:17px;font-weight:700;letter-spacing:-0.01em;color:var(--ink);margin-bottom:6px}
+.etf-card-what{font-size:13.5px;line-height:1.55;color:var(--ink);margin-bottom:14px}
+.etf-card-filters{padding-top:14px;border-top:1px dashed var(--border);margin-bottom:14px}
+.etf-card-filters-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:var(--ink-soft);font-weight:700;text-transform:uppercase;margin-bottom:8px}
+.etf-card-filter{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:var(--ink-soft);margin-bottom:5px}
+.etf-card-filter::before{content:"·";color:var(--brand-primary);font-weight:800;flex-shrink:0}
+.etf-card-verdict{background:linear-gradient(135deg,rgba(111,175,77,0.18) 0%,rgba(111,175,77,0.08) 100%);border-left:3px solid var(--brand-primary);padding:11px 14px;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.5;color:var(--brand-deep);font-weight:600;letter-spacing:-0.005em}
+.etf-card-verdict::before{content:"✓ ";color:var(--brand-primary);font-weight:800;font-family:'Bagel Fat One',serif}
+
+/* ETF nav buttons */
+.etf-nav{display:flex;justify-content:space-between;align-items:center;margin-top:18px;padding-top:18px;border-top:1px dashed var(--border)}
+.etf-nav-btn{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;font-weight:700;text-transform:uppercase;padding:9px 16px;border-radius:99px;cursor:pointer;background:transparent;border:1.5px solid var(--brand-primary);color:var(--brand-deep);transition:background 0.15s,color 0.15s}
+.etf-nav-btn:hover:not(:disabled){background:var(--brand-primary);color:#fff}
+.etf-nav-btn:disabled{opacity:0.4;cursor:not-allowed}
+.etf-nav-progress{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;color:var(--ink-soft);font-weight:600;text-transform:uppercase}
+
+/* HIW accordions (Phase 8.4) */
+.howit-acc{background:var(--butter-light);border:1.5px solid var(--brand-primary);border-radius:14px;margin-bottom:14px;overflow:hidden}
+.howit-acc summary{list-style:none;cursor:pointer;padding:18px 22px;display:flex;justify-content:space-between;align-items:center;gap:16px}
+.howit-acc summary::-webkit-details-marker{display:none}
+.howit-acc[open] .howit-acc-chevron{transform:rotate(180deg)}
+.howit-acc-chevron{font-family:'JetBrains Mono',monospace;font-size:14px;color:var(--brand-primary);font-weight:700;transition:transform 0.2s}
+.howit-acc-titles{flex:1;min-width:0}
+.howit-acc-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--ink-soft);font-weight:700;text-transform:uppercase;margin-bottom:3px}
+.howit-acc-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:20px;letter-spacing:0.005em;line-height:1;color:var(--ink)}
+.howit-acc-count{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.12em;color:var(--ink);background:var(--brand-light-soft);padding:5px 11px;border-radius:99px;font-weight:700;text-transform:uppercase;border:1px solid rgba(111,175,77,0.32);white-space:nowrap}
+.howit-acc-body{padding:0 22px 22px;border-top:1px solid var(--border)}
+.howit-acc-body-padded{padding-top:14px}
+
+/* ============================================================
    Diagnostic Inbox (Phase 7) — operating tool, not pitch artifact
    ============================================================ */
 .diag-modal{max-width:780px}
@@ -717,6 +792,118 @@ function ConvictionChip({ conv }) {
     </span>
   );
 }
+
+/* ============================================================
+   How It Works tab data (Phase 8)
+   Engine Thinking Flow tells one specific story end-to-end:
+   Costco UGC → tonal match → shelf math → pillar routing →
+   brief generation → audit → ready to ship Thursday.
+   ============================================================ */
+const ENGINE_THINKING_STEPS = [
+  {
+    num: "01", icon: "⚗️", agentName: "Flavor Lab", focus: "category sensory + ingredient theater",
+    incoming: null,
+    watches: ["TikTok CC · #costcofind", "Reddit r/Costco hauls", "Pinterest 'lentil dip' searches"],
+    title: "Signal detected",
+    what: "Costco Midwest rollout UGC velocity spiking — shoppers tagging Maazah's tub across 10 states in the past 72 hours.",
+    filters: ["Velocity: >50 mentions/72h ✓ (current 187)", "Geographic spread: ≥6 states ✓ (current 10)", "Save-velocity bonus: 2× weight applied"],
+    verdict: "Signal qualifies — high velocity, geographically dense, save-driven. Promote to Cultural Pulse Tracker."
+  },
+  {
+    num: "02", icon: "📡", agentName: "Cultural Pulse Tracker", focus: "score against 8 tonal territories",
+    incoming: "Flavor Lab",
+    watches: ["8 Maazah tonal territories", "anti-pattern downweights", "first-gen content velocity"],
+    title: "Tonal-territory match",
+    what: "Signal scored against Maazah's 8 tonal territories. Hits 4 — Costco-Aisle-Moment (primary), Magic-as-Master-Metaphor, Saucy-Squad Humor, Heritage-with-Scale.",
+    filters: ["≥1 tonal territory hit (required) ✓ (hits 4)", "No anti-pattern overlap ✓", "Celebrity-reaction downweight not triggered ✓"],
+    verdict: "Strong cultural fit — route to Shelf Watch to confirm commercial math before brief generation."
+  },
+  {
+    num: "03", icon: "🛒", agentName: "Shelf Watch", focus: "retail economics + repeat-velocity math",
+    incoming: "Cultural Pulse Tracker",
+    watches: ["Costco buyer-cycle calendar", "Meta Ad Library (Hope · Sabra · FBJ)", "Press Release RSS"],
+    title: "Shelf math confirmed",
+    what: "Day 9 of the 8-12 week Costco repeat-velocity window. Buyer reviews velocity at week 8. Content shipped now compounds into that review. Tailwind: Hope Foods just validated the non-hummus dip category.",
+    filters: ["In active retail-window ✓ (day 9 of 56-84 day cycle)", "Competitive backdrop favorable ✓", "Projected Wholesale Lens score Δ: +12 if shipped this week"],
+    verdict: "Commercial math holds. Route to Voice Compass + pillar router."
+  },
+  {
+    num: "04", icon: "💬", agentName: "Voice Compass + pillar router", focus: "platform-aware voice match",
+    incoming: "Shelf Watch",
+    watches: ["MOM'S TABLE pillar (depth lane)", "Sister Rule (IG 6-8 sister-led)", "TikTok category-explainer pattern"],
+    title: "Pillar + format routed",
+    what: "Signal routes to MOM'S TABLE (first-gen heritage arc fits). Platform split: IG version goes sister-led, TikTok version goes category-explainer (the proven 71-save format).",
+    filters: ["Magic-cap: ≤60% of week's briefs use 'magic' in headline ✓ (current 31%)", "Sister Rule (IG): 4-9 sister-led ✓ (current 6)", "TikTok format register: category-explainer, not founder ✓"],
+    verdict: "Voice fingerprint locked. Drafting brief in MOM'S TABLE / category-explainer lane."
+  },
+  {
+    num: "05", icon: "🧠", agentName: "The Strategist", focus: "brief generation in Maazah voice",
+    incoming: "Voice Compass",
+    watches: ["voice exemplars (gold standard)", "anti-patterns", "DNA pattern library"],
+    title: "Brief generated",
+    what: "Drafts 'What is lentil dip?' — period-spaced descriptor format + Mom-coded origin line + brand-voice category-creation. Concept + 3 hook variants + IG/TikTok captions + 7-scene shot list + audio reco.",
+    filters: ["Voice exemplar match score: 88/100", "≤1 wordplay payoff ✓", "Sister-as-narrator default ✓", "Music lane: TikTok meme-fluent ✓"],
+    verdict: "Brief drafted. Conviction Score: 102 (HIGH). Routing to Step 7 audit."
+  },
+  {
+    num: "06", icon: "✅", agentName: "Step 7 Audit · 28 checks", focus: "human-filter audit before ship",
+    incoming: "The Strategist",
+    watches: ["family-rule enforcement", "magic-cap", "competitor-name check", "audio-lane fit", "phrase-overlap dedup"],
+    title: "Audit pass — 28 checks",
+    what: "Brief passes all 28 audit checks: no Mom required, no competitor names in consumer copy, magic-headline under cap, audio in TikTok lane, no phrase overlap >15 chars vs. last 5 weeks.",
+    filters: ["Family-rule enforcement: PASS (no required participation)", "Magic-cap: PASS (31% ≤ 60%)", "Audio-lane fit: PASS (TikTok meme-fluent)", "Phrase-overlap dedup: PASS"],
+    verdict: "All 28 checks pass. Brief shipped to Content Briefs queue."
+  },
+  {
+    num: "07", icon: "📤", agentName: "Ready · Thursday queue", focus: "delivered to team production",
+    incoming: "Step 7 Audit",
+    watches: ["Content Briefs queue", "team production calendar"],
+    title: "M04 brief in queue",
+    what: "'What is lentil dip?' (M04) scheduled for Thursday 12:00pm CT. Conviction 102 / HIGH. RIDE-NOW tagged. Team produces + ships.",
+    filters: ["Slot: Thursday 12:00pm CT (TikTok primary + IG cross-post)", "Conviction: 102 (HIGH) — Ship first.", "RIDE-NOW: YES — culturally decay-sensitive"],
+    verdict: "Brief delivered. Engine moves to next signal."
+  }
+];
+
+const RECEIPTS = [
+  { date: "2026-05-24", headline: "Predicted: snackle box format breaches 40 likes Memorial Day weekend.", actual: "Lakeside snackle box post: 41 likes in 23h. Format validated as recurring weekly lane.", delta: "+3% above forecast", verified: true },
+  { date: "2026-05-19", headline: "Flagged: Sabra's 'dips beyond hummus' creative as Maazah-positioning-validation moment.", actual: "Sabra's 2 active creatives confirm category-creation language is moving mainstream. Held counter-content for post-pitch Friday.", delta: "lead time: 4h", verified: true },
+  { date: "2026-05-17", headline: "Forecast: sister-led Costco-cart Reel would clear 400 IG likes.", actual: "Costco-cart push earned 426 likes in 7 days — Maazah's highest-engagement post in the 14-day window.", delta: "+6% above forecast", verified: true },
+  { date: "2026-05-22", headline: "Caught: Hope Foods' non-hummus dip-line expansion within 6h of PR Newswire drop.", actual: "Engine drafted 3 counter-content briefs (category-critique without naming Hope) inside the 8-hour SLA.", delta: "SLA: 6h vs. 8h target", verified: true }
+];
+
+const BRAND_FENCE = [
+  { category: "category", rule: "Never call Maazah 'hummus' or 'hummus alternative'.", why: "Defines by what it's not. Lentil dip is its own thing." },
+  { category: "heritage", rule: "Lead with 'Afghan-American' — never generic 'Middle Eastern'.", why: "The specificity IS the brand. Generic framing flattens." },
+  { category: "family", rule: "Never draft briefs that require Mom or family on camera.", why: "Family is canonical origin reference, not a required participant. Per-piece consent only." },
+  { category: "voice", rule: "Never split the sister-duo into a single face.", why: "Yasameen AND Sheilla. Default to 'we' / first-person plural." },
+  { category: "voice", rule: "Don't use 'magic' in headline more than 60% of weekly mix.", why: "Master metaphor, not verbal tic. Overuse turns the word hollow." },
+  { category: "voice", rule: "≤1 swicy/saucy/chut wordplay payoff per brief.", why: "Try-hard caption stacks read as forced. Seasoning, not the meal." },
+  { category: "platform", rule: "Never cross-post IG-format content as-is to TikTok.", why: "10-30× engagement gap proves format mismatch. TikTok needs its own register." },
+  { category: "platform", rule: "No celebrity-reaction TikTok briefs (Taylor / Kendrick patterns).", why: "Both flopped in your archive at 2-4 likes. Category-education is the lane." },
+  { category: "competitive", rule: "Never name a competitor in consumer copy.", why: "Category critique only ('most dip aisles are just hummus on repeat'). Names stay internal." },
+  { category: "framing", rule: "Don't frame sauces as 'exotic' or 'adventurous'.", why: "They're everyday — Tuesday-night chicken, not dinner-party reserve." },
+  { category: "audio", rule: "Don't use Roy Ayers groove on TikTok or meme-audios on IG.", why: "Two distinct rosters. Wrong lane = vibes mismatch." },
+  { category: "language", rule: "No supplement-brand register ('supports gut health' etc.).", why: "Say what the food does in food language." }
+];
+
+const SOURCES_SUMMARY = {
+  totalSources: 104,
+  lanes: 8,
+  agents: 6,
+  workers: 10,
+  cronSchedules: 13,
+  perLane: [
+    { lane: "Cultural · TV/film/music/memes/first-gen", count: 30 },
+    { lane: "Ingredients · recipes + heritage cooking", count: 17 },
+    { lane: "Competitive · ads + launches + trade press", count: 14 },
+    { lane: "Health · functional + plant protein", count: 13 },
+    { lane: "Reviews · Costco hauls + UGC discovery", count: 10 },
+    { lane: "Retail · grocery trade + retail buyer", count: 9 },
+    { lane: "Policy · cert culture + regulatory", count: 3 },
+    { lane: "Parenting · light coverage (not Maazah wedge)", count: 2 }
+  ]
+};
 
 /* ============================================================
    Glyph + velocity maps (Phase 3) — drive intel-card visual identity
@@ -1690,7 +1877,7 @@ function MaazahApp() {
         <div className="sb-footer">
           <strong>Built for Yasameen + Sheilla</strong>
           OBSOLETE · weekly refresh Sun PM
-          <button className="sb-howit" onClick={() => setHiwOpen(true)}>↓ how it works</button>
+          <button className="sb-howit" onClick={() => setPage("howit")}>{page === "howit" ? "◉" : "◌"} how it works</button>
         </div>
       </aside>
 
@@ -1699,6 +1886,7 @@ function MaazahApp() {
         {page === "intel" && <IntelPage tab={intelTab} setTab={setIntelTab} openMemo={() => setMemoOpen(true)} openStudioWith={openStudioWith} />}
         {page === "briefs" && <BriefsPage onOpen={setBriefOpen} />}
         {page === "wholesale" && <WholesaleLensPage />}
+        {page === "howit" && <HowItWorksTab />}
         {page === "calendar" && <CalendarPreview />}
         {page === "performance" && <PerformancePreview />}
 
@@ -2471,7 +2659,220 @@ function StudioPage() {
 }
 
 /* ============================================================
-   HOW IT WORKS MODAL
+   HOW IT WORKS TAB (Phase 8)
+   Hero + 4-step flow + Engine Thinking Flow + 4 accordions
+   ============================================================ */
+function HowItWorksTab() {
+  const [step, setStep] = useState(0);
+  const current = ENGINE_THINKING_STEPS[step];
+  const total = ENGINE_THINKING_STEPS.length;
+  const fillPct = total > 1 ? (step / (total - 1)) * 100 : 0;
+
+  return (
+    <>
+      <PageHead eyebrow="Engine · In Motion" title="How It Works" />
+
+      <div className="hiw-hero">
+        <div className="hiw-hero-eye">// THE ENGINE, IN MOTION</div>
+        <div className="hiw-hero-title">Your monday opens with the brief — not the research.</div>
+      </div>
+
+      <div className="hiw-flow-band">
+        {[
+          { num: "01", name: "Listen", body: "104 sources · 6 agents · 13 cron schedules · 8 signal lanes across food + culture + retail + competition." },
+          { num: "02", name: "Calibrate", body: "Score every signal against your 8 tonal territories, anti-patterns, and platform fit. Drop what doesn't sing." },
+          { num: "03", name: "Brief", body: "Generate 12-14 briefs/week in your voice. Conviction-scored, 28-check audited, ready by Sunday night." },
+          { num: "04", name: "Produce", body: "Your team takes it from here. Engine never publishes — production-ready briefs delivered to the queue." }
+        ].map((s, i) => (
+          <div key={s.num} className="hiw-step">
+            <div className="hiw-step-num">STEP {s.num}</div>
+            <div className="hiw-step-name">{s.name}</div>
+            <div className="hiw-step-body">{s.body}</div>
+            {i < 3 && <span className="hiw-step-arrow">→</span>}
+          </div>
+        ))}
+      </div>
+
+      {/* ENGINE THINKING FLOW — the centerpiece */}
+      <div className="etf-section">
+        <div className="etf-head">
+          <div className="etf-eye">// ENGINE THINKING FLOW · ONE SIGNAL, END TO END</div>
+          <div className="etf-title">How the engine got from a Costco-aisle reel to brief M04.</div>
+          <div className="etf-sub">Click any node to step through. This is the actual decision trace the engine made this week — signal → tonal match → shelf math → pillar routing → brief generated → audit → shipped to the Thursday queue.</div>
+        </div>
+
+        <div className="etf-pipeline">
+          <div className="etf-rail">
+            <div className="etf-rail-fill" style={{width: fillPct + "%"}}></div>
+          </div>
+          {ENGINE_THINKING_STEPS.map((s, i) => (
+            <button
+              key={s.num}
+              className={`etf-node ${i < step ? "done" : ""} ${i === step ? "active" : ""}`}
+              onClick={() => setStep(i)}
+              title={s.agentName}
+            >
+              {i < step ? "✓" : s.icon}
+              <span className="etf-node-num">{s.num}</span>
+            </button>
+          ))}
+        </div>
+
+        <div className="etf-card">
+          <div className="etf-card-row1">
+            <div className="etf-card-icon">{current.icon}</div>
+            <div className="etf-card-agent">
+              <div className="etf-card-agent-name">{current.agentName}</div>
+              <div className="etf-card-agent-focus">{current.focus}</div>
+            </div>
+            <div className="etf-card-step-counter">STEP {current.num} / 07</div>
+          </div>
+
+          {current.incoming && (
+            <span className="etf-card-incoming">↗ Incoming from {current.incoming}</span>
+          )}
+
+          <div className="etf-card-watches">
+            {current.watches.map((w, i) => (
+              <span key={i} className="etf-card-watch-chip">{w}</span>
+            ))}
+          </div>
+
+          <div className="etf-card-title">{current.title}</div>
+          <div className="etf-card-what">{current.what}</div>
+
+          <div className="etf-card-filters">
+            <div className="etf-card-filters-eye">// FILTERS + CHECKS</div>
+            {current.filters.map((f, i) => (
+              <div key={i} className="etf-card-filter">{f}</div>
+            ))}
+          </div>
+
+          <div className="etf-card-verdict">{current.verdict}</div>
+
+          <div className="etf-nav">
+            <button className="etf-nav-btn" onClick={() => setStep(s => Math.max(0, s - 1))} disabled={step === 0}>← back</button>
+            <span className="etf-nav-progress">{step + 1} / {total}</span>
+            <button className="etf-nav-btn" onClick={() => setStep(s => Math.min(total - 1, s + 1))} disabled={step === total - 1}>next →</button>
+          </div>
+        </div>
+      </div>
+
+      {/* 4 collapsible accordions */}
+      <details className="howit-acc" open>
+        <summary>
+          <div className="howit-acc-titles">
+            <div className="howit-acc-eye">// CALLS THE ENGINE MADE THIS WEEK</div>
+            <div className="howit-acc-title">Decisions</div>
+          </div>
+          <span className="howit-acc-count">{DECISIONS.length} this week</span>
+          <span className="howit-acc-chevron">▾</span>
+        </summary>
+        <div className="howit-acc-body howit-acc-body-padded">
+          <div className="dec-list">
+            {DECISIONS.map((d, i) => (
+              <div key={i} className="dec-row">
+                <span className={`dec-tag dec-${d.tag.toLowerCase()}`}>{d.tag}</span>
+                <div>
+                  <div className="dec-text"><strong>{d.text}</strong></div>
+                  <div className="dec-why">{d.why}</div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </details>
+
+      <details className="howit-acc">
+        <summary>
+          <div className="howit-acc-titles">
+            <div className="howit-acc-eye">// ENGINE TRACK RECORD</div>
+            <div className="howit-acc-title">Receipts</div>
+          </div>
+          <span className="howit-acc-count">{RECEIPTS.length} verified</span>
+          <span className="howit-acc-chevron">▾</span>
+        </summary>
+        <div className="howit-acc-body howit-acc-body-padded">
+          <div style={{display:"flex",flexDirection:"column",gap:10}}>
+            {RECEIPTS.map((r, i) => (
+              <div key={i} style={{background:"var(--butter-light)",border:"1px solid var(--border)",borderLeft:"3px solid var(--brand-primary)",borderRadius:"0 8px 8px 0",padding:"12px 14px"}}>
+                <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}>
+                  <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.12em",color:"var(--ink-soft)",fontWeight:700,textTransform:"uppercase"}}>{r.date}</span>
+                  <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9.5,letterSpacing:"0.12em",fontWeight:800,padding:"3px 8px",borderRadius:99,background:"#DAEDC8",color:"#3B6B2D",textTransform:"uppercase"}}>✓ {r.delta}</span>
+                </div>
+                <div style={{fontFamily:"'Fraunces',Georgia,serif",fontSize:13.5,fontWeight:700,color:"var(--ink)",marginBottom:5,letterSpacing:"-0.005em"}}>{r.headline}</div>
+                <div style={{fontSize:12.5,color:"var(--ink-soft)",lineHeight:1.5}}>{r.actual}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </details>
+
+      <details className="howit-acc">
+        <summary>
+          <div className="howit-acc-titles">
+            <div className="howit-acc-eye">// WHAT THE ENGINE REFUSES TO DO</div>
+            <div className="howit-acc-title">The Brand Fence</div>
+          </div>
+          <span className="howit-acc-count">{BRAND_FENCE.length} rules</span>
+          <span className="howit-acc-chevron">▾</span>
+        </summary>
+        <div className="howit-acc-body howit-acc-body-padded">
+          <div style={{display:"flex",flexDirection:"column",gap:10}}>
+            {BRAND_FENCE.map((b, i) => (
+              <div key={i} style={{background:"#fff",border:"1px solid var(--border)",borderLeft:"3px solid #A85959",borderRadius:"0 8px 8px 0",padding:"11px 14px"}}>
+                <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:5}}>
+                  <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,letterSpacing:"0.14em",fontWeight:700,padding:"3px 8px",borderRadius:99,background:"#F8DCD7",color:"#9E3F31",textTransform:"uppercase"}}>{b.category}</span>
+                  <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9.5,color:"var(--ink-soft)",letterSpacing:"0.06em",textTransform:"uppercase"}}>· anti-pattern #{i + 1}</span>
+                </div>
+                <div style={{fontSize:13,fontWeight:700,color:"var(--ink)",marginBottom:3,lineHeight:1.4}}>{b.rule}</div>
+                <div style={{fontSize:11.5,color:"var(--ink-soft)",lineHeight:1.5}}>{b.why}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </details>
+
+      <details className="howit-acc">
+        <summary>
+          <div className="howit-acc-titles">
+            <div className="howit-acc-eye">// WHAT THE ENGINE LISTENS TO</div>
+            <div className="howit-acc-title">Sources + Brand DNA</div>
+          </div>
+          <span className="howit-acc-count">{SOURCES_SUMMARY.totalSources} sources</span>
+          <span className="howit-acc-chevron">▾</span>
+        </summary>
+        <div className="howit-acc-body howit-acc-body-padded">
+          <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:14,marginBottom:18}}>
+            {[
+              { num: SOURCES_SUMMARY.totalSources, label: "sources" },
+              { num: SOURCES_SUMMARY.lanes, label: "signal lanes" },
+              { num: SOURCES_SUMMARY.agents, label: "agents" },
+              { num: SOURCES_SUMMARY.workers, label: "workers" }
+            ].map((s, i) => (
+              <div key={i} style={{background:"var(--butter-light)",border:"1.5px solid var(--brand-light)",borderRadius:10,padding:"14px 16px",textAlign:"center"}}>
+                <div style={{fontFamily:"'Bagel Fat One',serif",fontSize:32,color:"var(--brand-deep)",lineHeight:1}}>{s.num}</div>
+                <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.14em",color:"var(--ink-soft)",fontWeight:700,textTransform:"uppercase",marginTop:6}}>{s.label}</div>
+              </div>
+            ))}
+          </div>
+          <div style={{display:"flex",flexDirection:"column",gap:6}}>
+            {SOURCES_SUMMARY.perLane.map((l, i) => (
+              <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"7px 12px",background:i % 2 === 0 ? "var(--butter-light)" : "transparent",borderRadius:6,fontSize:12.5,color:"var(--ink)"}}>
+                <span>{l.lane}</span>
+                <span style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,color:"var(--brand-deep)",letterSpacing:"0.04em"}}>{l.count} sources</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </details>
+
+    </>
+  );
+}
+
+/* ============================================================
+   HOW IT WORKS MODAL (deprecated — kept for legacy state but unused)
    ============================================================ */
 function HowItWorksModal({ onClose }) {
   return (
