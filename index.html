@@ -118,14 +118,22 @@ a{color:inherit;text-decoration:none}
 .hiw-hero-eye{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;font-weight:700;text-transform:uppercase;opacity:0.9;margin-bottom:12px}
 .hiw-hero-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:38px;line-height:1.05;letter-spacing:0.005em;max-width:680px}
 
-.hiw-flow-band{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;border:1.5px solid var(--brand-primary);border-radius:14px;background:var(--brand-primary);margin-bottom:32px;overflow:hidden}
-.hiw-step{background:var(--butter-light);padding:18px 18px 20px;position:relative;display:flex;flex-direction:column}
-.hiw-step:last-child{background:linear-gradient(135deg,var(--brand-accent) 0%,var(--brand-accent-deep) 100%);color:#fff}
-.hiw-step-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;font-weight:700;color:var(--ink-soft);text-transform:uppercase;border-bottom:1px dashed var(--border);padding-bottom:5px;margin-bottom:8px;display:block}
-.hiw-step:last-child .hiw-step-num{color:rgba(255,255,255,0.85);border-bottom-color:rgba(255,255,255,0.3)}
-.hiw-step-name{font-family:'Bagel Fat One',serif;font-weight:400;font-size:22px;letter-spacing:0.005em;line-height:1;color:var(--ink);margin-bottom:10px;display:block}
+.hiw-flow-band{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:32px}
+.hiw-step{background:var(--butter-light);border:1.5px solid var(--brand-primary);border-radius:14px;padding:18px 18px 20px;position:relative;display:flex;flex-direction:column;min-width:0;box-shadow:0 2px 0 var(--brand-primary)}
+.hiw-step:last-child{background:linear-gradient(160deg,var(--brand-accent) 0%,var(--brand-accent-deep) 100%);color:#fff;border-color:var(--brand-accent-deep);box-shadow:0 2px 0 var(--brand-accent-deep)}
+.hiw-step-top{display:flex;align-items:center;gap:10px;margin-bottom:12px;min-width:0}
+.hiw-step-icon{width:36px;height:36px;border-radius:9px;background:var(--brand-light-soft);color:var(--brand-primary);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;border:1px solid var(--brand-light)}
+.hiw-step:last-child .hiw-step-icon{background:rgba(255,255,255,0.2);color:#fff;border-color:rgba(255,255,255,0.32)}
+.hiw-step-num{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;font-weight:700;color:var(--ink-soft);text-transform:uppercase;min-width:0;flex:1}
+.hiw-step:last-child .hiw-step-num{color:rgba(255,255,255,0.85)}
+.hiw-step-name{font-family:'Bagel Fat One',serif;font-weight:400;font-size:24px;letter-spacing:0.005em;line-height:1.05;color:var(--ink);margin-bottom:8px;word-wrap:normal}
 .hiw-step:last-child .hiw-step-name{color:#fff}
-.hiw-step-body{font-family:'Fraunces',Georgia,serif;font-size:13px;line-height:1.45;color:var(--ink-soft);font-weight:500;letter-spacing:-0.005em;display:block;text-wrap:pretty}
+.hiw-step-body{font-family:'Fraunces',Georgia,serif;font-size:13px;line-height:1.5;color:var(--ink-soft);font-weight:500;letter-spacing:-0.005em;word-wrap:normal;overflow-wrap:normal;min-width:0}
+.hiw-step:last-child .hiw-step-body{color:rgba(255,255,255,0.92)}
+.hiw-step-arrow{position:absolute;right:-18px;top:30px;width:22px;height:22px;border-radius:50%;background:var(--brand-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:12px;z-index:2;box-shadow:0 2px 8px rgba(63,123,40,0.32)}
+.hiw-step:last-child .hiw-step-arrow{display:none}
+@media(max-width:980px){.hiw-flow-band{grid-template-columns:1fr 1fr}.hiw-step-arrow{display:none}}
+@media(max-width:560px){.hiw-flow-band{grid-template-columns:1fr}}
 .hiw-step:last-child .hiw-step-body{color:rgba(255,255,255,0.92)}
 .hiw-step-arrow{position:absolute;right:-12px;top:50%;transform:translateY(-50%);width:24px;height:24px;border-radius:50%;background:var(--brand-primary);color:#fff;display:flex;align-items:center;justify-content:center;font-size:13px;z-index:2}
 .hiw-step:last-child .hiw-step-arrow{display:none}
@@ -2771,23 +2779,7 @@ function HowItWorksTab() {
         <div className="hiw-hero-title">Your monday opens with the brief — not the research.</div>
       </div>
 
-      <div className="hiw-flow-band">
-        {[
-          { num: "01", name: "Listen", body: "Watch ~130 sources across food + culture + retail + competition." },
-          { num: "02", name: "Calibrate", body: "Score signals against your tonal territories. Drop what doesn't sing." },
-          { num: "03", name: "Brief", body: "Generate 12–14 production-ready briefs in your voice each week." },
-          { num: "04", name: "Produce", body: "Your team ships. Engine never posts on its own." }
-        ].map((s, i) => (
-          <div key={s.num} className="hiw-step">
-            <div className="hiw-step-num">STEP {s.num}</div>
-            <div className="hiw-step-name">{s.name}</div>
-            <div className="hiw-step-body">{s.body}</div>
-            {i < 3 && <span className="hiw-step-arrow">→</span>}
-          </div>
-        ))}
-      </div>
-
-      {/* PIPELINE STATUS — live engine state (Phase C) */}
+      {/* PIPELINE STATUS — live engine state · now lives ABOVE the conceptual flow */}
       <div className="ps-section">
         <div className="ps-head">
           <div>
@@ -2842,6 +2834,26 @@ function HowItWorksTab() {
         </div>
 
         <div className="ps-foot">Multi-tenant Supabase pipeline · 13 cron schedules · weekly refresh Sun 9:00 PM CT · all signals tagged client_id = 'maazah'</div>
+      </div>
+
+      {/* 4-STEP FLOW BAND — engine philosophy at a high level */}
+      <div className="hiw-flow-band">
+        {[
+          { num: "01", name: "Listen", icon: "📡", body: "200 sources across food, culture, retail, and competition." },
+          { num: "02", name: "Calibrate", icon: "🎛️", body: "Score every signal against your tonal territories." },
+          { num: "03", name: "Brief", icon: "✍️", body: "Generate 12–14 production-ready briefs each week." },
+          { num: "04", name: "Produce", icon: "📤", body: "Your team ships. Engine never posts on its own." }
+        ].map((s, i) => (
+          <div key={s.num} className="hiw-step">
+            <div className="hiw-step-top">
+              <span className="hiw-step-icon">{s.icon}</span>
+              <span className="hiw-step-num">STEP {s.num}</span>
+            </div>
+            <div className="hiw-step-name">{s.name}</div>
+            <div className="hiw-step-body">{s.body}</div>
+            {i < 3 && <span className="hiw-step-arrow">→</span>}
+          </div>
+        ))}
       </div>
 
       {/* ENGINE THINKING FLOW — the centerpiece */}
