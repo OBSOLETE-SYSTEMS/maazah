@@ -1013,7 +1013,6 @@ const MaazahArch = ({ className = "" }) => (
    ============================================================ */
 
 const WEEK_LABEL = "MAY 25 – 31, 2026";
-const TODAY = "2026-05-25";
 const LAST_REFRESH = "May 26, 2026";
 
 /* ============================================================
@@ -2003,7 +2002,7 @@ const WELCOME_MOVES = [
   }
 ];
 
-const WELCOME_SIG = "— Built for Yasameen + Sheilla, by OBSOLETE.\nThe engine ran over the weekend so your Monday starts with the moves, not the research.";
+const WELCOME_SIG = "— Built for Yasameen + Sheilla.\nThe engine ran over the weekend so your Monday starts with the moves, not the research.";
 
 const LEDE = {
   thesis: "Costco week 2: convert trial to repeat. IG cadence steady, TikTok format-register fix activated.",
@@ -4556,11 +4555,9 @@ function MainFooter() {
       <span className="footer-dot"></span>
       <strong>Maazah Engine</strong>
       <span>·</span>
-      <span>OBSOLETE V0.1</span>
+      <span>V0.1</span>
       <span>·</span>
-      <span>refreshed {TODAY}</span>
-      <span>·</span>
-      <span>powered by Gemini 2.5 Flash + Claude Sonnet 4.6</span>
+      <span>refreshed {LAST_REFRESH}</span>
     </div>
   );
 }
