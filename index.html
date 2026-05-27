@@ -645,6 +645,20 @@ a{color:inherit;text-decoration:none}
 .pip-squad{background:var(--lemon);color:var(--ink)}
 
 /* Pulse type colors */
+/* Error Boundary surface */
+.eb-wrap{padding:40px 32px;max-width:680px;margin:0 auto}
+.eb-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.18em;color:var(--brand-accent-deep);font-weight:700;text-transform:uppercase;margin-bottom:8px}
+.eb-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:30px;color:var(--ink);margin-bottom:10px;line-height:1.05;letter-spacing:0.005em}
+.eb-body{font-family:'Fraunces',Georgia,serif;font-size:14.5px;line-height:1.55;color:var(--ink-soft);margin-bottom:18px}
+.eb-details{margin-bottom:18px;font-size:11px;font-family:'JetBrains Mono',monospace;color:var(--ink-soft);opacity:0.85}
+.eb-details summary{cursor:pointer;margin-bottom:6px}
+.eb-details pre{background:var(--butter-light);padding:12px;border-radius:6px;border:1px solid var(--border);white-space:pre-wrap;font-size:10px;max-height:180px;overflow:auto}
+.eb-btn{padding:10px 18px;border-radius:99px;font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.14em;font-weight:700;text-transform:uppercase;cursor:pointer;margin-right:8px}
+.eb-btn-primary{background:var(--brand-accent);color:#fff;border:0}
+.eb-btn-secondary{background:transparent;color:var(--brand-deep);border:1.5px solid var(--brand-primary)}
+
+/* Cultural Pulse card type colors (dynamic via type-${p.type}) */
+.card-type-competitor{background:#8A6E4D;color:#fff}
 .type-meme{background:#F4DAE2;color:#A85575}
 .type-recipe{background:#E6F0DC;color:#5D7E47}
 .type-archetype{background:#FBE0CE;color:#A05E2D}
@@ -924,6 +938,7 @@ a{color:inherit;text-decoration:none}
 .health-strong{background:#DAEDC8;color:#3B6B2D}
 .health-mixed{background:#FAEED1;color:#8B6F1F}
 .health-gap{background:#F8DCD7;color:#9E3F31}
+.health-pill{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;font-weight:800;padding:3px 8px;border-radius:99px;text-transform:uppercase;display:inline-block}
 .wl-card-eye{font-size:18px;opacity:0.5}
 .wl-card-stat{font-family:'Bagel Fat One',serif;font-weight:400;font-size:42px;line-height:0.95;letter-spacing:0.005em;color:var(--green-deep)}
 .wl-card-stat-soft{font-family:'Bagel Fat One',serif;font-weight:400;font-size:28px;line-height:0.95;letter-spacing:0.005em;color:var(--green-deep)}
@@ -1344,12 +1359,12 @@ const AMPLIFY_PLANS = {
     ]
   },
   "MAGIC25-LENTILEXPLAIN-M04": {
-    headline: "TikTok category-explainer · 'What is lentil dip?' replicating the 71-save chutney pattern at scale",
+    headline: "TikTok category-explainer · 'What is lentil dip?' replicating the proven chutney-breakout pattern at scale",
     totalBudget: 220,
     testWindow: "4 days (Thu May 28 → Sun May 31)",
     objective: "Saves (primary) + Profile Visits",
     guardrail: "Auto-pause if CPM > $10 or save-rate drops below 0.8% (the explainer format's job IS saves — anything below floor means the format isn't translating)",
-    why: "The 'What is chutney?' Nov 2024 post earned 211 likes and 71 saves — Maazah's best TikTok performance by 30×. Paid amplification of the same format with new SKU lineup is the single highest-ROI move this week. Saves are the wholesale-buyer-readable signal of category authority — they compound into TikTok algorithmic distribution AND into Costco buyer's account-health glance.",
+    why: "Replicating Maazah's only TikTok format that has ever broken through — at scale + with paid amplification. Saves are the wholesale-buyer-readable signal of category authority — they compound into TikTok algorithmic distribution AND into Costco buyer's account-health glance.",
     placements: [
       { platform: "TikTok", format: "Spark Ad", budget: 180,
         audience: "Interest: #foodtok, #saucetok, #cottagecheese, lentil-recipe creators · Age 22–42 · TikTok food creators engaged · Cottage-cheese-bowl viewers (30d)",
@@ -1684,7 +1699,7 @@ const ENGINE_THINKING_STEPS = [
     incoming: "Shelf Watch",
     watches: ["MOM'S TABLE pillar (depth lane)", "Sister Rule (IG 6-8 sister-led)", "TikTok category-explainer pattern"],
     title: "Pillar + format routed",
-    what: "Signal routes to MOM'S TABLE (first-gen heritage arc fits). Platform split: IG version goes sister-led, TikTok version goes category-explainer (the proven 71-save format).",
+    what: "Signal routes to MOM'S TABLE (first-gen heritage arc fits). Platform split: IG version goes sister-led, TikTok version goes category-explainer (your proven breakout pattern).",
     filters: ["Magic-cap: ≤60% of week's briefs use 'magic' in headline ✓ (current 31%)", "Sister Rule (IG): 4-9 sister-led ✓ (current 6)", "TikTok format register: category-explainer, not founder ✓"],
     verdict: "Voice fingerprint locked. Drafting brief in MOM'S TABLE / category-explainer lane."
   },
@@ -2443,7 +2458,7 @@ const BRIEFS = [
     platform: "TIKTOK (primary) + IG cross-post",
     sku: "All 4 lentil dips · category-explainer",
     skuChip: "LENTIL DIP",
-    concept: "\"What is lentil dip?\" — period-spaced descriptor explainer. Modeled on your 211-like \"What is chutney?\" post (71 saves). The format that actually works for you on TikTok. Activates a weekly recurring TikTok lane.",
+    concept: "\"What is lentil dip?\" — period-spaced descriptor explainer. Modeled on your proven \"What is chutney?\" breakout. The format that actually works for you on TikTok. Activates a weekly recurring TikTok lane.",
     dnaPattern: "category-explainer",
     publishWindow: "THU 12:00PM CT",
     audio: "TikTok lane: meme-fluent shopping-discovery (e.g., 'Oh You Cant Find This In The Store' template style) · original-audio category-explainer hybrid",
@@ -2467,7 +2482,7 @@ const BRIEFS = [
       { text: "lentils carry more protein than chickpeas. dip joy stays the same." },
       { text: "mom's magic, in a bowl — four ways" }
     ],
-    drivers: ["TikTok format-gap finding: 'What is chutney?' = 211 likes / 71 saves", "T-4: lentil consumption +18% YoY", "Wholesale Lens: TikTok presence currently flat"]
+    drivers: ["TikTok format-gap finding: 'What is chutney?' is the only post that broke through", "T-4: lentil consumption +18% YoY", "Wholesale Lens: TikTok presence currently flat"]
   },
 
   /* ─── PUT IT ON EVERYTHING (5) ─── */
@@ -2824,6 +2839,9 @@ function MaazahApp() {
         <button className={`sb-item ${page==="wholesale"?"active":""}`} onClick={() => setPage("wholesale")}>
           <span className="sb-item-icon">👁</span> Wholesale Lens
         </button>
+        <button className={`sb-item ${page==="decisions"?"active":""}`} onClick={() => setPage("decisions")}>
+          <span className="sb-item-icon">▶</span> Decisions Log <span className="sb-item-soon">{DECISIONS.length}</span>
+        </button>
         <button className="sb-item" onClick={() => { setStudioSeed(null); setStudioOpen(true); }}>
           <span className="sb-item-icon">✦</span> Studio
         </button>
@@ -2853,6 +2871,7 @@ function MaazahApp() {
         {page === "intel" && <IntelPage tab={intelTab} setTab={setIntelTab} openMemo={() => setMemoOpen(true)} openStudioWith={openStudioWith} />}
         {page === "briefs" && <BriefsPage onOpen={setBriefOpen} />}
         {page === "wholesale" && <WholesaleLensPage />}
+        {page === "decisions" && <DecisionsPage />}
         {page === "howit" && <HowItWorksTab />}
         {page === "calendar" && <CalendarPreview />}
         {page === "performance" && <PerformancePreview />}
@@ -3246,7 +3265,7 @@ function CompCard({ c, openStudioWith }) {
       <div className="icard-head">
         <span className="intel-glyph" style={{background:railColor+"22",color:railColor,borderColor:railColor+"55"}}>🛒</span>
         <div className="icard-head-meta">
-          <span className="card-type" style={{background:"#8A6E4D"}}>COMPETITOR</span>
+          <span className="card-type card-type-competitor">COMPETITOR</span>
           <span className={`comp-dir-badge comp-dir-badge-${c.direction}`}>
             <span className="comp-dir-badge-arrow">{dirSym}</span> {dirLabel}
           </span>
@@ -3845,20 +3864,31 @@ function BriefModal({ brief, onClose, onDrop }) {
    DECISIONS PAGE
    ============================================================ */
 function DecisionsPage() {
+  const promoted = DECISIONS.filter(d => d.tag === "PROMOTED").length;
+  const killed = DECISIONS.filter(d => d.tag === "KILLED").length;
+  const queued = DECISIONS.filter(d => d.tag === "QUEUED").length;
   return (
     <>
-      <PageHead title="Decisions" />
+      <PageHead title="Decisions Log" />
       <div className="lede" style={{gridTemplateColumns:"1fr"}}>
         <div className="lede-col" style={{borderRight:0}}>
-          <div className="lede-label">WHY THIS EXISTS</div>
-          <div className="lede-text">The engine makes informed calls so you don't have to. Every call is visible, traceable, and override-able. You scan. You veto if needed. You stay in control without micromanaging every decision.</div>
+          <div className="lede-label">THE ENGINE MAKES CALLS · YOU SCAN + OVERRIDE</div>
+          <div className="lede-text">Every meaningful decision the engine made this week — what it killed, what it promoted, what it queued. You can scan the list in 60 seconds, veto anything that doesn't sit right, and trust the rest. That's how 1 human does the job of 5.</div>
         </div>
       </div>
+
+      <div style={{display:"flex",gap:18,marginBottom:24,flexWrap:"wrap"}}>
+        <SummaryStat num={DECISIONS.length} label="decisions" sub="this week" />
+        <SummaryStat num={promoted} label="promoted" sub="formats + lanes activated" />
+        <SummaryStat num={killed} label="killed" sub="patterns engine won't draft" />
+        {queued > 0 && <SummaryStat num={queued} label="queued" sub="awaiting your call" />}
+      </div>
+
       <div className="dec-list">
         {DECISIONS.map((d, i) => (
           <div key={i} className="dec-row">
             <span className={`dec-tag dec-${d.tag.toLowerCase()}`}>{d.tag}</span>
-            <div>
+            <div style={{flex:1,minWidth:0}}>
               <div className="dec-text"><strong>{d.text}</strong></div>
               <div className="dec-why">{d.why}</div>
             </div>
@@ -4146,7 +4176,7 @@ function HowItWorksTab() {
               <div key={i} style={{background:"var(--butter-light)",border:"1px solid var(--border)",borderLeft:"3px solid var(--brand-primary)",borderRadius:"0 8px 8px 0",padding:"12px 14px"}}>
                 <div style={{display:"flex",justifyContent:"space-between",alignItems:"center",marginBottom:6}}>
                   <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.12em",color:"var(--ink-soft)",fontWeight:700,textTransform:"uppercase"}}>{r.date}</span>
-                  <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9.5,letterSpacing:"0.12em",fontWeight:800,padding:"3px 8px",borderRadius:99,background:"#DAEDC8",color:"#3B6B2D",textTransform:"uppercase"}}>✓ {r.delta}</span>
+                  <span className="health-pill health-strong">✓ {r.delta}</span>
                 </div>
                 <div style={{fontFamily:"'Fraunces',Georgia,serif",fontSize:13.5,fontWeight:700,color:"var(--ink)",marginBottom:5,letterSpacing:"-0.005em"}}>{r.headline}</div>
                 <div style={{fontSize:12.5,color:"var(--ink-soft)",lineHeight:1.5}}>{r.actual}</div>
@@ -4168,9 +4198,9 @@ function HowItWorksTab() {
         <div className="howit-acc-body howit-acc-body-padded">
           <div style={{display:"flex",flexDirection:"column",gap:10}}>
             {BRAND_FENCE.map((b, i) => (
-              <div key={i} style={{background:"#fff",border:"1px solid var(--border)",borderLeft:"3px solid #A85959",borderRadius:"0 8px 8px 0",padding:"11px 14px"}}>
+              <div key={i} style={{background:"#fff",border:"1px solid var(--border)",borderLeft:"3px solid var(--sku-chili)",borderRadius:"0 8px 8px 0",padding:"11px 14px"}}>
                 <div style={{display:"flex",alignItems:"center",gap:8,marginBottom:5}}>
-                  <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,letterSpacing:"0.14em",fontWeight:700,padding:"3px 8px",borderRadius:99,background:"#F8DCD7",color:"#9E3F31",textTransform:"uppercase"}}>{b.category}</span>
+                  <span className="health-pill health-gap">{b.category}</span>
                   <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9.5,color:"var(--ink-soft)",letterSpacing:"0.06em",textTransform:"uppercase"}}>· anti-pattern #{i + 1}</span>
                 </div>
                 <div style={{fontSize:13,fontWeight:700,color:"var(--ink)",marginBottom:3,lineHeight:1.4}}>{b.rule}</div>
@@ -4245,8 +4275,8 @@ function CalendarPreview() {
       <div className="wip-banner">
         <span className="wip-banner-icon">🚧</span>
         <div>
-          <div className="wip-banner-eyebrow">UNDER CONSTRUCTION</div>
-          <div className="wip-banner-body">A preview of what's coming · <strong>brief slots auto-flow into 7-day grid · format-mix bar tracks pillar + DNA balance · paid-amplification markers when AMPLIFY plan ships.</strong> The grid below pulls real briefs from this week so you can see the cadence shape.</div>
+          <div className="wip-banner-eyebrow">PREVIEW · FULL VERSION SHIPS WITH OPERATE</div>
+          <div className="wip-banner-body">What's live now: <strong>real briefs from this week flow into the 7-day grid + format-mix bar tracks DNA balance.</strong> What ships with the retainer: drag-to-reschedule · auto-rebalance when format mix drifts · paid-amplification timing markers · 4-week look-ahead.</div>
         </div>
       </div>
 
@@ -4312,8 +4342,8 @@ function PerformancePreview() {
       <div className="wip-banner">
         <span className="wip-banner-icon">🚧</span>
         <div>
-          <div className="wip-banner-eyebrow">UNDER CONSTRUCTION</div>
-          <div className="wip-banner-body">A preview of what's coming · <strong>4 KPI tiles + week-over-week deltas + brief-to-result attribution.</strong> Connects once the OPERATE retainer feeds back results weekly. Below is FPO content so you can see the shape.</div>
+          <div className="wip-banner-eyebrow">PREVIEW · FULL VERSION SHIPS WITH OPERATE</div>
+          <div className="wip-banner-body">What ships with the retainer: <strong>4 KPI tiles + week-over-week deltas + brief-to-result attribution + Buyer Lens score Δ over time.</strong> Connects once OPERATE feeds back weekly results from posted briefs. Below is the layout shape, scored against the metrics that actually matter to your buyer.</div>
         </div>
       </div>
       <div className="grid grid-2" style={{gridTemplateColumns:"repeat(4,1fr)",gap:14}}>
@@ -4747,16 +4777,16 @@ class ErrorBoundary extends React.Component {
   render(){
     if (this.state.error) {
       return (
-        <div style={{padding:"40px 32px",maxWidth:680,margin:"0 auto"}}>
-          <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.18em",color:"#B5563B",fontWeight:700,textTransform:"uppercase",marginBottom:8}}>// ENGINE HICCUP</div>
-          <h2 style={{fontFamily:"'Bagel Fat One',serif",fontWeight:400,fontSize:30,color:"#2A1F12",marginBottom:10,lineHeight:1.05,letterSpacing:"0.005em"}}>something glitched. the engine's still running.</h2>
-          <p style={{fontFamily:"'Fraunces',Georgia,serif",fontSize:14.5,lineHeight:1.55,color:"#5C4E3E",marginBottom:18}}>a component threw during render. click reload to recover — your week's intel and briefs are still cached server-side.</p>
-          <details style={{marginBottom:18,fontSize:11,fontFamily:"'JetBrains Mono',monospace",color:"#7A6D5E"}}>
-            <summary style={{cursor:"pointer",marginBottom:6}}>technical details</summary>
-            <pre style={{background:"#FDFAF0",padding:12,borderRadius:6,border:"1px solid #D8CFB0",whiteSpace:"pre-wrap",fontSize:10,maxHeight:180,overflow:"auto"}}>{String(this.state.error?.stack || this.state.error)}</pre>
+        <div className="eb-wrap">
+          <div className="eb-eye">// ENGINE HICCUP</div>
+          <h2 className="eb-title">something glitched. the engine's still running.</h2>
+          <p className="eb-body">a component threw during render. click reload to recover — your week's intel and briefs are still cached server-side.</p>
+          <details className="eb-details">
+            <summary>technical details</summary>
+            <pre>{String(this.state.error?.stack || this.state.error)}</pre>
           </details>
-          <button onClick={()=>window.location.reload()} style={{background:"#D67A5A",color:"#fff",border:0,padding:"10px 18px",borderRadius:99,fontFamily:"'JetBrains Mono',monospace",fontSize:11,letterSpacing:"0.14em",fontWeight:700,textTransform:"uppercase",cursor:"pointer",marginRight:8}}>↻ RELOAD</button>
-          <button onClick={()=>this.reset()} style={{background:"transparent",color:"#3F7B28",border:"1.5px solid #6FAF4D",padding:"10px 18px",borderRadius:99,fontFamily:"'JetBrains Mono',monospace",fontSize:11,letterSpacing:"0.14em",fontWeight:700,textTransform:"uppercase",cursor:"pointer"}}>try again</button>
+          <button onClick={()=>window.location.reload()} className="eb-btn eb-btn-primary">↻ RELOAD</button>
+          <button onClick={()=>this.reset()} className="eb-btn eb-btn-secondary">try again</button>
         </div>
       );
     }
