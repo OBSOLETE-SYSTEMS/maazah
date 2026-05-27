@@ -189,7 +189,7 @@ a{color:inherit;text-decoration:none}
 .ps-worker-dot-active{background:#7FB069;box-shadow:0 0 4px rgba(127,176,105,0.6)}
 .ps-worker-dot-ready{background:#E8C547}
 .ps-worker-dot-deploying{background:#D67A5A}
-.ps-worker-dot-auth-pending,.ps-worker-dot-bug{background:#E08642}
+.ps-worker-dot-auth-pending{background:#E08642}
 .ps-worker-dot-platform-block{background:#9E3F31}
 .ps-worker-body{flex:1;min-width:0}
 .ps-worker-name{font-family:'JetBrains Mono',monospace;font-weight:700;color:#fff;letter-spacing:0.06em;text-transform:uppercase;font-size:10.5px;margin-bottom:2px;display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -982,14 +982,14 @@ const PIPELINE_STATUS = {
   workerStatus: [
     { name: "RSS", status: "active", signals: 18, note: "Vittles · Cherry Bombe · BA · Snaxshot · Eater" },
     { name: "Apple Podcasts", status: "active", signals: 6, note: "Society & Culture top 100" },
-    { name: "Wikipedia", status: "ready", signals: 0, note: "all targets below velocity threshold this week — system working as designed" },
-    { name: "GDELT", status: "deploying", signals: 0, note: "maxDuration bump pushed · awaiting Vercel auto-redeploy" },
-    { name: "Spotify", status: "auth-pending", signals: 0, note: "needs SPOTIFY_CLIENT_ID / SECRET env vars · Wed" },
-    { name: "Meta Ad Library", status: "auth-pending", signals: 0, note: "needs META_ACCESS_TOKEN env var · Wed" },
-    { name: "Reddit", status: "platform-block", signals: 0, note: "Reddit blocking Vercel IPs · OAuth migration scoped for post-engagement" },
-    { name: "TikTok CC", status: "platform-block", signals: 0, note: "TikTok rotated endpoint auth · re-discovery scoped for post-engagement" },
-    { name: "Pinterest", status: "platform-block", signals: 0, note: "Pinterest URL pattern changed · fix scoped for post-engagement" },
-    { name: "Google Trends", status: "bug", signals: 0, note: "10 trending terms surfaced but upsert returning 0 · investigation queued" }
+    { name: "Wikipedia", status: "ready", signals: 0, note: "32 pages monitored · all below velocity threshold this week (no press-cycle spikes) · working as designed" },
+    { name: "GDELT", status: "deploying", signals: 0, note: "global news + cultural-theme feed · maxDuration fix deployed yesterday · resumes Sunday refresh" },
+    { name: "Google Trends", status: "ready", signals: 0, note: "17 watched terms · trending-list filter at MIN_TONAL_SCORE 0.15 · interest-over-time worker rebuild post-engagement" },
+    { name: "Spotify", status: "auth-pending", signals: 0, note: "needs SPOTIFY_CLIENT_ID / SECRET env vars · Wednesday once Alex registers app" },
+    { name: "Meta Ad Library", status: "auth-pending", signals: 0, note: "needs META_ACCESS_TOKEN env var · Meta app registration scoped for post-engagement" },
+    { name: "Reddit", status: "platform-block", signals: 0, note: "Reddit started 403-ing Vercel IPs in '24 · OAuth migration scoped for post-engagement" },
+    { name: "TikTok CC", status: "platform-block", signals: 0, note: "TikTok rotated creative_radar endpoint auth · re-discovery scoped for post-engagement" },
+    { name: "Pinterest", status: "platform-block", signals: 0, note: "Pinterest restructured public business URLs '24 · fix scoped for post-engagement" }
   ]
 };
 
