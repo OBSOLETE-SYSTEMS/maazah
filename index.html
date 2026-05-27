@@ -1615,7 +1615,12 @@ function MaazahApp() {
 
         <MainFooter />
 
-        {briefOpen && <BriefModal brief={briefById(briefOpen)} onClose={() => setBriefOpen(null)} />}
+        {briefOpen && <BriefModal brief={briefById(briefOpen)} onClose={() => setBriefOpen(null)} onDrop={() => {
+          const b = briefById(briefOpen);
+          const hook = b.hooks?.find(h => h.tag)?.text || b.hooks?.[0]?.text || b.concept;
+          openStudioWith(`I want to sharpen brief ${b.id}: "${b.concept}".\n\nRecommended hook: "${hook}"\nPlatform: ${b.platform} · Pillar: ${b.pillarLabel} · SKU: ${b.sku}\n\nWhere can this land harder?`);
+          setBriefOpen(null);
+        }} />}
         {memoOpen && <MondayMemoModal onClose={() => setMemoOpen(false)} onShipIt={() => { setMemoOpen(false); setPage("intel"); }} />}
         {hiwOpen && <HowItWorksModal onClose={() => setHiwOpen(false)} />}
         {diagOpen && <DiagnosticInboxModal onClose={() => setDiagOpen(false)} />}
@@ -2128,8 +2133,13 @@ function BriefCard({ b, onOpen, railColor }) {
 /* ============================================================
    BRIEF MODAL
    ============================================================ */
-function BriefModal({ brief, onClose }) {
+function BriefModal({ brief, onClose, onDrop }) {
   if (!brief) return null;
+  const conv = getConviction(brief.id);
+  const dnaGlyph = {
+    "sauce-pour":"💦","sister-led":"👯","mom-recipe":"💚","shelf-spotted":"🛒",
+    "swicy-wordplay":"🌶️","collab-cameo":"🤝","meme-payload":"🎭","category-explainer":"✨"
+  }[brief.dnaPattern] || "✦";
   return (
     <div className="modal-bg" onClick={onClose}>
       <div className="modal" onClick={(e) => e.stopPropagation()}>
@@ -2139,77 +2149,44 @@ function BriefModal({ brief, onClose }) {
         </div>
         <div className="modal-body">
 
+          {/* HEADER CHIP ROW — Conviction + Platform + SKU + DNA + Timing */}
           <div className="modal-section">
-            <div className="modal-grid-2">
-              <div>
-                <div className="modal-row">
-                  <div className="modal-row-label">PILLAR</div>
-                  {brief.pillarLabel}
-                </div>
-                <div className="modal-row">
-                  <div className="modal-row-label">SKU</div>
-                  {brief.sku}
-                </div>
-                <div className="modal-row">
-                  <div className="modal-row-label">DNA PATTERN</div>
-                  <span className="card-dna-chip">{brief.dnaPattern}</span>
-                </div>
-                <div className="modal-row">
-                  <div className="modal-row-label">PRIORITY</div>
-                  <span className={`brief-priority priority-${brief.priority}`}>{brief.priorityLabel}</span>
-                </div>
-              </div>
-              <div>
-                <div className="modal-row">
-                  <div className="modal-row-label">PLATFORM</div>
-                  {brief.platform}
-                </div>
-                <div className="modal-row">
-                  <div className="modal-row-label">PUBLISH</div>
-                  {brief.publishWindow}
-                </div>
-                <div className="modal-row">
-                  <div className="modal-row-label">DURATION</div>
-                  {brief.duration}
-                </div>
-                <div className="modal-row">
-                  <div className="modal-row-label">AUDIO</div>
-                  {brief.audio}
-                </div>
-              </div>
+            <div style={{display:"flex",flexWrap:"wrap",gap:8,alignItems:"center",marginBottom:6}}>
+              {conv && <ConvictionChip conv={conv} />}
+              <span className="brief-platform">{brief.platform}</span>
+              <span className="brief-sku">{brief.skuChip}</span>
+              <span className="card-dna-chip">{dnaGlyph} {brief.dnaPattern}</span>
+              <span style={{fontSize:11,color:"var(--ink-soft)",fontWeight:600,letterSpacing:"0.06em",textTransform:"uppercase"}}>· {brief.publishWindow}</span>
+            </div>
+            <div style={{fontSize:12.5,color:"var(--ink-soft)",lineHeight:1.5,paddingTop:8,borderTop:"1px dashed var(--border)"}}>
+              <strong style={{color:"var(--ink)",fontWeight:700}}>Pillar:</strong> {brief.pillarLabel} · <strong style={{color:"var(--ink)",fontWeight:700}}>SKU:</strong> {brief.sku} · <strong style={{color:"var(--ink)",fontWeight:700}}>Duration:</strong> {brief.duration} · <strong style={{color:"var(--ink)",fontWeight:700}}>Audio:</strong> {brief.audio}
             </div>
           </div>
 
-          <div className="modal-section">
-            <div className="modal-section-label">WHY THIS, WHY NOW</div>
-            <div style={{fontSize:14,lineHeight:1.55,color:"var(--ink)"}}>{brief.why}</div>
-          </div>
-
-          {brief.captions?.ig && (
+          {/* INTEL THAT DROVE THIS — clickable links back to source signals */}
+          {brief.drivers?.length > 0 && (
             <div className="modal-section">
-              <div className="modal-section-label">CAPTION VARIANTS</div>
-              <div className="caption-box">
-                <div className="caption-label">
-                  <span className="caption-label-text">Instagram</span>
-                  <span className="caption-label-sub">primary</span>
-                </div>
-                {brief.captions.ig}
-              </div>
-              {brief.captions.tiktok && (
-                <div className="caption-box">
-                  <div className="caption-label">
-                    <span className="caption-label-text">TikTok</span>
-                    <span className="caption-label-sub">native trim</span>
+              <div className="modal-section-label">INTEL THAT DROVE THIS</div>
+              <div style={{display:"flex",flexDirection:"column",gap:6}}>
+                {brief.drivers.map((d, i) => (
+                  <div key={i} style={{padding:"9px 12px",background:"var(--brand-light-soft)",border:"1px solid rgba(111,175,77,0.32)",borderLeft:"3px solid var(--brand-primary)",borderRadius:"0 6px 6px 0",fontSize:12.5,lineHeight:1.5,color:"var(--ink)",fontFamily:"'JetBrains Mono',monospace"}}>
+                    <span style={{color:"var(--brand-deep)",fontWeight:700,marginRight:8}}>↗</span>{d}
                   </div>
-                  {brief.captions.tiktok}
-                </div>
-              )}
+                ))}
+              </div>
             </div>
           )}
 
+          {/* WHY THIS, WHY NOW */}
+          <div className="modal-section">
+            <div className="modal-section-label">WHY THIS · WHY NOW</div>
+            <div style={{fontSize:14,lineHeight:1.55,color:"var(--ink)"}}>{brief.why}</div>
+          </div>
+
+          {/* ALT HOOKS */}
           {brief.hooks?.length > 0 && (
             <div className="modal-section">
-              <div className="modal-section-label">HOOK OPTIONS</div>
+              <div className="modal-section-label">ALT HOOKS</div>
               {brief.hooks.map((h, i) => (
                 <div key={i} className={`hook-row ${h.tag ? "hook-rec" : ""}`}>
                   <span>{h.text}</span>
@@ -2219,27 +2196,74 @@ function BriefModal({ brief, onClose }) {
             </div>
           )}
 
+          {/* PHONE SHOT LIST — scenes rendered as phone-frame mockup rows */}
           {brief.scenes?.length > 0 && (
             <div className="modal-section">
-              <div className="modal-section-label">SCRIPT / SCENES</div>
-              {brief.scenes.map(s => (
-                <div key={s.num} className="scene-row">
-                  <div className="scene-num">{s.num}</div>
-                  <div className="scene-time">{s.time}</div>
-                  <div>{s.text}</div>
-                </div>
-              ))}
+              <div className="modal-section-label">PHONE SHOT LIST</div>
+              <div style={{background:"var(--ink)",borderRadius:14,padding:14,marginBottom:6}}>
+                <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9.5,letterSpacing:"0.14em",color:"rgba(255,255,255,0.5)",textTransform:"uppercase",marginBottom:8,paddingBottom:8,borderBottom:"1px dashed rgba(255,255,255,0.2)"}}>9:41 · {brief.platform.split(" ")[0]} · {brief.duration}</div>
+                {brief.scenes.map((s, i) => (
+                  <div key={i} style={{display:"grid",gridTemplateColumns:"54px 60px 1fr",gap:10,padding:"9px 0",borderBottom: i < brief.scenes.length - 1 ? "1px dashed rgba(255,255,255,0.14)" : "none",fontSize:12,lineHeight:1.45,color:"#fff"}}>
+                    <span style={{fontFamily:"'Bagel Fat One',serif",color:"var(--brand-light)",fontSize:14,letterSpacing:"0.04em"}}>{s.num}</span>
+                    <span style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10.5,color:"var(--brand-accent)",fontWeight:700,letterSpacing:"0.06em"}}>{s.time}</span>
+                    <span style={{color:"rgba(255,255,255,0.88)"}}>{s.text}</span>
+                  </div>
+                ))}
+              </div>
             </div>
           )}
 
-          {brief.drivers?.length > 0 && (
+          {/* CAPTION VARIANTS · 3 toned versions */}
+          {brief.captions?.ig && (
             <div className="modal-section">
-              <div className="modal-section-label">DRIVEN BY (ENGINE TRACE)</div>
-              <div className="driven-by">
-                {brief.drivers.map((d, i) => (
-                  <span key={i} className="driven-chip">{d}</span>
-                ))}
+              <div className="modal-section-label">CAPTIONS · 3 VARIANTS</div>
+              <div className="caption-box">
+                <div className="caption-label">
+                  <span className="caption-label-text">Direct</span>
+                  <span className="caption-label-sub">full · IG primary</span>
+                </div>
+                {brief.captions.ig}
               </div>
+              {brief.captions.tiktok && (
+                <div className="caption-box">
+                  <div className="caption-label">
+                    <span className="caption-label-text">Warm</span>
+                    <span className="caption-label-sub">tighter · TikTok native</span>
+                  </div>
+                  {brief.captions.tiktok}
+                </div>
+              )}
+              <div className="caption-box" style={{background:"var(--brand-light-soft)",borderStyle:"dashed",borderColor:"var(--brand-primary)"}}>
+                <div className="caption-label">
+                  <span className="caption-label-text">Punchy</span>
+                  <span className="caption-label-sub" style={{color:"var(--brand-deep)"}}>↓ generate via Studio</span>
+                </div>
+                <em style={{color:"var(--ink-soft)",fontSize:12.5}}>One-line variant. Drop this brief into Studio and ask for "give me the punchy version" — engine produces in your voice in 5 seconds.</em>
+              </div>
+            </div>
+          )}
+
+          {/* PRODUCTION accordion */}
+          <details className="modal-section" style={{background:"var(--butter-light)",border:"1px solid var(--border)",borderRadius:8,padding:"10px 14px"}}>
+            <summary style={{cursor:"pointer",fontFamily:"'JetBrains Mono',monospace",fontSize:11,letterSpacing:"0.14em",color:"var(--ink)",fontWeight:700,textTransform:"uppercase",listStyle:"none"}}>🎬 PRODUCTION ↓</summary>
+            <div style={{paddingTop:10,fontSize:12.5,lineHeight:1.55,color:"var(--ink)"}}>
+              <div style={{marginBottom:8}}><strong style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.12em",color:"var(--ink-soft)",textTransform:"uppercase",display:"block",marginBottom:4}}>Visual direction</strong>{brief.scenes?.[0]?.text || brief.concept}</div>
+              <div><strong style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.12em",color:"var(--ink-soft)",textTransform:"uppercase",display:"block",marginBottom:4}}>End-card stinger</strong>{brief.scenes?.[brief.scenes.length-1]?.text || "Maazah arch + 'magic is real, we've tasted it.'"}</div>
+            </div>
+          </details>
+
+          {/* AMPLIFY accordion */}
+          <details className="modal-section" style={{background:"var(--butter-light)",border:"1px solid var(--border)",borderRadius:8,padding:"10px 14px"}}>
+            <summary style={{cursor:"pointer",fontFamily:"'JetBrains Mono',monospace",fontSize:11,letterSpacing:"0.14em",color:"var(--ink)",fontWeight:700,textTransform:"uppercase",listStyle:"none"}}>⚡ AMPLIFY (paid plan) ↓</summary>
+            <div style={{paddingTop:10,fontSize:12.5,lineHeight:1.55,color:"var(--ink-soft)"}}>
+              <em>Engine drafts a paid-amplification spec on demand — geo, audience, spend cap, creative variants — calibrated to the brief's pillar + Wholesale Lens priority. Drop this brief into Studio to generate.</em>
+            </div>
+          </details>
+
+          {/* SEND TO STUDIO CTA */}
+          {onDrop && (
+            <div style={{display:"flex",justifyContent:"flex-end",marginTop:18,paddingTop:18,borderTop:"1px solid var(--border)"}}>
+              <button className="drop-btn" onClick={onDrop} style={{padding:"11px 20px",fontSize:11.5}}>↓ Send to Studio · sharpen this brief</button>
             </div>
           )}
 
