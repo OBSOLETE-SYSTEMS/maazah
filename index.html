@@ -79,7 +79,7 @@
 .serif{font-family:'Fraunces',Georgia,serif;letter-spacing:-0.01em}
 .mono{font-family:'JetBrains Mono','Courier New',monospace}
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{background:var(--cream);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased}
+html,body{background:var(--butter);color:var(--ink);font-family:'Inter',system-ui,sans-serif;font-size:14px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 button{font:inherit;cursor:pointer;border:0;background:transparent;color:inherit}
 a{color:inherit;text-decoration:none}
 .app{display:grid;grid-template-columns:240px 1fr;min-height:100vh}
@@ -292,11 +292,18 @@ a{color:inherit;text-decoration:none}
 .refresh-pill{font-size:11px;color:var(--ink);display:flex;align-items:center;gap:6px;font-weight:500}
 .refresh-dot{width:6px;height:6px;border-radius:50%;background:var(--green);box-shadow:0 0 6px rgba(111,175,77,0.7)}
 
-/* Ticker */
+/* Ticker (Phase 10 — color-coded dots + 20% faster animation) */
 .ticker{background:var(--ink);color:#fff;padding:10px 18px;border-radius:10px;margin-bottom:24px;display:flex;align-items:center;gap:18px;overflow:hidden;font-size:12px}
-.ticker-label{font-family:'Bagel Fat One',serif;color:var(--green-soft);font-size:14px;letter-spacing:0.01em;white-space:nowrap;flex-shrink:0}
-.ticker-track{display:flex;gap:36px;flex:1;white-space:nowrap;animation:tickerScroll 38s linear infinite;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:rgba(255,255,255,0.92);letter-spacing:0.02em}
-.ticker-track strong{color:var(--green-soft);margin-right:6px}
+.ticker-label{font-family:'Bagel Fat One',serif;color:var(--brand-light);font-size:14px;letter-spacing:0.01em;white-space:nowrap;flex-shrink:0}
+.ticker-track{display:flex;gap:30px;flex:1;white-space:nowrap;animation:tickerScroll 30s linear infinite;font-family:'JetBrains Mono',monospace;font-size:11.5px;color:rgba(255,255,255,0.92);letter-spacing:0.02em}
+.ticker-track strong{color:var(--brand-light);margin-right:6px}
+.ticker-item{display:inline-flex;align-items:center;gap:8px}
+.ticker-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;box-shadow:0 0 4px currentColor}
+.ticker-dot-signal{background:#6FAF4D;color:#6FAF4D}
+.ticker-dot-pulse{background:#D67A5A;color:#D67A5A}
+.ticker-dot-decision{background:#E8C547;color:#E8C547}
+.ticker-dot-win{background:#7FB069;color:#7FB069}
+.ticker-dot-warning{background:#E08642;color:#E08642}
 @keyframes tickerScroll{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
 
 /* Sub tabs */
@@ -693,11 +700,36 @@ a{color:inherit;text-decoration:none}
 .wl-src{margin-top:auto;padding-top:6px;display:flex;flex-wrap:wrap;gap:6px}
 .wl-src-chip{font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--cream-deep);color:var(--ink-soft);padding:2.5px 7px;border-radius:3px;font-weight:500}
 
+/* ============================================================
+   Responsive breakpoints (Phase 10)
+   ============================================================ */
 @media (max-width:900px){
   .app{grid-template-columns:1fr}
-  .sb{position:relative;height:auto;flex-direction:row;flex-wrap:wrap}
-  .welcome{grid-template-columns:1fr}
+  .sb{position:relative;height:auto;flex-direction:row;flex-wrap:wrap;padding:14px 12px}
+  .sb-brand{flex-basis:100%;border-bottom:1px solid rgba(255,255,255,0.18);margin-bottom:10px;padding-bottom:10px}
+  .sb-item{flex:1 1 auto;min-width:120px;font-size:12.5px;padding:8px 10px}
+  .sb-diag-btn{flex-basis:100%;margin-top:8px}
+  .sb-footer{flex-basis:100%}
   .modal-grid-2{grid-template-columns:1fr}
+}
+@media (max-width:820px){
+  .grid-2{grid-template-columns:1fr}
+  .grid-3{grid-template-columns:1fr}
+  .ride-hero{flex-direction:column;align-items:flex-start;gap:14px}
+  .memo-trigger{flex-direction:column;align-items:flex-start;gap:8px}
+  .hiw-flow-band{grid-template-columns:1fr 1fr}
+  .hiw-step-arrow{display:none}
+  .etf-pipeline{padding:0 4px}
+  .etf-node{width:38px;height:38px;font-size:14px}
+  .etf-node-num{display:none}
+  .ticker{font-size:11px}
+}
+@media (max-width:560px){
+  .main{padding:24px 20px 60px}
+  .page-head h1{font-size:36px}
+  .hiw-flow-band{grid-template-columns:1fr}
+  .ride-hero,.memo-trigger{padding:14px 18px}
+  .mmm-card{max-width:100%;margin:0 8px}
 }
 </style>
 </head>
@@ -995,14 +1027,16 @@ const CULTURE_MOMENTUM = {
 };
 
 const TICKER = [
-  { tag: "COSTCO WK2", text: "Roasted Red Pepper on Midwest shelves · day 9 of 8-12wk window" },
-  { tag: "ALBERTSONS", text: "Top 10 Innovation Launchpad finalist · pitch panel pending" },
-  { tag: "SPROUTS", text: "Nationwide since Dec 18, 2025 · 18mo of retail compounding" },
-  { tag: "WHOLE FOODS", text: "All 3 sauces nationwide since Nov 2024" },
-  { tag: "TIMES SQ", text: "Maazah billboard moment · Dec 20, 2024" },
-  { tag: "EXPO WEST", text: "Booth of Year (MN Pavilion) · 600+ brands · Mar '26" },
-  { tag: "TIKTOK GAP", text: "Cross-platform engagement gap — category-explainer activated WK2" },
-  { tag: "SNACKLE BOX", text: "May 24 lakeside post · 41 likes in 23h · recurring format" }
+  { tag: "COSTCO WK2", text: "Roasted Red Pepper on Midwest shelves · day 9 of 8-12wk window", type: "signal" },
+  { tag: "ALBERTSONS", text: "Top 10 Innovation Launchpad finalist · pitch panel pending", type: "win" },
+  { tag: "SPROUTS", text: "Nationwide since Dec 18, 2025 · 18mo of retail compounding", type: "win" },
+  { tag: "WHOLE FOODS", text: "All 3 sauces nationwide since Nov 2024", type: "win" },
+  { tag: "TIMES SQ", text: "Maazah billboard moment · Dec 20, 2024", type: "win" },
+  { tag: "EXPO WEST", text: "Booth of Year (MN Pavilion) · 600+ brands · Mar '26", type: "win" },
+  { tag: "TIKTOK GAP", text: "Cross-platform engagement gap — category-explainer activated WK2", type: "warning" },
+  { tag: "SNACKLE BOX", text: "May 24 lakeside post · 41 likes in 23h · recurring format", type: "pulse" },
+  { tag: "M04 DRAFT", text: "Engine drafted 'What is lentil dip?' — Conviction 102 / HIGH", type: "decision" },
+  { tag: "WHOLESALE LENS", text: "Buyer-readable composite score Δ projected: +12 if this week ships clean", type: "signal" }
 ];
 
 /* ============================================================
@@ -2158,7 +2192,10 @@ function Ticker() {
       <div className="ticker-label">⚡ THIS WEEK</div>
       <div className="ticker-track">
         {[...TICKER, ...TICKER].map((t, i) => (
-          <span key={i}><strong>{t.tag}:</strong>{t.text}</span>
+          <span key={i} className="ticker-item">
+            <span className={`ticker-dot ticker-dot-${t.type || "signal"}`}></span>
+            <strong>{t.tag}:</strong>{t.text}
+          </span>
         ))}
       </div>
     </div>
@@ -2959,9 +2996,25 @@ function HowItWorksModal({ onClose }) {
 }
 
 /* ============================================================
-   CALENDAR PREVIEW (Phase 1 stub — Phase 9 polishes)
+   CALENDAR PREVIEW (Phase 9 — 7-day grid mockup)
    ============================================================ */
 function CalendarPreview() {
+  const days = ["MON 5/25", "TUE 5/26", "WED 5/27", "THU 5/28", "FRI 5/29", "SAT 5/30", "SUN 5/31"];
+  // Map of briefs to publish days (derived from each brief's publishWindow string)
+  const dayBriefs = days.map((d, i) => {
+    const dayKey = d.split(" ")[0];
+    return BRIEFS.filter(b => b.publishWindow?.startsWith(dayKey));
+  });
+  const formatMix = {
+    "sister-led": BRIEFS.filter(b => b.dnaPattern === "sister-led").length,
+    "sauce-pour": BRIEFS.filter(b => b.dnaPattern === "sauce-pour").length,
+    "category-explainer": BRIEFS.filter(b => b.dnaPattern === "category-explainer").length,
+    "mom-recipe": BRIEFS.filter(b => b.dnaPattern === "mom-recipe").length,
+    "shelf-spotted": BRIEFS.filter(b => b.dnaPattern === "shelf-spotted").length,
+    "collab-cameo": BRIEFS.filter(b => b.dnaPattern === "collab-cameo").length,
+    "swicy-wordplay": BRIEFS.filter(b => b.dnaPattern === "swicy-wordplay").length
+  };
+
   return (
     <>
       <PageHead eyebrow="Engine · Roadmap" title="Calendar" />
@@ -2969,12 +3022,51 @@ function CalendarPreview() {
         <span className="wip-banner-icon">🚧</span>
         <div>
           <div className="wip-banner-eyebrow">UNDER CONSTRUCTION</div>
-          <div className="wip-banner-body">A preview of what's coming · <strong>7-day grid · brief slots per day · format-mix bar · paid-amplification markers.</strong> Below is FPO content so you can see the shape.</div>
+          <div className="wip-banner-body">A preview of what's coming · <strong>brief slots auto-flow into 7-day grid · format-mix bar tracks pillar + DNA balance · paid-amplification markers when AMPLIFY plan ships.</strong> The grid below pulls real briefs from this week so you can see the cadence shape.</div>
         </div>
       </div>
-      <div style={{background:"var(--butter-light)",border:"1.5px dashed var(--border)",borderRadius:14,padding:48,textAlign:"center",color:"var(--ink-soft)"}}>
-        <div style={{fontFamily:"'Bagel Fat One',serif",fontSize:48,color:"var(--brand-primary)",opacity:0.18,lineHeight:1}}>SOON</div>
-        <div style={{marginTop:14,fontSize:13,fontFamily:"'Fraunces',Georgia,serif",fontStyle:"italic"}}>weekly publish cadence visualized · 7-day view · brief → slot → ship status</div>
+
+      {/* 7-day grid */}
+      <div style={{display:"grid",gridTemplateColumns:"repeat(7,1fr)",gap:8,marginBottom:24}}>
+        {days.map((d, i) => (
+          <div key={d} style={{background:"var(--butter-light)",border:"1.5px solid var(--brand-light)",borderRadius:10,padding:"10px 11px 12px",minHeight:160,position:"relative"}}>
+            <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.12em",fontWeight:700,color:"var(--ink)",borderBottom:"1px solid var(--border)",paddingBottom:6,marginBottom:8,textTransform:"uppercase"}}>{d}</div>
+            {dayBriefs[i].length === 0 && (
+              <div style={{fontSize:11,color:"var(--ink-soft)",fontStyle:"italic",fontFamily:"'Fraunces',Georgia,serif",lineHeight:1.4}}>— open slot —</div>
+            )}
+            {dayBriefs[i].map(b => (
+              <div key={b.id} style={{background:"#fff",border:"1px solid var(--border)",borderLeft:`4px solid var(--pillar-${b.pillar})`,borderRadius:6,padding:"6px 8px",marginBottom:6,fontSize:10.5,lineHeight:1.35}}>
+                <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:9,letterSpacing:"0.08em",color:"var(--ink-soft)",fontWeight:700,marginBottom:2}}>{b.publishWindow.split(" ").slice(1).join(" ")}</div>
+                <div style={{color:"var(--ink)",fontWeight:600,fontSize:10.5}}>{b.id.split("-").pop()}</div>
+                <div style={{color:"var(--ink-soft)",fontSize:9.5,marginTop:2,display:"-webkit-box",WebkitLineClamp:2,WebkitBoxOrient:"vertical",overflow:"hidden"}}>{b.concept.slice(0,60)}...</div>
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+
+      {/* Format mix bar */}
+      <div style={{background:"var(--butter-light)",border:"1.5px solid var(--brand-light)",borderRadius:12,padding:"16px 20px"}}>
+        <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.14em",color:"var(--brand-deep)",fontWeight:700,textTransform:"uppercase",marginBottom:12}}>// FORMAT MIX · DNA PATTERN DISTRIBUTION</div>
+        <div style={{display:"flex",height:32,borderRadius:6,overflow:"hidden",border:"1px solid var(--border)"}}>
+          {Object.entries(formatMix).filter(([_,n]) => n > 0).map(([dna, n]) => {
+            const colors = {"sister-led":"#6FAF4D","sauce-pour":"#D67A5A","category-explainer":"#E08642","mom-recipe":"#87B26F","shelf-spotted":"#E8C547","collab-cameo":"#E8A66F","swicy-wordplay":"#C84A38"};
+            return (
+              <div key={dna} title={`${dna}: ${n} briefs`} style={{flex:n,background:colors[dna] || "#999",display:"flex",alignItems:"center",justifyContent:"center",fontFamily:"'JetBrains Mono',monospace",fontSize:9,fontWeight:700,color:"#fff",letterSpacing:"0.06em",textTransform:"uppercase",minWidth:36}}>{n}</div>
+            );
+          })}
+        </div>
+        <div style={{display:"flex",flexWrap:"wrap",gap:10,marginTop:10,fontSize:11,color:"var(--ink-soft)"}}>
+          {Object.entries(formatMix).filter(([_,n]) => n > 0).map(([dna, n]) => {
+            const colors = {"sister-led":"#6FAF4D","sauce-pour":"#D67A5A","category-explainer":"#E08642","mom-recipe":"#87B26F","shelf-spotted":"#E8C547","collab-cameo":"#E8A66F","swicy-wordplay":"#C84A38"};
+            return (
+              <span key={dna} style={{display:"inline-flex",alignItems:"center",gap:5}}>
+                <span style={{width:9,height:9,borderRadius:2,background:colors[dna] || "#999"}}></span>
+                {dna} · {n}
+              </span>
+            );
+          })}
+        </div>
       </div>
     </>
   );
