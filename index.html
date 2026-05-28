@@ -194,6 +194,23 @@ body.fs-lg .main{zoom:1.12}
 .hiw-step:last-child .hiw-step-arrow{display:none}
 
 /* Engine Thinking Flow — 7 nodes + per-step card */
+/* SOURCES + BRAND DNA section (above ETF) — coral theme to pop */
+.src-section{margin-bottom:28px;background:linear-gradient(135deg,#FDF1EB 0%,#FCE7DC 100%);border:1.5px solid var(--brand-accent);border-left:6px solid var(--brand-accent-deep);border-radius:18px;padding:22px 26px;box-shadow:0 4px 16px rgba(214,122,90,0.14)}
+.src-head{display:flex;justify-content:space-between;align-items:flex-end;gap:14px;margin-bottom:18px;padding-bottom:14px;border-bottom:1px dashed rgba(158,63,49,0.22)}
+.src-eye{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.18em;color:var(--brand-accent-deep);font-weight:800;text-transform:uppercase;margin-bottom:5px}
+.src-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:24px;letter-spacing:0.005em;line-height:1.05;color:var(--ink)}
+.src-total{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;font-weight:800;text-transform:uppercase;color:#fff;background:var(--brand-accent);padding:6px 14px;border-radius:99px;white-space:nowrap;box-shadow:0 2px 0 var(--brand-accent-deep)}
+.src-stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:18px}
+@media(max-width:780px){.src-stats{grid-template-columns:1fr 1fr}}
+.src-stat{background:#fff;border:1.5px solid #F0C5B0;border-radius:12px;padding:14px 14px;text-align:center;box-shadow:0 2px 0 #F0C5B0}
+.src-stat-num{font-family:'Bagel Fat One',serif;font-size:34px;color:var(--brand-accent-deep);line-height:1}
+.src-stat-label{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--ink-soft);font-weight:700;text-transform:uppercase;margin-top:6px}
+.src-lanes{display:flex;flex-direction:column;gap:5px}
+.src-lane{display:flex;justify-content:space-between;align-items:center;padding:9px 14px;background:rgba(255,255,255,0.55);border:1px solid rgba(158,63,49,0.12);border-radius:8px;font-size:12.5px;color:var(--ink);transition:background 0.12s}
+.src-lane:hover{background:#fff}
+.src-lane-label{font-weight:500}
+.src-lane-count{font-family:'JetBrains Mono',monospace;font-weight:800;color:var(--brand-accent-deep);letter-spacing:0.04em;font-size:11.5px;white-space:nowrap}
+
 .etf-section{margin-bottom:28px;background:var(--butter-light);border:1.5px solid var(--brand-primary);border-radius:18px;padding:20px 24px}
 .etf-head{margin-bottom:30px}
 .etf-eye{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.18em;color:var(--brand-accent-deep);font-weight:700;text-transform:uppercase;margin-bottom:4px}
@@ -4256,6 +4273,38 @@ function HowItWorksTab() {
         ))}
       </div>
 
+      {/* SOURCES + BRAND DNA — always-expanded, coral theme to pop */}
+      <section className="src-section">
+        <div className="src-head">
+          <div>
+            <div className="src-eye">// WHAT THE ENGINE LISTENS TO</div>
+            <div className="src-title">Sources + Brand DNA</div>
+          </div>
+          <span className="src-total">{SOURCES_SUMMARY.totalSources} sources</span>
+        </div>
+        <div className="src-stats">
+          {[
+            { num: SOURCES_SUMMARY.totalSources, label: "sources" },
+            { num: SOURCES_SUMMARY.lanes, label: "signal lanes" },
+            { num: SOURCES_SUMMARY.agents, label: "agents" },
+            { num: SOURCES_SUMMARY.workers, label: "workers" }
+          ].map((s, i) => (
+            <div key={i} className="src-stat">
+              <div className="src-stat-num">{s.num}</div>
+              <div className="src-stat-label">{s.label}</div>
+            </div>
+          ))}
+        </div>
+        <div className="src-lanes">
+          {SOURCES_SUMMARY.perLane.map((l, i) => (
+            <div key={i} className="src-lane">
+              <span className="src-lane-label">{l.lane}</span>
+              <span className="src-lane-count">{l.count} sources</span>
+            </div>
+          ))}
+        </div>
+      </section>
+
       {/* ENGINE THINKING FLOW — the centerpiece */}
       <div className="etf-section">
         <div className="etf-head">
@@ -4389,40 +4438,6 @@ function HowItWorksTab() {
                 </div>
                 <div style={{fontSize:13,fontWeight:700,color:"var(--ink)",marginBottom:3,lineHeight:1.4}}>{b.rule}</div>
                 <div style={{fontSize:11.5,color:"var(--ink-soft)",lineHeight:1.5}}>{b.why}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </details>
-
-      <details className="howit-acc">
-        <summary>
-          <div className="howit-acc-titles">
-            <div className="howit-acc-eye">// WHAT THE ENGINE LISTENS TO</div>
-            <div className="howit-acc-title">Sources + Brand DNA</div>
-          </div>
-          <span className="howit-acc-count">{SOURCES_SUMMARY.totalSources} sources</span>
-          <span className="howit-acc-chevron">▾</span>
-        </summary>
-        <div className="howit-acc-body howit-acc-body-padded">
-          <div style={{display:"grid",gridTemplateColumns:"repeat(4,1fr)",gap:14,marginBottom:18}}>
-            {[
-              { num: SOURCES_SUMMARY.totalSources, label: "sources" },
-              { num: SOURCES_SUMMARY.lanes, label: "signal lanes" },
-              { num: SOURCES_SUMMARY.agents, label: "agents" },
-              { num: SOURCES_SUMMARY.workers, label: "workers" }
-            ].map((s, i) => (
-              <div key={i} style={{background:"var(--butter-light)",border:"1.5px solid var(--brand-light)",borderRadius:10,padding:"14px 16px",textAlign:"center"}}>
-                <div style={{fontFamily:"'Bagel Fat One',serif",fontSize:32,color:"var(--brand-deep)",lineHeight:1}}>{s.num}</div>
-                <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10,letterSpacing:"0.14em",color:"var(--ink-soft)",fontWeight:700,textTransform:"uppercase",marginTop:6}}>{s.label}</div>
-              </div>
-            ))}
-          </div>
-          <div style={{display:"flex",flexDirection:"column",gap:6}}>
-            {SOURCES_SUMMARY.perLane.map((l, i) => (
-              <div key={i} style={{display:"flex",justifyContent:"space-between",alignItems:"center",padding:"7px 12px",background:i % 2 === 0 ? "var(--butter-light)" : "transparent",borderRadius:6,fontSize:12.5,color:"var(--ink)"}}>
-                <span>{l.lane}</span>
-                <span style={{fontFamily:"'JetBrains Mono',monospace",fontWeight:700,color:"var(--brand-deep)",letterSpacing:"0.04em"}}>{l.count} sources</span>
               </div>
             ))}
           </div>
