@@ -1001,6 +1001,12 @@ button.brief-link{font:inherit;font-family:'Inter',sans-serif}
 .mmm-moves{display:flex;flex-direction:column;gap:10px}
 .mmm-move{background:#fff;border:1px solid var(--brand-light);border-radius:10px;padding:14px 16px;display:flex;gap:14px;align-items:flex-start}
 .mmm-move-num{font-family:'Bagel Fat One',serif;font-weight:400;font-size:24px;line-height:1;color:var(--brand-accent);flex-shrink:0;width:30px;text-align:center;letter-spacing:0.005em}
+.mmm-decisions{margin-top:18px;border-top:1px dashed var(--border);padding-top:14px}
+.mmm-decisions-trigger{display:flex;justify-content:space-between;align-items:center;width:100%;background:transparent;border:0;padding:6px 2px;cursor:pointer;text-align:left;transition:opacity 0.12s}
+.mmm-decisions-trigger:hover{opacity:0.7}
+.mmm-decisions-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;font-weight:800;color:var(--brand-deep);text-transform:uppercase}
+.mmm-decisions-count{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.12em;color:var(--ink-soft);font-weight:600;text-transform:uppercase}
+.mmm-decisions-body{margin-top:12px;display:flex;flex-direction:column;gap:8px}
 .mmm-move-hold{background:rgba(232,134,66,0.07);border-color:rgba(232,134,66,0.32)}
 .mmm-move-hold .mmm-move-num{color:#8B6F1F;font-size:20px}
 .mmm-move-hold .mmm-move-verb{color:#8B6F1F}
@@ -3136,9 +3142,6 @@ function MaazahApp() {
           <button className={`sb-item ${page==="wholesale"?"active":""}`} onClick={() => setPage("wholesale")} title="The buyer-view dashboard. What Maazah's Costco / Sprouts / Albertsons buyer sees Tuesday morning, scored 0-100.">
             <span className="sb-item-icon">👁</span> Wholesale Lens
           </button>
-          <button className={`sb-item ${page==="decisions"?"active":""}`} onClick={() => setPage("decisions")} title="Every meaningful call the engine made this week — what it killed, what it promoted, what it queued. Override anything in 60 seconds.">
-            <span className="sb-item-icon">▶</span> Decisions Log
-          </button>
           <button className={`sb-item ${page==="calendar"?"active":""}`} onClick={() => setPage("calendar")} title="7-day calendar grid with auto-balanced format mix. Preview — full version ships with the OPERATE retainer.">
             <span className="sb-item-icon">▢</span> Calendar <span className="sb-item-soon">WIP</span>
           </button>
@@ -3170,7 +3173,6 @@ function MaazahApp() {
         {page === "intel" && <IntelPage tab={intelTab} setTab={setIntelTab} openMemo={() => setMemoOpen(true)} openStudioWith={openStudioWith} onBriefOpen={setBriefOpen} />}
         {page === "briefs" && <BriefsPage onOpen={setBriefOpen} />}
         {page === "wholesale" && <WholesaleLensPage />}
-        {page === "decisions" && <DecisionsPage />}
         {page === "howit" && <HowItWorksTab />}
         {page === "calendar" && <CalendarPreview />}
         {page === "performance" && <PerformancePreview />}
@@ -3198,6 +3200,7 @@ function MaazahApp() {
    Auto-opens on first load · ESC to close · backdrop click to close.
    ============================================================ */
 function MondayMemoModal({ onClose, onShipIt }) {
+  const [decisionsOpen, setDecisionsOpen] = React.useState(false);
   useEffect(() => {
     const onKey = (e) => { if (e.key === "Escape") onClose(); };
     window.addEventListener("keydown", onKey);
@@ -3262,6 +3265,27 @@ function MondayMemoModal({ onClose, onShipIt }) {
                 </div>
               ))}
             </div>
+          </div>
+
+          {/* DECISIONS LOG — collapsed by default, reveal on click */}
+          <div className="mmm-decisions">
+            <button className="mmm-decisions-trigger" onClick={() => setDecisionsOpen(o => !o)}>
+              <span className="mmm-decisions-eye">▶ THE CALLS WE MADE TO GET HERE</span>
+              <span className="mmm-decisions-count">{DECISIONS.length} decisions · {decisionsOpen ? "hide" : "show"}</span>
+            </button>
+            {decisionsOpen && (
+              <div className="mmm-decisions-body">
+                {DECISIONS.map((d, i) => (
+                  <div key={i} className="dec-row">
+                    <span className={`dec-tag dec-${d.tag.toLowerCase()}`}>{d.tag}</span>
+                    <div style={{flex:1,minWidth:0}}>
+                      <div className="dec-text"><strong>{d.text}</strong></div>
+                      <div className="dec-why">{d.why}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
 
           <div style={{fontFamily:"'JetBrains Mono',monospace",fontSize:10.5,letterSpacing:"0.06em",color:"var(--ink-soft)",lineHeight:1.6,paddingTop:8,whiteSpace:"pre-line"}}>{WELCOME_SIG}</div>
