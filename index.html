@@ -114,13 +114,7 @@ a{color:inherit;text-decoration:none}
 /* ============================================================
    How It Works tab — engine in motion
    ============================================================ */
-.hiw-hero{background:linear-gradient(135deg,var(--brand-deep) 0%,var(--brand-primary) 50%,var(--brand-accent-deep) 130%);color:#fff;border-radius:18px;padding:36px 40px 32px;margin-bottom:20px;position:relative;overflow:hidden}
-.hiw-cadence{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:28px}
-@media(max-width:880px){.hiw-cadence{grid-template-columns:1fr 1fr}}
-.hiw-cadence-item{background:var(--paper);border:1.5px solid var(--brand-light);border-radius:12px;padding:16px 18px;box-shadow:0 2px 0 var(--brand-light)}
-.hiw-cadence-num{font-family:'Bagel Fat One',serif;font-weight:400;font-size:32px;line-height:1;letter-spacing:0.005em;color:var(--brand-deep);margin-bottom:6px}
-.hiw-cadence-label{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.14em;font-weight:800;text-transform:uppercase;color:var(--ink);margin-bottom:4px}
-.hiw-cadence-sub{font-family:'Fraunces',Georgia,serif;font-size:12px;line-height:1.4;color:var(--ink-soft);font-style:italic}
+.hiw-hero{background:linear-gradient(135deg,var(--brand-deep) 0%,var(--brand-primary) 50%,var(--brand-accent-deep) 130%);color:#fff;border-radius:18px;padding:36px 40px 32px;margin-bottom:28px;position:relative;overflow:hidden}
 .hiw-hero-eye{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;font-weight:700;text-transform:uppercase;opacity:0.9;margin-bottom:12px}
 .hiw-hero-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:38px;line-height:1.05;letter-spacing:0.005em;max-width:680px}
 
@@ -4026,37 +4020,13 @@ function HowItWorksTab() {
         <div className="hiw-hero-title">Your monday opens with the brief — not the research.</div>
       </div>
 
-      {/* Engine cadence strip — salvaged from old Pipeline Status: just the at-a-glance numbers */}
-      <div className="hiw-cadence">
-        <div className="hiw-cadence-item">
-          <div className="hiw-cadence-num">{PIPELINE_STATUS.sourcesWatching}</div>
-          <div className="hiw-cadence-label">sources watching</div>
-          <div className="hiw-cadence-sub">food · culture · retail · competition</div>
-        </div>
-        <div className="hiw-cadence-item">
-          <div className="hiw-cadence-num">6</div>
-          <div className="hiw-cadence-label">specialist agents</div>
-          <div className="hiw-cadence-sub">Flavor · Heritage · Pulse · Shelf · Voice · Strategist</div>
-        </div>
-        <div className="hiw-cadence-item">
-          <div className="hiw-cadence-num">12–14</div>
-          <div className="hiw-cadence-label">briefs per week</div>
-          <div className="hiw-cadence-sub">production-ready · 4 pillars · 8 DNA formats</div>
-        </div>
-        <div className="hiw-cadence-item">
-          <div className="hiw-cadence-num">Sun 9PM</div>
-          <div className="hiw-cadence-label">weekly refresh</div>
-          <div className="hiw-cadence-sub">your monday opens with the moves</div>
-        </div>
-      </div>
-
-      {/* 4-STEP FLOW BAND — engine philosophy at a high level */}
+      {/* 4-STEP FLOW BAND — engine philosophy at a high level (now the lead) */}
       <div className="hiw-flow-band">
         {[
-          { num: "01", name: "Listen", icon: "📡", body: "200 sources across food, culture, retail, and competition." },
-          { num: "02", name: "Calibrate", icon: "🎛️", body: "Score every signal against your tonal territories." },
-          { num: "03", name: "Brief", icon: "✍️", body: "Generate 12–14 production-ready briefs each week." },
-          { num: "04", name: "Produce", icon: "📤", body: "Your team ships. Engine never posts on its own." }
+          { num: "01", name: "Listen", icon: "📡", body: "200 sources across food, culture, retail, and competition — scanned daily." },
+          { num: "02", name: "Calibrate", icon: "🎛️", body: "Six specialist agents (Flavor · Heritage · Pulse · Shelf · Voice · Strategist) score every signal against your tonal territories." },
+          { num: "03", name: "Brief", icon: "✍️", body: "12–14 production-ready briefs each week, mixed across 4 pillars + 8 DNA formats." },
+          { num: "04", name: "Produce", icon: "📤", body: "Engine refreshes Sunday 9 PM CT. Your team ships. Engine never posts on its own." }
         ].map((s, i) => (
           <div key={s.num} className="hiw-step">
             <div className="hiw-step-top">
