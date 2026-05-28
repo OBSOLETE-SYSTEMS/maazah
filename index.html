@@ -162,8 +162,18 @@ a{color:inherit;text-decoration:none}
 .etf-card-agent-name{font-family:'Bagel Fat One',serif;font-weight:400;font-size:20px;letter-spacing:0.005em;color:var(--ink);line-height:1}
 .etf-card-agent-focus{font-size:11.5px;color:var(--ink-soft);margin-top:3px;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em}
 .etf-card-step-counter{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--brand-accent-deep);background:rgba(214,122,90,0.14);padding:5px 11px;border-radius:99px;font-weight:700;text-transform:uppercase;border:1px solid rgba(214,122,90,0.32);white-space:nowrap}
-.etf-card-incoming{display:inline-flex;align-items:center;gap:6px;background:var(--brand-light-soft);color:var(--brand-deep);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;font-weight:700;padding:5px 11px;border-radius:99px;text-transform:uppercase;margin-bottom:12px;border:1px dashed rgba(111,175,77,0.4)}
-.etf-card-watches{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:14px}
+.etf-card-incoming{display:inline-flex;align-items:center;gap:6px;background:var(--brand-light-soft);color:var(--brand-deep);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;font-weight:700;padding:5px 11px;border-radius:99px;text-transform:uppercase;margin-bottom:14px;border:1px dashed rgba(111,175,77,0.4)}
+.etf-card-role{margin-bottom:16px;padding:13px 15px;background:linear-gradient(135deg,rgba(214,122,90,0.07) 0%,rgba(111,175,77,0.05) 100%);border:1px solid var(--brand-light);border-radius:10px}
+.etf-card-role-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;font-weight:800;color:var(--brand-accent-deep);text-transform:uppercase;margin-bottom:6px}
+.etf-card-role-body{font-family:'Fraunces',Georgia,serif;font-size:13.5px;line-height:1.55;color:var(--ink);font-weight:500;letter-spacing:-0.005em}
+.etf-card-watch-block{margin-bottom:18px}
+.etf-card-block-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:var(--ink-soft);font-weight:700;text-transform:uppercase;margin-bottom:8px}
+.etf-card-example{padding-top:16px;border-top:2px dashed rgba(111,175,77,0.32);position:relative}
+.etf-card-example-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.18em;color:var(--brand-deep);font-weight:800;text-transform:uppercase;margin-bottom:10px;display:inline-block;background:var(--butter-light);padding:3px 10px;border-radius:99px;border:1px solid var(--brand-light)}
+.etf-card-handoff{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--border)}
+.etf-card-handoff-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--brand-accent-deep);font-weight:800;text-transform:uppercase;flex-shrink:0}
+.etf-card-handoff-target{font-family:'Bagel Fat One',serif;font-weight:400;font-size:16px;letter-spacing:0.005em;color:var(--ink);line-height:1}
+.etf-card-watches{display:flex;flex-wrap:wrap;gap:6px}
 .etf-card-watch-chip{font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--brand-light-soft);color:var(--brand-deep);padding:3px 9px;border-radius:99px;letter-spacing:0.04em;font-weight:600;border:1px solid rgba(111,175,77,0.32)}
 .etf-card-title{font-family:'Fraunces',Georgia,serif;font-size:17px;font-weight:700;letter-spacing:-0.01em;color:var(--ink);margin-bottom:6px}
 .etf-card-what{font-size:13.5px;line-height:1.55;color:var(--ink);margin-bottom:14px}
@@ -1680,65 +1690,79 @@ const ENGINE_THINKING_STEPS = [
   {
     num: "01", icon: "⚗️", agentName: "Flavor Lab", focus: "category sensory + ingredient theater",
     incoming: null,
+    role: "Scans 67 cultural + ingredient sources every 6 hours looking for moments that match Maazah's flavor language. Triages every signal by velocity, geographic spread, and save-rate — three independent filters that separate a real opportunity from fleeting noise.",
     watches: ["TikTok CC · #costcofind", "Reddit r/Costco hauls", "Pinterest 'lentil dip' searches"],
     title: "Signal detected",
     what: "Costco Midwest rollout UGC velocity spiking — shoppers tagging Maazah's tub across 10 states in the past 72 hours.",
     filters: ["Velocity: >50 mentions/72h ✓ (current 187)", "Geographic spread: ≥6 states ✓ (current 10)", "Save-velocity bonus: 2× weight applied"],
-    verdict: "Signal qualifies — high velocity, geographically dense, save-driven. Promote to Cultural Pulse Tracker."
+    handsOffTo: "Cultural Pulse Tracker",
+    verdict: "Signal qualifies — high velocity, geographically dense, save-driven."
   },
   {
     num: "02", icon: "📡", agentName: "Cultural Pulse Tracker", focus: "score against 8 tonal territories",
     incoming: "Flavor Lab",
+    role: "Holds Maazah's 8 tonal territories + the anti-pattern downweight list. Scores every incoming signal against both lists in parallel. Only signals that hit ≥1 territory AND clear every anti-pattern downweight continue forward — the rest get archived with a reason code.",
     watches: ["8 Maazah tonal territories", "anti-pattern downweights", "first-gen content velocity"],
     title: "Tonal-territory match",
     what: "Signal scored against Maazah's 8 tonal territories. Hits 4 — Costco-Aisle-Moment (primary), Magic-as-Master-Metaphor, Saucy-Squad Humor, Heritage-with-Scale.",
     filters: ["≥1 tonal territory hit (required) ✓ (hits 4)", "No anti-pattern overlap ✓", "Celebrity-reaction downweight not triggered ✓"],
-    verdict: "Strong cultural fit — route to Shelf Watch to confirm commercial math before brief generation."
+    handsOffTo: "Shelf Watch",
+    verdict: "Strong cultural fit — commercial math next."
   },
   {
     num: "03", icon: "🛒", agentName: "Shelf Watch", focus: "retail economics + repeat-velocity math",
     incoming: "Cultural Pulse Tracker",
+    role: "Tracks the retail-economics layer — Costco buyer-review cycles, competitor ad-spend velocity, press-release flow. Calculates whether content shipped THIS week will land inside the buyer's next review window. Gates anything timed for the wrong moment, even if the cultural read is perfect.",
     watches: ["Costco buyer-cycle calendar", "Meta Ad Library (Hope · Sabra · FBJ)", "Press Release RSS"],
     title: "Shelf math confirmed",
     what: "Day 9 of the 8-12 week Costco repeat-velocity window. Buyer reviews velocity at week 8. Content shipped now compounds into that review. Tailwind: Hope Foods just validated the non-hummus dip category.",
     filters: ["In active retail-window ✓ (day 9 of 56-84 day cycle)", "Competitive backdrop favorable ✓", "Projected Wholesale Lens score Δ: +12 if shipped this week"],
-    verdict: "Commercial math holds. Route to Voice Compass + pillar router."
+    handsOffTo: "Voice Compass + pillar router",
+    verdict: "Commercial math holds. Cleared for voice + format routing."
   },
   {
     num: "04", icon: "💬", agentName: "Voice Compass + pillar router", focus: "platform-aware voice match",
     incoming: "Shelf Watch",
+    role: "Owns Maazah's voice fingerprint and platform-aware routing. Decides which of 4 pillars the signal lands in, which platform leads (IG vs TikTok have different format registers), and whether the Sister Rule (≤1 sister-led TikTok unless category-explainer) applies. Voice + format locked here for downstream draft.",
     watches: ["MOM'S TABLE pillar (depth lane)", "Sister Rule (IG 6-8 sister-led)", "TikTok category-explainer pattern"],
     title: "Pillar + format routed",
     what: "Signal routes to MOM'S TABLE (first-gen heritage arc fits). Platform split: IG version goes sister-led, TikTok version goes category-explainer (your proven breakout pattern).",
     filters: ["Magic-cap: ≤60% of week's briefs use 'magic' in headline ✓ (current 31%)", "Sister Rule (IG): 4-9 sister-led ✓ (current 6)", "TikTok format register: category-explainer, not founder ✓"],
-    verdict: "Voice fingerprint locked. Drafting brief in MOM'S TABLE / category-explainer lane."
+    handsOffTo: "The Strategist",
+    verdict: "Voice fingerprint locked. Drafting in MOM'S TABLE / category-explainer lane."
   },
   {
     num: "05", icon: "🧠", agentName: "The Strategist", focus: "brief generation in Maazah voice",
     incoming: "Voice Compass",
+    role: "Synthesis layer. Drafts the actual brief — concept, 3 hook variants, IG + TikTok captions, multi-scene shot list, audio reference — pulling from a curated library of Maazah voice exemplars + the 8 DNA pattern library. Conviction scored against three independent inputs (voice match, synthetic panel, pulse fit). Doesn't hand off unless score clears 70.",
     watches: ["voice exemplars (gold standard)", "anti-patterns", "DNA pattern library"],
     title: "Brief generated",
     what: "Drafts 'What is lentil dip?' — period-spaced descriptor format + Mom-coded origin line + brand-voice category-creation. Concept + 3 hook variants + IG/TikTok captions + 7-scene shot list + audio reco.",
     filters: ["Voice exemplar match score: 88/100", "≤1 wordplay payoff ✓", "Sister-as-narrator default ✓", "Music lane: TikTok meme-fluent ✓"],
-    verdict: "Brief drafted. Conviction Score: 102 (HIGH). Routing to Step 7 audit."
+    handsOffTo: "Step 7 Audit",
+    verdict: "Brief drafted. Conviction Score: 102 (HIGH)."
   },
   {
-    num: "06", icon: "✅", agentName: "Step 7 Audit · 28 checks", focus: "human-filter audit before ship",
+    num: "06", icon: "✅", agentName: "Step 7 Audit · 28 checks", focus: "mechanical filter before ship",
     incoming: "The Strategist",
+    role: "Final filter. Runs the brief through 28 mechanical checks — family-rule enforcement, magic-cap, competitor-name detection, audio-lane fit, phrase-overlap dedup against the last 5 weeks of briefs. The checks catch voice drift and repetition no human would reliably spot. Any failure bounces back to The Strategist for redraft.",
     watches: ["family-rule enforcement", "magic-cap", "competitor-name check", "audio-lane fit", "phrase-overlap dedup"],
     title: "Audit pass — 28 checks",
     what: "Brief passes all 28 audit checks: no Mom required, no competitor names in consumer copy, magic-headline under cap, audio in TikTok lane, no phrase overlap >15 chars vs. last 5 weeks.",
     filters: ["Family-rule enforcement: PASS (no required participation)", "Magic-cap: PASS (31% ≤ 60%)", "Audio-lane fit: PASS (TikTok meme-fluent)", "Phrase-overlap dedup: PASS"],
-    verdict: "All 28 checks pass. Brief shipped to Content Briefs queue."
+    handsOffTo: "Content Briefs queue",
+    verdict: "All 28 checks pass. Cleared for delivery."
   },
   {
     num: "07", icon: "📤", agentName: "Ready · Thursday queue", focus: "delivered to team production",
     incoming: "Step 7 Audit",
+    role: "Delivery layer. Slots the brief into the team's production calendar with platform, day, time, conviction tag, and RIDE-NOW status. Engine moves to the next signal. Yasameen + Sheilla scan, override anything that doesn't sit right, ship the rest. Human-in-control at the last mile, every time.",
     watches: ["Content Briefs queue", "team production calendar"],
-    title: "M04 brief in queue",
-    what: "'What is lentil dip?' (M04) scheduled for Thursday 12:00pm CT. Conviction 102 / HIGH. RIDE-NOW tagged. Team produces + ships.",
+    title: "Brief in queue",
+    what: "'What is lentil dip?' scheduled for Thursday 12:00pm CT. Conviction 102 / HIGH. RIDE-NOW tagged. Team produces + ships.",
     filters: ["Slot: Thursday 12:00pm CT (TikTok primary + IG cross-post)", "Conviction: 102 (HIGH) — Ship first.", "RIDE-NOW: YES — culturally decay-sensitive"],
-    verdict: "Brief delivered. Engine moves to next signal."
+    handsOffTo: "Your team",
+    verdict: "Delivered. Engine moves to next signal."
   }
 ];
 
@@ -4043,9 +4067,9 @@ function HowItWorksTab() {
       {/* ENGINE THINKING FLOW — the centerpiece */}
       <div className="etf-section">
         <div className="etf-head">
-          <div className="etf-eye">// ENGINE THINKING FLOW · ONE SIGNAL, END TO END</div>
-          <div className="etf-title">How the engine got from a Costco-aisle reel to brief M04.</div>
-          <div className="etf-sub">Click any node to step through. This is the actual decision trace the engine made this week — signal → tonal match → shelf math → pillar routing → brief generated → audit → shipped to the Thursday queue.</div>
+          <div className="etf-eye">// HOW THE ENGINE THINKS</div>
+          <div className="etf-title">Seven agents. One shared brief queue. Always running.</div>
+          <div className="etf-sub">Each agent specializes. They evaluate each other's work upstream + downstream. Communication is a structured handoff with rules + checks at every node. Click any agent to see what they listen for, how they evaluate, and what they pass to the next. Example: how the engine handled a Costco-aisle UGC signal this week.</div>
         </div>
 
         <div className="etf-pipeline">
@@ -4072,30 +4096,50 @@ function HowItWorksTab() {
               <div className="etf-card-agent-name">{current.agentName}</div>
               <div className="etf-card-agent-focus">{current.focus}</div>
             </div>
-            <div className="etf-card-step-counter">STEP {current.num} / 07</div>
+            <div className="etf-card-step-counter">AGENT {current.num} / 07</div>
           </div>
 
           {current.incoming && (
-            <span className="etf-card-incoming">↗ Incoming from {current.incoming}</span>
+            <span className="etf-card-incoming">↗ Receives from {current.incoming}</span>
           )}
 
-          <div className="etf-card-watches">
-            {current.watches.map((w, i) => (
-              <span key={i} className="etf-card-watch-chip">{w}</span>
-            ))}
+          {current.role && (
+            <div className="etf-card-role">
+              <div className="etf-card-role-eye">▶ THE AGENT'S ROLE</div>
+              <div className="etf-card-role-body">{current.role}</div>
+            </div>
+          )}
+
+          <div className="etf-card-watch-block">
+            <div className="etf-card-block-eye">// LISTENS TO</div>
+            <div className="etf-card-watches">
+              {current.watches.map((w, i) => (
+                <span key={i} className="etf-card-watch-chip">{w}</span>
+              ))}
+            </div>
           </div>
 
-          <div className="etf-card-title">{current.title}</div>
-          <div className="etf-card-what">{current.what}</div>
+          <div className="etf-card-example">
+            <div className="etf-card-example-eye">EXAMPLE · THIS WEEK</div>
+            <div className="etf-card-title">{current.title}</div>
+            <div className="etf-card-what">{current.what}</div>
 
-          <div className="etf-card-filters">
-            <div className="etf-card-filters-eye">// FILTERS + CHECKS</div>
-            {current.filters.map((f, i) => (
-              <div key={i} className="etf-card-filter">{f}</div>
-            ))}
+            <div className="etf-card-filters">
+              <div className="etf-card-filters-eye">// RULES IT EVALUATED</div>
+              {current.filters.map((f, i) => (
+                <div key={i} className="etf-card-filter">{f}</div>
+              ))}
+            </div>
+
+            <div className="etf-card-verdict">{current.verdict}</div>
+
+            {current.handsOffTo && (
+              <div className="etf-card-handoff">
+                <span className="etf-card-handoff-eye">↗ HANDS OFF TO</span>
+                <span className="etf-card-handoff-target">{current.handsOffTo}</span>
+              </div>
+            )}
           </div>
-
-          <div className="etf-card-verdict">{current.verdict}</div>
 
           <div className="etf-nav">
             <button className="etf-nav-btn" onClick={() => setStep(s => Math.max(0, s - 1))} disabled={step === 0}>← back</button>
