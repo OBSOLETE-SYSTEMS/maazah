@@ -111,8 +111,9 @@ a{color:inherit;text-decoration:none}
 
 /* AUTH GATE */
 .auth-gate{position:fixed;inset:0;background:linear-gradient(135deg,var(--brand-deep) 0%,var(--brand-primary) 50%,var(--brand-accent-deep) 130%);display:flex;align-items:center;justify-content:center;z-index:9999;padding:24px}
-.auth-card{background:var(--paper);border-radius:20px;padding:36px 38px 32px;max-width:420px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.32);text-align:left}
-.auth-logo{width:54px;height:62px;color:var(--ink);margin-bottom:14px}
+.auth-card{background:var(--paper);border-radius:20px;padding:36px 38px;max-width:380px;width:100%;box-shadow:0 20px 60px rgba(0,0,0,0.32);text-align:center;display:flex;flex-direction:column;align-items:center}
+.auth-logo{width:64px;height:74px;color:var(--ink);margin-bottom:22px}
+.auth-card form{width:100%}
 .auth-eye{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.18em;font-weight:700;color:var(--brand-accent-deep);text-transform:uppercase;margin-bottom:6px}
 .auth-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:26px;letter-spacing:0.005em;line-height:1.1;color:var(--ink);margin-bottom:8px}
 .auth-sub{font-family:'Fraunces',Georgia,serif;font-size:13.5px;line-height:1.5;color:var(--ink-soft);font-style:italic;margin-bottom:20px}
@@ -2921,9 +2922,6 @@ function AuthGate({ onUnlock }) {
     <div className="auth-gate">
       <div className="auth-card">
         <MaazahArch className="auth-logo" />
-        <div className="auth-eye">// MAAZAH ENGINE · V0.1</div>
-        <div className="auth-title">Magic, behind one password.</div>
-        <div className="auth-sub">A self-driving content engine built for Yasameen + Sheilla. Enter to open this week's intelligence + briefs.</div>
         <form onSubmit={onSubmit}>
           <input
             className="auth-input"
@@ -2933,10 +2931,9 @@ function AuthGate({ onUnlock }) {
             onChange={(e) => { setPw(e.target.value); if (err) setErr(false); }}
             autoFocus
           />
-          {err && <div className="auth-error">⚠ password didn't match — try again</div>}
+          {err && <div className="auth-error">⚠ password didn't match</div>}
           <button className="auth-btn" type="submit">↗ Unlock</button>
         </form>
-        <div className="auth-foot">Built by OBSOLETE · pitch preview</div>
       </div>
     </div>
   );
