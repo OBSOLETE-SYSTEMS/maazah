@@ -139,13 +139,13 @@ a{color:inherit;text-decoration:none}
 .hiw-step:last-child .hiw-step-arrow{display:none}
 
 /* Engine Thinking Flow — 7 nodes + per-step card */
-.etf-section{margin-bottom:32px;background:var(--butter-light);border:1.5px solid var(--brand-primary);border-radius:18px;padding:28px 32px}
-.etf-head{margin-bottom:24px}
-.etf-eye{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:0.18em;color:var(--brand-accent-deep);font-weight:700;text-transform:uppercase;margin-bottom:6px}
-.etf-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:30px;letter-spacing:0.005em;line-height:1.05;color:var(--ink);margin-bottom:6px}
-.etf-sub{font-family:'Fraunces',Georgia,serif;font-size:14px;line-height:1.5;color:var(--ink-soft);font-style:italic;max-width:680px}
+.etf-section{margin-bottom:28px;background:var(--butter-light);border:1.5px solid var(--brand-primary);border-radius:18px;padding:20px 24px}
+.etf-head{margin-bottom:16px}
+.etf-eye{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:0.18em;color:var(--brand-accent-deep);font-weight:700;text-transform:uppercase;margin-bottom:4px}
+.etf-title{font-family:'Bagel Fat One',serif;font-weight:400;font-size:22px;letter-spacing:0.005em;line-height:1.05;color:var(--ink);margin-bottom:5px}
+.etf-sub{font-family:'Fraunces',Georgia,serif;font-size:13px;line-height:1.45;color:var(--ink-soft);font-style:italic;max-width:760px}
 
-.etf-pipeline{display:flex;align-items:center;justify-content:space-between;position:relative;margin-bottom:28px;padding:0 12px}
+.etf-pipeline{display:flex;align-items:center;justify-content:space-between;position:relative;margin-bottom:18px;padding:0 12px}
 .etf-rail{position:absolute;top:50%;left:32px;right:32px;height:3px;background:var(--brand-light);transform:translateY(-50%);z-index:1;border-radius:99px}
 .etf-rail-fill{position:absolute;top:0;left:0;height:100%;background:linear-gradient(90deg,var(--brand-primary) 0%,var(--brand-accent) 100%);border-radius:99px;transition:width 0.4s cubic-bezier(0.4,0,0.2,1)}
 .etf-node{width:46px;height:46px;border-radius:50%;background:#fff;border:2.5px solid var(--brand-light);display:flex;align-items:center;justify-content:center;font-size:18px;cursor:pointer;position:relative;z-index:2;transition:transform 0.2s,box-shadow 0.2s,background 0.2s,border-color 0.2s}
@@ -155,33 +155,38 @@ a{color:inherit;text-decoration:none}
 @keyframes etf-pulse{0%,100%{box-shadow:0 0 0 6px rgba(214,122,90,0.22),0 4px 14px rgba(214,122,90,0.4)}50%{box-shadow:0 0 0 10px rgba(214,122,90,0.12),0 4px 18px rgba(214,122,90,0.5)}}
 .etf-node-num{position:absolute;top:-22px;left:50%;transform:translateX(-50%);font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;color:var(--ink-soft);font-weight:700;white-space:nowrap}
 
-.etf-card{background:#fff;border:1.5px solid var(--brand-primary);border-radius:14px;padding:24px 28px;box-shadow:0 4px 16px rgba(63,123,40,0.1)}
-.etf-card-row1{display:flex;align-items:center;gap:14px;margin-bottom:14px}
-.etf-card-icon{width:48px;height:48px;border-radius:12px;background:var(--brand-light-soft);color:var(--brand-primary);display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;border:1.5px solid var(--brand-light)}
+.etf-card{background:#fff;border:1.5px solid var(--brand-primary);border-radius:14px;padding:18px 22px 16px;box-shadow:0 4px 16px rgba(63,123,40,0.1)}
+.etf-card-row1{display:flex;align-items:center;gap:12px;margin-bottom:14px;padding-bottom:12px;border-bottom:1px solid var(--brand-light)}
+.etf-card-icon{width:42px;height:42px;border-radius:10px;background:var(--brand-light-soft);color:var(--brand-primary);display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;border:1.5px solid var(--brand-light)}
 .etf-card-agent{flex:1;min-width:0}
-.etf-card-agent-name{font-family:'Bagel Fat One',serif;font-weight:400;font-size:20px;letter-spacing:0.005em;color:var(--ink);line-height:1}
-.etf-card-agent-focus{font-size:11.5px;color:var(--ink-soft);margin-top:3px;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em}
-.etf-card-step-counter{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--brand-accent-deep);background:rgba(214,122,90,0.14);padding:5px 11px;border-radius:99px;font-weight:700;text-transform:uppercase;border:1px solid rgba(214,122,90,0.32);white-space:nowrap}
-.etf-card-incoming{display:inline-flex;align-items:center;gap:6px;background:var(--brand-light-soft);color:var(--brand-deep);font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.1em;font-weight:700;padding:5px 11px;border-radius:99px;text-transform:uppercase;margin-bottom:14px;border:1px dashed rgba(111,175,77,0.4)}
-.etf-card-role{margin-bottom:16px;padding:13px 15px;background:linear-gradient(135deg,rgba(214,122,90,0.07) 0%,rgba(111,175,77,0.05) 100%);border:1px solid var(--brand-light);border-radius:10px}
-.etf-card-role-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.16em;font-weight:800;color:var(--brand-accent-deep);text-transform:uppercase;margin-bottom:6px}
-.etf-card-role-body{font-family:'Fraunces',Georgia,serif;font-size:13.5px;line-height:1.55;color:var(--ink);font-weight:500;letter-spacing:-0.005em}
-.etf-card-watch-block{margin-bottom:18px}
-.etf-card-block-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:var(--ink-soft);font-weight:700;text-transform:uppercase;margin-bottom:8px}
-.etf-card-example{padding-top:16px;border-top:2px dashed rgba(111,175,77,0.32);position:relative}
-.etf-card-example-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.18em;color:var(--brand-deep);font-weight:800;text-transform:uppercase;margin-bottom:10px;display:inline-block;background:var(--butter-light);padding:3px 10px;border-radius:99px;border:1px solid var(--brand-light)}
-.etf-card-handoff{display:flex;align-items:center;gap:10px;margin-top:14px;padding-top:14px;border-top:1px dashed var(--border)}
-.etf-card-handoff-eye{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:0.14em;color:var(--brand-accent-deep);font-weight:800;text-transform:uppercase;flex-shrink:0}
-.etf-card-handoff-target{font-family:'Bagel Fat One',serif;font-weight:400;font-size:16px;letter-spacing:0.005em;color:var(--ink);line-height:1}
+.etf-card-agent-name{font-family:'Bagel Fat One',serif;font-weight:400;font-size:18px;letter-spacing:0.005em;color:var(--ink);line-height:1}
+.etf-card-agent-focus{font-size:11px;color:var(--ink-soft);margin-top:2px;font-family:'JetBrains Mono',monospace;letter-spacing:0.04em}
+.etf-card-step-counter{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;color:var(--brand-accent-deep);background:rgba(214,122,90,0.14);padding:4px 10px;border-radius:99px;font-weight:700;text-transform:uppercase;border:1px solid rgba(214,122,90,0.32);white-space:nowrap}
+.etf-card-grid{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,5fr);gap:18px;align-items:start}
+@media(max-width:960px){.etf-card-grid{grid-template-columns:1fr}}
+.etf-card-col-left{display:flex;flex-direction:column;gap:10px;padding-right:18px;border-right:1px dashed var(--border)}
+@media(max-width:960px){.etf-card-col-left{padding-right:0;border-right:0;padding-bottom:14px;border-bottom:1px dashed var(--border)}}
+.etf-card-col-right{display:flex;flex-direction:column;gap:10px;min-width:0}
+.etf-card-incoming{display:inline-flex;align-items:center;gap:6px;background:var(--brand-light-soft);color:var(--brand-deep);font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.1em;font-weight:700;padding:4px 10px;border-radius:99px;text-transform:uppercase;border:1px dashed rgba(111,175,77,0.4);width:fit-content}
+.etf-card-role{padding:11px 13px;background:linear-gradient(135deg,rgba(214,122,90,0.07) 0%,rgba(111,175,77,0.05) 100%);border:1px solid var(--brand-light);border-radius:10px}
+.etf-card-role-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.16em;font-weight:800;color:var(--brand-accent-deep);text-transform:uppercase;margin-bottom:5px}
+.etf-card-role-body{font-family:'Fraunces',Georgia,serif;font-size:13px;line-height:1.5;color:var(--ink);font-weight:500;letter-spacing:-0.005em}
+.etf-card-watch-block{}
+.etf-card-block-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:var(--ink-soft);font-weight:700;text-transform:uppercase;margin-bottom:6px}
+.etf-card-example-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.18em;color:var(--brand-deep);font-weight:800;text-transform:uppercase;display:inline-block;background:var(--butter-light);padding:3px 10px;border-radius:99px;border:1px solid var(--brand-light);width:fit-content;margin-bottom:2px}
+.etf-card-footer{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-top:14px;padding-top:12px;border-top:1px dashed var(--border)}
+.etf-card-handoff{display:flex;align-items:center;gap:10px}
+.etf-card-handoff-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.14em;color:var(--brand-accent-deep);font-weight:800;text-transform:uppercase;flex-shrink:0}
+.etf-card-handoff-target{font-family:'Bagel Fat One',serif;font-weight:400;font-size:15px;letter-spacing:0.005em;color:var(--ink);line-height:1}
 .etf-card-watches{display:flex;flex-wrap:wrap;gap:6px}
 .etf-card-watch-chip{font-family:'JetBrains Mono',monospace;font-size:10px;background:var(--brand-light-soft);color:var(--brand-deep);padding:3px 9px;border-radius:99px;letter-spacing:0.04em;font-weight:600;border:1px solid rgba(111,175,77,0.32)}
-.etf-card-title{font-family:'Fraunces',Georgia,serif;font-size:17px;font-weight:700;letter-spacing:-0.01em;color:var(--ink);margin-bottom:6px}
-.etf-card-what{font-size:13.5px;line-height:1.55;color:var(--ink);margin-bottom:14px}
-.etf-card-filters{padding-top:14px;border-top:1px dashed var(--border);margin-bottom:14px}
-.etf-card-filters-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:var(--ink-soft);font-weight:700;text-transform:uppercase;margin-bottom:8px}
-.etf-card-filter{display:flex;gap:8px;align-items:flex-start;font-size:12.5px;line-height:1.5;color:var(--ink-soft);margin-bottom:5px}
+.etf-card-title{font-family:'Fraunces',Georgia,serif;font-size:15px;font-weight:700;letter-spacing:-0.01em;color:var(--ink);margin-top:2px;margin-bottom:4px}
+.etf-card-what{font-size:12.5px;line-height:1.5;color:var(--ink)}
+.etf-card-filters{padding-top:10px;border-top:1px dashed var(--border)}
+.etf-card-filters-eye{font-family:'JetBrains Mono',monospace;font-size:9.5px;letter-spacing:0.16em;color:var(--ink-soft);font-weight:700;text-transform:uppercase;margin-bottom:6px}
+.etf-card-filter{display:flex;gap:8px;align-items:flex-start;font-size:12px;line-height:1.45;color:var(--ink-soft);margin-bottom:3px}
 .etf-card-filter::before{content:"·";color:var(--brand-primary);font-weight:800;flex-shrink:0}
-.etf-card-verdict{background:linear-gradient(135deg,rgba(111,175,77,0.18) 0%,rgba(111,175,77,0.08) 100%);border-left:3px solid var(--brand-primary);padding:11px 14px;border-radius:0 8px 8px 0;font-size:13.5px;line-height:1.5;color:var(--brand-deep);font-weight:600;letter-spacing:-0.005em}
+.etf-card-verdict{background:linear-gradient(135deg,rgba(111,175,77,0.18) 0%,rgba(111,175,77,0.08) 100%);border-left:3px solid var(--brand-primary);padding:9px 12px;border-radius:0 8px 8px 0;font-size:12.5px;line-height:1.45;color:var(--brand-deep);font-weight:600;letter-spacing:-0.005em;margin-top:6px}
 .etf-card-verdict::before{content:"✓ ";color:var(--brand-primary);font-weight:800;font-family:'Bagel Fat One',serif}
 
 /* Pipeline Status panel (Phase C) — live engine state */
@@ -4069,7 +4074,7 @@ function HowItWorksTab() {
         <div className="etf-head">
           <div className="etf-eye">// HOW THE ENGINE THINKS</div>
           <div className="etf-title">Seven agents. One shared brief queue. Always running.</div>
-          <div className="etf-sub">Each agent specializes. They evaluate each other's work upstream + downstream. Communication is a structured handoff with rules + checks at every node. Click any agent to see what they listen for, how they evaluate, and what they pass to the next. Example: how the engine handled a Costco-aisle UGC signal this week.</div>
+          <div className="etf-sub">Each agent specializes. Communication is structured handoff with rules at every node. Click any agent to see what it listens for, how it evaluates, what it passes on — using this week's Costco UGC signal as the worked example.</div>
         </div>
 
         <div className="etf-pipeline">
@@ -4099,52 +4104,55 @@ function HowItWorksTab() {
             <div className="etf-card-step-counter">AGENT {current.num} / 07</div>
           </div>
 
-          {current.incoming && (
-            <span className="etf-card-incoming">↗ Receives from {current.incoming}</span>
-          )}
-
-          {current.role && (
-            <div className="etf-card-role">
-              <div className="etf-card-role-eye">▶ THE AGENT'S ROLE</div>
-              <div className="etf-card-role-body">{current.role}</div>
+          <div className="etf-card-grid">
+            {/* LEFT: persistent role + sources */}
+            <div className="etf-card-col-left">
+              {current.incoming && (
+                <span className="etf-card-incoming">↗ Receives from {current.incoming}</span>
+              )}
+              {current.role && (
+                <div className="etf-card-role">
+                  <div className="etf-card-role-eye">▶ THE AGENT'S ROLE</div>
+                  <div className="etf-card-role-body">{current.role}</div>
+                </div>
+              )}
+              <div className="etf-card-watch-block">
+                <div className="etf-card-block-eye">// LISTENS TO</div>
+                <div className="etf-card-watches">
+                  {current.watches.map((w, i) => (
+                    <span key={i} className="etf-card-watch-chip">{w}</span>
+                  ))}
+                </div>
+              </div>
             </div>
-          )}
 
-          <div className="etf-card-watch-block">
-            <div className="etf-card-block-eye">// LISTENS TO</div>
-            <div className="etf-card-watches">
-              {current.watches.map((w, i) => (
-                <span key={i} className="etf-card-watch-chip">{w}</span>
-              ))}
+            {/* RIGHT: example this week */}
+            <div className="etf-card-col-right">
+              <div className="etf-card-example-eye">EXAMPLE · THIS WEEK</div>
+              <div className="etf-card-title">{current.title}</div>
+              <div className="etf-card-what">{current.what}</div>
+              <div className="etf-card-filters">
+                <div className="etf-card-filters-eye">// RULES IT EVALUATED</div>
+                {current.filters.map((f, i) => (
+                  <div key={i} className="etf-card-filter">{f}</div>
+                ))}
+              </div>
+              <div className="etf-card-verdict">{current.verdict}</div>
             </div>
           </div>
 
-          <div className="etf-card-example">
-            <div className="etf-card-example-eye">EXAMPLE · THIS WEEK</div>
-            <div className="etf-card-title">{current.title}</div>
-            <div className="etf-card-what">{current.what}</div>
-
-            <div className="etf-card-filters">
-              <div className="etf-card-filters-eye">// RULES IT EVALUATED</div>
-              {current.filters.map((f, i) => (
-                <div key={i} className="etf-card-filter">{f}</div>
-              ))}
-            </div>
-
-            <div className="etf-card-verdict">{current.verdict}</div>
-
-            {current.handsOffTo && (
+          <div className="etf-card-footer">
+            {current.handsOffTo ? (
               <div className="etf-card-handoff">
                 <span className="etf-card-handoff-eye">↗ HANDS OFF TO</span>
                 <span className="etf-card-handoff-target">{current.handsOffTo}</span>
               </div>
-            )}
-          </div>
-
-          <div className="etf-nav">
-            <button className="etf-nav-btn" onClick={() => setStep(s => Math.max(0, s - 1))} disabled={step === 0}>← back</button>
-            <span className="etf-nav-progress">{step + 1} / {total}</span>
-            <button className="etf-nav-btn" onClick={() => setStep(s => Math.min(total - 1, s + 1))} disabled={step === total - 1}>next →</button>
+            ) : <span></span>}
+            <div className="etf-nav">
+              <button className="etf-nav-btn" onClick={() => setStep(s => Math.max(0, s - 1))} disabled={step === 0}>← back</button>
+              <span className="etf-nav-progress">{step + 1} / {total}</span>
+              <button className="etf-nav-btn" onClick={() => setStep(s => Math.min(total - 1, s + 1))} disabled={step === total - 1}>next →</button>
+            </div>
           </div>
         </div>
       </div>
