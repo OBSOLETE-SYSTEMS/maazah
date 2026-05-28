@@ -1001,6 +1001,9 @@ button.brief-link{font:inherit;font-family:'Inter',sans-serif}
 .mmm-moves{display:flex;flex-direction:column;gap:10px}
 .mmm-move{background:#fff;border:1px solid var(--brand-light);border-radius:10px;padding:14px 16px;display:flex;gap:14px;align-items:flex-start}
 .mmm-move-num{font-family:'Bagel Fat One',serif;font-weight:400;font-size:24px;line-height:1;color:var(--brand-accent);flex-shrink:0;width:30px;text-align:center;letter-spacing:0.005em}
+.mmm-move-hold{background:rgba(232,134,66,0.07);border-color:rgba(232,134,66,0.32)}
+.mmm-move-hold .mmm-move-num{color:#8B6F1F;font-size:20px}
+.mmm-move-hold .mmm-move-verb{color:#8B6F1F}
 .mmm-move-body{flex:1;min-width:0}
 .mmm-move-verb{font-family:'Fraunces',Georgia,serif;font-weight:700;font-size:15.5px;letter-spacing:-0.01em;line-height:1.3;color:var(--ink);margin-bottom:4px}
 .mmm-move-why{font-size:12.5px;line-height:1.5;color:var(--ink-soft)}
@@ -2138,16 +2141,24 @@ const WELCOME_HIGHLIGHTS = [
 
 const WELCOME_MOVES = [
   {
+    kind: "ship",
     verb: "Ship the 3-day Roasted Red Pepper IG series.",
-    why: "Mon → Wed → Fri. Eggs → grilled chicken → pizza. The Costco cohort opens the tub Tuesday; usage multiplication keeps them reaching for it through Memorial Day. (P01–P03)"
+    why: "Mon → Wed → Fri. Eggs → grilled chicken → pizza. The Costco cohort opens the tub Tuesday; usage multiplication keeps them reaching for it through Memorial Day."
   },
   {
+    kind: "ship",
     verb: "Activate TikTok with the category-explainer pattern.",
-    why: "Your only TikTok post that broke through earned 71 saves on 'What is chutney?' Same formula, new SKU lineup: 'What is lentil dip?' drops Thursday. Then weekly. (M04)"
+    why: "Your only TikTok post that broke through used this format. Same formula, new SKU lineup: 'What is lentil dip?' drops Thursday. Then weekly."
   },
   {
+    kind: "ship",
     verb: "Run the first-gen heritage Reel Thursday late-night.",
-    why: "Sister-fronted Reel for the Thursday cohort. 'Things I used to explain. Things I now sell at Costco.' Childhood family photos + Mom's bolani b-roll (no Mom on camera required). (T01)"
+    why: "Sister-fronted Reel for the Thursday cohort. 'Things I used to explain. Things I now sell at Costco.' Childhood family photos + Mom's bolani b-roll (no Mom on camera required)."
+  },
+  {
+    kind: "hold",
+    verb: "Hold all Albertsons content until the result lands.",
+    why: "Pre-announcing dilutes either outcome. Four branched briefs queued in the engine — we ship the path the result picks for you."
   }
 ];
 
@@ -3204,22 +3215,10 @@ function MondayMemoModal({ onClose, onShipIt }) {
         </div>
 
         <div className="mmm-body">
-          {/* THE READ */}
+          {/* THE READ — single setup line; signals + moves carry the detail */}
           <div className="mmm-section">
             <div className="mmm-section-eye">// THE READ</div>
             <div className="mmm-pullquote">{WELCOME_PULLQUOTE}</div>
-            <div className="mmm-read-block">
-              <div className="mmm-read-sub-eye">What's happening</div>
-              <p className="mmm-read">{WELCOME_THESIS.happening}</p>
-            </div>
-            <div className="mmm-read-block">
-              <div className="mmm-read-sub-eye">Maazah's edge</div>
-              <p className="mmm-read">{WELCOME_THESIS.edge}</p>
-            </div>
-            <div className="mmm-read-block">
-              <div className="mmm-read-sub-eye">What we'd recommend</div>
-              <p className="mmm-read" style={{whiteSpace:"pre-line"}}>{WELCOME_THESIS.job}</p>
-            </div>
           </div>
 
           {/* 5 SIGNALS */}
@@ -3249,13 +3248,13 @@ function MondayMemoModal({ onClose, onShipIt }) {
             </div>
           </div>
 
-          {/* 3 MOVES */}
+          {/* MOVES — ship + hold */}
           <div className="mmm-section">
-            <div className="mmm-section-eye">// 3 RECOMMENDED MOVES</div>
+            <div className="mmm-section-eye">// WHAT WE'D DO THIS WEEK</div>
             <div className="mmm-moves">
               {WELCOME_MOVES.map((m, i) => (
-                <div key={i} className="mmm-move">
-                  <div className="mmm-move-num">{String(i + 1).padStart(2, "0")}</div>
+                <div key={i} className={`mmm-move mmm-move-${m.kind || "ship"}`}>
+                  <div className="mmm-move-num">{m.kind === "hold" ? "✋" : String(i + 1).padStart(2, "0")}</div>
                   <div className="mmm-move-body">
                     <div className="mmm-move-verb">{m.verb}</div>
                     <div className="mmm-move-why">{m.why}</div>
@@ -4322,7 +4321,6 @@ function HowItWorksTab() {
             <div className="src-eye">// WHAT THE ENGINE LISTENS TO</div>
             <div className="src-title">Sources + Brand DNA</div>
           </div>
-          <span className="src-total">{SOURCES_SUMMARY.totalSources} sources</span>
         </div>
         <div className="src-stats">
           {[
