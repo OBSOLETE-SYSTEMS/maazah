@@ -4004,27 +4004,34 @@ function MeetThePanel() {
   );
 }
 
+// CSV cell — quote (preserving internal newlines) only when needed. The brief
+// card in column 1 is intentionally multi-line, so DON'T collapse newlines.
 function csvCell(v) {
-  const s = (v == null ? "" : String(v)).replace(/\r?\n/g, " ").trim();
-  return /[",]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
+  const s = v == null ? "" : String(v);
+  return /[",\n]/.test(s) ? `"${s.replace(/"/g, '""')}"` : s;
 }
 
+// 3-column feedback sheet, mirroring the proven Willa's format: the whole brief
+// mashed into one readable card (col 1), then two blank columns the team fills.
 function buildFeedbackCSV() {
-  const headers = [
-    "Brief ID", "Publish Window", "Pillar", "Platform", "Primary SKU", "DNA Format",
-    "Conviction", "Band", "Concept", "Recommended Hook", "IG Caption", "TikTok Caption",
-    "Would you activate? (yes / no / needs work)", "Sounds like us? (1-5)",
-    "Needs more humor? (y/n)", "Notes / edits"
-  ];
+  const headers = ["Engine brief", "What we posted", "Voice note"];
   const rows = BRIEFS.map(b => {
     const conv = getConviction(b.id);
     const recHook = (b.hooks?.find(h => h.tag)?.text) || b.hooks?.[0]?.text || "";
-    return [
-      b.id, b.publishWindow, b.pillarLabel, b.platform, b.sku, b.dnaPattern,
-      conv?.score ?? "", conv?.band ?? "", b.concept, recHook,
-      b.captions?.ig || "", b.captions?.tiktok || "",
-      "", "", "", ""
-    ].map(csvCell).join(",");
+    const cap = b.captions || {};
+    const lines = [
+      `${b.id} · ${b.platform} · ${b.skuChip || b.sku} · ${b.publishWindow} · ${b.priorityLabel || b.priority}`,
+      `PILLAR: ${b.pillarLabel}` + (conv ? `  ·  CONVICTION: ${conv.score} (${conv.band})` : ""),
+      "",
+      "CONCEPT",
+      b.concept,
+      "",
+      "HOOK (recommended)",
+      recHook,
+    ];
+    if (cap.ig) lines.push("", "CAPTION — IG", cap.ig);
+    if (cap.tiktok) lines.push("", "CAPTION — TIKTOK", cap.tiktok);
+    return [lines.join("\n"), "", ""].map(csvCell).join(",");
   });
   return [headers.map(csvCell).join(","), ...rows].join("\r\n");
 }
