@@ -223,7 +223,10 @@ export default async function handler(req, res) {
   // Origin guard — Maazah dashboard only.
   const referer = req.headers.referer || req.headers.referrer || "";
   const origin = req.headers.origin || "";
-  const allowedHost = /maazah(-[a-z0-9]+)?\.vercel\.app|localhost|127\.0\.0\.1/i;
+  // Allow ANY Vercel host (production + git/branch/deployment previews) + localhost.
+  // The old `maazah(-[a-z0-9]+)?\.vercel\.app` rejected multi-segment preview URLs
+  // (e.g. maazah-git-main-team.vercel.app) → 403. Add a custom domain here if one is set.
+  const allowedHost = /https?:\/\/[a-z0-9.-]*\.vercel\.app|localhost|127\.0\.0\.1/i;
   if (referer && !allowedHost.test(referer) && origin && !allowedHost.test(origin)) {
     return res.status(403).json({ error: "origin_not_allowed" });
   }
