@@ -72,7 +72,7 @@ MAGIC-AS-MASTER-METAPHOR · HERITAGE-WITH-SCALE · SAUCY-SQUAD HUMOR · SISTERS-
 The observed data shows a sharp platform split: sister-led milestone content WORKS on IG (Costco-cart Reel = 426 likes) and FAILS on TikTok (same content cross-posted = 11 likes). Don't cross-post; calibrate per platform.
 
 - **IG (the sister-led platform):** 6-8 sister-fronted briefs/week (lean high — ENCODE: sister content is Sheilla's best-performing + most-wanted + most-underused asset), incl. ≥1 **Sister Series** episode. Mix: 2-3 together + 2-3 Yasameen solo + 2-3 Sheilla solo. "We" / "my sister and I" / first-person plural is the default voice.
-- **TikTok (the category-education platform):** ≤1 sister-led TikTok brief per week unless the format is the category-explainer pattern (the "What is chutney?" post — 211 likes, 71 saves vs. normal 2-11 baseline). PLUS one sanctioned small-bet founder test/week, tagged `experiment` (ENCODE: re-test the TikTok ceiling rather than assume it). TikTok defaults to: hands + product + text overlay + period-spaced descriptors + meme-fluent audio.
+- **TikTok (the category-education platform):** ≤1 sister-led TikTok brief per week unless the format is the category-explainer pattern (the "What is chutney?" post — 211 likes, 71 saves vs. normal 2-11 baseline). PLUS one sanctioned small-bet founder test/week, tagged 'experiment' (ENCODE: re-test the TikTok ceiling rather than assume it). TikTok defaults to: hands + product + text overlay + period-spaced descriptors + meme-fluent audio.
 
 ## Mom Sajady / family rule (NON-NEGOTIABLE)
 
