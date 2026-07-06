@@ -4,3 +4,6 @@ node_modules/
 *.log
 .env
 .env.local
+
+# Cross-client guard: the Willa's workflow sometimes writes refresh dirs here by mistake — never commit them
+exports/refresh-*/
