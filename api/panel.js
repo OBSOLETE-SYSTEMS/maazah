@@ -1,17 +1,40 @@
 // Maazah Synthetic Panel — per-brief pre-test
 //
 // Takes a brief (concept, hooks, visual, audio, pillar, SKU, DNA) and runs it
-// through 4 simulated Maazah customer personas via Gemini 2.5 Flash.
+// through 5 simulated Maazah customer personas via Claude.
 // Returns score + reaction + suggested edit per persona.
 //
-// Mirrors LILBUCKS /api/panel.js — Gemini 2.5 Flash with thinkingBudget:0
-// for sub-5s responses, JSON output mode for structured reactions.
-//
-// Env: GEMINI_API_KEY (case-tolerant fallback chain matches studio.js)
-// Model: gemini-2.5-flash
+// Env: ANTHROPIC_API_KEY
+// Model: claude-opus-5 (override with PANEL_MODEL)
 
-const GEMINI_MODEL = "gemini-2.5-flash";
-const GEMINI_API = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
+const MODEL = process.env.PANEL_MODEL || "claude-opus-5";
+const ANTHROPIC_API = "https://api.anthropic.com/v1/messages";
+
+// Structured outputs replace Gemini's responseMimeType:"application/json".
+// The shape is enforced server-side, so extractJson()'s fence/brace scraping
+// is no longer load-bearing — it stays only as a belt-and-braces fallback.
+const PANEL_SCHEMA = {
+  type: "object",
+  properties: {
+    reactions: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          persona:        { type: "string", enum: ["Layla", "Brenna", "Marcus", "Priya", "Maya"] },
+          score:          { type: "integer" },
+          reaction:       { type: "string" },
+          suggested_edit: { anyOf: [{ type: "string" }, { type: "null" }] },
+        },
+        required: ["persona", "score", "reaction", "suggested_edit"],
+        additionalProperties: false,
+      },
+    },
+    headline_insight: { type: "string" },
+  },
+  required: ["reactions", "headline_insight"],
+  additionalProperties: false,
+};
 
 const PANEL_SYSTEM = `You are the **Maazah Panel** — five synthetic personas calibrated against Maazah's actual audience layers (Afghan-American heritage shoppers · Midwest Costco converts · category-curious foodies · kid-utility working moms · the mainstream/Target expansion shopper). You will be shown a content brief (an Instagram Reel / TikTok / IG carousel concept Maazah is considering). Score it from each persona's POV.
 
@@ -85,20 +108,27 @@ function buildUserMessage(brief) {
   return lines.join("\n");
 }
 
-async function callGemini(brief, apiKey) {
+async function callClaude(brief, apiKey) {
   const userMessage = buildUserMessage(brief);
-  const res = await fetch(`${GEMINI_API}?key=${apiKey}`, {
+  const res = await fetch(ANTHROPIC_API, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "content-type": "application/json",
+      "x-api-key": apiKey,
+      "anthropic-version": "2023-06-01"
+    },
     body: JSON.stringify({
-      systemInstruction: { parts: [{ text: PANEL_SYSTEM }] },
-      contents: [{ role: "user", parts: [{ text: userMessage }] }],
-      generationConfig: {
-        maxOutputTokens: 4096,
-        temperature: 0.7,
-        responseMimeType: "application/json",
-        thinkingConfig: { thinkingBudget: 0 }
+      model: MODEL,
+      // max_tokens caps thinking + reply together — leave real headroom.
+      max_tokens: 8192,
+      system: PANEL_SYSTEM,
+      messages: [{ role: "user", content: userMessage }],
+      output_config: {
+        // effort replaces thinkingBudget:0 (budget_tokens is rejected on this model)
+        effort: "low",
+        format: { type: "json_schema", schema: PANEL_SCHEMA }
       }
+      // NOTE: no `temperature` — Claude Opus 5 rejects sampling params with a 400.
     })
   });
   const text = await res.text();
@@ -128,9 +158,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "method_not_allowed" });
   }
 
-  const apiKey = process.env.GEMINI_API_KEY || process.env.GEMINI_API_Key || process.env.GEMINI_KEY || process.env.GOOGLE_API_KEY;
+  const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: "missing_env_var", detail: "GEMINI_API_KEY not set in Vercel env" });
+    return res.status(500).json({ error: "missing_env_var", detail: "ANTHROPIC_API_KEY not set in Vercel env" });
   }
 
   const referer = req.headers.referer || req.headers.referrer || "";
@@ -154,23 +184,26 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "missing_brief", expected: "{ brief: {...} }" });
   }
 
-  const result = await callGemini(brief, apiKey);
+  const result = await callClaude(brief, apiKey);
   if (!result.ok) {
-    return res.status(result.status || 500).json({ error: "gemini_call_failed", detail: result.error });
+    return res.status(result.status || 500).json({ error: "anthropic_call_failed", detail: result.error });
   }
 
-  const candidate = result.data?.candidates?.[0];
-  const parts = candidate?.content?.parts || [];
-  const text = parts.map(p => p.text || "").join("");
+  // Safety classifiers can decline with HTTP 200 — check before reading content.
+  if (result.data?.stop_reason === "refusal") {
+    return res.status(502).json({ error: "refused", detail: result.data?.stop_details?.category ?? null });
+  }
+
+  const text = (result.data?.content || []).filter(b => b?.type === "text").map(b => b.text).join("");
   const parsed = extractJson(text);
   if (!parsed || !Array.isArray(parsed.reactions)) {
-    return res.status(500).json({ error: "json_parse_failed", finishReason: candidate?.finishReason, raw_excerpt: text.slice(0, 400) });
+    return res.status(500).json({ error: "json_parse_failed", stopReason: result.data?.stop_reason, raw_excerpt: text.slice(0, 400) });
   }
 
   return res.status(200).json({
     reactions: parsed.reactions,
     headline_insight: parsed.headline_insight || null,
-    model: GEMINI_MODEL,
-    usage: result.data?.usageMetadata
+    model: MODEL,
+    usage: result.data?.usage
   });
 }

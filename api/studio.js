@@ -1,14 +1,16 @@
 // Studio — The Strategist chat endpoint for Maazah
 //
-// Gemini 2.5 Flash with thinkingBudget:0 → 2-5s responses
+// Claude at effort "low" → fast responses
 // System-prompted with the Maazah operating model (voice, pillars, DNA, rules)
 //
-// Env: GEMINI_API_KEY (Vercel env var on maazah.vercel.app)
-// Model: gemini-2.5-flash
+// Env: ANTHROPIC_API_KEY (Vercel env var on maazah.vercel.app)
+// Model: claude-opus-5 (override with STUDIO_MODEL)
 
-const GEMINI_MODEL = "gemini-2.5-flash";
-const GEMINI_API = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent`;
-const MAX_TOKENS = 500;
+const MODEL = process.env.STUDIO_MODEL || "claude-opus-5";
+const ANTHROPIC_API = "https://api.anthropic.com/v1/messages";
+// Was 500 on Gemini. max_tokens now caps thinking + reply together, so 500
+// would truncate. Reply brevity is enforced by the system prompt, not this.
+const MAX_TOKENS = 4096;
 
 const MAAZAH_SYSTEM = `You are **The Strategist** — the synthesis layer of the Maazah engine. You sit above six ingestion agents (Flavor Lab · Heritage Trace · Cultural Pulse Tracker · Shelf Watch · Voice Compass · The Strategist) that scan 200 sources daily across food + culture + retail + competition. You read what they surface and decide what Maazah should do.
 
@@ -177,25 +179,23 @@ Every response ends with ONE sharp question that keeps the strategy session movi
 
 The question is the engine staying engaged. Treat it like that.`;
 
-function toGeminiContents(messages) {
-  return messages.map(m => ({
-    role: m.role === "assistant" ? "model" : "user",
-    parts: [{ text: m.content }]
-  }));
-}
-
-async function callGemini(messages, apiKey) {
-  const res = await fetch(`${GEMINI_API}?key=${apiKey}`, {
+// Claude uses "assistant" for the assistant role — no remapping needed.
+async function callClaude(messages, apiKey) {
+  const res = await fetch(ANTHROPIC_API, {
     method: "POST",
-    headers: { "content-type": "application/json" },
+    headers: {
+      "content-type": "application/json",
+      "x-api-key": apiKey,
+      "anthropic-version": "2023-06-01"
+    },
     body: JSON.stringify({
-      systemInstruction: { parts: [{ text: MAAZAH_SYSTEM }] },
-      contents: toGeminiContents(messages),
-      generationConfig: {
-        maxOutputTokens: MAX_TOKENS,
-        temperature: 0.7,
-        thinkingConfig: { thinkingBudget: 0 }
-      }
+      model: MODEL,
+      max_tokens: MAX_TOKENS,
+      system: MAAZAH_SYSTEM,
+      messages: messages.map(m => ({ role: m.role, content: m.content })),
+      // effort replaces thinkingBudget:0 as the latency lever.
+      output_config: { effort: "low" }
+      // NOTE: no `temperature` — Claude Opus 5 rejects sampling params with a 400.
     })
   });
 
@@ -214,10 +214,9 @@ export default async function handler(req, res) {
     return res.status(405).json({ error: "method_not_allowed", expected: "POST" });
   }
 
-  // Tolerate either casing — Alex's Vercel var convention is "GEMINI_API_Key"
-  const apiKey = process.env.GEMINI_API_KEY || process.env.GEMINI_API_Key || process.env.GEMINI_KEY || process.env.GOOGLE_API_KEY;
+  const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
-    return res.status(500).json({ error: "missing_env_var", detail: "GEMINI_API_KEY not set in maazah.vercel.app env vars" });
+    return res.status(500).json({ error: "missing_env_var", detail: "ANTHROPIC_API_KEY not set in maazah.vercel.app env vars" });
   }
 
   // Origin guard — Maazah dashboard only.
@@ -250,23 +249,26 @@ export default async function handler(req, res) {
     return res.status(400).json({ error: "first_message_must_be_user" });
   }
 
-  const result = await callGemini(cleaned, apiKey);
+  const result = await callClaude(cleaned, apiKey);
   if (!result.ok) {
-    return res.status(result.status || 500).json({ error: "gemini_call_failed", detail: result.error });
+    return res.status(result.status || 500).json({ error: "anthropic_call_failed", detail: result.error });
   }
 
-  const candidate = result.data?.candidates?.[0];
-  const parts = candidate?.content?.parts || [];
-  const text = parts.map(p => p.text || "").join("").trim();
+  // Safety classifiers can decline with HTTP 200 — check before reading content.
+  if (result.data?.stop_reason === "refusal") {
+    return res.status(502).json({ error: "refused", detail: result.data?.stop_details?.category ?? null });
+  }
+
+  const text = (result.data?.content || []).filter(b => b?.type === "text").map(b => b.text).join("").trim();
 
   if (!text) {
-    return res.status(500).json({ error: "empty_response", detail: "Gemini returned no text content.", finishReason: candidate?.finishReason });
+    return res.status(500).json({ error: "empty_response", detail: "Claude returned no text content.", stopReason: result.data?.stop_reason });
   }
 
   return res.status(200).json({
     message: { role: "assistant", content: text },
-    model: GEMINI_MODEL,
-    usage: result.data?.usageMetadata,
-    finish_reason: candidate?.finishReason
+    model: MODEL,
+    usage: result.data?.usage,
+    finish_reason: result.data?.stop_reason
   });
 }
